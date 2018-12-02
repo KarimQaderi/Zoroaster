@@ -1,0 +1,63 @@
+<?php
+
+
+
+    return [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Zoroaster App Name
+        |--------------------------------------------------------------------------
+        |
+        | This value is the name of your application. This value is used when the
+        | framework needs to display the name of the application within the UI
+        | or in other locations. Of course, you're free to change the value.
+        |
+        */
+
+        'name' => 'Zoroaster',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Zoroaster App URL
+        |--------------------------------------------------------------------------
+        |
+        | This URL is where users will be directed when clicking the application
+        | name in the Zoroaster navigation bar. You are free to change this URL to
+        | any location you wish depending on the needs of your application.
+        |
+        */
+
+        'url' => env('APP_URL', '/'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Zoroaster Path
+        |--------------------------------------------------------------------------
+        |
+        | This is the URI path where Zoroaster will be accessible from. Feel free to
+        | change this path to anything you like. Note that this URI will not
+        | affect Zoroaster's internal API routes which aren't exposed to users.
+        |
+        */
+
+        'path' => '/back',
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Zoroaster Route Middleware
+        |--------------------------------------------------------------------------
+        |
+        | These middleware will be assigned to every Zoroaster route, giving you the
+        | chance to add your own middleware to this stack or override any of
+        | the existing middleware. Or, you can just stick with this stack.
+        |
+        */
+
+        'middleware' => [
+            'web',
+        ],
+
+    ];

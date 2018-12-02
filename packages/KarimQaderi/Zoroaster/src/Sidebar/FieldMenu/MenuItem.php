@@ -1,0 +1,97 @@
+<?php
+
+    namespace KarimQaderi\Zoroaster\Sidebar\FieldMenu;
+
+
+    use KarimQaderi\Zoroaster\Zoroaster;
+    use phpDocumentor\Reflection\Types\Boolean;
+
+    class MenuItem
+    {
+
+
+        public $TypeLink = null;
+        public $Link = null;
+        public $Label = null;
+        public $data = null;
+        public $icon = null;
+        public $Access = null;
+
+        public function __construct(...$arguments)
+        {
+        }
+
+        public static function make()
+        {
+            return new static();
+        }
+
+        public function icon($icon)
+        {
+            $this->icon = $icon;
+            return $this;
+        }
+
+        public function resource($resource , $label = null)
+        {
+            $this->TypeLink = 'resource';
+            $this->Link = route("Zoroaster.resource.index" , ['resource' => $resource]);
+
+            if($label == null)
+                if(Zoroaster::hasNewResourceByModelName($resource))
+                    $this->Label = Zoroaster::newResource($resource)->labels;
+                else
+                    $this->Label = 'منبع پیدا نشد لطفا بررسی کنید';
+            else
+                $this->Label = $label;
+
+            return $this;
+        }
+
+        public function route($route , $label)
+        {
+            $this->TypeLink = 'route';
+            $this->Link = route($route);
+            $this->Label = $label;
+            return $this;
+        }
+
+        public function link($link , $label)
+        {
+            $this->TypeLink = 'link';
+            $this->Link = $link;
+            $this->Label = $label;
+            return $this;
+        }
+
+        public function action($action , $label)
+        {
+            $this->TypeLink = 'action';
+            $this->Link = action($action);
+            $this->Label = $label;
+            return $this;
+        }
+
+
+        public function Access(boolean $Access)
+        {
+            $this->Access = $Access;
+            return $this;
+        }
+
+        public function AddSumItem($subItem)
+        {
+            $this->data = $subItem;
+            return $this;
+        }
+
+
+        public function Render($item)
+        {
+            return Zoroaster::viewRender(view('Zoroaster::sidebar.MenuItem')->with([
+                'item' => $item
+            ]));
+        }
+
+
+    }
