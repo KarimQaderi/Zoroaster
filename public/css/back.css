@@ -1328,7 +1328,7 @@ a, .uk-link {
     /* border: solid rgb(227, 231, 235); */
 }
 .dataTables tr:hover td{
-    background-color:rgb(246, 251, 255)
+    background-color: rgb(246, 251, 255);
 }
 .dataTables a{
     font-weight: 700;
@@ -1433,17 +1433,17 @@ h1.resourceName {
     font-weight: 400;
 }
 
-.resourceName_2 a.btn {
+.view_Details .action--edit {
     background-color: rgb(64, 153, 222);
     color: #fff;
     height: 2.25rem;
-    padding-left: 1.5rem;
+    /* padding-left: 1.5rem; */
     /* font-weight: 550; */
-    padding-right: 1.5rem;
+    /* padding-right: 1.5rem; */
     line-height: 2.25rem;
     border-radius: 3px;
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+    /* -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.05); */
+    /* box-shadow: 0 2px 4px 0 rgba(0,0,0,.05); */
 }
 
 .resourceName_2 a.btn:hover {
@@ -1618,7 +1618,7 @@ ul.uk-nav-sub ul.uk-nav-sub {
 }
 
 .SidebarHeader {
-    background-color: rgb(30, 135, 240);
+    background-color: rgb(0, 0, 0);
     padding: 10px 0;
 }
 
@@ -1638,4 +1638,47 @@ ul.uk-nav-sub ul.uk-nav-sub {
 .uk-nav-default .uk-nav-sub a:hover {
     background-color: rgba(30, 135, 240, 0.08);
     /* color: rgb(0, 0, 0) !important; */
+}
+
+tr.destroy-resourceid td {
+    background-color: rgb(255, 232, 232);
+}
+
+.key_dataTable_2 {
+    margin-right: 10px;
+}
+
+.view_Details a {
+    /* padding-left: 15px !important; */
+    /* padding-right: 15px !important; */
+}
+
+.view_Details {
+    padding: 0 10px;
+}
+
+.ResourceActions button,.ResourceActions a {
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    /* height: 2.25rem; */
+    /* padding-left: 1.5rem; */
+    /* font-weight: 550; */
+    padding-right: 1.5rem;
+    line-height: 2.25rem;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+    color: rgb(124, 133, 142);
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-right: 10px;
+}
+
+.ResourceActions button:hover, .ResourceActions a:hover {
+    opacity: .8;
+}
+
+.resourceName_2 a.btn {
+    background-color: rgb(64, 153, 222);
+    color: rgb(255, 255, 255);
 }

@@ -7,7 +7,7 @@
 
     class Migrations extends Model
     {
-
+        protected $guarded = [];
 
 
     }

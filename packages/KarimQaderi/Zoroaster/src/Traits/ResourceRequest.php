@@ -8,16 +8,16 @@
     trait ResourceRequest
     {
 
-        public $resoureClass = null;
+        public $resourceClass = null;
         private $Resource = null;
 
 
         public function __construct()
         {
 
-            $this->resoureClass = Route::getCurrentRoute()->parameters()['resource'];
+            $this->resourceClass = Route::getCurrentRoute()->parameters()['resource'];
 
-            if(is_null($this->resoureClass)) abort(404);
+            if(is_null($this->resourceClass)) abort(404);
 
             $this->Resource = $this->Resource();
 
@@ -53,7 +53,7 @@
 
         public function Resource()
         {
-            $this->Resource = Zoroaster::newResource($this->resoureClass);
+            $this->Resource = Zoroaster::newResource($this->resourceClass);
 
             return $this->Resource;
         }

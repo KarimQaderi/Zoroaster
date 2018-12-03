@@ -1,35 +1,35 @@
 <?php
 
 
+    use App\Zoroaster\Other\Dashboard;
     use App\Zoroaster\Other\Sidebar;
+    use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
 
     class Zoroaster
     {
 
 
-        public static function Sidebar()
+        public static function ResourceActions($request , $data , $model , $view , $field = null)
         {
-            return self::BuilderSidebar(Sidebar::handle());
-        }
+            $Actions = null;
+            foreach($request->Resource()->ResourceActions() as $Action){
+                if($Action->{'hideFrom' . $view} == false && $Action->Authorization($request->Resource()))
+                    $Actions .= $Action->render($request , $data , $model , $view , $field);
 
-        private static function BuilderSidebar($Sidebar)
-        {
-            $items = '';
-            foreach($Sidebar as $field){
-                switch(true){
-                    case isset($field->data):
-                        $field->data = (self::BuilderSidebar($field->data));
-                        $items .= $field->Render($field);
-                        break;
-                    default:
-                        $items .= $field->Render($field);
-                        break;
-                }
             }
 
-            return $items;
+            return $Actions;
         }
 
+        public static function Sidebar()
+        {
+            return SrcZoroaster::BuilderSidebar(Sidebar::handle());
+        }
+
+        public static function Widgets()
+        {
+            return SrcZoroaster::BuilderWidgets(Dashboard::handle());
+        }
 
 
         public static function newResourceByModelName($modelName)
@@ -43,7 +43,7 @@
 
         public static function getFullNameResourceByModelName($modelName)
         {
-            return 'App\\Zoroaster\\' . self::getNameResourceByModelName($modelName);
+            return config('Zoroaster.Resources') . self::getNameResourceByModelName($modelName);
         }
 
         public static function getNameResourceByModelName($modelName)
@@ -199,14 +199,5 @@
             return $size;
         }
 
-        static function widgets($widgets)
-        {
-            $data = null;
-
-            foreach($widgets as $w)
-                $data .= (new $w())->run()->render();
-
-            return $data;
-        }
 
     }

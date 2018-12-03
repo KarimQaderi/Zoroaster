@@ -10,6 +10,9 @@
     {
         public function handle(ResourceRequest $request)
         {
+
+            $request->authorizeTo($request->Resource()->authorizeToCreate());
+
             $data = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
                 if($field->showOnCreation == true && $field->OnUpdate == true && $field->customResourceController == false)
                     return true;
@@ -29,7 +32,7 @@
             $this->CustomResourceController($request , $resource , $data->validator , $data->customAttributes);
 
 
-            return redirect(route('Zoroaster.resource.edit' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->Model()->getKeyName()}]))->with([
+            return redirect(route('Zoroaster.resource.show' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->Model()->getKeyName()}]))->with([
                 'success' => 'اطلاعات اضافه شد'
             ]);
 

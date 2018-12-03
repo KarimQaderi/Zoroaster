@@ -9,7 +9,16 @@
     {
         public function handle(ResourceRequest $request)
         {
+            $request->authorizeTo($request->Resource()->authorizeToDelete());
+
             $request->Model()->destroy(request()->resourceId);
+
+            dd(request()->has('redirect'));
+            if(request()->has('redirect'))
+                 redirect(request()->redirect)->with([
+                    'success' => 'منبع مورد نظر حذف شد'
+                ])->send();
+
             return response([
                 'status' => 'ok'
             ]);

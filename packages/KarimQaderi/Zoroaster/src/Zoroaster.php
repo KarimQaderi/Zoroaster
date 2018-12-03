@@ -27,7 +27,7 @@
 
         public static function newResource($resource)
         {
-            $resource = 'App\\Zoroaster\\' . $resource;
+            $resource = config('Zoroaster.Resources') . $resource;
             if(class_exists($resource))
                 return new $resource;
             else
@@ -60,6 +60,44 @@
         public static function viewRender($view)
         {
            return $view->render();
+        }
+
+
+
+        public static function BuilderWidgets($Sidebar)
+        {
+            $items = '';
+            foreach($Sidebar as $field){
+                switch(true){
+                    case isset($field->data):
+                        $items .= $field->viewForm(self::BuilderWidgets($field->data) , $field);
+                        break;
+                    default:
+                        $items .= $field->Render($field);
+                        break;
+                }
+            }
+
+            return $items;
+        }
+
+
+        public static function BuilderSidebar($Sidebar)
+        {
+            $items = '';
+            foreach($Sidebar as $field){
+                switch(true){
+                    case isset($field->data):
+                        $field->data = (self::BuilderSidebar($field->data));
+                        $items .= $field->Render($field);
+                        break;
+                    default:
+                        $items .= $field->Render($field);
+                        break;
+                }
+            }
+
+            return $items;
         }
 
 

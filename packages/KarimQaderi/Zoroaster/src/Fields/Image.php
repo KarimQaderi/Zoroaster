@@ -2,11 +2,9 @@
 
     namespace KarimQaderi\Zoroaster\Fields;
 
-
-    use KarimQaderi\Zoroaster\Fields\Other\Field;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
-    class Image extends Field
+    class Image extends File
     {
 
         /**

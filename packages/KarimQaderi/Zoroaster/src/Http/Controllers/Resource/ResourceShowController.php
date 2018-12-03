@@ -10,6 +10,8 @@
         public function handle(ResourceRequest $request)
         {
 
+            $request->authorizeTo($request->Resource()->authorizeToShow());
+
             $resources = $request->Model()->findOrFail(($request->RequestParameters()->resourceId));
 
             return view('Zoroaster::resources.Detail')->with([

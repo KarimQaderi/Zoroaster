@@ -10,6 +10,8 @@
         public function handle(ResourceRequest $request)
         {
 
+            $request->authorizeTo($request->Resource()->authorizeToCreate());
+
             return view('Zoroaster::resources.Form')->with([
                 'request' => $request ,
                 'resourceClass' => $request->Resource() ,

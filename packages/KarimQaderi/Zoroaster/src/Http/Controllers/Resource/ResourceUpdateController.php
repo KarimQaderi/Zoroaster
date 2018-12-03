@@ -12,6 +12,8 @@
         public function handle(ResourceRequest $request)
         {
 
+            $request->authorizeTo($request->Resource()->authorizeToUpdate());
+
             $data = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
                 if($field->showOnUpdate == true && $field->OnUpdate == true && $field->customResourceController == false)
                     return true;

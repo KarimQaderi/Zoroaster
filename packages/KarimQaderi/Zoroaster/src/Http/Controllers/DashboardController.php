@@ -10,7 +10,7 @@
         {
 
             return view('Zoroaster::index')->with([
-                'widgets' => \Zoroaster::widgets(
+                'widgets' => \Zoroaster::Widgets(
                     [
                         'App\\back\\Widgets\\Cache' ,
                         'App\\back\\Widgets\\Sessions' ,

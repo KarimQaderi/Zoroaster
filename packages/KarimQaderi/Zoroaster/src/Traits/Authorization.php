@@ -10,10 +10,20 @@
         /**
          * @return bool
          */
-        public function authorizeToView()
+        public function authorizeToIndex()
         {
             return true;
         }
+
+
+        /**
+         * @return bool
+         */
+        public function authorizeToShow()
+        {
+            return true;
+        }
+
 
         /**
          * @return bool

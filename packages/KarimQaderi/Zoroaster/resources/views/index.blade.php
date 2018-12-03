@@ -4,7 +4,7 @@
     <h1 class="resourceName">داشبورد</h1>
 
     <div>
-        {!! $widgets !!}
+        {!! Zoroaster::Widgets() !!}
     </div>
 
     <div class="uk-clearfix"></div>

@@ -2,6 +2,9 @@
 
     namespace KarimQaderi\Zoroaster\Abstracts;
 
+    use KarimQaderi\Zoroaster\ResourceActions\Delete;
+    use KarimQaderi\Zoroaster\ResourceActions\Edit;
+    use KarimQaderi\Zoroaster\ResourceActions\Show;
     use KarimQaderi\Zoroaster\Traits\Authorization;
 
     abstract class ZoroasterResource
@@ -39,5 +42,13 @@
             return $eloquent;
         }
 
+        public function ResourceActions()
+        {
+            return [
+                new Show() ,
+                new Edit() ,
+                new Delete() ,
+            ];
+        }
 
     }

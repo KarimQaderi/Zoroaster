@@ -21,9 +21,8 @@
                     Divider::make() ,
                     MenuItem::make()->resource('Post')->icon('list') ,
                     MenuItem::make()->resource('User')->icon('users') ,
+                    MenuItem::make()->resource('Migration')->icon('settings') ,
                     MenuItem::make()->route('Zoroaster.settings.icons' , 'ایکون ها')->icon('hashtag') ,
-
-
                 ]) ,
 
             ];

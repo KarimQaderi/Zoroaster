@@ -10,4 +10,10 @@
     {
         use TraitsResourceRequest;
 
+        function authorizeTo($authorize)
+        {
+            if(!$authorize)
+                abort(401);
+        }
+
     }

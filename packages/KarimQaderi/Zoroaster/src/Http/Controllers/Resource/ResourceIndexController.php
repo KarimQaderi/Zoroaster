@@ -10,6 +10,8 @@
         public function handle(ResourceRequest $request)
         {
 
+            $request->authorizeTo($request->Resource()->authorizeToIndex());
+
             $resources = $request->Model();
             $resources = $this->toQuery($resources , $request);
 

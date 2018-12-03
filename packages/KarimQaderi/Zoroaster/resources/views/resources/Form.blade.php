@@ -6,9 +6,9 @@
 
         <form class="BuilderFields"
               @isset($resources)
-              action="{{ route('Zoroaster.resource.update',['resoure'=> $request->resoureClass,'resourceId'=> $resources->{$model->getKeyName()}]) }}"
+              action="{{ route('Zoroaster.resource.update',['resoure'=> $request->resourceClass,'resourceId'=> $resources->{$model->getKeyName()}]) }}"
               @else
-              action="{{ route('Zoroaster.resource.store',['resoure'=> $request->resoureClass ]) }}"
+              action="{{ route('Zoroaster.resource.store',['resoure'=> $request->resourceClass ]) }}"
               @endisset
               method="POST">
 
