@@ -92,6 +92,7 @@
 
         }
 
+
         public function AddingAdditionalConstraintsForViewIndex($eloquent)
         {
             // TODO: Implement AddingAdditionalConstraintsForViewIndex() method.

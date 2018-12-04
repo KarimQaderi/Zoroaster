@@ -19,8 +19,8 @@
                 ]);
         }
 
-        public function Authorization($authorization)
+        public function Authorization($authorization,$data)
         {
-            return $authorization->authorizeToUpdate();
+            return $authorization->authorizeToUpdate($data);
         }
     }

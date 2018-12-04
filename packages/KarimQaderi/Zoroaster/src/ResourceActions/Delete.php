@@ -20,9 +20,9 @@
                 ]);
         }
 
-        public function Authorization($authorization)
+        public function Authorization($authorization,$data)
         {
-            return $authorization->authorizeToDelete();
+            return $authorization->authorizeToDelete($data);
         }
 
 

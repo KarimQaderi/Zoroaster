@@ -13,7 +13,7 @@
         {
             $Actions = null;
             foreach($request->Resource()->ResourceActions() as $Action){
-                if($Action->{'hideFrom' . $view} == false && $Action->Authorization($request->Resource()))
+                if($Action->{'hideFrom' . $view} == false && $Action->Authorization($request->Resource(),$data))
                     $Actions .= $Action->render($request , $data , $model , $view , $field);
 
             }

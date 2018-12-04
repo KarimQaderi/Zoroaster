@@ -12,7 +12,6 @@
         public function handle(ResourceRequest $request)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToUpdate());
 
             $data = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
                 if($field->showOnUpdate == true && $field->OnUpdate == true && $field->customResourceController == false)
@@ -25,6 +24,7 @@
             $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
             if($validator->fails())
                 return redirect()->back()->withErrors($validator->messages())->withInput();
+
 
             $resource = $this->Update($request , $data);
 
@@ -49,6 +49,8 @@
             $resource = $request->Model()->where([$request->Model()->getKeyName() => $request->getResourceId()])->first();
 
             if(empty($resource)) abort(404);
+
+            $request->authorizeTo($request->Resource()->authorizeToUpdate($resource));
 
             $resource->update($data->request);
 

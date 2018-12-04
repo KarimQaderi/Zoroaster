@@ -46,7 +46,7 @@
 
         public static function newResourceByModelName($modelName)
         {
-          return  \Zoroaster::newResourceByModelName($modelName);
+            return \Zoroaster::newResourceByModelName($modelName);
         }
 
         public static function newModel($model)
@@ -59,9 +59,8 @@
 
         public static function viewRender($view)
         {
-           return $view->render();
+            return $view->render();
         }
-
 
 
         public static function BuilderWidgets($Sidebar)
@@ -92,7 +91,12 @@
                         $items .= $field->Render($field);
                         break;
                     default:
-                        $items .= $field->Render($field);
+                        if(isset($field->Access)){
+                            if($field->Access)
+                                $items .= $field->Render($field);
+                        }
+                        else
+                            $items .= $field->Render($field);
                         break;
                 }
             }

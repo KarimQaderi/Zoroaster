@@ -48,7 +48,7 @@
          *
          * @var string
          */
-        public $disk;
+        public $disk = 'public';
 
         /**
          * The file storage path.

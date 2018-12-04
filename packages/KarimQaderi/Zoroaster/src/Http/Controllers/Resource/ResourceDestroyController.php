@@ -9,9 +9,11 @@
     {
         public function handle(ResourceRequest $request)
         {
-            $request->authorizeTo($request->Resource()->authorizeToDelete());
+
+            $request->authorizeTo($request->Resource()->authorizeToDelete($request->Model()->find(request()->resourceId)));
 
             $request->Model()->destroy(request()->resourceId);
+
 
             dd(request()->has('redirect'));
             if(request()->has('redirect'))

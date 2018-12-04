@@ -10,10 +10,10 @@
         public function handle(ResourceRequest $request)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToUpdate());
 
             $resources = $request->Model()->findOrFail(($request->RequestParameters()->resourceId));
 
+            $request->authorizeTo($request->Resource()->authorizeToUpdate($resources));
 
             return view('Zoroaster::resources.Form')->with([
                 'request' => $request ,

@@ -13,7 +13,6 @@
     use KarimQaderi\Zoroaster\Fields\Image;
     use KarimQaderi\Zoroaster\Fields\Relations\BelongsTo;
     use KarimQaderi\Zoroaster\Fields\Text;
-    use KarimQaderi\Zoroaster\Fields\Textarea;
     use KarimQaderi\Zoroaster\Fields\Trix;
 
     class Post extends ZoroasterResource
@@ -79,31 +78,19 @@
                                 Trix::make('متن پست' , 'body')->hideFromIndex()->rules('required') ,
                             ]) ,
 
-//                            new RowOneCol([
-//                                Image::make('عکس پست' , 'img')->urlUpload('posts')->resize([
-//                                    'small' => [
-//                                        'w' => 200 ,
-//                                        'h' => 300 ,
-//                                    ] , 'small_2' => [
-//                                        'w' => 20 ,
-//                                        'h' => 30 ,
-//                                    ]
-//                                ])->onlyOnForms() ,
-//                            ]) ,
+                            new RowOneCol([
+                                Image::make('عکس پست' , 'img')
+                                    ->resize('small' , 200 , 300)
+                                    ->resize('small33' , 200 , 300)
+                                    ->onlyOnForms() ,
+                            ]) ,
 
-//                            new RowOneCol([
-//                                Image::make('گالری' , 'img_multi')
-//                                    ->disk('public')
-//                                    ->urlUpload('posts')->multiImage(5)->resize([
-//                                    'small' => [
-//                                        'w' => 200 ,
-//                                        'h' => 300 ,
-//                                    ] , 'small_2' => [
-//                                        'w' => 20 ,
-//                                        'h' => 30 ,
-//                                    ]
-//                                ])->onlyOnForms() ,
-//                            ]) ,
+                            new RowOneCol([
+                                Image::make('گالری' , 'img_multi')
+                                    ->resize('small' , 200 , 300)
+                                    ->resize('small33' , 200 , 300)
+                                    ->onlyOnForms() ,
+                            ]) ,
 
 
                         ]) ,
@@ -162,6 +149,15 @@
             return $eloquent->orderByDesc('updated_at');
         }
 
-     
+        public function authorizeToUpdate($data)
+        {
+            return $data->user_id == auth()->id();
+        }
+
+
+        public function authorizeToDelete($data)
+        {
+            return $data->user_id == auth()->id();
+        }
 
     }

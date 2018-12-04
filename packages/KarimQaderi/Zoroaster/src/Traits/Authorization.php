@@ -10,7 +10,7 @@
         /**
          * @return bool
          */
-        public function authorizeToIndex()
+        public function authorizeToIndex($model)
         {
             return true;
         }
@@ -19,7 +19,7 @@
         /**
          * @return bool
          */
-        public function authorizeToShow()
+        public function authorizeToShow($data)
         {
             return true;
         }
@@ -28,7 +28,7 @@
         /**
          * @return bool
          */
-        public function authorizeToCreate()
+        public function authorizeToCreate($model)
         {
             return true;
         }
@@ -36,7 +36,7 @@
         /**
          * @return bool
          */
-        public function authorizeToUpdate()
+        public function authorizeToUpdate($data)
         {
             return true;
         }
@@ -44,7 +44,7 @@
         /**
          * @return bool
          */
-        public function authorizeToDelete()
+        public function authorizeToDelete($data)
         {
             return true;
         }
@@ -52,7 +52,7 @@
         /**
          * @return bool
          */
-        public function authorizedToAdd()
+        public function authorizedToAdd($data)
         {
             return true;
         }

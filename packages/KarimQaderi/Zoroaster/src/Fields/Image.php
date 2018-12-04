@@ -45,9 +45,14 @@
 //            ]
 //        ];
 
-        public function resize($array)
+        public function resize($name , $width , $hight)
         {
-            $this->resize = json_encode($array);
+            $this->resize = array_merge($this->resize , [
+                'name' => $name ,
+                'width' => $width ,
+                'hight' => $hight ,
+            ]);
+
             return $this;
         }
 

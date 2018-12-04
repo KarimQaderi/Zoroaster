@@ -19,7 +19,7 @@
          *
          * @var string
          */
-        public $title = 'title';
+        public $title = 'id';
 
         public $labels = '';
         public $label = '';

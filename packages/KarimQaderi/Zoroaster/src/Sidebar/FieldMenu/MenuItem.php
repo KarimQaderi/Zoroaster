@@ -37,13 +37,20 @@
             $this->TypeLink = 'resource';
             $this->Link = route("Zoroaster.resource.index" , ['resource' => $resource]);
 
+            $newResource = null;
+            if(Zoroaster::hasNewResourceByModelName($resource))
+                $newResource = Zoroaster::newResource($resource);
+
             if($label == null)
-                if(Zoroaster::hasNewResourceByModelName($resource))
-                    $this->Label = Zoroaster::newResource($resource)->labels;
+                if(!is_null($newResource))
+                    $this->Label = $newResource->labels;
                 else
                     $this->Label = 'منبع پیدا نشد لطفا بررسی کنید';
             else
                 $this->Label = $label;
+
+            if(!is_null($newResource))
+                $this->Access = $newResource->authorizeToIndex(Zoroaster::newModel($newResource->model));
 
             return $this;
         }
