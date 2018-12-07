@@ -1209,7 +1209,7 @@ form.BuilderFields {
 }
 
 .imgUpload_img .top {
-    background-color: #f0506e;
+    background-color: rgb(77, 127, 214);
     padding: 5px;
     border-bottom: 1px solid #fff;
 }
@@ -1239,7 +1239,7 @@ form.BuilderFields {
 }
 
 .imgUpload {
-    border: 1px solid rgb(240, 80, 110);
+    border: 1px solid rgb(64, 153, 222);
     /* padding-bottom: 15px; */
     min-height: auto;
 }
@@ -1551,7 +1551,7 @@ label {}
     padding: 10px;
 }
 
-.uk-modal-dialog form {
+.modal_delete  form {
     border-radius: 5px;
     overflow: hidden;
     /* display: block; */
@@ -1567,13 +1567,13 @@ label {}
     background-color: rgb(255, 255, 255);
 }
 
-.uk-modal-body {}
 
-.uk-modal-dialog form .uk-modal-footer {
+
+.modal_delete  form .uk-modal-footer {
     background-color: rgb(244, 247, 250);
 }
 
-.uk-modal-dialog form .uk-button-primary {
+.modal_delete  form .uk-button-primary {
     background-color: rgb(231, 68, 68);
     color: #fff;
     border: 0;
@@ -1581,11 +1581,11 @@ label {}
     padding: 2px 30px;
 }
 
-.uk-modal-dialog form .uk-button-primary:hover {
+.modal_delete  form .uk-button-primary:hover {
     opacity: .9;
 }
 
-.uk-modal-body > h2 {
+.modal_delete .uk-modal-body > h2 {
     color: rgb(86, 86, 86);
     font-weight: bold;
     font-size: 20px;
@@ -1593,13 +1593,13 @@ label {}
     /* margin-top: -10px; */
 }
 
-.uk-modal-body > h3 {
+.modal_delete .uk-modal-body > h3 {
     font-size: 15px;
     font-weight: normal;
     /* margin-bottom: -10px !important; */
 }
 
-.uk-modal-dialog form .uk-button-default {
+.modal_delete form .uk-button-default {
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     /* border-color: #000; */
@@ -1681,4 +1681,12 @@ tr.destroy-resourceid td {
 .resourceName_2 a.btn {
     background-color: rgb(64, 153, 222);
     color: rgb(255, 255, 255);
+}
+
+.imgUpload_img .delete {
+    cursor: pointer;
+}
+
+.uk-alert-danger.uk-alert {
+    margin: 0 30px;
 }

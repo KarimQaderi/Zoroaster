@@ -28,4 +28,8 @@
 //
 
         protected $guarded = [];
+        protected $casts = [
+            'img_multi' => 'array' ,
+//            'img' => 'array' ,
+        ];
     }

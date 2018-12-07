@@ -5,9 +5,13 @@
 
 
     use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Traits\Resource;
+
 
     class Text extends Field
     {
+        use Resource;
+
 
         /**
          * The field's component.
@@ -16,14 +20,8 @@
          */
         public $component = 'text';
 
-        /**
-         * Display the field as raw HTML using Vue.
-         *
-         * @return $this
-         */
-        public function asHtml()
-        {
-            return $this->withMeta(['asHtml' => true]);
-        }
+
+
+
 
     }

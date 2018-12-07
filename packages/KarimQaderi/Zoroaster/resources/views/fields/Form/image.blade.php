@@ -9,40 +9,60 @@
             <span class="uk-link">یک فایل انتخاب کنید</span>
         </div>
     </div>
-
-    <progress id="js-progressbar-{{ $field->name }}" class="uk-progress" value="0" max="100" hidden></progress>
 </label>
-
-<div class="imgUpload" uk-sortable="handle: .uk-sortable-handle" uk-lightbox>
+<progress id="js-progressbar-{{ $field->name }}" class="uk-progress" value="0" max="100" hidden></progress>
+<div class="imgUpload" id="imgUpload_{{ $field->name }}" uk-sortable="handle: .uk-sortable-handle" uk-lightbox>
     <template>
         <div class="imgUpload_img">
             <div class="top">
-                <span uk-icon="close"></span>
-                <a href="${url}" uk-icon="plus-circle"></a>
+                <span uk-icon="delete" class="delete"></span>
+                <a href="${RealPath}" uk-icon="view"></a>
                 <span class="uk-sortable-handle" uk-icon="move"></span>
             </div>
-            <img src="${url}">
-            <input type="hidden" name="[{{ $field->name }}][url][]" value="${url}">
-            <input type="hidden" name="[{{ $field->name }}][name][]" value="${name}">
-            <input type="hidden" name="[{{ $field->name }}][size][]" value="${size}">
-            <input type="hidden" name="[{{ $field->name }}][resize][]" value="${resize}">
-            <div class="thumbnav">
-                <a href="http://127.0.0.1:8000/users/2018/11/27-1543340423-lodge_lake_azure_reflection_sky_tranquillity_61165_3840x2160.jpg"><img
-                            src="http://127.0.0.1:8000/users/2018/11/27-1543340423-lodge_lake_azure_reflection_sky_tranquillity_61165_3840x2160.jpg"></a>
-                <a href="http://127.0.0.1:8000/users/2018/11/27-1543340423-lodge_lake_azure_reflection_sky_tranquillity_61165_3840x2160.jpg"><img
-                            src="http://127.0.0.1:8000/users/2018/11/27-1543340423-lodge_lake_azure_reflection_sky_tranquillity_61165_3840x2160.jpg"></a>
-                <a href="http://127.0.0.1:8000/users/2018/11/27-1543340423-lodge_lake_azure_reflection_sky_tranquillity_61165_3840x2160.jpg"><img
-                            src="http://127.0.0.1:8000/users/2018/11/27-1543340423-lodge_lake_azure_reflection_sky_tranquillity_61165_3840x2160.jpg"></a>
-            </div>
+            <img src="${RealPath}">
+            <input id="url" type="hidden" name="{{ $field->name }}[${number}][url]" value="${url}">
+            <input id="resize" type="hidden" name="{{ $field->name }}[${number}][resize]" value="${resize}">
         </div>
     </template>
+
+    @isset($data->{$field->name})
+        @if (is_string($data->{$field->name}) || ($data->{$field->name})=='')
+
+            @if (!is_null($data->{$field->name}))
+                <div class="imgUpload_img">
+                    <div class="top">
+                        <span uk-icon="delete" class="delete"></span>
+                        <a href="{{ Storage::disk($field->disk)->url($data->{$field->name}) }}" uk-icon="view"></a>
+                        <span class="uk-sortable-handle" uk-icon="move"></span>
+                    </div>
+                    <img src="{{ Storage::disk($field->disk)->url($data->{$field->name}) }}">
+                    <input id="url" type="hidden" name="{{ $field->name }}[${number}][url]" value="{{ $data->{$field->name} }}">
+                    <input id="resize" type="hidden" name="{{ $field->name }}[${number}][resize]" value="{{ json_encode($field->resize) }}">
+                </div>
+            @endif
+
+        @else
+
+            @foreach(($data->{$field->name}) as $val)
+                @php($time=time() . random_int(100 , 1000))
+                <div class="imgUpload_img">
+                    <div class="top">
+                        <span uk-icon="delete" class="delete"></span>
+                        <a href="{{ Storage::disk($field->disk)->url($val['url']) }}" uk-icon="view"></a>
+                        <span class="uk-sortable-handle" uk-icon="move"></span>
+                    </div>
+                    <img src="{{ Storage::disk($field->disk)->url($val['url']) }}">
+                    <input id="url" type="hidden" name="{{ $field->name }}[{{ $time }}][url]" value="{{ $val['url'] }}">
+                    <input id="resize" type="hidden" name="{{ $field->name }}[{{ $time }}][resize]" value="{{ isset($val['resize'])? $val['resize'] : '[]' }}">
+                </div>
+
+            @endforeach
+
+        @endif
+    @endisset
+
+
 </div>
-{{--<input class="uk-input" name="{{ $data->name }}" type="file">--}}
-@isset($data->{$field->name} )
-    <img src="{{ $data->{$field->name} }}">
-@endisset
-
-
 
 
 <script>
@@ -67,7 +87,7 @@
         $(_append).append(Tepmlate);
     }
 
-    var TepmlateImgUpload = renderHtml('.imgUpload template');
+    var TepmlateImgUpload_{{ $field->name }}  = renderHtml('#imgUpload_{{ $field->name }} template');
 
     var items = [{
         url: '/users/2018/11/24-1543060055-download.jpg',
@@ -79,35 +99,76 @@
 
     // render('.imgUpload', TepmlateImgUpload, items);
 
-
 </script>
 
 <script>
 
-    var bar = document.getElementById('js-progressbar-{{ $field->name }}');
+    $(document).on('click', '#imgUpload_{{ $field->name }} .imgUpload_img .delete', function (e) {
+        var imgUpload_img = $(this).closest('.imgUpload_img');
+        console.log(imgUpload_img.find('#resize').val());
+        UIkit.modal.confirm(
+            '<h2>حذف عکس</h2>' +
+            '<h3>شما دارید این  عکس رو حذف می کنید مطمئن هستید</h3>'
+            , {
+                labels: {ok: 'حذف', cancel: 'خیر'},
+                addClass: 'modal_delete'
+            }).then(function () {
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('Zoroaster.Ajax.field') }}',
+                data: {
+                    _token: $('meta[name="_token"]').attr('content'),
+                    resource: '{{ array_last(explode('\\',$newResource->model)) }}',
+                    field: '{{ $field->name }}',
+                    controller: 'ResourceUploadDelete',
+                    url: imgUpload_img.find('#url').val(),
+                    resize: imgUpload_img.find('#resize').val(),
+                },
+                success: function (data) {
+                    console.log(data);
+                    imgUpload_img.remove();
+
+                },
+                error: function (data) {
+
+                    var errors = data.responseJSON;
+                    console.log(errors.errors);
+                }
+            });
+
+        });
+    });
+
+    var bar_{{ $field->name }} = document.getElementById('js-progressbar-{{ $field->name }}');
 
     UIkit.upload('.js-upload-{{ $field->name }}', {
 
-        url: '{{ route('Zoroaster.upload.fields') }}',
+        url: '{{ route('Zoroaster.Ajax.field') }}',
         multiple: true,
+        name: 'file',
         params: {
             _token: '{{ csrf_token() }}',
-            urlUpload: '{{ $field->urlUpload }}',
-            resize: '{{ $field->resize }}'
+            resource: '{{ array_last(explode('\\',$newResource->model)) }}',
+            controller: 'ResourceUpload',
+            field: '{{ $field->name }}',
+            resize: '{{ json_encode($field->resize) }}'
         },
 
         beforeSend: function () {
-            console.log('beforeSend', arguments);
-            console.log ($('.imgUpload>*').length + arguments.length) +'<='+ '{{ $field->multiImage }}'));
-
-            if (!(($('.imgUpload>*').length + arguments.length) <= '{{ $field->multiImage }}')) {
-                alert('تعداد فایل ها زیاد هست حداکثر فایل ها ({{ $field->multiImage }}) عدد');
-                abort(0);
-            }
+            // console.log('beforeSend', arguments);
 
         },
         beforeAll: function () {
-            // console.log('beforeAll', arguments);
+            console.log('beforeAll', arguments);
+
+            // console.log((arguments[1].length));
+            {{--            console.log(($('#imgUpload_{{ $field->name }} > *').length + arguments.length) + '<=' + '{{ $field->multiImage }}');--}}
+
+            if (!(($('#imgUpload_{{ $field->name }} > *').length + arguments[1].length) <= '{{ $field->multiImage }}')) {
+                alert('تعداد فایل ها زیاد هست حداکثر فایل ها ({{ $field->multiImage }}) عدد');
+                abort();
+            }
         },
         load: function () {
             // console.log('load', arguments);
@@ -123,36 +184,36 @@
         loadStart: function (e) {
             // console.log('loadStart', arguments);
 
-            bar.removeAttribute('hidden');
-            bar.max = e.total;
-            bar.value = e.loaded;
+            bar_{{ $field->name }}.removeAttribute('hidden');
+            bar_{{ $field->name }}.max = e.total;
+            bar_{{ $field->name }}.value = e.loaded;
         },
 
         progress: function (e) {
             // console.log('progress', arguments);
             //
-            bar.max = e.total;
-            bar.value = e.loaded;
+            bar_{{ $field->name }}.max = e.total;
+            bar_{{ $field->name }}.value = e.loaded;
         },
 
         loadEnd: function (e) {
             // console.log('loadEnd', arguments);
 
-            render('.imgUpload', TepmlateImgUpload, $.parseJSON(e.currentTarget.response));
+            render('#imgUpload_{{ $field->name }}', TepmlateImgUpload_{{ $field->name }} , $.parseJSON(e.currentTarget.response));
 
-            bar.max = e.total;
-            bar.value = e.loaded;
+            bar_{{ $field->name }}.max = e.total;
+            bar_{{ $field->name }}.value = e.loaded;
         },
 
         completeAll: function () {
             // console.log('completeAll', arguments);
 
             setTimeout(function () {
-                bar.setAttribute('hidden', 'hidden');
+                bar_{{ $field->name }}.setAttribute('hidden', 'hidden');
             }, 500);
 
 
-            alert('Upload Completed');
+            // alert('Upload Completed');
         }
 
     });

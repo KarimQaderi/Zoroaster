@@ -6,9 +6,13 @@
 
 
     use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Traits\Resource;
+    use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
     class Select extends Field
     {
+
+        use Resource;
 
         /**
          * The field's component.
@@ -46,4 +50,6 @@
                         ->first()['label'] ?? $value;
             });
         }
+
+
     }

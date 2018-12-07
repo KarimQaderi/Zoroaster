@@ -3,7 +3,7 @@
     namespace KarimQaderi\Zoroaster\Http\Controllers\Resource;
 
     use App\Http\Controllers\Controller;
-    use Illuminate\Support\Facades\Validator;
+    use KarimQaderi\Zoroaster\Http\Requests\RequestField;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
     class ResourceStoreController extends Controller
@@ -11,26 +11,25 @@
         public function handle(ResourceRequest $request)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToCreate());
+            $request->authorizeTo($request->Resource()->authorizeToCreate($request->Model()));
 
-            $data = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
-                if($field->showOnCreation == true && $field->OnUpdate == true && $field->customResourceController == false)
+            $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
+                if($field->showOnCreation == true && $field->OnCreation == true)
                     return true;
                 else
                     return false;
             }));
 
 
+//            $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
+//            if($validator->fails())
+//                return redirect()->back()->withErrors($validator->messages())->withInput();
 
-            $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
-            if($validator->fails())
-                return redirect()->back()->withErrors($validator->messages())->withInput();
 
+//            $this->CustomResourceController($request , $MergeResourceFieldsAndRequest,'beforeResourceStore');
+            $resource = $request->Model()->create($this->CustomResourceController($request , null , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
-            $resource = $request->Model()->create($data->request);
-
-            $this->CustomResourceController($request , $resource , $data->validator , $data->customAttributes);
-
+            $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'beforeResourceStore');
 
             return redirect(route('Zoroaster.resource.show' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->Model()->getKeyName()}]))->with([
                 'success' => 'اطلاعات اضافه شد'
@@ -39,20 +38,20 @@
         }
 
 
-
         /**
          * @param ResourceRequest $request
          * @param $resource
          */
-        private function CustomResourceController(ResourceRequest $request , $resource , $validator , $customAttributes): void
+        private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest , $method)
         {
             $customResourceController = $request->ResourceFields(function($field){
-                if($field->OnUpdate == true && $field->customResourceController == true)
+                if($field->showOnCreation == true && $field->OnCreation == true)
                     return true;
                 else
                     return false;
             });
 
+            $beforeResourceStore = [];
             foreach($customResourceController as $field){
 
                 $RequestField = new RequestField();
@@ -60,14 +59,15 @@
                 $RequestField->resource = $resource;
                 $RequestField->field = $field;
                 $RequestField->fieldAll = $customResourceController;
-                $RequestField->validator = $validator;
-                $RequestField->customAttributes = $customAttributes;
+                $RequestField->validator = $MergeResourceFieldsAndRequest->validator;
+                $RequestField->customAttributes = $MergeResourceFieldsAndRequest->customAttributes;
 
-                $field->ResourceUpdate($RequestField);
+                $beforeResourceStore = array_merge($beforeResourceStore , $field->$method($RequestField));
 
             }
-        }
 
+            return $beforeResourceStore;
+        }
 
 
     }

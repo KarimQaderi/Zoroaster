@@ -164,7 +164,10 @@
                 UIkit.modal.confirm(
                     '<h2>حذف رکورد ها</h2>' +
                     '<h3>شما دارید این  رکورد ها رو حذف می کنید مطمئن هستید</h3>'
-                    , {labels: {ok: 'حذف', cancel: 'خیر'}}).then(function () {
+                    , {
+                        labels: {ok: 'حذف', cancel: 'خیر'},
+                        addClass: 'modal_delete'
+                    }).then(function () {
                     Destroy(arrResourceId);
                 });
 

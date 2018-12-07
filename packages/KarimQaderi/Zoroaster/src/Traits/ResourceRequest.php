@@ -117,12 +117,12 @@
                 switch(true){
 
                     case isset($field->data):
-                        $Fields .= $field->$view($this->BuilderFields($where , $view , $resources , $field->data) , $field);
+                        $Fields .= $field->$view($this->BuilderFields($where , $view , $resources , $field->data) , $field , $this->Resource());
                         break;
 
                     default:
                         if($where($field) === true)
-                            $Fields .= $field->$view($resources , $field);
+                            $Fields .= $field->$view($resources , $field , $this->Resource());
 
                         break;
                 }

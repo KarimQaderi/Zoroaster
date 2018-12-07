@@ -16,12 +16,7 @@
         public $OnUpdate = true;
         public $OnCreation = true;
 
-        /**
-         * Custom View
-         *
-         * @var bool
-         */
-        public $customView = false;
+
 
         /**
          * Custom Controller

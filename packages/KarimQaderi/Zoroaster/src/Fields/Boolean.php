@@ -19,42 +19,35 @@
         public $customResourceController = true;
 
 
-//        public function ResourceUpdate($request , $resource , $field)
-//        {
-//
-//            $value = $request->{$field->name};
-//
-//            $resource->update([
-//                $field->name => ($value === 'on' || $value === 1) ? 1 : 0
-//            ]);
-//        }
-//
-//        public function ResourceStore($request , $resource , $field)
-//        {
-//            $value = $request->{$field->name};
-//
-//            $resource->update([
-//                $field->name => ($value === 'on' || $value === 1) ? 1 : 0
-//            ]);
-//        }
+
+
+        public function beforeResourceStore(RequestField $requestField)
+        {
+            $value = $requestField->request->{$requestField->field->name};
+
+            return [
+                $requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0
+            ];
+        }
+
 
         public function ResourceUpdate(RequestField $requestField)
         {
 
             $value = $requestField->request->{$requestField->field->name};
 
-            $requestField->resource->update([
+            return [
                 $requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0
-            ]);
+            ];
         }
 
         public function ResourceStore(RequestField $requestField)
         {
             $value = $requestField->request->{$requestField->field->name};
 
-            $requestField->resource->update([
+            return [
                 $requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0
-            ]);
+            ];
         }
 
 

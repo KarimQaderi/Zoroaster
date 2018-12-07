@@ -4,11 +4,12 @@
 
 
     use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Traits\Resource;
     use KarimQaderi\Zoroaster\Zoroaster;
 
     class BelongsTo extends Field
     {
-
+        use Resource;
         /**
          * The field's component.
          *
@@ -23,7 +24,6 @@
          */
         public $displayTitleField = null;
 
-        public $customView = true;
 
         public $routeShow = null;
 
@@ -69,7 +69,7 @@
         }
 
 
-        public function viewForm($data , $field)
+        public function viewForm($data , $field , $newResource = null)
         {
             return view('Zoroaster::fields.Form.' . $field->component)->with(
                 [
@@ -79,7 +79,7 @@
                 ]);
         }
 
-        public function viewDetail($data , $field)
+        public function viewDetail($data , $field , $newResource = null)
         {
             return view('Zoroaster::fields.Detail.' . $field->component)->with(
                 [
@@ -88,7 +88,7 @@
                 ]);
         }
 
-        public function viewIndex($data , $field)
+        public function viewIndex($data , $field , $newResource = null)
         {
             return view('Zoroaster::fields.Index.' . $field->component)->with(
                 [

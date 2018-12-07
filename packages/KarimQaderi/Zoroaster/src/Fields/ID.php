@@ -4,9 +4,13 @@
 
 
     use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Traits\Resource;
+
 
     class ID extends Field
     {
+        use Resource;
+
         /**
          * The field's component.
          *
@@ -27,14 +31,7 @@
             parent::__construct($label ?? 'ID' , $name , $resolveCallback);
         }
 
-        /**
-         * Create a new, resolved ID field for the givne model.
-         *
-         * @param  \Illuminate\Database\Eloquent\Model $model
-         * @return static
-         */
-        public static function forModel($model)
-        {
-            return tap(static::make('ID' , $model->getKeyName()))->resolve($model);
-        }
+
+
+
     }

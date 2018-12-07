@@ -24,6 +24,7 @@ class CreatePostsTable extends Migration
             $table->boolean('is_published')->default(false);
             $table->boolean('featured')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

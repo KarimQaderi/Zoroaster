@@ -11,6 +11,7 @@
         public $resource = null;
         public $field = null;
         public $fieldAll = null;
-        public $customAttributes = null;
-        public $validator = null;
+//        public $customAttributes = null;
+//        public $validator = null;
+        public $MergeResourceFieldsAndRequest = null;
     }

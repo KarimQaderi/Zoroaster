@@ -4,12 +4,13 @@
 
 
     use Closure;
-    use JsonSerializable;
     use Illuminate\Support\Str;
     use Illuminate\Support\Traits\Macroable;
+    use JsonSerializable;
     use KarimQaderi\Zoroaster\Contracts\Resolvable;
+    use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
-    abstract class Field extends FieldElement implements JsonSerializable, Resolvable
+    abstract class Field extends FieldElement implements JsonSerializable , Resolvable
     {
         use Macroable;
 
@@ -100,22 +101,22 @@
         /**
          * Create a new field.
          *
-         * @param  string  $label
-         * @param  string|null  $name
-         * @param  mixed|null  $resolveCallback
+         * @param  string $label
+         * @param  string|null $name
+         * @param  mixed|null $resolveCallback
          * @return void
          */
-        public function __construct($label, $name = null, $resolveCallback = null)
+        public function __construct($label , $name = null , $resolveCallback = null)
         {
             $this->label = $label;
             $this->resolveCallback = $resolveCallback;
-            $this->name = $name ?? str_replace(' ', '_', Str::lower($label));
+            $this->name = $name ?? str_replace(' ' , '_' , Str::lower($label));
         }
 
         /**
          * Set the help text for the field.
          *
-         * @param  string  $helpText
+         * @param  string $helpText
          * @return $this
          */
         public function help($helpText)
@@ -126,26 +127,26 @@
         /**
          * Resolve the field's value for display.
          *
-         * @param  mixed  $resource
-         * @param  string|null  $name
+         * @param  mixed $resource
+         * @param  string|null $name
          * @return void
          */
-        public function resolveForDisplay($resource, $name = null)
+        public function resolveForDisplay($resource , $name = null)
         {
             $name = $name ?? $this->name;
 
-            if ($name === 'ComputedField') {
+            if($name === 'ComputedField'){
                 return;
             }
 
-            if (! $this->displayCallback) {
-                $this->resolve($resource, $name);
+            if(!$this->displayCallback){
+                $this->resolve($resource , $name);
             }
 
-            if (is_callable($this->displayCallback) &&
-                data_get($resource, $name, '___missing') !== '___missing') {
+            if(is_callable($this->displayCallback) &&
+                data_get($resource , $name , '___missing') !== '___missing'){
                 $this->value = call_user_func(
-                    $this->displayCallback, data_get($resource, $name)
+                    $this->displayCallback , data_get($resource , $name)
                 );
             }
         }
@@ -153,25 +154,25 @@
         /**
          * Resolve the field's value.
          *
-         * @param  mixed  $resource
-         * @param  string|null  $name
+         * @param  mixed $resource
+         * @param  string|null $name
          * @return void
          */
-        public function resolve($resource, $name = null)
+        public function resolve($resource , $name = null)
         {
             $name = $name ?? $this->name;
 
-            if ($name instanceof Closure ||
-                (is_callable($name) && is_object($name))) {
+            if($name instanceof Closure ||
+                (is_callable($name) && is_object($name))){
                 return $this->resolveComputedname($name);
             }
 
-            if (! $this->resolveCallback) {
-                $this->value = $this->resolvename($resource, $name);
-            } elseif (is_callable($this->resolveCallback) &&
-                data_get($resource, $name, '___missing') !== '___missing') {
+            if(!$this->resolveCallback){
+                $this->value = $this->resolvename($resource , $name);
+            } elseif(is_callable($this->resolveCallback) &&
+                data_get($resource , $name , '___missing') !== '___missing'){
                 $this->value = call_user_func(
-                    $this->resolveCallback, data_get($resource, $name)
+                    $this->resolveCallback , data_get($resource , $name)
                 );
             }
         }
@@ -179,23 +180,23 @@
         /**
          * Resolve the given name from the given resource.
          *
-         * @param  mixed  $resource
-         * @param  string  $name
+         * @param  mixed $resource
+         * @param  string $name
          * @return mixed
          */
-        protected function resolvename($resource, $name)
+        protected function resolvename($resource , $name)
         {
-            if (Str::contains($name, '->')) {
-                return object_get($resource, str_replace('->', '.', $name));
+            if(Str::contains($name , '->')){
+                return object_get($resource , str_replace('->' , '.' , $name));
             }
 
-            return data_get($resource, $name);
+            return data_get($resource , $name);
         }
 
         /**
          * Resolve a computed name.
          *
-         * @param  callable  $name
+         * @param  callable $name
          * @return void
          */
         protected function resolveComputedname($name)
@@ -208,7 +209,7 @@
         /**
          * Define the callback that should be used to resolve the field's value.
          *
-         * @param  callable  $displayCallback
+         * @param  callable $displayCallback
          * @return $this
          */
         public function displayUsing(callable $displayCallback)
@@ -221,7 +222,7 @@
         /**
          * Define the callback that should be used to resolve the field's value.
          *
-         * @param  callable  $resolveCallback
+         * @param  callable $resolveCallback
          * @return $this
          */
         public function resolveUsing(callable $resolveCallback)
@@ -234,76 +235,76 @@
         /**
          * Hydrate the given name on the model based on the incoming request.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-         * @param  object  $model
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
+         * @param  object $model
          * @return void
          */
-        public function fill(NovaRequest $request, $model)
+        public function fill(NovaRequest $request , $model)
         {
-            $this->fillInto($request, $model, $this->name);
+            $this->fillInto($request , $model , $this->name);
         }
 
         /**
          * Hydrate the given name on the model based on the incoming request.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-         * @param  object  $model
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
+         * @param  object $model
          * @return void
          */
-        public function fillForAction(NovaRequest $request, $model)
+        public function fillForAction(NovaRequest $request , $model)
         {
-            return $this->fill($request, $model);
+            return $this->fill($request , $model);
         }
 
         /**
          * Hydrate the given name on the model based on the incoming request.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-         * @param  object  $model
-         * @param  string  $name
-         * @param  string|null  $requestname
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
+         * @param  object $model
+         * @param  string $name
+         * @param  string|null $requestname
          * @return void
          */
-        public function fillInto(NovaRequest $request, $model, $name, $requestname = null)
+        public function fillInto(NovaRequest $request , $model , $name , $requestname = null)
         {
-            $this->fillname($request, $requestname ?? $this->name, $model, $name);
+            $this->fillname($request , $requestname ?? $this->name , $model , $name);
         }
 
         /**
          * Hydrate the given name on the model based on the incoming request.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-         * @param  string  $requestname
-         * @param  object  $model
-         * @param  string  $name
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
+         * @param  string $requestname
+         * @param  object $model
+         * @param  string $name
          * @return void
          */
         protected function
-        fillname(NovaRequest $request, $requestname, $model, $name)
+        fillname(NovaRequest $request , $requestname , $model , $name)
         {
-            if (isset($this->fillCallback)) {
+            if(isset($this->fillCallback)){
                 return call_user_func(
-                    $this->fillCallback, $request, $model, $name, $requestname
+                    $this->fillCallback , $request , $model , $name , $requestname
                 );
             }
 
             $this->fillnameFromRequest(
-                $request, $requestname, $model, $name
+                $request , $requestname , $model , $name
             );
         }
 
         /**
          * Hydrate the given name on the model based on the incoming request.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-         * @param  string  $requestname
-         * @param  object  $model
-         * @param  string  $name
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
+         * @param  string $requestname
+         * @param  object $model
+         * @param  string $name
          * @return void
          */
-        protected function fillnameFromRequest(NovaRequest $request, $requestname, $model, $name)
+        protected function fillnameFromRequest(NovaRequest $request , $requestname , $model , $name)
         {
-            if ($request->exists($requestname)) {
+            if($request->exists($requestname)){
                 $model->{$name} = $request[$requestname];
             }
         }
@@ -311,7 +312,7 @@
         /**
          * Specify a callback that should be used to hydrate the model name for the field.
          *
-         * @param  callable  $fillCallback
+         * @param  callable $fillCallback
          * @return $this
          */
         public function fillUsing($fillCallback)
@@ -324,7 +325,7 @@
         /**
          * Set the validation rules for the field.
          *
-         * @param  callable|array|string  $rules
+         * @param  callable|array|string $rules
          * @return $this
          */
         public function rules($rules)
@@ -337,37 +338,37 @@
         /**
          * Get the validation rules for this field.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
          * @return array
          */
         public function getRules(NovaRequest $request)
         {
             return [$this->name => is_callable($this->rules)
-                ? call_user_func($this->rules, $request)
-                : $this->rules, ];
+                ? call_user_func($this->rules , $request)
+                : $this->rules ,];
         }
 
         /**
          * Get the creation rules for this field.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
          * @return array|string
          */
         public function getCreationRules(NovaRequest $request)
         {
             $rules = [$this->name => is_callable($this->creationRules)
-                ? call_user_func($this->creationRules, $request)
-                : $this->creationRules, ];
+                ? call_user_func($this->creationRules , $request)
+                : $this->creationRules ,];
 
             return array_merge_recursive(
-                $this->getRules($request), $rules
+                $this->getRules($request) , $rules
             );
         }
 
         /**
          * Set the creation validation rules for the field.
          *
-         * @param  callable|array|string  $rules
+         * @param  callable|array|string $rules
          * @return $this
          */
         public function creationRules($rules)
@@ -380,24 +381,24 @@
         /**
          * Get the update rules for this field.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
          * @return array
          */
         public function getUpdateRules(NovaRequest $request)
         {
             $rules = [$this->name => is_callable($this->updateRules)
-                ? call_user_func($this->updateRules, $request)
-                : $this->updateRules, ];
+                ? call_user_func($this->updateRules , $request)
+                : $this->updateRules ,];
 
             return array_merge_recursive(
-                $this->getRules($request), $rules
+                $this->getRules($request) , $rules
             );
         }
 
         /**
          * Set the creation validation rules for the field.
          *
-         * @param  callable|array|string  $rules
+         * @param  callable|array|string $rules
          * @return $this
          */
         public function updateRules($rules)
@@ -410,7 +411,7 @@
         /**
          * Get the validation name for the field.
          *
-         * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+         * @param  \Laravel\Nova\Http\Requests\NovaRequest $request
          * @return string
          */
         public function getValidationname(NovaRequest $request)
@@ -421,12 +422,12 @@
         /**
          * Specify that this field should be sortable.
          *
-         * @param  bool  $value
+         * @param  bool $value
          * @return $this
          */
         public function sortable($value = true)
         {
-            if (! $this->computed()) {
+            if(!$this->computed()){
                 $this->sortable = $value;
             }
 
@@ -451,7 +452,7 @@
          */
         public function component()
         {
-            if (isset(static::$customComponents[get_class($this)])) {
+            if(isset(static::$customComponents[get_class($this)])){
                 return static::$customComponents[get_class($this)];
             }
 
@@ -461,7 +462,7 @@
         /**
          * Set the component that should be used by the field.
          *
-         * @param  string  $component
+         * @param  string $component
          * @return void
          */
         public static function useComponent($component)
@@ -477,49 +478,63 @@
         public function jsonSerialize()
         {
             return array_merge([
-                'component' => $this->component(),
-                'prefixComponent' => true,
-                'indexName' => $this->label,
-                'label' => $this->label,
-                'name' => $this->name,
-                'value' => $this->value,
-                'panel' => $this->panel,
-                'sortable' => $this->sortable,
-                'textAlign' => $this->textAlign,
-            ], $this->meta());
+                'component' => $this->component() ,
+                'prefixComponent' => true ,
+                'indexName' => $this->label ,
+                'label' => $this->label ,
+                'name' => $this->name ,
+                'value' => $this->value ,
+                'panel' => $this->panel ,
+                'sortable' => $this->sortable ,
+                'textAlign' => $this->textAlign ,
+            ] , $this->meta());
         }
 
 
+        public function beforeResourceStore(RequestField $requestField)
+        {
+            return null;
+        }
 
+        public function ResourceStore(RequestField $requestField)
+        {
+            return null;
 
+        }
 
+        public function ResourceUpdate(RequestField $requestField)
+        {
+            return null;
 
+        }
 
-
-        public function viewForm($data , $field)
+        public function viewForm($data , $field , $newResource = null)
         {
             return view('Zoroaster::fields.Form.' . $field->component)->with(
                 [
                     'data' => $data ,
                     'field' => $field ,
+                    'newResource' => $newResource ,
                 ]);
         }
 
-        public function viewDetail($data , $field)
+        public function viewDetail($data , $field , $newResource = null)
         {
             return view('Zoroaster::fields.Detail.' . $field->component)->with(
                 [
                     'data' => $data ,
                     'field' => $field ,
+                    'newResource' => $newResource ,
                 ]);
         }
 
-        public function viewIndex($data , $field)
+        public function viewIndex($data , $field , $newResource = null)
         {
             return view('Zoroaster::fields.Index.' . $field->component)->with(
                 [
                     'data' => $data ,
                     'field' => $field ,
+                    'newResource' => $newResource ,
                 ]);
         }
     }

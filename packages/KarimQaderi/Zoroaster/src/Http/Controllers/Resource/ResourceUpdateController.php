@@ -3,7 +3,6 @@
     namespace KarimQaderi\Zoroaster\Http\Controllers\Resource;
 
     use App\Http\Controllers\Controller;
-    use Illuminate\Support\Facades\Validator;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
@@ -12,24 +11,23 @@
         public function handle(ResourceRequest $request)
         {
 
-
-            $data = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
-                if($field->showOnUpdate == true && $field->OnUpdate == true && $field->customResourceController == false)
+            $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
+                if($field->showOnUpdate == true && $field->OnUpdate == true)
                     return true;
                 else
                     return false;
             }));
 
 
-            $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
-            if($validator->fails())
-                return redirect()->back()->withErrors($validator->messages())->withInput();
+//            $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
+//            if($validator->fails())
+//                return redirect()->back()->withErrors($validator->messages())->withInput();
 
 
-            $resource = $this->Update($request , $data);
+            $resource = $this->Update($request);
 
 
-            $this->CustomResourceController($request , $resource , $data->validator , $data->customAttributes);
+            $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest);
 
 
             return back()->with([
@@ -41,10 +39,9 @@
 
         /**
          * @param ResourceRequest $request
-         * @param $data
          * @return mixed
          */
-        private function Update(ResourceRequest $request , $data)
+        private function Update(ResourceRequest $request)
         {
             $resource = $request->Model()->where([$request->Model()->getKeyName() => $request->getResourceId()])->first();
 
@@ -52,7 +49,7 @@
 
             $request->authorizeTo($request->Resource()->authorizeToUpdate($resource));
 
-            $resource->update($data->request);
+//            $resource->update($data->request);
 
             return $resource;
         }
@@ -61,14 +58,16 @@
          * @param ResourceRequest $request
          * @param $resource
          */
-        private function CustomResourceController(ResourceRequest $request , $resource , $validator , $customAttributes): void
+        private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest): void
         {
             $customResourceController = $request->ResourceFields(function($field){
-                if($field->OnUpdate == true && $field->customResourceController == true)
+                if($field->OnUpdate == true)
                     return true;
                 else
                     return false;
             });
+
+            $Update = [];
 
             foreach($customResourceController as $field){
 
@@ -77,12 +76,16 @@
                 $RequestField->resource = $resource;
                 $RequestField->field = $field;
                 $RequestField->fieldAll = $customResourceController;
-                $RequestField->validator = $validator;
-                $RequestField->customAttributes = $customAttributes;
+                $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
 
-                $field->ResourceUpdate($RequestField);
+                $Update = array_merge($Update , $field->ResourceUpdate($RequestField));
 
             }
+
+            $resource->update($Update);
+
+
+
         }
 
 

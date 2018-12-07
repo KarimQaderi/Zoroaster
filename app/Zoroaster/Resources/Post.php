@@ -52,6 +52,12 @@
          */
         public function fields()
         {
+
+//            new reperater("Name" , "NameGroup")->field([
+//            Text:make("name1" , "NameGroup[${number}][name1]"),
+//              Text:make("name2" , "NameGroup[${number}][name2]"),
+//              ]),
+
             return [
                 new Row([
                     new Col('uk-width-2-3' , [
@@ -80,16 +86,23 @@
 
                             new RowOneCol([
                                 Image::make('عکس پست' , 'img')
-                                    ->resize('small' , 200 , 300)
-                                    ->resize('small33' , 200 , 300)
-                                    ->onlyOnForms() ,
+//                                    ->resize('small' , 20 , 30)
+//                                    ->resize('smagggll33' , 200 , 300)
+                                    ->onlyOnForms()
+                                    ->storeOriginalName(function($file){
+                                        return now()->day . '-' . time() . '-' . $file->getClientOriginalName();
+                                    })
+                                    ->path(function(){
+                                        return 'posts' . '/' . now()->year . '/' . now()->month;
+                                    }) ,
                             ]) ,
 
                             new RowOneCol([
                                 Image::make('گالری' , 'img_multi')
-                                    ->resize('small' , 200 , 300)
-                                    ->resize('small33' , 200 , 300)
-                                    ->onlyOnForms() ,
+//                                    ->resize('small' , 20 , 30)
+//                                    ->resize('smagll33' , 200 , 300)
+                                    ->onlyOnForms()
+                                    ->multiImage(2) ,
                             ]) ,
 
 
@@ -149,15 +162,15 @@
             return $eloquent->orderByDesc('updated_at');
         }
 
-        public function authorizeToUpdate($data)
-        {
-            return $data->user_id == auth()->id();
-        }
-
-
-        public function authorizeToDelete($data)
-        {
-            return $data->user_id == auth()->id();
-        }
+//        public function authorizeToUpdate($data)
+//        {
+//            return $data->user_id == auth()->id();
+//        }
+//
+//
+//        public function authorizeToDelete($data)
+//        {
+//            return $data->user_id == auth()->id();
+//        }
 
     }

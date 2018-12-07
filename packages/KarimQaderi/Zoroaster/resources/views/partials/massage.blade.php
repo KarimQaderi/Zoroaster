@@ -9,18 +9,25 @@
     </div>
 @endif
 
-@php($success=Session::get('success'))
-@if($success!==null)
-    <div class="uk-alert-success" uk-alert>
-        <a class="uk-alert-close" uk-close></a>
-        @if(is_array($success))
-            <ul>
-                @foreach ($success as $massage)
-                    <li>{!! $massage !!}</li>
-                @endforeach
-            </ul>
+    {{ Session::get('kekssssseyy') }}
+@foreach(['success','error'] as $_massage)
+    @php($txt_massage=Session::get($_massage))
+    @if($txt_massage !== null)
+
+        @if(is_array($txt_massage))
+            <div class="uk-alert-success" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <ul>
+                    @foreach ($txt_massage as $massage)
+                        <li>{!! $massage !!}</li>
+                    @endforeach
+                </ul>
+            </div>
         @else
-            <p>{!! $success !!}</p>
+            <script>
+                UIkit.notification({message: '{!! $txt_massage !!}', status: '{{ $_massage }}'})
+            </script>
         @endif
-    </div>
-@endisset
+
+    @endisset
+@endforeach

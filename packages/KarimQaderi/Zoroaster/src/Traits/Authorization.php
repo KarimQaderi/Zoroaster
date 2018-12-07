@@ -57,4 +57,12 @@
             return true;
         }
 
+        /**
+         * @return bool
+         */
+        public function authorizedToRestore($data)
+        {
+            return true;
+        }
+
     }

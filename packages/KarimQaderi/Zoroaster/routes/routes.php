@@ -17,11 +17,13 @@
             Route::put('/{resource}/{resourceId}/update' , 'ResourceUpdateController@handle')->name('update');
             Route::post('/{resource}/store' , 'ResourceStoreController@handle')->name('store');
             Route::delete('/{resource}' , 'ResourceDestroyController@handle')->name('destroy');
+            Route::put('/{resource}/restore' , 'ResourceRestoreController@handle')->name('restore');
 
 
         });
 
-        Route::post('/upload-fields' , 'UpdateFieldController@upload')->name('upload.fields');
+        Route::post('/AjaxFieldController' , 'AjaxFieldController@handle')->name('Ajax.field');
+        Route::get('/Field/{controller}/{field}' , 'AjaxFieldController@handle')->name('controller.field');
 //        Route::post('/UploadFile/Delete' , 'UploadFileControllers@delete')->name('DeleteFile');
 
     });

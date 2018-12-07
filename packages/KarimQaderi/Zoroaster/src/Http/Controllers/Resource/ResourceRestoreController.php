@@ -5,13 +5,12 @@
     use App\Http\Controllers\Controller;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
-    class ResourceCreateController extends Controller
+    class ResourceRestoreController extends Controller
     {
         public function handle(ResourceRequest $request)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToCreate($request->Model()));
-
+            $request->authorizeTo($request->Resource()->authorizedToRestore($request->Model()));
 
             return view('Zoroaster::resources.Form')->with([
                 'request' => $request ,

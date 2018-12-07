@@ -3,7 +3,9 @@
 
     use App\Zoroaster\Other\Dashboard;
     use App\Zoroaster\Other\Sidebar;
+    use Illuminate\Support\Facades\File;
     use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
+
 
     class Zoroaster
     {
@@ -13,7 +15,7 @@
         {
             $Actions = null;
             foreach($request->Resource()->ResourceActions() as $Action){
-                if($Action->{'hideFrom' . $view} == false && $Action->Authorization($request->Resource(),$data))
+                if($Action->{'hideFrom' . $view} == false && $Action->Authorization($request->Resource() , $data))
                     $Actions .= $Action->render($request , $data , $model , $view , $field);
 
             }
@@ -39,6 +41,40 @@
                 return new $resource;
             else
                 return null;
+        }
+
+        public static function newResourceByResourceName($ResourceName)
+        {
+            return SrcZoroaster::newResource($ResourceName);
+        }
+
+        public static function getFieldResource($Resource , $field)
+        {
+            if(is_string($Resource))
+                $Resource = SrcZoroaster::newResource($Resource);
+
+            return self::ResourceFieldFind($field,$Resource->fields());
+        }
+
+
+        public static function ResourceFieldFind($FindNameField , $fields)
+        {
+            $find = null;
+
+            foreach($fields as $field){
+                switch(true){
+                    case isset($field->data):
+                        $find = self::ResourceFieldFind($FindNameField , $field->data);
+                        break;
+                    default:
+                        if($field->name == $FindNameField)
+                            $find =  $field;
+                        break;
+                }
+                if(!is_null($find)) break;
+            }
+
+            return $find;
         }
 
         public static function getFullNameResourceByModelName($modelName)
@@ -199,5 +235,21 @@
             return $size;
         }
 
+
+        public static function makeDirectory($upPath)
+        {
+
+
+            $tags = explode('/' , str_replace('//' , '/' , $upPath));            // explode the full path
+            $mkDir = "";
+
+            foreach($tags as $folder){
+                $mkDir = $mkDir . $folder . "/";   // make one directory join one other for the nest directory to make
+                if(!File::exists($mkDir)){             // check if directory exist or not
+                    File::makeDirectory($mkDir);
+                }
+            }
+
+        }
 
     }

@@ -4,6 +4,7 @@
 
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
+    use KarimQaderi\Zoroaster\ResourceActions\Restore;
     use KarimQaderi\Zoroaster\ResourceActions\Show;
     use KarimQaderi\Zoroaster\Traits\Authorization;
 
@@ -48,6 +49,7 @@
                 new Show() ,
                 new Edit() ,
                 new Delete() ,
+                new Restore() ,
             ];
         }
 

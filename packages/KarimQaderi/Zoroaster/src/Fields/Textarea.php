@@ -4,9 +4,12 @@
 
 
     use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Traits\Resource;
+
 
     class Textarea extends Field
     {
+        use Resource;
 
         /**
          * The field's component.
@@ -21,4 +24,5 @@
                 'rows' => $rows,
             ]);
         }
+
     }
