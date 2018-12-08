@@ -1,5 +1,1 @@
-<a href="{{ route('Zoroaster.resource.edit',['resource'=> class_basename($request->Resource()),'resourceId'=> $data->{$model->getKeyName()}]) }}" class="uk-icon action--edit">
-    <svg width="20" height="20" viewBox="0 0 20 20">
-        <path d="M4.3 10.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM6 14h2.59l9-9L15 2.41l-9 9V14zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h6a1 1 0 1 1 0 2H2v14h14v-6z"></path>
-    </svg>
-</a>
+<a uk-icon="edit" href="{{ route('Zoroaster.resource.edit',['resource'=> class_basename($request->Resource()),'resourceId'=> $data->{$model->getKeyName()}]) }}" class="uk-icon action--edit"></a>

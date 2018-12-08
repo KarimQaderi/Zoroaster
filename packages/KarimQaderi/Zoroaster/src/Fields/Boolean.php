@@ -7,7 +7,7 @@
 
     class Boolean extends Field
     {
-
+        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
         /**
          * The field's component.
          *
@@ -26,8 +26,10 @@
             $value = $requestField->request->{$requestField->field->name};
 
             return [
-                $requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0
+                'error' => $this->getValidatorField($requestField),
+                'data' => [$requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0] ,
             ];
+
         }
 
 
@@ -37,7 +39,8 @@
             $value = $requestField->request->{$requestField->field->name};
 
             return [
-                $requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0
+                'error' => $this->getValidatorField($requestField),
+                'data' => [$requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0] ,
             ];
         }
 
@@ -46,7 +49,8 @@
             $value = $requestField->request->{$requestField->field->name};
 
             return [
-                $requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0
+                'error' => $this->getValidatorField($requestField),
+                'data' => [$requestField->field->name => ($value === 'on' || $value === 1) ? 1 : 0] ,
             ];
         }
 

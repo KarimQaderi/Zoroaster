@@ -94,8 +94,7 @@
                         if(isset($field->Access)){
                             if($field->Access)
                                 $items .= $field->Render($field);
-                        }
-                        else
+                        } else
                             $items .= $field->Render($field);
                         break;
                 }
@@ -103,6 +102,8 @@
 
             return $items;
         }
+
+
 
 
     }

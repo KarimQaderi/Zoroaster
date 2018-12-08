@@ -145,17 +145,6 @@
         }
 
 
-        /**
-         * Get the filters available for the resource.
-         *
-         * @return array
-         */
-        public function filters()
-        {
-            return [
-
-            ];
-        }
 
         public function AddingAdditionalConstraintsForViewIndex($eloquent)
         {

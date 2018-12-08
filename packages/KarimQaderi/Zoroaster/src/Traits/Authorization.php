@@ -52,6 +52,14 @@
         /**
          * @return bool
          */
+        public function authorizeToForceDelete($data)
+        {
+            return true;
+        }
+
+        /**
+         * @return bool
+         */
         public function authorizedToAdd($data)
         {
             return true;

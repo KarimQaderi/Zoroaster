@@ -11,6 +11,27 @@
     {
 
 
+        private function getValidatorField(RequestField $requestField)
+        {
+            $fieldName = $requestField->field->name;
+            $field = \Zoroaster::getFieldResource(class_basename($requestField->resource) , $fieldName);
+            $validator = MainValidator::make(
+                $requestField->MergeResourceFieldsAndRequest->request ,
+                [
+                    $fieldName => $field->rules
+                ]
+                , [] ,
+                $requestField->MergeResourceFieldsAndRequest->customAttributes);
+
+
+            if($validator->fails())
+                return $validator->messages();
+
+
+            return null;
+
+        }
+
         private function validator(RequestField $requestField)
         {
             $validator = MainValidator::make($requestField->MergeResourceFieldsAndRequest->request , $requestField->MergeResourceFieldsAndRequest->validator , [] , $requestField->MergeResourceFieldsAndRequest->customAttributes);
@@ -20,7 +41,6 @@
                 $resp->send();
                 exit();
             }
-
         }
 
         private function SendErrors($validator)

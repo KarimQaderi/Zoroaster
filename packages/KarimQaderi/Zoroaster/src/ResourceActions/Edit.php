@@ -3,9 +3,12 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class Edit extends Button
+    class Edit extends ShowOrHiden
     {
         public $component = 'edit';
+
+        public $showFromDetail = true;
+        public $showFromIndex = true;
 
         public function render($request , $data , $model , $view , $field = null)
         {
@@ -19,8 +22,8 @@
                 ]);
         }
 
-        public function Authorization($authorization,$data)
+        public function Authorization($request,$data)
         {
-            return $authorization->authorizeToUpdate($data);
+            return $request->Resource()->authorizeToUpdate($data);
         }
     }

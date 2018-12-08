@@ -5,23 +5,21 @@
     use App\Http\Controllers\Controller;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
-    class ResourceRestoreController extends Controller
+    class ResourceSoftDeletingController extends Controller
     {
         public function handle(ResourceRequest $request)
         {
-
-
             $cols = null;
             $col = null;
             foreach(request()->resourceId as $id){
 
-                $find = $request->Model()->withTrashed()->where([$request->Model()->getKeyName() => $id])->first();
+                $find = $request->Model()->where([$request->Model()->getKeyName() => $id])->first();
 
                 if(is_null($find)) break;
 
-                $request->authorizeTo($request->Resource()->authorizedToRestore($find));
+                $request->authorizeTo($request->Resource()->authorizeToDelete($find));
 
-                $find->restore();
+                $find->delete();
 
                 $col = \Zoroaster::ResourceActions($request ,
                     $find ,
@@ -54,4 +52,4 @@
 
 
 
-}
+    }

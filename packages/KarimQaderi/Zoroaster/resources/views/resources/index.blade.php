@@ -45,15 +45,13 @@
                             </div>
                             <div uk-dropdown="mode: click">
                                 @include('Zoroaster::resources.filters.perPage')
+
+                                {!! Zoroaster::Filters($request) !!}
+
                             </div>
                         </div>
 
-                        <div class="filter-selector bg-hover uk-icon delete-one-resource-multi">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-labelledby="delete" role="presentation" class="fill-current text-80">
-                                <path fill-rule="nonzero"
-                                      d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"></path>
-                            </svg>
-                        </div>
+                        {!! Zoroaster::ResourceActions($request,null,$model,'IndexTopLeft',null) !!}
 
                     </div>
                 </div>
@@ -140,38 +138,55 @@
 
             });
 
-            $(document).on('click', '.delete-one-resource', function () {
+            $(document).on('click', '.ForceDeleting', function () {
 
                 $this = $(this);
 
                 UIkit.modal.confirm(
                     '<h2>حذف رکورد</h2>' +
                     '<h3>شما دارید این رکورد رو حذف می کنید مطمئن هستید</h3>'
-                    , {labels: {ok: 'حذف', cancel: 'خیر'}}).then(function () {
+                    , {
+                        labels: {ok: 'حذف', cancel: 'خیر'},
+                        addClass: 'modal_delete'
+                    }).then(function () {
                     Destroy([$this.attr('resourceId')]);
                 });
 
             });
 
-            $(document).on('click', '.delete-one-resource-multi', function () {
+            $(document).on('click', '.softDeleting', function () {
 
-                var arrResourceId = [];
-
-                $('.key_dataTable_{{ $model->getKeyName() }}:checked').each(function () {
-                    arrResourceId.push(this.value);
-                });
+                $this = $(this);
 
                 UIkit.modal.confirm(
-                    '<h2>حذف رکورد ها</h2>' +
-                    '<h3>شما دارید این  رکورد ها رو حذف می کنید مطمئن هستید</h3>'
+                    '<h2>حذف رکورد</h2>' +
+                    '<h3>شما دارید این رکورد رو حذف می کنید مطمئن هستید</h3>'
                     , {
                         labels: {ok: 'حذف', cancel: 'خیر'},
                         addClass: 'modal_delete'
                     }).then(function () {
-                    Destroy(arrResourceId);
+                    DestroySoftDeleting([$this.attr('resourceId')]);
                 });
 
             });
+
+            $(document).on('click', '.restore-one-resource', function () {
+
+                $this = $(this);
+
+                UIkit.modal.confirm(
+                    '<h2>بازیابی رکورد</h2>' +
+                    '<h3>شما دارید این رکورد رو بازیابی می کنید مطمئن هستید</h3>'
+                    , {
+                        labels: {ok: 'بله', cancel: 'خیر'},
+                        addClass: 'modal_restore'
+                    }).then(function () {
+                    Restore([$this.attr('resourceId')]);
+                });
+
+            });
+
+
         });
 
 
@@ -210,6 +225,100 @@
         }
 
 
+        function DestroySoftDeleting($resourceId) {
+            $destroy_resourceId = $resourceId;
+
+            $.each($destroy_resourceId, function (_key, _value) {
+                $('[destroy-resourceId="' + _value + '"]').addClass('destroy-resourceid');
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('Zoroaster.resource.softDeleting',['resource'=> $request->resourceClass ]) }}',
+                data: {
+                    _token: $('meta[name="_token"]').attr('content'),
+                    resourceId: $destroy_resourceId
+                },
+                success: function (data) {
+                    // console.log(data);
+                    $.each(data, function (_key, _value) {
+                        var destroy = $('[destroy-resourceId="' + _value.id + '"]');
+                        destroy.find('.action_btn').html(_value.col);
+                        destroy.removeClass('destroy-resourceid');
+                    });
+
+                },
+                error: function (data) {
+
+                    var errors = data.responseJSON;
+                    console.log(errors.errors);
+
+                    // $.each(errors.errors, function (key, item) {
+                    //     errorsHtml += '<li>' + item + '</li>'; //showing only the first error.
+                    // });
+
+                }
+            });
+        }
+
+
+        function Restore($resourceId) {
+            $destroy_resourceId = $resourceId;
+
+            $.each($destroy_resourceId, function (_key, _value) {
+                $('[destroy-resourceId="' + _value + '"]').addClass('Restore-resourceid');
+            });
+
+            $.ajax({
+                type: 'PUT',
+                url: '{{ route('Zoroaster.resource.restore',['resource'=> $request->resourceClass ]) }}',
+                data: {
+                    _token: $('meta[name="_token"]').attr('content'),
+                    resourceId: $destroy_resourceId
+                },
+                success: function (data) {
+                    // console.log(data);
+                    $.each(data, function (_key, _value) {
+                        var destroy = $('[destroy-resourceId="' + _value.id + '"]');
+                        destroy.find('.action_btn').html(_value.col);
+                        destroy.removeClass('Restore-resourceid');
+                    });
+
+                },
+                error: function (data) {
+
+                    var errors = data.responseJSON;
+                    console.log(errors.errors);
+
+                    // $.each(errors.errors, function (key, item) {
+                    //     errorsHtml += '<li>' + item + '</li>'; //showing only the first error.
+                    // });
+
+                }
+            });
+        }
+
+
+
+        function setGetParameter(paramName, paramValue) {
+            var url = window.location.href;
+            var hash = location.hash;
+            url = url.replace(hash, '');
+            if (url.indexOf(paramName + "=") >= 0) {
+                var prefix = url.substring(0, url.indexOf(paramName));
+                var suffix = url.substring(url.indexOf(paramName));
+                suffix = suffix.substring(suffix.indexOf("=") + 1);
+                suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+                url = prefix + paramName + "=" + paramValue + suffix;
+            }
+            else {
+                if (url.indexOf("?") < 0)
+                    url += "?" + paramName + "=" + paramValue;
+                else
+                    url += "&" + paramName + "=" + paramValue;
+            }
+            window.location.href = url + hash;
+        }
     </script>
 
 @endsection

@@ -9,21 +9,26 @@
     {
         public function handle(ResourceRequest $request)
         {
+            foreach(request()->resourceId as $id){
+                if(method_exists($request->Model() , 'isForceDeleting'))
+                    $find = $request->Model()->withTrashed()->where([$request->Model()->getKeyName() => $id])->first();
+                else
+                    $find = $request->Model()->where([$request->Model()->getKeyName() => $id])->first();
 
-            $request->authorizeTo($request->Resource()->authorizeToDelete($request->Model()->find(request()->resourceId)));
+                $request->authorizeTo($request->Resource()->authorizeToForceDelete($find));
 
-            $request->Model()->destroy(request()->resourceId);
+                if(method_exists($request->Model() , 'isForceDeleting'))
+                    $find->forceDelete();
+                else
+                    $request->Model()->destroy($id);
+            }
 
-
-            dd(request()->has('redirect'));
             if(request()->has('redirect'))
-                 redirect(request()->redirect)->with([
+                redirect(request()->redirect)->with([
                     'success' => 'منبع مورد نظر حذف شد'
                 ])->send();
 
-            return response([
-                'status' => 'ok'
-            ]);
+            return response(['status' => 'ok']);
         }
 
-}
+    }

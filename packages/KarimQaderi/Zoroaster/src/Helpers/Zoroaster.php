@@ -11,11 +11,24 @@
     {
 
 
+        public static function Filters($request)
+        {
+            $Filters = null;
+            if($request->Resource()->filters() != null)
+                foreach($request->Resource()->filters() as $filter){
+                    if($filter->canSee($request))
+                        $Filters .= $filter->render($request)->render();
+                }
+
+            return $Filters;
+
+        }
+
         public static function ResourceActions($request , $data , $model , $view , $field = null)
         {
             $Actions = null;
             foreach($request->Resource()->ResourceActions() as $Action){
-                if($Action->{'hideFrom' . $view} == false && $Action->Authorization($request->Resource() , $data))
+                if($Action->{'showFrom' . $view} == true && $Action->Authorization($request , $data))
                     $Actions .= $Action->render($request , $data , $model , $view , $field);
 
             }
@@ -53,7 +66,7 @@
             if(is_string($Resource))
                 $Resource = SrcZoroaster::newResource($Resource);
 
-            return self::ResourceFieldFind($field,$Resource->fields());
+            return self::ResourceFieldFind($field , $Resource->fields());
         }
 
 
@@ -68,7 +81,7 @@
                         break;
                     default:
                         if($field->name == $FindNameField)
-                            $find =  $field;
+                            $find = $field;
                         break;
                 }
                 if(!is_null($find)) break;

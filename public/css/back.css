@@ -1672,10 +1672,12 @@ tr.destroy-resourceid td {
     padding-left: 15px !important;
     padding-right: 15px !important;
     margin-right: 10px;
+    display: inline-block;
 }
 
 .ResourceActions button:hover, .ResourceActions a:hover {
     opacity: .8;
+    /* background-color: rgb(255, 255, 255); */
 }
 
 .resourceName_2 a.btn {
@@ -1689,4 +1691,68 @@ tr.destroy-resourceid td {
 
 .uk-alert-danger.uk-alert {
     margin: 0 30px;
+}
+
+tr.Restore-resourceid td {
+    background-color: rgba(76, 175, 80, 0.21);
+}
+
+
+.modal_restore  form .uk-modal-footer {
+    background-color: rgb(244, 247, 250);
+}
+
+.modal_restore  form .uk-button-primary {
+    background-color: rgb(64, 153, 222);
+    color: #fff;
+    border: 0;
+    border-radius: 3px;
+    padding: 2px 30px;
+}
+
+.modal_restore  form .uk-button-primary:hover {
+    opacity: .9;
+}
+
+.modal_restore .uk-modal-body > h2 {
+    color: rgb(86, 86, 86);
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px !important;
+    /* margin-top: -10px; */
+}
+
+.modal_restore .uk-modal-body > h3 {
+    font-size: 15px;
+    font-weight: normal;
+    /* margin-bottom: -10px !important; */
+}
+
+.modal_restore form .uk-button-default {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    /* border-color: #000; */
+    border-radius: 3px;
+    padding: 2px 30px;
+}
+
+
+.modal_restore form, .modal_delete form {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 500px;
+    margin: auto;
+}
+
+.bg-hover {
+    background-color: rgb(244, 247, 250);
+    display: inline-flex;
+    border-radius: .25rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    height: 2.25rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
 }

@@ -8,6 +8,8 @@
 
     class ResourceUpdateController extends Controller
     {
+        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
+
         public function handle(ResourceRequest $request)
         {
 
@@ -67,7 +69,8 @@
                     return false;
             });
 
-            $Update = [];
+            $ResourceData = [];
+            $ResourceError = [];
 
             foreach($customResourceController as $field){
 
@@ -78,12 +81,25 @@
                 $RequestField->fieldAll = $customResourceController;
                 $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
 
-                $Update = array_merge($Update , $field->ResourceUpdate($RequestField));
+                $ResourceUpdate = (object)$field->ResourceUpdate($RequestField);
+                if(isset($ResourceUpdate->error) && $ResourceUpdate->error !== null){
+
+                    if(is_array($ResourceUpdate->error))
+                        $ResourceError = array_merge($ResourceError , $ResourceUpdate->error);
+                    else
+                        $ResourceError = array_merge($ResourceError , $ResourceUpdate->error->messages());
+
+                } else
+                    $ResourceData = array_merge($ResourceData , $ResourceUpdate->data);
+
+
 
             }
 
-            $resource->update($Update);
-
+            if(count($ResourceError) !== 0)
+                $this->SendErrors($ResourceError);
+            else
+                $resource->update($ResourceData);
 
 
         }

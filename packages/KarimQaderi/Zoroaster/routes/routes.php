@@ -9,15 +9,16 @@
         Route::get('/' , 'DashboardController@handle')->name('home');
         Route::get('/Settings/icons' , 'SettingsIconsController@handle')->name('settings.icons');
 
-        Route::group(['prefix' => 'resource' , 'as' => 'resource.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function(){
-            Route::get('/{resource}' , 'ResourceIndexController@handle')->name('index');
-            Route::get('/{resource}/create' , 'ResourceCreateController@handle')->name('create');
-            Route::get('/{resource}/{resourceId}/show' , 'ResourceShowController@handle')->name('show');
-            Route::get('/{resource}/{resourceId}/edit' , 'ResourceEditController@handle')->name('edit');
-            Route::put('/{resource}/{resourceId}/update' , 'ResourceUpdateController@handle')->name('update');
-            Route::post('/{resource}/store' , 'ResourceStoreController@handle')->name('store');
-            Route::delete('/{resource}' , 'ResourceDestroyController@handle')->name('destroy');
-            Route::put('/{resource}/restore' , 'ResourceRestoreController@handle')->name('restore');
+        Route::group(['prefix' => 'resource/{resource}' , 'as' => 'resource.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function(){
+            Route::get('/' , 'ResourceIndexController@handle')->name('index');
+            Route::get('/create' , 'ResourceCreateController@handle')->name('create');
+            Route::get('/{resourceId}/show' , 'ResourceShowController@handle')->name('show');
+            Route::get('/{resourceId}/edit' , 'ResourceEditController@handle')->name('edit');
+            Route::put('/{resourceId}/update' , 'ResourceUpdateController@handle')->name('update');
+            Route::post('/store' , 'ResourceStoreController@handle')->name('store');
+            Route::delete('/' , 'ResourceDestroyController@handle')->name('destroy');
+            Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
+            Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
 
 
         });

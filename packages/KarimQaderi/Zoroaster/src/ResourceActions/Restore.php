@@ -3,10 +3,12 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class Restore extends Button
+    class Restore extends ShowOrHiden
     {
         public $component = 'show';
-        public $hideFromDetail = true;
+
+        public $showFromIndex = true;
+        public $showFromDetail = true;
 
         public function render($request , $data , $model , $view , $field = null)
         {
@@ -20,10 +22,10 @@
                 ]);
         }
 
-        public function Authorization($authorization , $data)
+        public function Authorization($request , $data)
         {
-            if($data->attributesToArray('deleted_at') && $data->deleted_at != null)
-                return $authorization->authorizedToRestore($data);
+            if(method_exists($request->Model() , 'isForceDeleting') && $data->deleted_at != null)
+                return $request->Resource()->authorizedToRestore($data);
             else
                 return false;
         }

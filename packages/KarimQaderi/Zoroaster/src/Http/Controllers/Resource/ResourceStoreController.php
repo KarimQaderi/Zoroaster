@@ -8,6 +8,8 @@
 
     class ResourceStoreController extends Controller
     {
+        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
+
         public function handle(ResourceRequest $request)
         {
 
@@ -27,7 +29,7 @@
 
 
 //            $this->CustomResourceController($request , $MergeResourceFieldsAndRequest,'beforeResourceStore');
-            $resource = $request->Model()->create($this->CustomResourceController($request , null , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
+            $resource = $request->Model()->create($this->CustomResourceController($request , $request->Model() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'beforeResourceStore');
 
@@ -51,7 +53,8 @@
                     return false;
             });
 
-            $beforeResourceStore = [];
+            $ResourceData = [];
+            $ResourceError = [];
             foreach($customResourceController as $field){
 
                 $RequestField = new RequestField();
@@ -59,14 +62,27 @@
                 $RequestField->resource = $resource;
                 $RequestField->field = $field;
                 $RequestField->fieldAll = $customResourceController;
-                $RequestField->validator = $MergeResourceFieldsAndRequest->validator;
-                $RequestField->customAttributes = $MergeResourceFieldsAndRequest->customAttributes;
+                $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
 
-                $beforeResourceStore = array_merge($beforeResourceStore , $field->$method($RequestField));
+
+
+                $beforeResourceData = (object)$field->$method($RequestField);
+                if(isset($beforeResourceData->error) && $beforeResourceData->error !== null){
+
+                    if(is_array($beforeResourceData->error))
+                        $ResourceError = array_merge($ResourceError , $beforeResourceData->error);
+                    else
+                        $ResourceError = array_merge($ResourceError , $beforeResourceData->error->messages());
+
+                } else
+                    $ResourceData = array_merge($ResourceData , $beforeResourceData->data);
 
             }
 
-            return $beforeResourceStore;
+            if(count($ResourceError) !== 0)
+                $this->SendErrors($ResourceError);
+            else
+                return $ResourceData;
         }
 
 

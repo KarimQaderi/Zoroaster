@@ -3,17 +3,16 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class Delete extends ShowOrHiden
+    class DeleteAll extends ShowOrHiden
     {
 
         public $component = 'delete';
 
-        public $showFromDetail = true;
-        public $showFromIndex = true;
+        public $showFromIndexTopLeft = true;
 
         public function render($request , $data , $model , $view , $field = null)
         {
-            return view('Zoroaster::resources.actions.delete')
+            return view('Zoroaster::resources.actions.deleteAll')
                 ->with([
                     'request' => $request ,
                     'data' => $data ,
@@ -25,13 +24,7 @@
 
         public function Authorization($request , $data)
         {
-            if(array_key_exists('deleted_at' , $data->attributesToArray())){
-                if($data->deleted_at !== null)
-                    return false;
-                else
-                    return $request->Resource()->authorizeToDelete($data);
-            } else
-                return $request->Resource()->authorizeToForceDelete($data);
+            return $request->Resource()->authorizeToForceDelete($data);
 
         }
 

@@ -3,12 +3,13 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class Show extends Button
+    class Show extends ShowOrHiden
     {
         public $component = 'show';
-        public $hideFromDetail = true;
 
-        public function render($request , $data , $model  , $view, $field = null)
+        public $showFromIndex = true;
+
+        public function render($request , $data , $model , $view , $field = null)
         {
             return view('Zoroaster::resources.actions.show')
                 ->with([
@@ -20,9 +21,9 @@
                 ]);
         }
 
-        public function Authorization($authorization,$data)
+        public function Authorization($request , $data)
         {
-            return $authorization->authorizeToShow($data);
+            return $request->Resource()->authorizeToShow($data);
         }
 
     }

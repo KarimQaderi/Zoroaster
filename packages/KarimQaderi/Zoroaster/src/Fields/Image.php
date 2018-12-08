@@ -9,6 +9,7 @@
 
     class Image extends File
     {
+        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
         /**
          * The field's component.
@@ -149,7 +150,11 @@
 
                 }
 
-            return [$requestField->field->name => $setValues];
+            return [
+                'error' => $this->getValidatorField($requestField),
+                'data' =>  [$requestField->field->name => $setValues] ,
+            ];
+
         }
 
 

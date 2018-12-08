@@ -10,7 +10,9 @@
         public function handle(ResourceRequest $request)
         {
 
-
+            if(method_exists($request->Model() , 'isForceDeleting'))
+            $resources = $request->Model()->withTrashed()->findOrFail(($request->RequestParameters()->resourceId));
+            else
             $resources = $request->Model()->findOrFail(($request->RequestParameters()->resourceId));
 
             $request->authorizeTo($request->Resource()->authorizeToShow($resources));

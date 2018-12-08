@@ -3,9 +3,13 @@
     namespace KarimQaderi\Zoroaster\Abstracts;
 
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
+    use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
+    use KarimQaderi\Zoroaster\ResourceActions\ForceDelete;
+    use KarimQaderi\Zoroaster\ResourceActions\ForceDeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Restore;
     use KarimQaderi\Zoroaster\ResourceActions\Show;
+    use KarimQaderi\Zoroaster\ResourceFilters\Trashed;
     use KarimQaderi\Zoroaster\Traits\Authorization;
 
     abstract class ZoroasterResource
@@ -36,7 +40,12 @@
 
         abstract public function fields();
 
-        abstract public function filters();
+        public function filters()
+        {
+            return [
+                new Trashed(),
+            ];
+        }
 
         public function AddingAdditionalConstraintsForViewIndex($eloquent)
         {
@@ -49,6 +58,9 @@
                 new Show() ,
                 new Edit() ,
                 new Delete() ,
+                new DeleteAll() ,
+                new ForceDeleteAll() ,
+                new ForceDelete() ,
                 new Restore() ,
             ];
         }

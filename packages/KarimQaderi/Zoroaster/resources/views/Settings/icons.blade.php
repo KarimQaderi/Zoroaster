@@ -5,7 +5,20 @@
 
 
     <div class="card-w uk-padding-small">
-        <h4 class="uk-heading-line"><span>App</span></h4>
+        <h4 class="uk-heading-line"><span>...</span></h4>
+
+        <div class="uk-child-width-1-3@s" uk-grid>
+            <div>
+                <ul class="uk-list">
+                    <li><span class="uk-margin-small-right" uk-icon="edit"></span> edit</li>
+                    <li><span class="uk-margin-small-right" uk-icon="view"></span> view</li>
+                    <li><span class="uk-margin-small-right" uk-icon="delete"></span> delete</li>
+                    <li><span class="uk-margin-small-right" uk-icon="force-delete"></span> force-delete</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4 class="uk-heading-line  uk-margin-top"><span>App</span></h4>
 
         <div class="uk-child-width-1-3@s" uk-grid>
             <div>
@@ -33,9 +46,6 @@
                     <li><span class="uk-margin-small-right" uk-icon="search"></span> search</li>
                     <li><span class="uk-margin-small-right" uk-icon="location"></span> location</li>
                     <li><span class="uk-margin-small-right" uk-icon="bookmark"></span> bookmark</li>
-                    <li><span class="uk-margin-small-right" uk-icon="edit"></span> edit</li>
-                    <li><span class="uk-margin-small-right" uk-icon="view"></span> view</li>
-                    <li><span class="uk-margin-small-right" uk-icon="delete"></span> delete</li>
                 </ul>
 
             </div>

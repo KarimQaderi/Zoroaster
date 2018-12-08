@@ -36,8 +36,15 @@
         }
 
 
-        private function toQuery($resources , $request)
+        private function toQuery($resources , ResourceRequest $request)
         {
+            if($request->Resource()->filters() != null)
+                foreach($request->Resource()->filters() as $filter){
+                    if($filter->canSee($request))
+                        $resources = $filter->handle($resources , $request);
+                }
+
+
             if(request()->has('search'))
                 $resources = $resources->where(function($q) use ($request){
                     foreach($request->Resource()->search as $field){
