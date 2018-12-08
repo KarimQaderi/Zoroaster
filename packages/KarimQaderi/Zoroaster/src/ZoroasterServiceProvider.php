@@ -35,7 +35,7 @@ class ZoroasterServiceProvider extends ServiceProvider
         ], 'Zoroaster-config');
 
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/Zoroaster'),
+            __DIR__.'/../publishable' => public_path('vendor/Zoroaster'),
         ], 'Zoroaster-assets');
 
         $this->publishes([
@@ -43,7 +43,7 @@ class ZoroasterServiceProvider extends ServiceProvider
         ], 'Zoroaster-lang');
 
         $this->publishes([
-            __DIR__.'/../resources/views/partials' => resource_path('views/vendor/Zoroaster/partials'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/Zoroaster'),
         ], 'Zoroaster-views');
 
         $this->publishes([
