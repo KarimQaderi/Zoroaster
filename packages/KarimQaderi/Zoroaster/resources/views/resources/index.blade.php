@@ -44,7 +44,6 @@
                                 </svg>
                             </div>
                             <div uk-dropdown="mode: click">
-                                @include('Zoroaster::resources.filters.perPage')
 
                                 {!! Zoroaster::Filters($request) !!}
 

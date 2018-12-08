@@ -162,4 +162,8 @@
 //            return $data->user_id == auth()->id();
 //        }
 
+        function filters()
+        {
+            // TODO: Implement filters() method.
+        }
     }

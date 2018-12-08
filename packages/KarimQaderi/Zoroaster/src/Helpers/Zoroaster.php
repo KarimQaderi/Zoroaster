@@ -4,6 +4,7 @@
     use App\Zoroaster\Other\Dashboard;
     use App\Zoroaster\Other\Sidebar;
     use Illuminate\Support\Facades\File;
+    use KarimQaderi\Zoroaster\ResourceFilters\DefaultFilters;
     use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
 
 
@@ -14,11 +15,14 @@
         public static function Filters($request)
         {
             $Filters = null;
+            $filters = (new DefaultFilters())->hendle();
             if($request->Resource()->filters() != null)
-                foreach($request->Resource()->filters() as $filter){
-                    if($filter->canSee($request))
-                        $Filters .= $filter->render($request)->render();
-                }
+                $filters = array_merge($request->Resource()->filters() , $filters);
+
+            foreach($filters as $filter){
+                if($filter->canSee($request))
+                    $Filters .= $filter->render($request)->render();
+            }
 
             return $Filters;
 

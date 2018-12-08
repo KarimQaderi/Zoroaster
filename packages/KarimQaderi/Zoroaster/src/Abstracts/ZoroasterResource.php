@@ -40,12 +40,7 @@
 
         abstract public function fields();
 
-        public function filters()
-        {
-            return [
-                new Trashed(),
-            ];
-        }
+        abstract function filters();
 
         public function AddingAdditionalConstraintsForViewIndex($eloquent)
         {
