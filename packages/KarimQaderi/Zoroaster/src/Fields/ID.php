@@ -26,9 +26,9 @@
          * @param  mixed|null $resolveCallback
          * @return void
          */
-        public function __construct($label = null , $name = null , $resolveCallback = null)
+        public function __construct($label = null , $name = null )
         {
-            parent::__construct($label ?? 'ID' , $name , $resolveCallback);
+            parent::__construct($label ?? 'ID' , $name);
         }
 
 

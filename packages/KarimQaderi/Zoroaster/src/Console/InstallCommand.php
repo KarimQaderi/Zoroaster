@@ -1,12 +1,13 @@
 <?php
 
-namespace Laravel\Nova\Console;
+namespace KarimQaderi\Zoroaster\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\DetectsApplicationNamespace;
 
 class InstallCommand extends Command
 {
-
+    use DetectsApplicationNamespace;
     /**
      * The name and signature of the console command.
      *
@@ -28,28 +29,27 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Nova Assets / Resources...');
+        $this->comment('Publishing Zoroaster Assets / Resources...');
         $this->callSilent('Zoroaster:publish');
 
-        $this->comment('Publishing Nova Service Provider...');
+        $this->comment('Publishing Zoroaster Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'Zoroaster-provider']);
 
         $this->registerZoroasterServiceProvider();
 
 
         $this->comment('Generating User Resource...');
-        $this->callSilent('nova:resource', ['name' => 'User']);
         copy(__DIR__.'/AppZoroaster/Other/Dashboard.stub', app_path('Zoroaster/Other/Dashboard.php'));
         copy(__DIR__.'/AppZoroaster/Other/Sidebar.stub', app_path('Zoroaster/Other/Sidebar.php'));
         copy(__DIR__.'/AppZoroaster/Resources/Post.stub', app_path('Zoroaster/Resources/Post.php'));
         copy(__DIR__.'/AppZoroaster/Resources/User.stub', app_path('Zoroaster/Resources/User.php'));
 
 
-        $this->info('Nova scaffolding installed successfully.');
+        $this->info('Zoroaster scaffolding installed successfully.');
     }
 
     /**
-     * Register the Nova service provider in the application configuration file.
+     * Register the Zoroaster service provider in the application configuration file.
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class InstallCommand extends Command
 
         file_put_contents(config_path('app.php'), str_replace(
             "{$namespace}\\Providers\EventServiceProvider::class,".PHP_EOL,
-            "{$namespace}\\Providers\EventServiceProvider::class,".PHP_EOL."        {$namespace}\Providers\NovaServiceProvider::class,".PHP_EOL,
+            "{$namespace}\\Providers\EventServiceProvider::class,".PHP_EOL."        {$namespace}\Providers\ZoroasterServiceProvider::class,".PHP_EOL,
             file_get_contents(config_path('app.php'))
         ));
     }

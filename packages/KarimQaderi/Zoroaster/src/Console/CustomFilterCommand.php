@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Nova\Console;
+namespace KarimQaderi\Zoroaster\Console;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
-use Laravel\Nova\Console\Concerns\AcceptsNameAndVendor;
+use KarimQaderi\Zoroaster\Console\Concerns\AcceptsNameAndVendor;
 
 class CustomFilterCommand extends Command
 {

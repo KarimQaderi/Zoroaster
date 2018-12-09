@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Nova\Console;
+namespace KarimQaderi\Zoroaster\Console;
 
 use Illuminate\Filesystem\Filesystem;
 

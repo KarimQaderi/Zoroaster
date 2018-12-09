@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Nova\Console;
+namespace KarimQaderi\Zoroaster\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
@@ -12,7 +12,7 @@ class FilterCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'nova:filter';
+    protected $name = 'Zoroaster:filter';
 
     /**
      * The console command description.
@@ -52,7 +52,7 @@ class FilterCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Nova\Filters';
+        return $rootNamespace.'\Zoroaster\Filters';
     }
 
     /**

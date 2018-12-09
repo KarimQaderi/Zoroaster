@@ -54,16 +54,6 @@
             })->all();
         }
 
-        /**
-         * Get the default panel name for the given resource.
-         *
-         * @param  \Laravel\Nova\Resource $resource
-         * @return string
-         */
-        public static function defaultNameFor()
-        {
-//            return $resource->singularLabel().' '.__('Details');
-        }
 
         /**
          * Prepare the panel for JSON serialization.

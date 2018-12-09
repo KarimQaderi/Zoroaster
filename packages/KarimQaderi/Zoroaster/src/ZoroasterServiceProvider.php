@@ -2,7 +2,6 @@
 
 namespace KarimQaderi\Zoroaster;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ZoroasterServiceProvider extends ServiceProvider
@@ -98,4 +97,17 @@ class ZoroasterServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->commands([
+            Console\InstallCommand::class,
+            Console\PublishCommand::class,
+            Console\ResourceCommand::class,
+        ]);
+    }
 }
