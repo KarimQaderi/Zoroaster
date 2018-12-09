@@ -20,6 +20,9 @@
                 $this->mergeConfigFrom(__DIR__ . '/../config/Zoroaster.php' , 'Zoroaster');
             }
 
+            Route::middlewareGroup('Zoroaster' , config('Zoroaster.middleware' , []));
+
+
         }
 
         /**

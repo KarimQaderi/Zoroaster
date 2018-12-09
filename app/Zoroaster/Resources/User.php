@@ -56,15 +56,10 @@
 
                             ID::make()->rules('required')->onlyOnIndex() ,
                             Text::make('نام' , 'name')->rules('required') ,
-//                            Image::make('عکس کاربر' , 'avatar')->urlUpload('users')->multiImage()->resize([
-//                                'small' => [
-//                                    'w' => 200 ,
-//                                    'h' => 300 ,
-//                                ] , 'small_2' => [
-//                                    'w' => 20 ,
-//                                    'h' => 30 ,
-//                                ]
-//                            ]) ,
+//                            Password::make('Password')
+//                                ->onlyOnForms()
+//                                ->creationRules('required', 'string', 'min:6')
+//                                ->updateRules('nullable', 'string', 'min:6'),
 
                             Text::make('ایمیل' , 'email')->rules('required' , 'max:255') ,
 //                            Text::make('رمز کاربر' , 'password')->rules('required') ,

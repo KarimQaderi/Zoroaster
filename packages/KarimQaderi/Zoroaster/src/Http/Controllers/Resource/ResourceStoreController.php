@@ -33,6 +33,11 @@
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'beforeResourceStore');
 
+            if(request()->redirect != null)
+                return redirect(request()->redirect)->with([
+                    'success' => 'اطلاعات اضافه شد'
+                ]);
+
             return redirect(route('Zoroaster.resource.show' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->Model()->getKeyName()}]))->with([
                 'success' => 'اطلاعات اضافه شد'
             ]);
@@ -63,7 +68,6 @@
                 $RequestField->field = $field;
                 $RequestField->fieldAll = $customResourceController;
                 $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
-
 
 
                 $beforeResourceData = (object)$field->$method($RequestField);

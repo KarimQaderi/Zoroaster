@@ -3,13 +3,10 @@
     namespace App\Zoroaster\Resources;
 
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
-    use KarimQaderi\Zoroaster\Fields\btnSave;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
     use KarimQaderi\Zoroaster\Fields\ID;
-    use KarimQaderi\Zoroaster\Fields\Image;
-    use KarimQaderi\Zoroaster\Fields\Select;
     use KarimQaderi\Zoroaster\Fields\Text;
 
 

@@ -34,6 +34,8 @@ class InstallCommand extends Command
         $this->comment('Publishing Nova Service Provider...');
         $this->callSilent('vendor:publish', ['--tag' => 'Zoroaster-provider']);
 
+        $this->registerZoroasterServiceProvider();
+
 
         $this->comment('Generating User Resource...');
         $this->callSilent('nova:resource', ['name' => 'User']);
@@ -44,6 +46,22 @@ class InstallCommand extends Command
 
 
         $this->info('Nova scaffolding installed successfully.');
+    }
+
+    /**
+     * Register the Nova service provider in the application configuration file.
+     *
+     * @return void
+     */
+    protected function registerZoroasterServiceProvider()
+    {
+        $namespace = str_replace_last('\\', '', $this->getAppNamespace());
+
+        file_put_contents(config_path('app.php'), str_replace(
+            "{$namespace}\\Providers\EventServiceProvider::class,".PHP_EOL,
+            "{$namespace}\\Providers\EventServiceProvider::class,".PHP_EOL."        {$namespace}\Providers\NovaServiceProvider::class,".PHP_EOL,
+            file_get_contents(config_path('app.php'))
+        ));
     }
 
 

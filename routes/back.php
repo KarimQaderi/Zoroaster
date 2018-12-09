@@ -4,7 +4,6 @@
     use Illuminate\Support\Facades\Route;
     use KarimQaderi\Zoroaster\Zoroaster;
 
-    Route::get('/f' , 'back\IndexController@f')->name('f');
 
 
     Route::group(['middleware' => 'back'] , function(){
