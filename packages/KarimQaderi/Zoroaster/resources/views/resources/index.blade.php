@@ -95,21 +95,20 @@
 
                 <div class="dataTables_info uk-child-width-1-3" uk-grid>
                     <div class="dataTables_paginate">
-                        @if ($resources->onFirstPage())
-                            <li><a href="{{ $resources->previousPageUrl() }}"><span class="uk-margin-small-right" uk-pagination-previous></span> قبلی</a></li>
+                        @if (!$resources->onFirstPage())
+                            <a href="{{ $resources->previousPageUrl() }}"><span class="uk-margin-small-right uk-margin-small-left" uk-pagination-previous></span> قبلی</a>
                         @endif
                     </div>
                     <div class="uk-text-center"> نمایش {{ $resources->firstItem() }} تا {{ $resources->lastItem() }} از {{ $resources->total() }}
                         رکورد
                     </div>
-                    <div class="uk-text-left">
+                    <div class="uk-text-left dataTables_paginate">
                         @if ($resources->hasMorePages())
-                            <li class="uk-margin-auto-left">
-                                <a href="{{ $resources->nextPageUrl() }}">بعدی <span class="uk-margin-small-left" uk-pagination-next></span></a>
-                            </li>
+                            <a href="{{ $resources->nextPageUrl() }}">بعدی <span class="uk-margin-small-left uk-margin-small-right" uk-pagination-next></span></a>
                         @endif
                     </div>
                 </div>
+
 
             @else
                 <div class="noCountResources">
@@ -296,7 +295,6 @@
                 }
             });
         }
-
 
 
         function setGetParameter(paramName, paramValue) {

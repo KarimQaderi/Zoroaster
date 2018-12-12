@@ -5,9 +5,11 @@
     use Illuminate\Database\Eloquent\Model;
 
 
-    class Migrations extends Model
+    class Migration extends Model
     {
+        protected $table = 'migrations';
         protected $guarded = [];
+        public $timestamps = false;
 
 
     }

@@ -10,10 +10,125 @@
         <div class="uk-child-width-1-3@s" uk-grid>
             <div>
                 <ul class="uk-list">
-                    <li><span class="uk-margin-small-right" uk-icon="edit"></span> edit</li>
-                    <li><span class="uk-margin-small-right" uk-icon="view"></span> view</li>
-                    <li><span class="uk-margin-small-right" uk-icon="delete"></span> delete</li>
-                    <li><span class="uk-margin-small-right" uk-icon="force-delete"></span> force-delete</li>
+                    <li><span class="uk-margin-small-right" uk-icon="exclamation"></span> exclamation</li>
+                    <li><span class="uk-margin-small-right" uk-icon="external-link"></span> external-link</li>
+                    <li><span class="uk-margin-small-right" uk-icon="file-blank"></span> file-blank</li>
+                    <li><span class="uk-margin-small-right" uk-icon="file-minus"></span> file-minus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="file-plus"></span> file-plus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="file-2"></span> file-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="film"></span> film</li>
+                    <li><span class="uk-margin-small-right" uk-icon="filter"></span> filter</li>
+                    <li><span class="uk-margin-small-right" uk-icon="flag"></span> flag</li>
+                    <li><span class="uk-margin-small-right" uk-icon="folder-minus"></span> folder-minus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="folder-plus"></span> folder-plus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="folder-2"></span> folder-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="globe"></span> globe</li>
+                    <li><span class="uk-margin-small-right" uk-icon="graph-bar"></span> graph-bar</li>
+                    <li><span class="uk-margin-small-right" uk-icon="grid-2"></span> grid-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="group"></span> group</li>
+                    <li><span class="uk-margin-small-right" uk-icon="hashtag-2"></span> hashtag-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="heart-2"></span> heart-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="help"></span> help</li>
+                    <li><span class="uk-margin-small-right" uk-icon="home-2"></span> home-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="image-2"></span> image-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="inbox"></span> inbox</li>
+                    <li><span class="uk-margin-small-right" uk-icon="information"></span> information</li>
+                    <li><span class="uk-margin-small-right" uk-icon="key"></span> key</li>
+                    <li><span class="uk-margin-small-right" uk-icon="link-2"></span> link-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="location-2"></span> location-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="lock-closed"></span> lock-closed</li>
+                    <li><span class="uk-margin-small-right" uk-icon="lock-open"></span> lock-open</li>
+                    <li><span class="uk-margin-small-right" uk-icon="mail-2"></span> mail-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="map"></span> map</li>
+                    <li><span class="uk-margin-small-right" uk-icon="menu-2"></span> menu-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="microphone-2"></span> microphone-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="minus-circle-2"></span> minus-circle-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="minus-square"></span> minus-square</li>
+                    <li><span class="uk-margin-small-right" uk-icon="minus-2"></span> minus-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="mobile"></span> mobile</li>
+                    <li><span class="uk-margin-small-right" uk-icon="moon"></span> moon</li>
+                    <li><span class="uk-margin-small-right" uk-icon="more-horiz"></span> more-horiz</li>
+                    <li><span class="uk-margin-small-right" uk-icon="music"></span> music</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="uk-list">
+                    <li><span class="uk-margin-small-right" uk-icon="announcement"></span> announcement</li>
+                    <li><span class="uk-margin-small-right" uk-icon="archive"></span> archive</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-down-2"></span> arrow-down-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-left-2"></span> arrow-left-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-right-2"></span> arrow-right-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-up-2"></span> arrow-up-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="at-symbol"></span> at-symbol</li>
+                    <li><span class="uk-margin-small-right" uk-icon="book-2"></span> book-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="bookmark-2"></span> bookmark-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="briefcase"></span> briefcase</li>
+                    <li><span class="uk-margin-small-right" uk-icon="browser"></span> browser</li>
+                    <li><span class="uk-margin-small-right" uk-icon="building"></span> building</li>
+                    <li><span class="uk-margin-small-right" uk-icon="calander"></span> calander</li>
+                    <li><span class="uk-margin-small-right" uk-icon="call-incoming"></span> call-incoming</li>
+                    <li><span class="uk-margin-small-right" uk-icon="call-outgoing"></span> call-outgoing</li>
+                    <li><span class="uk-margin-small-right" uk-icon="call-2"></span> call-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="camera-2"></span> camera-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cart-2"></span> cart-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="chat"></span> chat</li>
+                    <li><span class="uk-margin-small-right" uk-icon="check-circle"></span> check-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cheveron-down"></span> cheveron-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cheveron-left"></span> cheveron-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cheveron-right"></span> cheveron-right</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cheveron-up"></span> cheveron-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="clip"></span> clip</li>
+                    <li><span class="uk-margin-small-right" uk-icon="clipboard"></span> clipboard</li>
+                    <li><span class="uk-margin-small-right" uk-icon="clock-2"></span> clock-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="code-2"></span> code-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cog-2"></span> cog-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="comment-2"></span> comment-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="compass"></span> compass</li>
+                    <li><span class="uk-margin-small-right" uk-icon="currency-dollar"></span> currency-dollar</li>
+                    <li><span class="uk-margin-small-right" uk-icon="dashboard"></span> dashboard</li>
+                    <li><span class="uk-margin-small-right" uk-icon="desktop-2"></span> desktop-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="discount"></span> discount</li>
+                    <li><span class="uk-margin-small-right" uk-icon="download-2"></span> download-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="duplicate"></span> duplicate</li>
+                    <li><span class="uk-margin-small-right" uk-icon="emotion-happy"></span> emotion-happy</li>
+                    <li><span class="uk-margin-small-right" uk-icon="emotion-sad"></span> emotion-sad</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="uk-list">
+                    <li><span class="uk-margin-small-right" uk-icon="news"></span> news</li>
+                    <li><span class="uk-margin-small-right" uk-icon="notification"></span> notification</li>
+                    <li><span class="uk-margin-small-right" uk-icon="plus-circle-2"></span> plus-circle-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="plus-square"></span> plus-square</li>
+                    <li><span class="uk-margin-small-right" uk-icon="plus-2"></span> plus-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="print-2"></span> print-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="puzzle"></span> puzzle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="refresh-2"></span> refresh-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="repeat"></span> repeat</li>
+                    <li><span class="uk-margin-small-right" uk-icon="rocket"></span> rocket</li>
+                    <li><span class="uk-margin-small-right" uk-icon="search-2"></span> search-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="server-2"></span> server-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="speaker"></span> speaker</li>
+                    <li><span class="uk-margin-small-right" uk-icon="star-2"></span> star-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="store"></span> store</li>
+                    <li><span class="uk-margin-small-right" uk-icon="tablet-2"></span> tablet-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="tag-2"></span> tag-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="thumb-down"></span> thumb-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="thumb-up"></span> thumb-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="trending-down"></span> trending-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="trending-up"></span> trending-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="trophy"></span> trophy</li>
+                    <li><span class="uk-margin-small-right" uk-icon="upload-2"></span> upload-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="user-check"></span> user-check</li>
+                    <li><span class="uk-margin-small-right" uk-icon="user-minus"></span> user-minus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="user-plus"></span> user-plus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="user-2"></span> user-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="video-2"></span> video-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="x-circle"></span> x-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="x-square"></span> x-square</li>
+                    <li><span class="uk-margin-small-right" uk-icon="x-2"></span> x-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="zoom-in"></span> zoom-in</li>
+                    <li><span class="uk-margin-small-right" uk-icon="zoom-out"></span> zoom-out</li>
                 </ul>
             </div>
         </div>
@@ -22,7 +137,6 @@
 
         <div class="uk-child-width-1-3@s" uk-grid>
             <div>
-
                 <ul class="uk-list">
                     <li><span class="uk-margin-small-right" uk-icon="home"></span> home</li>
                     <li><span class="uk-margin-small-right" uk-icon="sign-in"></span> sign-in</li>
@@ -47,7 +161,6 @@
                     <li><span class="uk-margin-small-right" uk-icon="location"></span> location</li>
                     <li><span class="uk-margin-small-right" uk-icon="bookmark"></span> bookmark</li>
                 </ul>
-
             </div>
             <div>
 

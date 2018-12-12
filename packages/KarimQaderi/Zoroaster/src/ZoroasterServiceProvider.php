@@ -46,7 +46,7 @@ class ZoroasterServiceProvider extends ServiceProvider
         ], 'Zoroaster-views');
 
         $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../database' => database_path(),
         ], 'Zoroaster-migrations');
     }
 

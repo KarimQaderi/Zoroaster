@@ -15,9 +15,9 @@
         public static function Filters($request)
         {
             $Filters = null;
-            $filters = (new DefaultFilters())->hendle();
+            $filters = array_reverse((new DefaultFilters())->hendle());
             if($request->Resource()->filters() != null)
-                $filters = array_merge($request->Resource()->filters() , $filters);
+                $filters = array_merge($filters , $request->Resource()->filters());
 
             foreach($filters as $filter){
                 if($filter->canSee($request))
@@ -69,6 +69,10 @@
         {
             if(is_string($Resource))
                 $Resource = SrcZoroaster::newResource($Resource);
+
+            if($Resource === null)
+                throw new Exception ('Resource پیدا نشد');
+
 
             return self::ResourceFieldFind($field , $Resource->fields());
         }

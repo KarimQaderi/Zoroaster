@@ -5,12 +5,18 @@
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\boolean;
     use KarimQaderi\Zoroaster\Fields\btnSave;
+    use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
+    use KarimQaderi\Zoroaster\Fields\DataTime;
+    use KarimQaderi\Zoroaster\Fields\Date;
+    use KarimQaderi\Zoroaster\Fields\DateTime;
+    use KarimQaderi\Zoroaster\Fields\File;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
     use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
     use KarimQaderi\Zoroaster\Fields\ID;
     use KarimQaderi\Zoroaster\Fields\Image;
+    use KarimQaderi\Zoroaster\Fields\PivotCheckBox;
     use KarimQaderi\Zoroaster\Fields\Relations\BelongsTo;
     use KarimQaderi\Zoroaster\Fields\Text;
     use KarimQaderi\Zoroaster\Fields\Trix;
@@ -75,7 +81,7 @@
                                 ]) ,
 
                                 new Col('uk-width-1-2' , [
-                                    Text::make('slug' , 'slug')->rules('required') ,
+                                    Text::make('slug' , 'slug')->rules('required')->onlyOnForms() ,
                                 ]) ,
 
                             ]) ,
@@ -85,9 +91,19 @@
                             ]) ,
 
                             new RowOneCol([
+                                File::make('فایل' , 'file')
+                                    ->onlyOnForms()
+                                    ->count(5)
+                                    ->storeOriginalName(function($file){
+                                        return now()->day . '-' . time() . '-' . $file->getClientOriginalName();
+                                    })
+                                    ->path(function(){
+                                        return 'posts' . '/' . now()->year . '/' . now()->month;
+                                    }) ,
+                            ]) ,
+
+                            new RowOneCol([
                                 Image::make('عکس پست' , 'img')
-//                                    ->resize('small' , 20 , 30)
-//                                    ->resize('smagggll33' , 200 , 300)
                                     ->onlyOnForms()
                                     ->storeOriginalName(function($file){
                                         return now()->day . '-' . time() . '-' . $file->getClientOriginalName();
@@ -102,7 +118,7 @@
 //                                    ->resize('small' , 20 , 30)
 //                                    ->resize('smagll33' , 200 , 300)
                                     ->onlyOnForms()
-                                    ->multiImage(2) ,
+                                    ->count(2) ,
                             ]) ,
 
 
@@ -116,10 +132,10 @@
 
                             new Row([
                                 new Col('uk-width-1-2' , [
-                                    boolean::make('نمایش پست' , 'is_published') ,
+                                    Boolean::make('نمایش پست' , 'is_published') ,
                                 ]) ,
                                 new Col('uk-width-1-2' , [
-                                    boolean::make('پست ثابت' , 'featured') ,
+                                    Boolean::make('پست ثابت' , 'featured') ,
                                 ]) ,
 
                             ]) ,
@@ -131,10 +147,24 @@
                             ]) ,
 
                             new RowOneCol([
-                                Text::make('created_at' , 'created_at') ,
+                                DateTime::make('created_at' , 'created_at') ,
                             ]) ,
 
+                        ]) ,
+
+                        new Panel('' , [
+                            new RowOneCol([
+                                PivotCheckBox::make('دسته بندی' , 'Categorie')
+                                    ->show('App\\Models\\Categorie' , 'title','id')
+                                    ->pivot('App\\Models\\CategoriePivot','post_id','categorie_id')
+                                    ->addWith(['type' => 'post']) ,
+                            ]) ,
+                        ]) ,
+
+
+                        new Panel('' , [
                             btnSave::make() ,
+                            CreateAndAddAnotherOne::make() ,
 
                         ]) ,
                     ]) ,
@@ -143,7 +173,6 @@
 
             ];
         }
-
 
 
         public function AddingAdditionalConstraintsForViewIndex($eloquent)
@@ -164,6 +193,8 @@
 
         function filters()
         {
-            // TODO: Implement filters() method.
+            return [
+
+            ];
         }
     }

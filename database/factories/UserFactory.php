@@ -13,7 +13,6 @@
     |
     */
 
-    for($i = 1; $i <= 50; $i++){
         $factory->define(App\User::class , function(Faker $faker){
             return [
                 'name' => $faker->name ,
@@ -24,4 +23,3 @@
             ];
         });
 
-    }

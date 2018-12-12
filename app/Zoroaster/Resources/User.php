@@ -9,6 +9,7 @@
     use KarimQaderi\Zoroaster\Fields\Group\Row;
     use KarimQaderi\Zoroaster\Fields\ID;
     use KarimQaderi\Zoroaster\Fields\Image;
+    use KarimQaderi\Zoroaster\Fields\Password;
     use KarimQaderi\Zoroaster\Fields\Select;
     use KarimQaderi\Zoroaster\Fields\Text;
 
@@ -52,17 +53,14 @@
 
                 new Row([
                     new Col('uk-width-2-3' , [
-                        new Panel('title' , [
+                        new Panel('' , [
 
                             ID::make()->rules('required')->onlyOnIndex() ,
                             Text::make('نام' , 'name')->rules('required') ,
-//                            Password::make('Password')
-//                                ->onlyOnForms()
-//                                ->creationRules('required', 'string', 'min:6')
-//                                ->updateRules('nullable', 'string', 'min:6'),
-
+                            Password::make('رمز کاربر' , 'password')
+                            ->help('برای تغیر نکردن رمز کادر را خالی بزارید'),
                             Text::make('ایمیل' , 'email')->rules('required' , 'max:255') ,
-//                            Text::make('رمز کاربر' , 'password')->rules('required') ,
+
                         ])
                     ]) ,
 

@@ -13,7 +13,6 @@
     |
     */
 
-    for($i = 1; $i <= 1; $i++){
         $factory->define(App\Models\Post::class , function(Faker $faker){
             $w = str_limit($faker->realText() , random_int(17 , 30) , '');
             return [
@@ -30,4 +29,3 @@
             ];
         });
 
-    }

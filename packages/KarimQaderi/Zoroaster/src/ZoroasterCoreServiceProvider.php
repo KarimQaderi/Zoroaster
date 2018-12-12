@@ -2,6 +2,7 @@
 
     namespace KarimQaderi\Zoroaster;
 
+    use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +23,8 @@
 
             Route::middlewareGroup('Zoroaster' , config('Zoroaster.middleware' , []));
 
+
+            $this->Gates();
 
         }
 
@@ -44,5 +47,32 @@
             foreach(glob(__DIR__ . '/Helpers/*.php') as $file){
                 require_once($file);
             }
+        }
+
+        private function Gates()
+        {
+
+            foreach(glob(app_path('Zoroaster/Resources').'/*.php') as $file){
+
+                $basename = class_basename(str_replace_last('.php','',$file));
+
+                Gate::define('create-'.$basename , function($user ){
+                    return false;
+                });
+
+                Gate::define('edit-'.$basename , function($user , $comment){
+                    return true;
+                });
+
+                Gate::define('update-'.$basename , function($user , $comment){
+                    return true;
+                });
+
+                Gate::define('delete-'.$basename , function($user , $comment){
+                    return true;
+                });
+
+            }
+
         }
     }

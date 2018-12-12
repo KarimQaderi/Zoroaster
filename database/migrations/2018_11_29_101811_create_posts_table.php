@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->string('title');
             $table->text('body');
+            $table->text('file')->nullable();;
             $table->string('img')->nullable();
             $table->text('img_multi')->nullable();
             $table->boolean('is_published')->default(false);

@@ -23,12 +23,6 @@
             }));
 
 
-//            $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
-//            if($validator->fails())
-//                return redirect()->back()->withErrors($validator->messages())->withInput();
-
-
-//            $this->CustomResourceController($request , $MergeResourceFieldsAndRequest,'beforeResourceStore');
             $resource = $request->Model()->create($this->CustomResourceController($request , $request->Model() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'beforeResourceStore');

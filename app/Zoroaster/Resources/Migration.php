@@ -3,10 +3,13 @@
     namespace App\Zoroaster\Resources;
 
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
+    use KarimQaderi\Zoroaster\Fields\btnSave;
+    use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
     use KarimQaderi\Zoroaster\Fields\ID;
+    use KarimQaderi\Zoroaster\Fields\Number;
     use KarimQaderi\Zoroaster\Fields\Text;
 
 
@@ -17,7 +20,7 @@
          *
          * @var string
          */
-        public $model = 'App\\Models\\Migrations';
+        public $model = 'App\\Models\\Migration';
 
         /**
          * The single value that should be used to represent the resource when being displayed.
@@ -53,6 +56,9 @@
 
                             ID::make()->rules('required')->onlyOnIndex() ,
                             Text::make('Migration' , 'migration')->rules('required') ,
+                            Number::make('batch' , 'batch')->rules('required') ,
+                            btnSave::make(),
+                            CreateAndAddAnotherOne::make(),
 
                         ])
                     ]) ,

@@ -3,16 +3,16 @@
     namespace KarimQaderi\Zoroaster\Fields\Other;
 
 
-    use Closure;
     use Illuminate\Support\Str;
     use Illuminate\Support\Traits\Macroable;
     use JsonSerializable;
     use KarimQaderi\Zoroaster\Contracts\Resolvable;
-    use KarimQaderi\Zoroaster\Http\Requests\RequestField;
+    use KarimQaderi\Zoroaster\Fields\Traits\ResourceDefault;
+    use KarimQaderi\Zoroaster\Fields\Traits\View;
 
     abstract class Field extends FieldElement implements JsonSerializable
     {
-        use Macroable;
+        use Macroable , View , ResourceDefault;
 
         /**
          * The displayable name of the field.
@@ -86,7 +86,7 @@
          * @param  mixed|null $resolveCallback
          * @return void
          */
-        public function __construct($label , $name = null )
+        public function __construct($label , $name = null)
         {
             $this->label = $label;
             $this->name = $name ?? str_replace(' ' , '_' , Str::lower($label));
@@ -104,7 +104,6 @@
         }
 
 
-
         /**
          * Set the validation rules for the field.
          *
@@ -114,20 +113,6 @@
         public function rules($rules)
         {
             $this->rules = is_string($rules) ? func_get_args() : $rules;
-
-            return $this;
-        }
-
-
-        /**
-         * Set the creation validation rules for the field.
-         *
-         * @param  callable|array|string $rules
-         * @return $this
-         */
-        public function updateRules($rules)
-        {
-            $this->updateRules = is_string($rules) ? func_get_args() : $rules;
 
             return $this;
         }
@@ -205,50 +190,4 @@
         }
 
 
-        public function beforeResourceStore(RequestField $requestField)
-        {
-            return null;
-        }
-
-        public function ResourceStore(RequestField $requestField)
-        {
-            return null;
-
-        }
-
-        public function ResourceUpdate(RequestField $requestField)
-        {
-            return null;
-
-        }
-
-        public function viewForm($data , $field , $newResource = null)
-        {
-            return view('Zoroaster::fields.Form.' . $field->component)->with(
-                [
-                    'data' => $data ,
-                    'field' => $field ,
-                    'newResource' => $newResource ,
-                ]);
-        }
-
-        public function viewDetail($data , $field , $newResource = null)
-        {
-            return view('Zoroaster::fields.Detail.' . $field->component)->with(
-                [
-                    'data' => $data ,
-                    'field' => $field ,
-                    'newResource' => $newResource ,
-                ]);
-        }
-
-        public function viewIndex($data , $field , $newResource = null)
-        {
-            return view('Zoroaster::fields.Index.' . $field->component)->with(
-                [
-                    'data' => $data ,
-                    'field' => $field ,
-                    'newResource' => $newResource ,
-                ]);
-        }
     }

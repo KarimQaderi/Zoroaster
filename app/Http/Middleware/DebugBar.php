@@ -1,6 +1,7 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 
 class DebugBar

@@ -3,10 +3,14 @@
     namespace KarimQaderi\Zoroaster\Fields;
 
 
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Storage;
     use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
     class File extends Field
     {
+        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
 
         /**
@@ -15,6 +19,14 @@
          * @var string
          */
         public $component = 'file';
+
+
+        /**
+         * max File upload
+         *
+         * @var int
+         */
+        public $count = 1;
 
 
         /**
@@ -75,9 +87,9 @@
         public $textAlign = 'center';
 
 
-        public function __construct(string $label , ?string $name = null , ?mixed $resolveCallback = null)
+        public function __construct(string $label , ?string $name = null)
         {
-            parent::__construct($label , $name , $resolveCallback);
+            parent::__construct($label , $name);
 
             $this->originalName = function($file){
                 return $this->originalName = $file->getClientOriginalName();
@@ -166,7 +178,6 @@
         }
 
 
-
         public function getPathUpload()
         {
             if(is_string($this->storagePath))
@@ -175,6 +186,16 @@
                 return call_user_func($this->storagePath);
         }
 
+        /**
+         * @param $count int  upload ( default = 1 )
+         * @return $this
+         */
+        public function count($count = 1)
+        {
+            if($count <= 0) $count = 1;
+            $this->count = $count;
+            return $this;
+        }
 
         /**
          * Get additional meta information to merge with the element payload.
@@ -191,5 +212,77 @@
             ] , $this->meta);
         }
 
+
+        public function ResourceUploadDelete(Request $request , $resourceField)
+        {
+
+            Storage::disk($resourceField->disk)->delete($request->url);
+
+            if(is_array(html_entity_decode($request->resize)))
+                foreach(html_entity_decode($request->resize) as $key => $value){
+                    Storage::disk($resourceField->disk)->delete($value->url);
+                }
+
+            return 'ok';
+        }
+
+
+        public function ResourceUpload(Request $request , $resourceField)
+        {
+
+            $originalName = call_user_func($resourceField->originalName , $request->file('file'));
+
+            $url = $request->file('file')->storeAs(
+                $resourceField->getPathUpload() , $originalName , ['disk' => $resourceField->disk]
+            );
+
+            $RealPath = Storage::disk($resourceField->disk)->url($url);
+
+
+            return response()->json([
+                'url' => $url ,
+                'RealPath' => $RealPath ,
+                'number' => time() . '' . random_int(100 , 1000)
+
+            ]);
+
+        }
+
+        public function beforeResourceStore(RequestField $requestField)
+        {
+            return $this->traitResource($requestField);
+
+        }
+
+        public function ResourceStore(RequestField $requestField)
+        {
+            return $this->traitResource($requestField);
+
+        }
+
+        public function ResourceUpdate(RequestField $requestField)
+        {
+            return $this->traitResource($requestField);
+        }
+
+        public function traitResource(RequestField $requestField)
+        {
+            $values = $requestField->request->{$requestField->field->name};
+
+            $setValues = null;
+            if($values != null)
+                foreach($values as $value){
+                    if(count($values) == 1)
+                        $setValues = $value['url'];
+                    else
+                        $setValues [] = $value['url'];
+                }
+
+            return [
+                'error' => $this->getValidatorField($requestField) ,
+                'data' => [$requestField->field->name => $setValues] ,
+            ];
+
+        }
 
     }

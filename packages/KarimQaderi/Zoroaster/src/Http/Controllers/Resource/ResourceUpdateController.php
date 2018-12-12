@@ -21,13 +21,8 @@
             }));
 
 
-//            $validator = Validator::make($data->request , $data->validator , [] , $data->customAttributes);
-//            if($validator->fails())
-//                return redirect()->back()->withErrors($validator->messages())->withInput();
-
 
             $resource = $this->Update($request);
-
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest);
 
@@ -51,8 +46,6 @@
 
             $request->authorizeTo($request->Resource()->authorizeToUpdate($resource));
 
-//            $resource->update($data->request);
-
             return $resource;
         }
 
@@ -63,7 +56,7 @@
         private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest): void
         {
             $customResourceController = $request->ResourceFields(function($field){
-                if($field->OnUpdate == true)
+                if($field->showOnUpdate == true && $field->OnUpdate == true)
                     return true;
                 else
                     return false;

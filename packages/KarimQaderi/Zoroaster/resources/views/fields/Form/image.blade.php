@@ -89,15 +89,7 @@
 
     var TepmlateImgUpload_{{ $field->name }}  = renderHtml('#imgUpload_{{ $field->name }} template');
 
-    var items = [{
-        url: '/users/2018/11/24-1543060055-download.jpg',
-        name: '24-1543060055-download.jpg',
-    }, {
-        url: '/users/2018/11/24-1543060055-download.jpg',
-        name: '24-1543060055-download.jpg',
-    }];
 
-    // render('.imgUpload', TepmlateImgUpload, items);
 
 </script>
 
@@ -162,11 +154,8 @@
         beforeAll: function () {
             console.log('beforeAll', arguments);
 
-            // console.log((arguments[1].length));
-            {{--            console.log(($('#imgUpload_{{ $field->name }} > *').length + arguments.length) + '<=' + '{{ $field->multiImage }}');--}}
-
-            if (!(($('#imgUpload_{{ $field->name }} > *').length + arguments[1].length) <= '{{ $field->multiImage }}')) {
-                alert('تعداد فایل ها زیاد هست حداکثر فایل ها ({{ $field->multiImage }}) عدد');
+            if (!(($('#imgUpload_{{ $field->name }} > *').length + arguments[1].length) <= '{{ $field->count }}')) {
+                alert('تعداد فایل ها زیاد هست حداکثر فایل ها ({{ $field->count }}) عدد');
                 abort();
             }
         },

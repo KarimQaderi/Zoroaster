@@ -12,6 +12,7 @@
         protected $guarded = [];
         protected $casts = [
             'img_multi' => 'array' ,
+            'file' => 'array' ,
 //            'img' => 'array' ,
         ];
     }

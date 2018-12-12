@@ -28,7 +28,7 @@ class PublishCommand extends Command
     public function handle()
     {
         $this->call('vendor:publish', [
-            '--tag' => 'nova-config',
+            '--tag' => 'Zoroaster-config',
             '--force' => $this->option('force'),
         ]);
 
@@ -42,10 +42,10 @@ class PublishCommand extends Command
             '--force' => $this->option('force'),
         ]);
 
-        $this->call('vendor:publish', [
-            '--tag' => 'Zoroaster-views',
-            '--force' => $this->option('force'),
-        ]);
+//        $this->call('vendor:publish', [
+//            '--tag' => 'Zoroaster-views',
+//            '--force' => $this->option('force'),
+//        ]);
 
         $this->call('view:clear');
     }
