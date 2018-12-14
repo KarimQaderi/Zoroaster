@@ -126,48 +126,13 @@
          */
         public function sortable($value = true)
         {
-            if(!$this->computed()){
-                $this->sortable = $value;
-            }
+            $this->sortable = $value;
 
             return $this;
         }
 
-        /**
-         * Determine if the field is computed.
-         *
-         * @return bool
-         */
-        public function computed()
-        {
-            return is_callable($this->name) ||
-                $this->name == 'ComputedField';
-        }
 
-        /**
-         * Get the component label for the field.
-         *
-         * @return string
-         */
-        public function component()
-        {
-            if(isset(static::$customComponents[get_class($this)])){
-                return static::$customComponents[get_class($this)];
-            }
 
-            return $this->component;
-        }
-
-        /**
-         * Set the component that should be used by the field.
-         *
-         * @param  string $component
-         * @return void
-         */
-        public static function useComponent($component)
-        {
-            static::$customComponents[get_called_class()] = $component;
-        }
 
         /**
          * Prepare the field for JSON serialization.

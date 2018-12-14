@@ -1300,6 +1300,8 @@ a, .uk-link {
     border-bottom: 2px solid rgb(227, 231, 235);
     font-weight: bold;
     /* font-size: 12px; */
+    position: relative;
+    user-select: none;
 }
 
 .dataTables td {
@@ -1904,3 +1906,49 @@ tr.Restore-resourceid td {
             direction: rtl !important;
             text-align: right !important;
         }
+
+.sortable {
+    display: inline-block;
+    /* margin: -10px 0; */
+    /* margin-bottom: -33px; */
+    position: absolute;
+    margin-right: 5px;
+    top: 8px;
+}
+
+.sortable span {
+    display: block;
+    /* padding: 0; */
+    /* margin: 0; */
+    /* cursor: pointer; */
+    width: 18px;
+    color: rgb(186, 202, 214);
+}
+
+.sortable svg {
+    /* padding: 0; */
+    /* margin: 0; */
+    /* width: 32px; */
+    /* height: 18px; */
+}
+
+.sortable span[uk-icon="cheveron-down"] {
+    margin-top: -10px;
+}
+
+.sortable span[uk-icon="cheveron-up"] {
+    margin-bottom: -10px;
+  
+}
+
+[data-sortable="desc"] [uk-icon="cheveron-down"]{
+    color: rgb(0, 0, 0);
+}
+
+[data-sortable="asc"] [uk-icon="cheveron-up"]{
+    color: rgb(0, 0, 0);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

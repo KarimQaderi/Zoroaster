@@ -60,13 +60,18 @@
                     <tr role="row">
                         <th></th>
                         @foreach($fields as $field)
-                            <th data-column="row" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending"
-                                aria-label="#مرتب سازی از بزرگ به کوچک"
+                            <th data-sortable_field="{{ $field->name }}" data-sortable="{{ (request()->sortable_field == $field->name)? request()->sortable_direction : '' }}"
+                                class=" {{ $field->sortable? 'cursor-pointer': ''}}"
                                 style="width: 59px;text-align: {{ $field->textAlign }}">{{ $field->label }}
+                                @if ($field->sortable == true)
+                                    <div class="sortable">
+                                        <span uk-icon="cheveron-up"></span>
+                                        <span uk-icon="cheveron-down" cheveron-checked="1"></span>
+                                    </div>
+                                @endif
                             </th>
                         @endforeach
-                        <th data-column="oper" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="عملیاتمرتب سازی از کوچک به بزرگ"
-                            style="width: 134px;text-align: center">
+                        <th style="width: 134px;text-align: center">
                             عملیات
                         </th>
                     </tr>
@@ -76,17 +81,21 @@
                     @foreach($resources as $data)
                         <tr destroy-resourceId="{{ $data->{$model->getKeyName()} }}">
                             <td style="width: 32px;">
-                                <input name="{{ $model->getKeyName() }}[]" value="{{ $data->{$model->getKeyName()} }}" class="uk-checkbox key_dataTable_2 key_dataTable_{{ $model->getKeyName() }}"
+                                <input name="{{ $model->getKeyName() }}[]" value="{{ $data->{$model->getKeyName()} }}"
+                                       class="uk-checkbox key_dataTable_2 key_dataTable_{{ $model->getKeyName() }}"
                                        type="checkbox">
                             </td>
+
                             @foreach($fields as $field)
 
                                 <td style="text-align: {{ $field->textAlign }}" class="uk-text-nowrap">{!! $field->viewIndex($data,$field) !!}</td>
 
                             @endforeach
+
                             <td class="action_btn" style="text-align: center">
                                 {!! Zoroaster::ResourceActions($request,$data,$model,'Index',$field) !!}
                             </td>
+
                         </tr>
                     @endforeach
 
@@ -124,6 +133,36 @@
 
 
     <script>
+        $(document).on('click', '.dataTables th', function () {
+
+            $this = $(this);
+
+
+            var name = $this.attr('data-sortable_field');
+            var sort = $this.attr('data-sortable');
+
+            console.log(sort);
+            switch (sort) {
+                case '':
+                    sort = 'desc';
+                    break;
+
+                case 'desc':
+                    sort = 'asc';
+                    break;
+
+                case 'asc':
+                    sort = 'desc';
+                    break;
+            }
+
+            setParameter([
+                ['sortable_direction', sort],
+                ['sortable_field', name],
+            ]);
+
+        });
+
 
         $(document).ready(function () {
             $(document).on('change', '.key_dataTable', function () {
@@ -297,7 +336,7 @@
         }
 
 
-        function setGetParameter(paramName, paramValue) {
+        function setGetParameter(paramName, paramValue, redirect = true) {
             var url = window.location.href;
             var hash = location.hash;
             url = url.replace(hash, '');
@@ -314,6 +353,32 @@
                 else
                     url += "&" + paramName + "=" + paramValue;
             }
+
+            if (redirect)
+                window.location.href = url + hash;
+        }
+
+
+        function setParameter(param) {
+            var url = window.location.href;
+            var hash = location.hash;
+            $.each(param, function (key, value) {
+                url = url.replace(hash, '');
+                if (url.indexOf(value[0] + "=") >= 0) {
+                    var prefix = url.substring(0, url.indexOf(value[0]));
+                    var suffix = url.substring(url.indexOf(value[0]));
+                    suffix = suffix.substring(suffix.indexOf("=") + 1);
+                    suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+                    url = prefix + value[0] + "=" + value[1] + suffix;
+                }
+                else {
+                    if (url.indexOf("?") < 0)
+                        url += "?" + value[0] + "=" + value[1];
+                    else
+                        url += "&" + value[0] + "=" + value[1];
+                }
+
+            });
             window.location.href = url + hash;
         }
     </script>

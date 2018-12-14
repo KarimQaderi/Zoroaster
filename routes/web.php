@@ -12,6 +12,7 @@
     */
 
 
+    use App\models\Post;
     use Illuminate\Support\Facades\Auth;
 
     Auth::routes();
@@ -19,6 +20,8 @@
 //    Route::get('/home' , 'HomeController@index')->name('home');
 
     Auth::loginUsingId(1);
+
+
 
 
     Route::get('/svgr' , function(){

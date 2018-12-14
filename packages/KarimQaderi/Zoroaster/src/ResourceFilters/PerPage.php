@@ -15,7 +15,7 @@
         }
 
 
-        public function handle($resources , $request)
+        public function apply($resources , $request)
         {
             return $resources->paginate(((int)$request->Request()->perPage ?? 25))->appends(request()->all());
         }

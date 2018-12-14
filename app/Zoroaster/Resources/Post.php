@@ -7,7 +7,6 @@
     use KarimQaderi\Zoroaster\Fields\btnSave;
     use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
     use KarimQaderi\Zoroaster\Fields\DataTime;
-    use KarimQaderi\Zoroaster\Fields\Date;
     use KarimQaderi\Zoroaster\Fields\DateTime;
     use KarimQaderi\Zoroaster\Fields\File;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
@@ -70,7 +69,7 @@
                         new Panel('' , [
 
                             new RowOneCol([
-                                ID::make()->rules('required')->hideWhenCreating() ,
+                                ID::make()->rules('required')->hideWhenCreating()->sortable() ,
                             ]) ,
 
                             new Row([
@@ -147,7 +146,7 @@
                             ]) ,
 
                             new RowOneCol([
-                                DateTime::make('created_at' , 'created_at') ,
+                                DateTime::make('created_at' , 'created_at')->sortable() ,
                             ]) ,
 
                         ]) ,
@@ -155,9 +154,11 @@
                         new Panel('' , [
                             new RowOneCol([
                                 PivotCheckBox::make('دسته بندی' , 'Categorie')
-                                    ->show('App\\Models\\Categorie' , 'title','id')
-                                    ->pivot('App\\Models\\CategoriePivot','post_id','categorie_id')
-                                    ->addWith(['type' => 'post']) ,
+                                    ->show('App\\Models\\Categorie' , 'title' , 'id')
+                                    ->pivot('App\\Models\\CategoriePivot' , 'post_id' , 'categorie_id')
+                                    ->addWith(['type' => 'post'])
+                                    ->hideFromIndex()
+                                ,
                             ]) ,
                         ]) ,
 
@@ -175,7 +176,7 @@
         }
 
 
-        public function AddingAdditionalConstraintsForViewIndex($eloquent)
+        public function indexQuery($eloquent)
         {
             return $eloquent->orderByDesc('updated_at');
         }

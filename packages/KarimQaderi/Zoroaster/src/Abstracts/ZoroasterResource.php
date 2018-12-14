@@ -42,7 +42,7 @@
 
         abstract function filters();
 
-        public function AddingAdditionalConstraintsForViewIndex($eloquent)
+        public function indexQuery($eloquent)
         {
             return $eloquent;
         }

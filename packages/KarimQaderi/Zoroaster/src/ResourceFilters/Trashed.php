@@ -15,7 +15,7 @@
         }
 
 
-        public function handle($resources , $request)
+        public function apply($resources , $request)
         {
 
             if(request()->has('FilterTrashed'))

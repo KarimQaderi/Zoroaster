@@ -64,7 +64,7 @@
                     'field' => $field ,
                     'newResource' => $newResource ,
                     'show' => Zoroaster::newModel($field->model_show)->get() ,
-                    'pivot' => Zoroaster::newModel($field->model_pivot)
+                    'pivot' => is_null($data)? [] : Zoroaster::newModel($field->model_pivot)
                         ->where($field->model_pivot_foreign_key , $data->{$data->getKeyName()})->get()
                         ->pluck($field->model_pivot_other_key)->toArray() ,
                 ]);

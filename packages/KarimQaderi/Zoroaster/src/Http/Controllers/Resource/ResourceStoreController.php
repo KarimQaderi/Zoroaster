@@ -25,7 +25,7 @@
 
             $resource = $request->Model()->create($this->CustomResourceController($request , $request->Model() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
-            $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'beforeResourceStore');
+            $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'ResourceStore');
 
             if(request()->redirect != null)
                 return redirect(request()->redirect)->with([
