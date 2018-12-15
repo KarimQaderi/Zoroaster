@@ -29,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/back.css') }}"/>
 
 
-
     <script>
 
         jQuery(function () {
@@ -73,7 +72,6 @@
     <div id="sidebar" class="tm-sidebar-right uk-background-default mCustomScrollbar" data-mcs-theme="minimal-dark">
 
 
-
         {!! Zoroaster::Sidebar() !!}
 
     </div>
@@ -87,11 +85,27 @@
         <div class="tm-content uk-padding-remove-vertical uk-section-muted uk-height-viewport">
             <div class="tm-container uk-container uk-container-expand uk-padding-small">
 
-                @include('Zoroaster::partials.massage')
+                <div class="card">
+                    @include('Zoroaster::partials.massage')
 
-                @yield('content')
+                    @yield('content')
+
+
+                    {{--footer--}}
+                    <div class="footer">
+                        <a href="https://github.com/KarimQaderi/Zoroaster">Zoroaster</a>
+                        © {{ now()->year }} ,
+                        ساخته شده توسط : کریم قادری
+
+                    </div>
+                    {{--end footer--}}
+
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
+
+
     </div>
 </div>
 

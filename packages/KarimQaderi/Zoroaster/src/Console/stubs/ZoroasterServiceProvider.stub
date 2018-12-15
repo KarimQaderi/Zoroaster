@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
+use KarimQaderi\Zoroaster\Zoroaster;
+use KarimQaderi\Zoroaster\Cards\Help;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\NovaApplicationServiceProvider;
+use KarimQaderi\Zoroaster\ZoroasterApplicationServiceProvider;
 
 class ZoroasterServiceProvider
 {
@@ -20,28 +20,28 @@ class ZoroasterServiceProvider
     }
 
     /**
-     * Register the Nova routes.
+     * Register the Zoroaster routes.
      *
      * @return void
      */
     protected function routes()
     {
-        Nova::routes()
+        Zoroaster::routes()
                 ->withAuthenticationRoutes()
                 ->withPasswordResetRoutes()
                 ->register();
     }
 
     /**
-     * Register the Nova gate.
+     * Register the Zoroaster gate.
      *
-     * This gate determines who can access Nova in non-local environments.
+     * This gate determines who can access Zoroaster in non-local environments.
      *
      * @return void
      */
     protected function gate()
     {
-        Gate::define('viewNova', function ($user) {
+        Gate::define('viewZoroaster', function ($user) {
             return in_array($user->email, [
                 //
             ]);
@@ -49,7 +49,7 @@ class ZoroasterServiceProvider
     }
 
     /**
-     * Get the cards that should be displayed on the Nova dashboard.
+     * Get the cards that should be displayed on the Zoroaster dashboard.
      *
      * @return array
      */
@@ -61,7 +61,7 @@ class ZoroasterServiceProvider
     }
 
     /**
-     * Get the tools that should be listed in the Nova sidebar.
+     * Get the tools that should be listed in the Zoroaster sidebar.
      *
      * @return array
      */

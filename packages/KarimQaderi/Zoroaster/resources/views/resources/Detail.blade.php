@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="uk-card card">
+    <div class="uk-card ">
 
         <div class="BuilderFields">
 

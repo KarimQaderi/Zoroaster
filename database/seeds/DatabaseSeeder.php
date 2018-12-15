@@ -22,9 +22,9 @@
 
 
             factory(App\User::class, 100)->create();
-            factory(App\Models\Post::class, 50)->create();
+            factory(App\Models\Post::class, 500)->create();
             factory(App\Models\Categorie::class, 20)->create();
-            factory(App\Models\CategoriePivot::class, 80)->create();
+            factory(App\Models\CategoriePivot::class, 300)->create();
 
 //            $this->call(UsersTableSeeder::class);
 

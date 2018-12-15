@@ -64,7 +64,7 @@
                     'field' => $field ,
                     'newResource' => $newResource ,
                     'show' => Zoroaster::newModel($field->model_show)->get() ,
-                    'pivot' => is_null($data)? [] : Zoroaster::newModel($field->model_pivot)
+                    'pivot' => is_null($data) ? [] : Zoroaster::newModel($field->model_pivot)
                         ->where($field->model_pivot_foreign_key , $data->{$data->getKeyName()})->get()
                         ->pluck($field->model_pivot_other_key)->toArray() ,
                 ]);
@@ -158,21 +158,24 @@
                     "updated_at" => now() ,
                 ];
 
-            $data = [];
-            foreach($values as $value){
-                $data [] = array_merge([
-                    $requestField->field->model_pivot_foreign_key => $requestField->resource->{$requestField->resource->getKeyName()} ,
-                    $requestField->field->model_pivot_other_key => $value ,
-                ] , $time , $requestField->field->model_pivot_add_with);
-            }
-
 
             Zoroaster::newModel($requestField->field->model_pivot)
                 ->where([$requestField->field->model_pivot_foreign_key => $requestField->resource->{$requestField->resource->getKeyName()}])
                 ->delete();
 
 
-            (Zoroaster::newModel($requestField->field->model_pivot)->insert($data));
+            // insert
+            if(!is_null($values)){
+                foreach($values as $value){
+                    $data [] = array_merge([
+                        $requestField->field->model_pivot_foreign_key => $requestField->resource->{$requestField->resource->getKeyName()} ,
+                        $requestField->field->model_pivot_other_key => $value ,
+                    ] , $time , $requestField->field->model_pivot_add_with);
+                }
+
+                (Zoroaster::newModel($requestField->field->model_pivot)->insert($data));
+            }
+
             return [
                 'error' => $this->getValidatorField($requestField) ,
                 'data' => [] ,

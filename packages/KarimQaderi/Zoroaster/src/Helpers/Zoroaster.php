@@ -77,6 +77,32 @@
             return self::ResourceFieldFind($field , $Resource->fields());
         }
 
+        public static function getDashboardMetricFind($find , $data = null)
+        {
+
+            $_find = null;
+
+            if(is_null($data)) $data = Dashboard::handle();
+            foreach($data as $field){
+
+                switch(true){
+                    case isset($field->data):
+                        $_find = self::getDashboardMetricFind($find , $field->data);
+                        break;
+                    default:
+                        if(class_basename($field) == $find)
+                            $_find = $field;
+                        break;
+                }
+
+                if(!is_null($_find)) break;
+
+            }
+
+            return $_find;
+
+        }
+
 
         public static function ResourceFieldFind($FindNameField , $fields)
         {

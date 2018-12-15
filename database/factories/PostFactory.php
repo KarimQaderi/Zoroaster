@@ -15,17 +15,16 @@
 
         $factory->define(App\Models\Post::class , function(Faker $faker){
             $w = str_limit($faker->realText() , random_int(17 , 30) , '');
+            $day = random_int(1 , 30);
             return [
-                'user_id' => function(){
-                    return factory(App\User::class)->create()->id;
-                } ,
+                'user_id' => random_int(1 , 5) ,
                 'slug' => Zoroaster::url_slug($w) ,
                 'title' => $w ,
                 'is_published' => $faker->boolean ,
                 'featured' => $faker->boolean ,
                 'body' => $faker->realText(1000) ,
-                'created_at' => now() ,
-                'updated_at' => now() ,
+                'created_at' => "2018-{$faker->month}-{$day} 08:00:46" ,
+                'updated_at' =>  "2018-{$faker->month}-{$day} 08:00:46",
             ];
         });
 

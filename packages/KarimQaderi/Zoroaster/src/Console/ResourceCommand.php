@@ -13,7 +13,7 @@ class ResourceCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'nova:resource';
+    protected $name = 'Zoroaster:resource';
 
     /**
      * The console command description.
@@ -38,7 +38,7 @@ class ResourceCommand extends GeneratorCommand
     {
         parent::handle();
 
-        $this->callSilent('nova:base-resource', [
+        $this->callSilent('Zoroaster:base-resource', [
             'name' => 'Resource',
         ]);
     }
@@ -84,7 +84,7 @@ class ResourceCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Nova';
+        return $rootNamespace.'\Zoroaster';
     }
 
     /**

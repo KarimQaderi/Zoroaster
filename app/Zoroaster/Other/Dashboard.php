@@ -5,6 +5,9 @@
 
     use App\back\Widgets\Cache;
     use App\back\Widgets\Sessions;
+    use App\Zoroaster\Metrics\PostCount;
+    use App\Zoroaster\Metrics\PostCountOverTime;
+    use App\Zoroaster\Metrics\PostCountOverTimeResults;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
 
@@ -17,15 +20,21 @@
 
                 new Row([
 
-                    new Col('uk-width-1-2' , [
-                        new Cache() ,
+                    new Col('uk-width-1-3' , [
+                        new PostCountOverTime() ,
                     ]) ,
 
-                    new Col('uk-width-1-2' , [
-                        new Sessions() ,
+                    new Col('uk-width-1-3' , [
+                        new PostCountOverTimeResults() ,
+                    ]) ,
+
+                    new Col('uk-width-1-3' , [
+                        new PostCount() ,
                     ]) ,
 
                 ]) ,
+
+
 
 
             ];

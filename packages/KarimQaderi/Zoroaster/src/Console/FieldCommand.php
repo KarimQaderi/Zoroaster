@@ -17,7 +17,7 @@ class FieldCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'nova:field {name}';
+    protected $signature = 'Zoroaster:field {name}';
 
     /**
      * The console command description.
@@ -215,7 +215,7 @@ class FieldCommand extends Command
      */
     protected function fieldPath()
     {
-        return base_path('nova-components/'.$this->fieldClass());
+        return base_path('Zoroaster-components/'.$this->fieldClass());
     }
 
     /**
@@ -225,7 +225,7 @@ class FieldCommand extends Command
      */
     protected function relativeFieldPath()
     {
-        return 'nova-components/'.$this->fieldClass();
+        return 'Zoroaster-components/'.$this->fieldClass();
     }
 
     /**

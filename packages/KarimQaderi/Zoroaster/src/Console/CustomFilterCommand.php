@@ -17,7 +17,7 @@ class CustomFilterCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'nova:custom-filter {name}';
+    protected $signature = 'Zoroaster:custom-filter {name}';
 
     /**
      * The console command description.
@@ -106,7 +106,7 @@ class CustomFilterCommand extends Command
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Nova\Filters';
+        return $rootNamespace.'\Zoroaster\Filters';
     }
 
     /**
@@ -246,7 +246,7 @@ class CustomFilterCommand extends Command
      */
     protected function filterPath()
     {
-        return base_path('nova-components/'.$this->filterClass());
+        return base_path('Zoroaster-components/'.$this->filterClass());
     }
 
     /**
@@ -256,7 +256,7 @@ class CustomFilterCommand extends Command
      */
     protected function relativeFilterPath()
     {
-        return 'nova-components/'.$this->filterClass();
+        return 'Zoroaster-components/'.$this->filterClass();
     }
 
     /**

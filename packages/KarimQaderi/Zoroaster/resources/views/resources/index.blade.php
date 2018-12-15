@@ -1,7 +1,7 @@
 @extends('Zoroaster::layout')
 
 @section('content')
-    <div class="uk-card card">
+    <div class="uk-card">
 
         <h1 class="resourceName">{{ $resourceClass->labels }}</h1>
         <div class="uk-child-width-1-2 resourceName_2" uk-grid>
@@ -133,7 +133,7 @@
 
 
     <script>
-        $(document).on('click', '.dataTables th', function () {
+        $(document).on('click', '.dataTables th.cursor-pointer', function () {
 
             $this = $(this);
 

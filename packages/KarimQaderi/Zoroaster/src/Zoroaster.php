@@ -71,6 +71,15 @@
                     case isset($field->data):
                         $items .= $field->viewForm(self::BuilderWidgets($field->data) , $field);
                         break;
+
+                    case isset($field->component) && ($field->component == 'value-metric' || $field->component == 'trend-metric' || $field->component == 'partition-metric'):
+                        if($field->canSee())
+                            $items .= view('Zoroaster::metrics.body')->with(array_merge((array)$field->calculate(request()) , [
+                                'class' => str_replace('\\' , '-' , get_class($field)) ,
+                                'ranges' => method_exists($field , 'ranges') ? $field->ranges() : null ,
+                            ]))->render();
+                        break;
+
                     default:
                         $items .= $field->Render($field);
                         break;
@@ -102,8 +111,6 @@
 
             return $items;
         }
-
-
 
 
     }

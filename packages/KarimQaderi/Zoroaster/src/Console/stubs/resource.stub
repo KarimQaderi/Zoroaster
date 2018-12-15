@@ -2,9 +2,9 @@
 
 namespace DummyNamespace;
 
-use Laravel\Nova\Fields\ID;
+use KarimQaderi\Zoroaster\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use KarimQaderi\Zoroaster\Http\Requests\ZoroasterRequest;
 
 class DummyClass extends Resource
 {

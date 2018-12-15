@@ -178,7 +178,7 @@
 
         public function indexQuery($eloquent)
         {
-            return $eloquent->orderByDesc('updated_at');
+            return $eloquent->orderBy('updated_at');
         }
 
 //        public function authorizeToUpdate($data)

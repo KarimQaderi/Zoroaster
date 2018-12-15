@@ -19,12 +19,14 @@
             Route::delete('/' , 'ResourceDestroyController@handle')->name('destroy');
             Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
             Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
-
-
         });
 
         Route::post('/AjaxFieldController' , 'AjaxFieldController@handle')->name('Ajax.field');
         Route::get('/Field/{controller}/{field}' , 'AjaxFieldController@handle')->name('controller.field');
+
+        Route::get('/metrics' , 'MetricController@handle')->name('metrics');
+
+
 //        Route::post('/UploadFile/Delete' , 'UploadFileControllers@delete')->name('DeleteFile');
 
     });

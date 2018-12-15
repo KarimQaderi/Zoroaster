@@ -3,9 +3,9 @@
 namespace DummyNamespace;
 
 use Illuminate\Bus\Queueable;
-use Laravel\Nova\Actions\Action;
+use KarimQaderi\Zoroaster\Actions\Action;
 use Illuminate\Support\Collection;
-use Laravel\Nova\Fields\ActionFields;
+use KarimQaderi\Zoroaster\Fields\ActionFields;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,7 +17,7 @@ class DummyClass extends Action
     /**
      * Perform the action on the given models.
      *
-     * @param  \Laravel\Nova\Fields\ActionFields  $fields
+     * @param  \KarimQaderi\Zoroaster\Fields\ActionFields  $fields
      * @param  \Illuminate\Support\Collection  $models
      * @return mixed
      */
