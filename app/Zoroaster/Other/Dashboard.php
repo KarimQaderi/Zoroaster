@@ -13,6 +13,7 @@
 
     class Dashboard
     {
+
         static function handle()
         {
             return [
