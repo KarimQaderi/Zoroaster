@@ -572,13 +572,6 @@ template {
   content: "1600px";
 }
 
-:root {
-  --uk-breakpoint-s: $breakpoint-small;
-  --uk-breakpoint-m: $breakpoint-medium;
-  --uk-breakpoint-l: $breakpoint-large;
-  --uk-breakpoint-xl: $breakpoint-xlarge;
-}
-
 /* ========================================================================
    Component: Link
  ========================================================================== */
@@ -7359,9 +7352,6 @@ ul.uk-nav-sub {
   content: ".";
 }
 
-:root {
-  --uk-leader-fill-content: $leader-fill-content;
-}
 
 /* ========================================================================
    Component: Iconnav
