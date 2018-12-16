@@ -24,9 +24,11 @@
     {{--<script type="application/javascript" src="/js/uikit-icons.js"></script>--}}
 
 
+    <script type="application/javascript" src="{{ asset('js/resources.js') }}"></script>
     <script type="application/javascript" src="{{ asset('js/ZoroasterJs.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/ZoroasterCss.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/back.css') }}"/>
+
 
 
     <script>

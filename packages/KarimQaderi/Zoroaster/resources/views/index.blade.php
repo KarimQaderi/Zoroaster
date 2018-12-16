@@ -49,7 +49,13 @@
 
     {{--index_resources--}}
     <script>
+        // location.hash = "parameter1=123&parameter2=abc";
 
+        // ChangeUrl('', 'http://127.0.0.1:8000/Zoroaster?sor=dddddddddddddddd');
+        // setParameters([
+        //     ['resource', resource],
+        // ]);
+        // console.log(getUrlVars());
 
         function index_resources(resource) {
 
@@ -57,26 +63,29 @@
                 $this = $(this).closest('resource-ajax');
             else
                 $this = $('[data-resource="' + resource + '"]');
-
-
             $($this).html("<span uk-icon=\"load\"></span>");
 
-            $.ajax({
-                type: 'GET',
-                url: '{{ route('Zoroaster.resource-ajax.index') }}',
-                data: {
-                    resource: (resource === null) ? $this.attr('data-resource') : resource,
-                },
-                success: function (data) {
-                    $this.html(data);
+            setParameters([
+                ['resource', resource],
+            ]);
 
-                },
-                error: function (data) {
 
-                    var errors = data.responseJSON;
-                    console.log(errors.errors);
-                }
+            ajaxGET('{{ route('Zoroaster.resource-ajax.index') }}',function (data) {
+                $this.html(data);
+
+            },function (data) {
+
+                var errors = data.responseJSON;
+
             });
+
+
+        }
+
+        function processAjaxData(response, urlPath) {
+            document.getElementById("content").innerHTML = response.html;
+            document.title = response.pageTitle;
+            window.history.pushState({"html": response.html, "pageTitle": response.pageTitle}, "", urlPath);
         }
 
     </script>
