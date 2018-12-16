@@ -12,7 +12,9 @@
          *
          * @var string
          */
-        public $component = 'CreateAndAddAnotherOne';
+        public $component = 'btn';
+        public $nameViewForm = 'CreateAndAddAnotherOne';
+
         public $OnCreation = false;
         public $OnUpdate = false;
 

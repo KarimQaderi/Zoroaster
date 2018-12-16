@@ -7,26 +7,29 @@
 
     class ResourceEditController extends Controller
     {
-        public function handle(ResourceRequest $request)
+        public function handle(ResourceRequest $ResourceRequest)
         {
 
+            $resources = $ResourceRequest->Model()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
-            $resources = $request->Model()->findOrFail(($request->RequestParameters()->resourceId));
+            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToUpdate($resources));
 
-            $request->authorizeTo($request->Resource()->authorizeToUpdate($resources));
+
 
             return view('Zoroaster::resources.Form')->with([
-                'request' => $request ,
-                'resourceClass' => $request->Resource() ,
-                'model' => $request->Model() ,
+                'request' => $ResourceRequest ,
+                'resourceClass' => $ResourceRequest->Resource() ,
+                'model' => $ResourceRequest->Model() ,
                 'resources' => $resources ,
-                'fields' => $request->BuilderFields(
+                'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field){
+                        if(!isset($field->showOnUpdate)) return true;
                         if($field->showOnUpdate == true)
                             return true;
                         else
                             return false;
-                    } ,'viewForm', $resources) ,
+                    } ,
+                    'viewForm' , $resources , $ResourceRequest) ,
             ]);
         }
 

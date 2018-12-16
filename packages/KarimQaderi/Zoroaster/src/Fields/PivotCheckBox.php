@@ -12,12 +12,8 @@
 
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'pivot_check_box';
+
+        public $nameViewForm = 'pivot_check_box';
 
 
         public $model_pivot = null;
@@ -56,13 +52,13 @@
         }
 
 
-        public function viewForm($data , $field , $newResource = null)
+        public function viewForm($field , $data , $resourceRequest = null)
         {
-            return view('Zoroaster::fields.Form.' . $field->component)->with(
+            return view('Zoroaster::fields.Form.' . $field->nameViewForm)->with(
                 [
                     'data' => $data ,
                     'field' => $field ,
-                    'newResource' => $newResource ,
+                    'resourceRequest' => $resourceRequest ,
                     'show' => Zoroaster::newModel($field->model_show)->get() ,
                     'pivot' => is_null($data) ? [] : Zoroaster::newModel($field->model_pivot)
                         ->where($field->model_pivot_foreign_key , $data->{$data->getKeyName()})->get()
@@ -70,7 +66,7 @@
                 ]);
         }
 
-        public function viewDetail($data , $field , $newResource = null)
+        public function viewDetail($field , $data , $resourceRequest = null)
         {
             $pivot = [];
 
@@ -83,16 +79,16 @@
                 ];
             }
 
-            return view('Zoroaster::fields.Detail.' . $field->component)->with(
+            return view('Zoroaster::fields.Detail.' . $field->nameViewForm)->with(
                 [
                     'data' => $data ,
                     'field' => $field ,
-                    'newResource' => $newResource ,
+                    'resourceRequest' => $resourceRequest ,
                     'pivot' => $pivot ,
                 ]);
         }
 
-        public function viewIndex($data , $field , $newResource = null)
+        public function viewIndex($field , $data , $resourceRequest = null)
         {
             $pivot = [];
 
@@ -105,11 +101,11 @@
                 ];
             }
 
-            return view('Zoroaster::fields.Index.' . $field->component)->with(
+            return view('Zoroaster::fields.Index.' . $field->nameViewForm)->with(
                 [
                     'data' => $data ,
                     'field' => $field ,
-                    'newResource' => $newResource ,
+                    'resourceRequest' => $resourceRequest ,
                     'pivot' => $pivot ,
                 ]);
         }

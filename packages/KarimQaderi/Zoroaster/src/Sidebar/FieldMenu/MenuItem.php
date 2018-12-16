@@ -9,13 +9,15 @@
     class MenuItem
     {
 
+        public $component = 'MenuItem';
+
 
         public $TypeLink = null;
         public $Link = null;
         public $Label = null;
         public $data = null;
         public $icon = null;
-        public $Access = null;
+        public $canSee = null;
 
         public function __construct(...$arguments)
         {
@@ -50,7 +52,7 @@
                 $this->Label = $label;
 
             if(!is_null($newResource))
-                $this->Access = $newResource->authorizeToIndex(Zoroaster::newModel($newResource->model));
+                $this->canSee = $newResource->authorizeToIndex(Zoroaster::newModel($newResource->model));
 
             return $this;
         }
@@ -80,9 +82,9 @@
         }
 
 
-        public function Access(boolean $Access)
+        public function canSee(boolean $canSee)
         {
-            $this->Access = $Access;
+            $this->canSee = $canSee;
             return $this;
         }
 

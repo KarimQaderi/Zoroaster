@@ -10,12 +10,15 @@ abstract class Element implements JsonSerializable
 {
     use ProxiesCanSeeToGate;
 
+
+    public $nameViewForm = '';
+
     /**
      * The element's component.
      *
      * @var string
      */
-    public $component;
+    public $component = 'field';
 
     /**
      * The callback used to authorize viewing the card.

@@ -4,35 +4,98 @@
     namespace KarimQaderi\Zoroaster;
 
 
-    class Builder
+    trait  Builder
     {
 
-        public function builder($builders , $where , $viewForm = null)
+
+        /**
+         * @param          $builders
+         * @param callable $where
+         * @param          $viewForm
+         * @param          $resource
+         *
+         * @return null|string
+         */
+        public static function RenderViewForm($builders , callable $where , $viewForm , $resource , $ResourceRequest = null)
         {
-            $Fields = is_null($viewForm) ? [] : null;
+            $renders = null;
 
-            foreach($builders as $builder){
-                $select = null;
-                switch(true){
-                    case isset($field->data):
-                        if(is_null($viewForm))
-                            $select = array_merge($Fields , $this->builder($where , $field->data));
-                        else
-                            $select = $builder->$viewForm($this->builder($where , $view , $resources , $field->data) , $field , $this->Resource());
-                        break;
 
-                    default:
-                        $select [] = $builder;
-                        break;
-                }
+            foreach($builders as $builder)
+            {
 
-                if(is_null($viewForm))
-                    $Fields [] = $select;
+                $render = null;
 
+                if(call_user_func($where , $builder) === true)
+
+                    if(is_string($builder))
+                        $render = $builder;
+
+                    elseif(is_object($builder) && class_basename($builder) === 'View')
+                        $render = $builder->render();
+
+                    elseif($builder->component == 'MenuItem')
+                    {
+                        if(is_array($builder->data))
+                            $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
+                        $render = $builder->Render($builder);
+                    }
+
+
+                    elseif($builder->component == 'Menu')
+                    {
+                        if(is_array($builder->data))
+                            $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
+                        if($builder->canSee)
+                            $render = self::call($builder , 'Render' , $builder);
+                    }
+
+
+                    elseif($builder->component == 'view')
+                        $render = self::call($builder , 'Render' , $builder);
+
+
+                    elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric']))
+                    {
+                        if($builder->canSee())
+                            $render = self::call($builder , 'render' , $builder);
+                    }
+
+                    elseif($builder->component == 'field_group')
+                    {
+                        $render = self::call($builder , 'render' ,
+                            $builder , self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest) , $ResourceRequest
+                        );
+                    }
+
+
+                    elseif($builder->component == 'field' || $builder->component == 'btn')
+                        $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
+
+
+                    elseif(isset($builder->data))
+                        $render = self::call($builder , $viewForm ,
+                            $builder , self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest) , $ResourceRequest
+                        );
+
+
+                $renders .= $render;
 
             }
 
-            return $Fields;
+            return $renders;
+        }
+
+        /**
+         * @param       $class
+         * @param       $method
+         * @param array $parameters
+         *
+         * @return mixed
+         */
+        private static function call($class , $method , ...$parameters)
+        {
+            return $class->{$method}(...$parameters);
         }
 
 

@@ -15,7 +15,7 @@
          *
          * @var string
          */
-        public $component = 'belongs-to';
+        public $nameViewForm = 'belongs-to';
 
         /**
          * The field's component.
@@ -69,31 +69,34 @@
         }
 
 
-        public function viewForm($data , $field , $newResource = null)
+        public function viewForm($field , $data , $resourceRequest = null)
         {
-            return view('Zoroaster::fields.Form.' . $field->component)->with(
+            return view('Zoroaster::fields.Form.' . $field->nameViewForm)->with(
                 [
                     'data' => is_null($data) ? null : Zoroaster::newModel($field->model)->where([$field->foreign_key => $data->{$field->name}])->first() ,
                     'field' => $field ,
                     'all' => Zoroaster::newModel($field->model)->get() ,
+                    'resourceRequest' => $resourceRequest ,
                 ]);
         }
 
-        public function viewDetail($data , $field , $newResource = null)
+        public function viewDetail($field , $data , $resourceRequest = null)
         {
-            return view('Zoroaster::fields.Detail.' . $field->component)->with(
+            return view('Zoroaster::fields.Detail.' . $field->nameViewForm)->with(
                 [
                     'data' => is_null($data) ? null : Zoroaster::newModel($field->model)->where([$field->foreign_key => $data->{$field->name}])->first() ,
                     'field' => $field ,
+                    'resourceRequest' => $resourceRequest ,
                 ]);
         }
 
-        public function viewIndex($data , $field , $newResource = null)
+        public function viewIndex($field , $data , $resourceRequest = null)
         {
-            return view('Zoroaster::fields.Index.' . $field->component)->with(
+            return view('Zoroaster::fields.Index.' . $field->nameViewForm)->with(
                 [
                     'data' => Zoroaster::newModel($field->model)->where([$field->foreign_key => $data->{$field->name}])->first() ,
                     'field' => $field ,
+                    'resourceRequest' => $resourceRequest ,
                 ]);
         }
 

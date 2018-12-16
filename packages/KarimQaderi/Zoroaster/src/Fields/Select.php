@@ -14,12 +14,8 @@
 
         use Resource;
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'select';
+
+        public $nameViewForm = 'select';
 
 
         /**

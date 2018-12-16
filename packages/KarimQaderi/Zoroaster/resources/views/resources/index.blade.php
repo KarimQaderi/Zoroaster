@@ -12,7 +12,7 @@
                 </form>
             </div>
             <div class="uk-text-left">
-                <a href="{{ route('Zoroaster.resource.create',['resoure'=> $request->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
+                <a href="{{ route('Zoroaster.resource.create',['resoure'=> $ResourceRequest->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
                     کردن {{ $resourceClass->label }}</a>
             </div>
         </div>
@@ -45,12 +45,12 @@
                             </div>
                             <div uk-dropdown="mode: click">
 
-                                {!! Zoroaster::Filters($request) !!}
+                                {!! Zoroaster::Filters($ResourceRequest) !!}
 
                             </div>
                         </div>
 
-                        {!! Zoroaster::ResourceActions($request,null,$model,'IndexTopLeft',null) !!}
+                        {!! Zoroaster::ResourceActions($ResourceRequest,null,$model,'IndexTopLeft',null) !!}
 
                     </div>
                 </div>
@@ -88,12 +88,12 @@
 
                             @foreach($fields as $field)
 
-                                <td style="text-align: {{ $field->textAlign }}" class="uk-text-nowrap">{!! $field->viewIndex($data,$field) !!}</td>
+                                <td style="text-align: {{ $field->textAlign }}" class="uk-text-nowrap">{!! $field->viewIndex($field,$data,$ResourceRequest) !!}</td>
 
                             @endforeach
 
                             <td class="action_btn" style="text-align: center">
-                                {!! Zoroaster::ResourceActions($request,$data,$model,'Index',$field) !!}
+                                {!! Zoroaster::ResourceActions($ResourceRequest,$data,$model,'Index',$field) !!}
                             </td>
 
                         </tr>
@@ -123,7 +123,7 @@
                 <div class="noCountResources">
                     <span uk-icon="icon: plus-circle; ratio: 2"></span>
                     <div class="text">هیچ {{ $resourceClass->label }}ی پیدا نشد</div>
-                    <a href="{{ route('Zoroaster.resource.create',['resoure'=> $request->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
+                    <a href="{{ route('Zoroaster.resource.create',['resoure'=> $ResourceRequest->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
                         کردن {{ $resourceClass->label }}</a>
                 </div>
             @endif
@@ -236,7 +236,7 @@
 
             $.ajax({
                 type: 'DELETE',
-                url: '{{ route('Zoroaster.resource.destroy',['resource'=> $request->resourceClass ]) }}',
+                url: '{{ route('Zoroaster.resource.destroy',['resource'=> $ResourceRequest->resourceClass ]) }}',
                 data: {
                     _token: $('meta[name="_token"]').attr('content'),
                     resourceId: $destroy_resourceId
@@ -271,7 +271,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ route('Zoroaster.resource.softDeleting',['resource'=> $request->resourceClass ]) }}',
+                url: '{{ route('Zoroaster.resource.softDeleting',['resource'=> $ResourceRequest->resourceClass ]) }}',
                 data: {
                     _token: $('meta[name="_token"]').attr('content'),
                     resourceId: $destroy_resourceId
@@ -308,7 +308,7 @@
 
             $.ajax({
                 type: 'PUT',
-                url: '{{ route('Zoroaster.resource.restore',['resource'=> $request->resourceClass ]) }}',
+                url: '{{ route('Zoroaster.resource.restore',['resource'=> $ResourceRequest->resourceClass ]) }}',
                 data: {
                     _token: $('meta[name="_token"]').attr('content'),
                     resourceId: $destroy_resourceId

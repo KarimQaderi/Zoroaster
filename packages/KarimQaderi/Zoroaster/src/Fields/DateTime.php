@@ -13,12 +13,8 @@
         use Resource;
 
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'date_time';
+
+        public $nameViewForm = 'date_time';
 
 
 

@@ -11,12 +11,8 @@
     {
         use Resource;
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'textarea';
+
+        public $nameViewForm = 'textarea';
 
         public function rows($rows)
         {

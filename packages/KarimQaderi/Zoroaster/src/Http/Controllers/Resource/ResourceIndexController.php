@@ -3,68 +3,66 @@
     namespace KarimQaderi\Zoroaster\Http\Controllers\Resource;
 
     use App\Http\Controllers\Controller;
-    use App\models\Post;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
     use KarimQaderi\Zoroaster\ResourceFilters\DefaultFilters;
 
     class ResourceIndexController extends Controller
     {
-        public function handle(ResourceRequest $request)
+        public function handle(ResourceRequest $ResourceRequest)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToIndex($request->Model()));
+            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model()));
 
-            $resources = $request->Model();
+            $resources = $ResourceRequest->Model();
 
-            $resources = $this->toQuery($resources , $request);
+            $resources = $this->toQuery($resources , $ResourceRequest);
 
             return view('Zoroaster::resources.index')->with([
-                'request' => $request ,
-                'resourceClass' => $request->Resource() ,
-                'model' => $request->Model() ,
+                'ResourceRequest' => $ResourceRequest ,
+                'resourceClass' => $ResourceRequest->Resource() ,
+                'model' => $ResourceRequest->Model() ,
                 'resources' => $resources ,
-                'fields' => $request->ResourceFields(function($field){
-                    if($field !== null && $field->showOnIndex == true)
-                        return true;
-                    else
-                        return false;
-                }) ,
+                'fields' =>
+                    $ResourceRequest->ResourceFields(function($field){
+                        if($field !== null && $field->showOnIndex == true)
+                            return true;
+                        else
+                            return false;
+                    }) ,
             ]);
 
         }
 
 
-        private function toQuery($resources , ResourceRequest $request)
+        private function toQuery($resources , ResourceRequest $ResourceRequest)
         {
 
             if(request()->has('search'))
-                $resources = $resources->where(function($q) use ($request){
-                    foreach($request->Resource()->search as $field){
+                $resources = $resources->where(function($q) use ($ResourceRequest){
+                    foreach($ResourceRequest->Resource()->search as $field){
                         $q->orWhere($field , 'like' , '%' . request()->search . '%');
                     }
                 });
 
 
-
             // Sort Table
             if(request()->has('sortable_direction') && request()->has('sortable_field'))
-                $resources = $resources->orderBy(request()->sortable_field,request()->sortable_direction);
-
+                $resources = $resources->orderBy(request()->sortable_field , request()->sortable_direction);
 
 
             // indexQuery
-            if($request->Resource()->indexQuery($resources) !== null)
-                $resources = $request->Resource()->indexQuery($resources);
+            if($ResourceRequest->Resource()->indexQuery($resources) !== null)
+                $resources = $ResourceRequest->Resource()->indexQuery($resources);
 
 
             // filters
             $filters = (new DefaultFilters())->hendle();
-            if($request->Resource()->filters() != null)
-                $filters = array_merge($request->Resource()->filters() , $filters);
+            if($ResourceRequest->Resource()->filters() != null)
+                $filters = array_merge($ResourceRequest->Resource()->filters() , $filters);
 
             foreach($filters as $filter){
-                if($filter->canSee($request))
-                    $resources = $filter->apply($resources , $request);
+                if($filter->canSee($ResourceRequest))
+                    $resources = $filter->apply($resources , $ResourceRequest);
             }
 
 

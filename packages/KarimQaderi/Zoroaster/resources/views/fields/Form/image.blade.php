@@ -111,7 +111,7 @@
                 url: '{{ route('Zoroaster.Ajax.field') }}',
                 data: {
                     _token: $('meta[name="_token"]').attr('content'),
-                    resource: '{{ array_last(explode('\\',$newResource->model)) }}',
+                    resource: '{{ $resourceRequest->resourceClass }}',
                     field: '{{ $field->name }}',
                     controller: 'ResourceUploadDelete',
                     url: imgUpload_img.find('#url').val(),
@@ -141,7 +141,7 @@
         name: 'file',
         params: {
             _token: '{{ csrf_token() }}',
-            resource: '{{ array_last(explode('\\',$newResource->model)) }}',
+            resource: '{{ $resourceRequest->resourceClass }}',
             controller: 'ResourceUpload',
             field: '{{ $field->name }}',
             resize: '{{ json_encode($field->resize) }}'

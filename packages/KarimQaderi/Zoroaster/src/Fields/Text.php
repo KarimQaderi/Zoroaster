@@ -13,12 +13,8 @@
         use Resource;
 
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'text';
+
+        public $nameViewForm = 'text';
 
 
 

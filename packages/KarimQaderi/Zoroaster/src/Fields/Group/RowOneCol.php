@@ -8,6 +8,9 @@
 
     class RowOneCol extends MergeValue implements JsonSerializable
     {
+
+        use TraitView;
+
         /**
          * The name of the panel.
          *
@@ -20,7 +23,8 @@
          *
          * @var array
          */
-        public $component = 'RowOneCol';
+        public $component = 'field_group';
+        public $nameViewForm = 'RowOneCol';
         public $data;
 
         /**
@@ -62,30 +66,4 @@
             ];
         }
 
-        public function viewForm($data , $field)
-        {
-            return view('Zoroaster::fields.' . $field->component)->with(
-                [
-                    'data' => $data ,
-                    'field' => $field ,
-                ]);
-        }
-
-        public function viewDetail($data , $field)
-        {
-            return view('Zoroaster::fields.' . $field->component)->with(
-                [
-                    'data' => $data ,
-                    'field' => $field ,
-                ]);
-        }
-
-        public function viewIndex($data , $field)
-        {
-            return view('Zoroaster::fields.' . $field->component)->with(
-                [
-                    'data' => $data ,
-                    'field' => $field ,
-                ]);
-        }
     }

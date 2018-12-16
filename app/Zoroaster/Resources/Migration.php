@@ -22,6 +22,7 @@
          */
         public $model = 'App\\Models\\Migration';
 
+        public $globallySearchable = false;
         /**
          * The single value that should be used to represent the resource when being displayed.
          *
@@ -57,8 +58,8 @@
                             ID::make()->rules('required')->onlyOnIndex() ,
                             Text::make('Migration' , 'migration')->rules('required') ,
                             Number::make('batch' , 'batch')->rules('required') ,
-                            btnSave::make(),
-                            CreateAndAddAnotherOne::make(),
+                            btnSave::make() ,
+                            CreateAndAddAnotherOne::make() ,
 
                         ])
                     ]) ,

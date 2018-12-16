@@ -30,6 +30,13 @@
         public $label = '';
 
         /**
+         * Indicates if the resoruce should be globally searchable.
+         *
+         * @var bool
+         */
+        public $globallySearchable = true;
+
+        /**
          * The columns that should be searched.
          *
          * @var array

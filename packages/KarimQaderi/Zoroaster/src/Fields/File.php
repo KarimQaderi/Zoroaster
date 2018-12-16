@@ -13,12 +13,8 @@
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'file';
+
+        public $nameViewForm = 'file';
 
 
         /**

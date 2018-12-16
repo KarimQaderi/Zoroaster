@@ -11,12 +11,8 @@
     {
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'image';
+
+        public $nameViewForm = 'image';
         public $resize = [];
         public $thumbnail = null;
 

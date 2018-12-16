@@ -11,22 +11,30 @@
     |
     */
 
-
+    use Illuminate\Support\Facades\Route;
+    use KarimQaderi\Zoroaster\Fields\Group\Panel;
+    use KarimQaderi\Zoroaster\Fields\Textarea;
+    use KarimQaderi\Zoroaster\Zoroaster;
     use App\models\Post;
     use Illuminate\Support\Facades\Auth;
 
+    use KarimQaderi\Zoroaster\Builder;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Auth::routes();
-
-//    Route::get('/home' , 'HomeController@index')->name('home');
-
     Auth::loginUsingId(1);
-
-
-    use Illuminate\Support\Facades\Route;
-    use KarimQaderi\Zoroaster\Zoroaster;
-
-
-
     Route::group(['middleware' => 'back'] , function(){
 
         Zoroaster::routes();
@@ -39,9 +47,6 @@
         });
 
     });
-
-
-
     Route::get('/svgr' , function(){
         $html=null;
         foreach(glob(public_path('svgs') . '/*.svg') as $file){

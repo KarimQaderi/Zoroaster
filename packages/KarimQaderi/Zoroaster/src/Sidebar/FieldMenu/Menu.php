@@ -10,6 +10,8 @@
     class Menu extends MergeValue
     {
 
+        public $component = 'Menu';
+        public $canSee = true;
 
 
 
@@ -18,9 +20,9 @@
             return new static($fields);
         }
 
-        public function Access(boolean $Access)
+        public function canSee(boolean $canSee)
         {
-            $this->Access = $Access;
+            $this->canSee = $canSee;
 
             return $this;
         }

@@ -12,12 +12,8 @@
 
         use Resource;
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'trix';
+
+        public $nameViewForm = 'trix';
 
 
 

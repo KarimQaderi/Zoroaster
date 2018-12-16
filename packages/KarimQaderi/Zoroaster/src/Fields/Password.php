@@ -14,12 +14,8 @@
         use Resource;
 
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'password';
+
+        public $nameViewForm = 'password';
 
         public function __construct(string $label , ?string $name = null)
         {

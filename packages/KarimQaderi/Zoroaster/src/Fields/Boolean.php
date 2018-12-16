@@ -8,12 +8,8 @@
     class Boolean extends Field
     {
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'boolean';
+
+        public $nameViewForm = 'boolean';
         public $textAlign = 'center';
 
         public $customResourceController = true;

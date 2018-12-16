@@ -9,6 +9,7 @@
     class Divider
     {
 
+        public $component = 'view';
 
 
 

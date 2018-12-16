@@ -7,30 +7,31 @@
 
     class ResourceShowController extends Controller
     {
-        public function handle(ResourceRequest $request)
+        public function handle(ResourceRequest $ResourceRequest)
         {
 
-            if(method_exists($request->Model() , 'isForceDeleting'))
-                $resources = $request->Model()->withTrashed()->findOrFail(($request->RequestParameters()->resourceId));
+            if(method_exists($ResourceRequest->Model() , 'isForceDeleting'))
+                $resources = $ResourceRequest->Model()->withTrashed()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
             else
-                $resources = $request->Model()->findOrFail(($request->RequestParameters()->resourceId));
+                $resources = $ResourceRequest->Model()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
-            $request->authorizeTo($request->Resource()->authorizeToShow($resources));
+            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToShow($resources));
 
 
             return view('Zoroaster::resources.Detail')->with([
-                'request' => $request ,
-                'resourceClass' => $request->Resource() ,
-                'model' => $request->Model() ,
+                'request' => $ResourceRequest ,
+                'resourceClass' => $ResourceRequest->Resource() ,
+                'model' => $ResourceRequest->Model() ,
                 'resources' => $resources ,
-                'fields' => $request->BuilderFields(
+                'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field){
-                        if($field->showOnDetail == true)
+                        if(!isset($field->showOnDetail)) return true;
+                        if($field->showOnDetail === true)
                             return true;
                         else
                             return false;
-                    } , 'viewDetail' ,
-                    $resources) ,
+                    } ,
+                    'viewDetail' , $resources , $ResourceRequest) ,
             ]);
         }
 

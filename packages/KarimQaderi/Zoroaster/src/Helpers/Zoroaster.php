@@ -2,14 +2,17 @@
 
 
     use App\Zoroaster\Other\Dashboard;
+    use App\Zoroaster\Other\Navbar;
     use App\Zoroaster\Other\Sidebar;
     use Illuminate\Support\Facades\File;
+    use KarimQaderi\Zoroaster\Builder;
     use KarimQaderi\Zoroaster\ResourceFilters\DefaultFilters;
     use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
 
 
     class Zoroaster
     {
+        use Builder;
 
 
         public static function Filters($request)
@@ -42,12 +45,33 @@
 
         public static function Sidebar()
         {
-            return SrcZoroaster::BuilderSidebar(Sidebar::handle());
+            return self::RenderViewForm(Sidebar::handle() ,
+                function($field){
+                    return true;
+                } ,
+                'viewDetail' , null , null);
+        }
+
+        /**
+         * @param string $position left || right || center
+         * @return null|string
+         */
+        public static function Navbar($position = 'left')
+        {
+            return self::RenderViewForm(Navbar::$position() ,
+                function($field){
+                    return true;
+                } ,
+                'viewDetail' , null , null);
         }
 
         public static function Widgets()
         {
-            return SrcZoroaster::BuilderWidgets(Dashboard::handle());
+            return self::RenderViewForm(Dashboard::handle() ,
+                function($field){
+                    return true;
+                } ,
+                'viewDetail' , null , null);
         }
 
 
@@ -285,8 +309,6 @@
 
         public static function makeDirectory($upPath)
         {
-
-
             $tags = explode('/' , str_replace('//' , '/' , $upPath));            // explode the full path
             $mkDir = "";
 

@@ -13,8 +13,8 @@
         public function run()
         {
             User::create([
-                'name' => 'admin' ,
-                'email' => 'admin@admin.com' ,
+                'name' => 'Karim Qaderi' ,
+                'email' => 'karimqaderi1@gmail.com' ,
                 'email_verified_at' => now() ,
                 'password' => Hash::make('123456') ,
                 'is_admin' => true

@@ -5,33 +5,41 @@
 
     trait View
     {
-        public function viewForm($data , $field , $newResource = null)
+        public function viewForm($field , $data , $resourceRequest = null)
         {
-            return view('Zoroaster::fields.Form.' . $field->component)->with(
+            try{
+                return view('Zoroaster::fields.Form.' . $field->nameViewForm)->with(
+                    [
+                        'field' => $field ,
+                        'data' => $data ,
+                        'value' => isset($data->{$field->name})? $data->{$field->name} : null ,
+                        'resourceRequest' => $resourceRequest ,
+                    ]);
+            }catch(\Exception $exception)
+            {
+                dd($field);
+            }
+        }
+
+        public function viewDetail($field , $data , $resourceRequest = null)
+        {
+            return view('Zoroaster::fields.Detail.' . $field->nameViewForm)->with(
                 [
-                    'data' => $data ,
                     'field' => $field ,
-                    'newResource' => $newResource ,
+                    'data' => $data ,
+                    'value' => isset($data->{$field->name})? $data->{$field->name} : null ,
+                    'resourceRequest' => $resourceRequest ,
                 ]);
         }
 
-        public function viewDetail($data , $field , $newResource = null)
+        public function viewIndex($field , $data , $resourceRequest = null)
         {
-            return view('Zoroaster::fields.Detail.' . $field->component)->with(
+            return view('Zoroaster::fields.Index.' . $field->nameViewForm)->with(
                 [
-                    'data' => $data ,
                     'field' => $field ,
-                    'newResource' => $newResource ,
-                ]);
-        }
-
-        public function viewIndex($data , $field , $newResource = null)
-        {
-            return view('Zoroaster::fields.Index.' . $field->component)->with(
-                [
                     'data' => $data ,
-                    'field' => $field ,
-                    'newResource' => $newResource ,
+                    'value' => isset($data->{$field->name})? $data->{$field->name} : null ,
+                    'resourceRequest' => $resourceRequest ,
                 ]);
         }
     }

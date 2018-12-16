@@ -12,12 +12,8 @@
         use Resource;
 
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'date';
+
+        public $nameViewForm = 'date';
 
         public $format = 'Y-m-d';
 

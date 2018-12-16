@@ -13,12 +13,8 @@
         use Resource;
 
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $component = 'markdown';
+
+        public $nameViewForm = 'markdown';
 
 
 

@@ -7,6 +7,8 @@
 
     class SidebarHeader
     {
+        public $component = 'view';
+
         public static function make()
         {
             return new static();

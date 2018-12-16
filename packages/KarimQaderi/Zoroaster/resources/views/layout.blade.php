@@ -71,17 +71,35 @@
 
     <div id="sidebar" class="tm-sidebar-right uk-background-default mCustomScrollbar" data-mcs-theme="minimal-dark">
 
-
         {!! Zoroaster::Sidebar() !!}
 
     </div>
+
     <div class="tm-main">
         <div class="tm-title uk-section-small uk-section-default header">
-            <div class="uk-container uk-container-expand">
-                <a id="sidebar_toggle" href="#"><i uk-icon="chevron-left"></i> </a>
-                <h2 class="uk-display-inline-block">@yield('title')</h2>
-            </div>
+            <nav uk-navbar>
+                <div class="uk-navbar-right">
+                    <a id="sidebar_toggle" href="#"><i uk-icon="chevron-left"></i> </a>
+                    <div class="uk-display-inline-block GlobalSearch">
+                        <form class="uk-search">
+                            <span class="uk-search-icon-flip" uk-search-icon></span>
+                            <input class="uk-search-input" type="search" placeholder="جستجو...">
+                        </form>
+                        <div class="data" data-hidden="0">
+                            <div class="NoItem">متن خود را جستجو کنید</div>
+                        </div>
+                    </div>
+
+                    {!! Zoroaster::Navbar('right') !!}
+
+                </div>
+                <div class="uk-navbar-center">{!! Zoroaster::Navbar('center') !!}</div>
+                <div class="uk-navbar-left">
+                   {!! Zoroaster::Navbar('left') !!}
+                </div>
+            </nav>
         </div>
+
         <div class="tm-content uk-padding-remove-vertical uk-section-muted uk-height-viewport">
             <div class="tm-container uk-container uk-container-expand uk-padding-small">
 
@@ -109,6 +127,31 @@
     </div>
 </div>
 
+
+<script>
+    $(document).on('click', 'div,span', function () {
+        $('.GlobalSearch .data').attr('data-hidden', 0);
+    });
+
+    $(document).on('click', '.GlobalSearch div,.GlobalSearch span', function () {
+        $('.GlobalSearch .data').attr('data-hidden', 1);
+    });
+
+    $(document).on('paste keyup', '.GlobalSearch input', function () {
+        $('.GlobalSearch .data').attr('data-hidden', 1);
+        $('.GlobalSearch .data').html("<span uk-icon=\"load\"></span>");
+        $.ajax({
+            type: 'GET',
+            url: '{{ route('Zoroaster.globalSearch') }}',
+            data: {
+                search: $('.GlobalSearch input').val()
+            },
+            success: function (data) {
+                $('.GlobalSearch .data').html(data);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

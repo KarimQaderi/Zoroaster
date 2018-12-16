@@ -20,6 +20,7 @@
             Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
             Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
         });
+        Route::get('/GlobalSearch' , 'Resource\ResourceGlobalSearchController@handle')->name('globalSearch');
 
         Route::post('/AjaxFieldController' , 'AjaxFieldController@handle')->name('Ajax.field');
         Route::get('/Field/{controller}/{field}' , 'AjaxFieldController@handle')->name('controller.field');

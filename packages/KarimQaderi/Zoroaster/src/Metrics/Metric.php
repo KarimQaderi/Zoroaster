@@ -32,5 +32,13 @@
             return true;
         }
 
+        public function render($metrics)
+        {
+            return view('Zoroaster::metrics.body')->with(array_merge((array)$metrics->calculate(request()) , [
+                'class' => str_replace('\\' , '-' , get_class($metrics)) ,
+                'ranges' => method_exists($metrics , 'ranges') ? $metrics->ranges() : null ,
+            ]));
+        }
+
 
     }
