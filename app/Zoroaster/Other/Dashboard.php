@@ -7,9 +7,11 @@
     use App\back\Widgets\Sessions;
     use App\Zoroaster\Metrics\PostCount;
     use App\Zoroaster\Metrics\PostCountOverTime;
-    use App\Zoroaster\Metrics\PostCountOverTimeResults;
+    use App\Zoroaster\Metrics\PostPartition;
+    use App\Zoroaster\Resources\Post;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
+    use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
 
     class Dashboard
     {
@@ -18,7 +20,6 @@
         {
             return [
 
-
                 new Row([
 
                     new Col('uk-width-1-3' , [
@@ -26,7 +27,7 @@
                     ]) ,
 
                     new Col('uk-width-1-3' , [
-                        new PostCountOverTimeResults() ,
+                        new PostPartition() ,
                     ]) ,
 
                     new Col('uk-width-1-3' , [
@@ -34,6 +35,10 @@
                     ]) ,
 
                 ]) ,
+
+                new RowOneCol([
+                    Post::class
+                ]),
 
 
 

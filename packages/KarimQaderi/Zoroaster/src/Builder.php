@@ -31,6 +31,9 @@
                     if(is_string($builder))
                         $render = $builder;
 
+                    elseif($builder->component === 'resource')
+                        $render = $builder->render();
+
                     elseif(is_object($builder) && class_basename($builder) === 'View')
                         $render = $builder->render();
 

@@ -39,7 +39,7 @@
          * @var array
          */
         public $search = [
-            'name' ,
+            'name' ,'id'
         ];
 
         /**

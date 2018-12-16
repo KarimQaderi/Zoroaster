@@ -3,7 +3,7 @@
 
     <h1 class="resourceName">داشبورد</h1>
 
-    <div>
+    <div class="Widgets">
         {!! Zoroaster::Widgets() !!}
     </div>
 

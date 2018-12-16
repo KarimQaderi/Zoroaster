@@ -17,6 +17,8 @@
         use Authorization;
 
 
+        public $component = 'resource';
+
         public $model = '';
 
         /**

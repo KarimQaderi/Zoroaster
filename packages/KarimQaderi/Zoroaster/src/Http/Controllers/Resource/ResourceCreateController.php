@@ -7,22 +7,25 @@
 
     class ResourceCreateController extends Controller
     {
-        public function handle(ResourceRequest $request)
+        public function handle(ResourceRequest $ResourceRequest)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToCreate($request->Model()));
+            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToCreate($ResourceRequest->Model()));
 
 
             return view('Zoroaster::resources.Form')->with([
-                'request' => $request ,
-                'resourceClass' => $request->Resource() ,
-                'model' => $request->Model() ,
-                'fields' => $request->BuilderFields(function($field){
-                    if($field->showOnCreation == true)
-                        return true;
-                    else
-                        return false;
-                },'viewForm') ,
+                'request' => $ResourceRequest ,
+                'resourceClass' => $ResourceRequest->Resource() ,
+                'model' => $ResourceRequest->Model() ,
+                'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
+                    function($field){
+                        if(!isset($field->showOnCreation)) return true;
+                        if($field->showOnCreation == true)
+                            return true;
+                        else
+                            return false;
+                    } ,
+                    'viewForm' , null , $ResourceRequest) ,
             ]);
         }
 

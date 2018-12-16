@@ -1729,7 +1729,7 @@ tr.destroy-resourceid td {
 }
 
 .uk-alert-danger.uk-alert {
-    margin: 0 30px;
+    /* margin: 0 30px; */
 }
 
 tr.Restore-resourceid td {
@@ -2460,4 +2460,8 @@ ul#side-menu a:hover, ul#side-menu a {
 
 .uk-navbar-nav > li > a {
     text-transform: none;
+}
+
+.Widgets .uk-grid.row {
+    margin-bottom: 30px;
 }
