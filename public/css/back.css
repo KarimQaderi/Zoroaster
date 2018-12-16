@@ -2465,3 +2465,15 @@ ul#side-menu a:hover, ul#side-menu a {
 .Widgets .uk-grid.row {
     margin-bottom: 30px;
 }
+
+.resource-ajax {
+    /* text-align: center; */
+}
+
+.resource-ajax > [uk-icon="load"] {
+    /* margin: auto; */
+    display: block;
+    text-align: center;
+    padding: 50px 0;
+    background-color: rgb(255, 255, 255);
+}

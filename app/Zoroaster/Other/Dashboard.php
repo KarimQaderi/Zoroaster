@@ -37,7 +37,7 @@
                 ]) ,
 
                 new RowOneCol([
-                    Post::class
+                    new Post
                 ]),
 
 

@@ -4,12 +4,19 @@
     use KarimQaderi\Zoroaster\Zoroaster;
 
 //    Markdown::convertToHtml($value);
-    Route::group(Zoroaster::routeConfiguration() , function(){
+    Route::group(Zoroaster::routeConfiguration() , function()
+    {
 
         Route::get('/' , 'DashboardController@handle')->name('home');
         Route::get('/Settings/icons' , 'SettingsIconsController@handle')->name('settings.icons');
 
-        Route::group(['prefix' => 'resource/{resource}' , 'as' => 'resource.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function(){
+        Route::group(['prefix' => 'resource/ajax' , 'as' => 'resource-ajax.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function()
+        {
+            Route::get('/' , 'ResourceIndexController@handle')->name('index');
+        });
+
+        Route::group(['prefix' => 'resource/{resource}' , 'as' => 'resource.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function()
+        {
             Route::get('/' , 'ResourceIndexController@handle')->name('index');
             Route::get('/create' , 'ResourceCreateController@handle')->name('create');
             Route::get('/{resourceId}/show' , 'ResourceShowController@handle')->name('show');
@@ -20,6 +27,8 @@
             Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
             Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
         });
+
+
         Route::get('/GlobalSearch' , 'Resource\ResourceGlobalSearchController@handle')->name('globalSearch');
 
         Route::post('/AjaxFieldController' , 'AjaxFieldController@handle')->name('Ajax.field');

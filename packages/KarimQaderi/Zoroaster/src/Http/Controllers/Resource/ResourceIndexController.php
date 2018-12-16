@@ -17,7 +17,12 @@
 
             $resources = $this->toQuery($resources , $ResourceRequest);
 
-            return view('Zoroaster::resources.index')->with([
+            $view='Zoroaster::resources.index';
+
+            if(request()->ajax())
+                $view='Zoroaster::resources.index-resource';
+
+            return view($view)->with([
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Model() ,
