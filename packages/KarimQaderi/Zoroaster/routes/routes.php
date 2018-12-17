@@ -13,6 +13,9 @@
         Route::group(['prefix' => 'resource/ajax' , 'as' => 'resource-ajax.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function()
         {
             Route::get('/' , 'ResourceIndexController@handle')->name('index');
+            Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
+            Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
+            Route::delete('/' , 'ResourceDestroyController@handle')->name('destroy');
         });
 
         Route::group(['prefix' => 'resource/{resource}' , 'as' => 'resource.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function()
@@ -23,9 +26,6 @@
             Route::get('/{resourceId}/edit' , 'ResourceEditController@handle')->name('edit');
             Route::put('/{resourceId}/update' , 'ResourceUpdateController@handle')->name('update');
             Route::post('/store' , 'ResourceStoreController@handle')->name('store');
-            Route::delete('/' , 'ResourceDestroyController@handle')->name('destroy');
-            Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
-            Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
         });
 
 

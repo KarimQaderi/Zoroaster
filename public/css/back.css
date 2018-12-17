@@ -1404,7 +1404,7 @@ a, .uk-link {
     margin-bottom: 20px;
 }
 
-.resourceName_2 form {
+.resourceName_2 .search {
     background-color: rgb(255, 255, 255);
     /* background-color: var(--white); */
     border-width: 1px;
@@ -1417,13 +1417,13 @@ a, .uk-link {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
 }
 
-.resourceName_2 form > input {
+.resourceName_2 .search > input {
     width: 18.75rem;
     padding: 10px;
     padding-right: 40px;
 }
 
-.resourceName_2 form > button {
+.resourceName_2 .search > button {
     margin-right: 15px;
 }
 

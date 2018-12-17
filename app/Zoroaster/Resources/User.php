@@ -55,7 +55,7 @@
                     new Col('uk-width-2-3' , [
                         new Panel('' , [
 
-                            ID::make()->rules('required')->onlyOnIndex() ,
+                            ID::make()->rules('required')->onlyOnIndex()->sortable() ,
                             Text::make('نام' , 'name')->rules('required') ,
                             Password::make('رمز کاربر' , 'password')
                             ->help('برای تغیر نکردن رمز کادر را خالی بزارید'),

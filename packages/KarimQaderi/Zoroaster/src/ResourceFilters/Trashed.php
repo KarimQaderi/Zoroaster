@@ -6,20 +6,22 @@
     class Trashed
     {
 
-        public function render($request = null)
+        public function render($ResourceRequest)
         {
             return view('Zoroaster::resources.filters.trashed')
                 ->with([
                     'FilterTrashed' => ['' => '—' , 'all' => 'همه' , 'only' => 'فقط زباله'] ,
+                    'ResourceRequest' => $ResourceRequest,
                 ]);
         }
 
 
-        public function apply($resources , $request)
+        public function apply($resources , $ResourceRequest)
         {
 
-            if(request()->has('FilterTrashed'))
-                switch(request()->FilterTrashed){
+            if(request()->has($ResourceRequest->resourceClass . '_FilterTrashed'))
+                switch(request()->{$ResourceRequest->resourceClass . '_FilterTrashed'})
+                {
                     case '':
                         break;
                     case 'all':

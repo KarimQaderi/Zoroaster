@@ -6,18 +6,19 @@
     class PerPage
     {
 
-        public function render($request = null)
+        public function render($ResourceRequest)
         {
             return view('Zoroaster::resources.filters.perPage')
                 ->with([
                     'perPages' => ['25' , '50' , '100' , '300' , '500' , '1000'] ,
+                    'ResourceRequest' => $ResourceRequest ,
                 ]);
         }
 
 
-        public function apply($resources , $request)
+        public function apply($resources , $ResourceRequest)
         {
-            return $resources->paginate(((int)$request->Request()->perPage ?? 25))->appends(request()->all());
+            return $resources->paginate(((int)$ResourceRequest->Request()->{$ResourceRequest->resourceClass.'_perPage'} ?? 25))->appends(request()->all());
         }
 
         public function canSee($request)

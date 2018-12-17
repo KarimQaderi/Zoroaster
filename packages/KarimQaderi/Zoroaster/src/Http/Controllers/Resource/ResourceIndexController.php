@@ -17,18 +17,19 @@
 
             $resources = $this->toQuery($resources , $ResourceRequest);
 
-            $view='Zoroaster::resources.index';
+            $view = 'Zoroaster::resources.index';
 
             if(request()->ajax())
-                $view='Zoroaster::resources.index-resource';
+                $view = 'Zoroaster::resources.index-resource';
 
-            return view($view)->with([
+            $render = view($view)->with([
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Model() ,
                 'resources' => $resources ,
                 'fields' =>
-                    $ResourceRequest->ResourceFields(function($field){
+                    $ResourceRequest->ResourceFields(function($field)
+                    {
                         if($field !== null && $field->showOnIndex == true)
                             return true;
                         else
@@ -36,23 +37,33 @@
                     }) ,
             ]);
 
+            if(request()->ajax())
+                if(request()->ajax())
+                    return response()->json([
+                        'render' => $render->render() ,
+                        'resource' => $ResourceRequest->resourceClass ,
+                    ]);
+
+            return $render;
+
         }
 
 
         private function toQuery($resources , ResourceRequest $ResourceRequest)
         {
 
-            if(request()->has('search'))
-                $resources = $resources->where(function($q) use ($ResourceRequest){
-                    foreach($ResourceRequest->Resource()->search as $field){
-                        $q->orWhere($field , 'like' , '%' . request()->search . '%');
+            if(request()->has($ResourceRequest->resourceClass . '_search'))
+                $resources = $resources->where(function($q) use ($ResourceRequest)
+                {
+                    foreach($ResourceRequest->Resource()->search as $field)
+                    {
+                        $q->orWhere($field , 'like' , '%' . request()->{$ResourceRequest->resourceClass . '_search'} . '%');
                     }
                 });
 
-
             // Sort Table
-            if(request()->has('sortable_direction') && request()->has('sortable_field'))
-                $resources = $resources->orderBy(request()->sortable_field , request()->sortable_direction);
+            if(request()->has($ResourceRequest->resourceClass . '_sortable_direction') && request()->has($ResourceRequest->resourceClass . '_sortable_field'))
+                $resources = $resources->orderBy(request()->{$ResourceRequest->resourceClass . '_sortable_field'} , request()->{$ResourceRequest->resourceClass . '_sortable_direction'});
 
 
             // indexQuery
@@ -65,7 +76,8 @@
             if($ResourceRequest->Resource()->filters() != null)
                 $filters = array_merge($ResourceRequest->Resource()->filters() , $filters);
 
-            foreach($filters as $filter){
+            foreach($filters as $filter)
+            {
                 if($filter->canSee($ResourceRequest))
                     $resources = $filter->apply($resources , $ResourceRequest);
             }

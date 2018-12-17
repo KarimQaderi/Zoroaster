@@ -84,6 +84,11 @@
                 return null;
         }
 
+        public static function newModel($model)
+        {
+            return SrcZoroaster::newModel($model);
+        }
+
         public static function newResourceByResourceName($ResourceName)
         {
             return SrcZoroaster::newResource($ResourceName);

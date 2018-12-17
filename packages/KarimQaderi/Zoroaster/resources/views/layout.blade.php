@@ -24,15 +24,19 @@
     {{--<script type="application/javascript" src="/js/uikit-icons.js"></script>--}}
 
 
-    <script type="application/javascript" src="{{ asset('js/resources.js') }}"></script>
     <script type="application/javascript" src="{{ asset('js/ZoroasterJs.js') }}"></script>
+    <script type="application/javascript" src="{{ asset('js/resources.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/ZoroasterCss.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/back.css') }}"/>
 
-
+    <script>
+        var Zoroaster_resource_ajax_index = '{{ route('Zoroaster.resource-ajax.index') }}',
+            Zoroaster_resource_restore = '{{ route('Zoroaster.resource-ajax.restore') }}',
+            Zoroaster_resource_destroy = '{{ route('Zoroaster.resource-ajax.destroy') }}',
+            Zoroaster_resource_softDeleting = '{{ route('Zoroaster.resource-ajax.softDeleting') }}';
+    </script>
 
     <script>
-
         jQuery(function () {
 
 
@@ -97,7 +101,7 @@
                 </div>
                 <div class="uk-navbar-center">{!! Zoroaster::Navbar('center') !!}</div>
                 <div class="uk-navbar-left">
-                   {!! Zoroaster::Navbar('left') !!}
+                    {!! Zoroaster::Navbar('left') !!}
                 </div>
             </nav>
         </div>
