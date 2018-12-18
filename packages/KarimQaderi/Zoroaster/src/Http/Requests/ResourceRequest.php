@@ -3,7 +3,7 @@
     namespace KarimQaderi\Zoroaster\Http\Requests;
 
 
-    use KarimQaderi\Zoroaster\Builder;
+    use KarimQaderi\Zoroaster\Traits\Builder;
     use KarimQaderi\Zoroaster\Traits\BuilderFieldsForm;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest as TraitsResourceRequest;
 

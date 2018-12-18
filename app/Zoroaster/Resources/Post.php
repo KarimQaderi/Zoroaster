@@ -146,7 +146,7 @@
                             ]) ,
 
                             new RowOneCol([
-                                DateTime::make('created_at' , 'created_at')->sortable() ,
+                                DateTime::make('updated_at' , 'updated_at')->sortable() ,
                             ]) ,
 
                         ]) ,

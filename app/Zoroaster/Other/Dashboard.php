@@ -19,28 +19,28 @@
         {
             return [
 
-//                new Row([
-//
-//                    new Col('uk-width-1-3' , [
-//                        new PostCountOverTime() ,
-//                    ]) ,
-//
-//                    new Col('uk-width-1-3' , [
-//                        new PostPartition() ,
-//                    ]) ,
-//
-//                    new Col('uk-width-1-3' , [
-//                        new PostCount() ,
-//                    ]) ,
-//
-//                ]) ,
+                new Row([
+
+                    new Col('uk-width-1-3' , [
+                        new PostCountOverTime() ,
+                    ]) ,
+
+                    new Col('uk-width-1-3' , [
+                        new PostPartition() ,
+                    ]) ,
+
+                    new Col('uk-width-1-3' , [
+                        new PostCount() ,
+                    ]) ,
+
+                ]) ,
 
                 new RowOneCol([
                     new Post ,
                 ]) ,
 
                 new RowOneCol([
-//                    new User ,
+                    new User ,
 
                 ]) ,
 

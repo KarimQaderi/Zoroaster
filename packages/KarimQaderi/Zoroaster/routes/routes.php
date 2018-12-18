@@ -26,6 +26,9 @@
             Route::get('/{resourceId}/edit' , 'ResourceEditController@handle')->name('edit');
             Route::put('/{resourceId}/update' , 'ResourceUpdateController@handle')->name('update');
             Route::post('/store' , 'ResourceStoreController@handle')->name('store');
+            Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
+            Route::delete('/' , 'ResourceDestroyController@handle')->name('destroy');
+            Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
         });
 
 

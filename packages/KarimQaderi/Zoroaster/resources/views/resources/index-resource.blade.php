@@ -103,7 +103,7 @@
             <div class="dataTables_info uk-child-width-1-3" uk-grid>
                 <div class="dataTables_paginate">
                     @if (!$resources->onFirstPage())
-                        <a href="{{ $resources->previousPageUrl() }}"><span class="uk-margin-small-right uk-margin-small-left" uk-pagination-previous></span> قبلی</a>
+                        <a href="{{ Zoroaster::getCurentUrl($resources->previousPageUrl()) }}"><span class="uk-margin-small-right uk-margin-small-left" uk-pagination-previous></span> قبلی</a>
                     @endif
                 </div>
                 <div class="uk-text-center"> نمایش {{ $resources->firstItem() }} تا {{ $resources->lastItem() }} از {{ $resources->total() }}
@@ -111,7 +111,7 @@
                 </div>
                 <div class="uk-text-left dataTables_paginate">
                     @if ($resources->hasMorePages())
-                        <a href="{{ $resources->nextPageUrl() }}">بعدی <span class="uk-margin-small-left uk-margin-small-right" uk-pagination-next></span></a>
+                        <a href="{{ Zoroaster::getCurentUrl($resources->nextPageUrl()) }}">بعدی <span class="uk-margin-small-left uk-margin-small-right" uk-pagination-next></span></a>
                     @endif
                 </div>
             </div>

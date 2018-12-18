@@ -2,6 +2,6 @@
 
 @section('content')
 
-    @include('Zoroaster::resources.index-resource')
+    @include('Zoroaster::resources.index-ajax')
 
 @endsection

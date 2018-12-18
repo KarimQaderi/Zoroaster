@@ -13,16 +13,15 @@
 
             $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model()));
 
+            if(!request()->ajax())
+                return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
+
             $resources = $ResourceRequest->Model();
 
             $resources = $this->toQuery($resources , $ResourceRequest);
 
-            $view = 'Zoroaster::resources.index';
-
-            if(request()->ajax())
-                $view = 'Zoroaster::resources.index-resource';
-
-            $render = view($view)->with([
+            $render = null;
+            $render .= view('Zoroaster::resources.index-resource')->with([
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Model() ,
@@ -37,14 +36,12 @@
                     }) ,
             ]);
 
-            if(request()->ajax())
-                if(request()->ajax())
-                    return response()->json([
-                        'render' => $render->render() ,
-                        'resource' => $ResourceRequest->resourceClass ,
-                    ]);
 
-            return $render;
+            return response()->json([
+                'render' => $render ,
+                'resource' => $ResourceRequest->resourceClass ,
+            ]);
+
 
         }
 

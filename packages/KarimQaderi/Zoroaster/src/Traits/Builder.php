@@ -1,7 +1,7 @@
 <?php
 
 
-    namespace KarimQaderi\Zoroaster;
+    namespace KarimQaderi\Zoroaster\Traits;
 
 
     trait  Builder
@@ -34,7 +34,7 @@
                     elseif($builder->component === 'resource')
                         $render = view('Zoroaster::resources.index-ajax')->with([
                             'resource' => $builder,
-                        ])->render();
+                        ]);
 
                     elseif(is_object($builder) && class_basename($builder) === 'View')
                         $render = $builder->render();

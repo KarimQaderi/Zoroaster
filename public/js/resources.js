@@ -1,3 +1,10 @@
+function isString($var) {
+    if (Object.prototype.toString.call($var) == '[object String]')
+        return true;
+    else
+        return false;
+}
+
 function ajaxGET(url, data, success, error) {
     $.ajax({
         type: 'GET',
@@ -14,26 +21,32 @@ function ajaxGET(url, data, success, error) {
 
 function RemoveParameter(param) {
     var url = window.location.href;
+    var url_hash = window.location.hash;
     var hash = location.hash;
+
     $.each(param, function (key, value) {
-        url = url.replace(hash, '');
-        if (url.indexOf(value[0] + "=") >= 0) {
-            var prefix = url.substring(0, url.indexOf(value[0]));
-            var suffix = url.substring(url.indexOf(value[0]));
+        url_hash = url_hash.replace(hash, '');
+        if (url_hash.indexOf(value[0] + "=") >= 0) {
+            var prefix = url_hash.substring(0, url_hash.indexOf(value[0]));
+            var suffix = url_hash.substring(url_hash.indexOf(value[0]));
             suffix = suffix.substring(suffix.indexOf("=") + 1);
             suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
-            url = prefix + value[0] + "=" + value[1] + suffix;
+            url_hash = prefix + value[0] + "=" + value[1] + suffix;
+
         }
         else {
-            if (url.indexOf("?") < 0)
-                url += "?" + value[0] + "=" + value[1];
+            if (url_hash.indexOf("?") < 0)
+                url_hash += "?" + value[0] + "=" + value[1];
             else
-                url += "&" + value[0] + "=" + value[1];
+                url_hash += "&" + value[0] + "=" + value[1];
         }
 
     });
 
-    url = url + hash;
+
+    url = url.split('?')[0] + url_hash;
+
+
     var vars = [], hash, hashs;
     var hashes = url.slice(url.indexOf('?') + 1).split('&');
 
@@ -108,12 +121,13 @@ function index_resources(resource) {
 }
 
 function Destroy($resourceId, resource_ajax) {
-    $this = $(this);
+
     $destroy_resourceId = $resourceId;
 
-    $.each($destroy_resourceId, function (_key, _value) {
-        resource_ajax.find('[destroy-resourceId="' + _value + '"]').addClass('destroy-resourceid');
-    });
+    if (!isString(resource_ajax))
+        $.each($destroy_resourceId, function (_key, _value) {
+            resource_ajax.find('[destroy-resourceId="' + _value + '"]').addClass('destroy-resourceid');
+        });
 
     $.ajax({
         type: 'DELETE',
@@ -121,13 +135,22 @@ function Destroy($resourceId, resource_ajax) {
         data: {
             _token: $('meta[name="_token"]').attr('content'),
             resourceId: $destroy_resourceId,
-            resource: resource_ajax.attr('data-resource')
+            resource: isString(resource_ajax) ? Zoroaster_resource_name : resource_ajax.attr('data-resource')
 
         },
         success: function (data) {
-            $.each($destroy_resourceId, function (_key, _value) {
-                resource_ajax.find('[destroy-resourceId="' + _value + '"]').remove();
-            });
+            if (!isString(resource_ajax))
+                $.each($destroy_resourceId, function (_key, _value) {
+                    resource_ajax.find('[destroy-resourceId="' + _value + '"]').remove();
+                });
+            else
+                UIkit.modal.alert('رکورد حذف شد',
+                    {
+                        labels: {ok: 'باشه'},
+                        addClass: 'modal_alert'
+                    }).then(function () {
+                    window.location = Zoroaster_resource_index;
+                });
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -138,9 +161,10 @@ function Destroy($resourceId, resource_ajax) {
 function DestroySoftDeleting($resourceId, resource_ajax) {
     $destroy_resourceId = $resourceId;
 
-    $.each($destroy_resourceId, function (_key, _value) {
-        resource_ajax.find('[destroy-resourceId="' + _value + '"]').addClass('destroy-resourceid');
-    });
+    if (!isString(resource_ajax))
+        $.each($destroy_resourceId, function (_key, _value) {
+            resource_ajax.find('[destroy-resourceId="' + _value + '"]').addClass('destroy-resourceid');
+        });
 
     $.ajax({
         type: 'POST',
@@ -148,15 +172,23 @@ function DestroySoftDeleting($resourceId, resource_ajax) {
         data: {
             _token: $('meta[name="_token"]').attr('content'),
             resourceId: $destroy_resourceId,
-            resource: resource_ajax.attr('data-resource')
+            resource: isString(resource_ajax) ? Zoroaster_resource_name : resource_ajax.attr('data-resource')
         },
         success: function (data) {
-            $.each(data, function (_key, _value) {
-                var destroy = resource_ajax.find('[destroy-resourceId="' + _value.id + '"]');
-                destroy.find('.action_btn').html(_value.col);
-                destroy.removeClass('destroy-resourceid');
-            });
-
+            if (!isString(resource_ajax))
+                $.each(data, function (_key, _value) {
+                    var destroy = resource_ajax.find('[destroy-resourceId="' + _value.id + '"]');
+                    destroy.find('.action_btn').html(_value.col);
+                    destroy.removeClass('destroy-resourceid');
+                });
+            else
+                UIkit.modal.alert('رکورد حذف شد',
+                    {
+                        labels: {ok: 'باشه'},
+                        addClass: 'modal_alert'
+                    }).then(function () {
+                    location.reload();
+                });
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -167,9 +199,10 @@ function DestroySoftDeleting($resourceId, resource_ajax) {
 function Restore($resourceId, resource_ajax) {
     $destroy_resourceId = $resourceId;
 
-    $.each($destroy_resourceId, function (_key, _value) {
-        resource_ajax.find('[destroy-resourceId="' + _value + '"]').addClass('Restore-resourceid');
-    });
+    if (!isString(resource_ajax))
+        $.each($destroy_resourceId, function (_key, _value) {
+            resource_ajax.find('[destroy-resourceId="' + _value + '"]').addClass('Restore-resourceid');
+        });
 
     $.ajax({
         type: 'PUT',
@@ -177,14 +210,24 @@ function Restore($resourceId, resource_ajax) {
         data: {
             _token: $('meta[name="_token"]').attr('content'),
             resourceId: $destroy_resourceId,
-            resource: resource_ajax.attr('data-resource')
+            resource: isString(resource_ajax) ? Zoroaster_resource_name : resource_ajax.attr('data-resource')
         },
         success: function (data) {
-            $.each(data, function (_key, _value) {
-                var destroy = resource_ajax.find('[destroy-resourceId="' + _value.id + '"]');
-                destroy.find('.action_btn').html(_value.col);
-                destroy.removeClass('Restore-resourceid');
-            });
+
+            if (!isString(resource_ajax))
+                $.each(data, function (_key, _value) {
+                    var destroy = resource_ajax.find('[destroy-resourceId="' + _value.id + '"]');
+                    destroy.find('.action_btn').html(_value.col);
+                    destroy.removeClass('Restore-resourceid');
+                });
+            else
+                UIkit.modal.alert('رکورد بازیابی شد',
+                    {
+                        labels: {ok: 'باشه'},
+                        addClass: 'modal_alert'
+                    }).then(function () {
+                    location.reload();
+                });
 
         },
         error: function (data) {
@@ -260,7 +303,7 @@ $(document).ready(function () {
                 labels: {ok: 'بله', cancel: 'خیر'},
                 addClass: 'modal_restore'
             }).then(function () {
-            Restore([$this.attr('resourceId')], $this.closest('.resource-ajax'));
+            Restore([$this.attr('resourceId')], ($this.attr('data-view') === 'Detail') ? 'Detail' : $this.closest('.resource-ajax'));
         });
 
     });
@@ -277,7 +320,7 @@ $(document).ready(function () {
                 labels: {ok: 'حذف', cancel: 'خیر'},
                 addClass: 'modal_delete'
             }).then(function () {
-            DestroySoftDeleting([$this.attr('resourceId')], $this.closest('.resource-ajax'));
+            DestroySoftDeleting([$this.attr('resourceId')], ($this.attr('data-view') === 'Detail') ? 'Detail' : $this.closest('.resource-ajax'));
         });
 
     });
@@ -294,7 +337,7 @@ $(document).ready(function () {
                 labels: {ok: 'حذف', cancel: 'خیر'},
                 addClass: 'modal_delete'
             }).then(function () {
-            Destroy([$this.attr('resourceId')], $this.closest('.resource-ajax'));
+            Destroy([$this.attr('resourceId')], ($this.attr('data-view') === 'Detail') ? 'Detail' : $this.closest('.resource-ajax'));
         });
 
     });

@@ -5,7 +5,7 @@
     use App\Zoroaster\Other\Navbar;
     use App\Zoroaster\Other\Sidebar;
     use Illuminate\Support\Facades\File;
-    use KarimQaderi\Zoroaster\Builder;
+    use KarimQaderi\Zoroaster\Traits\Builder;
     use KarimQaderi\Zoroaster\ResourceFilters\DefaultFilters;
     use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
 
@@ -14,6 +14,15 @@
     {
         use Builder;
 
+
+       public static function getCurentUrl($url)
+        {
+            $u = explode('?' , $url)[0];
+
+            $url = str_replace( $u , '' , $url);
+            $url = str_replace( $u , '' , $url);
+            return $url;
+        }
 
         public static function Filters($request)
         {
