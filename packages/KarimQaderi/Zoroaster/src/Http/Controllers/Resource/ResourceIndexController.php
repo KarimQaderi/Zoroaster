@@ -11,6 +11,8 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
+           dd( $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model()));
+
             $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model()));
 
             if(!request()->ajax())

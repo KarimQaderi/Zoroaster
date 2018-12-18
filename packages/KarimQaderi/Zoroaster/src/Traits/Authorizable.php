@@ -3,8 +3,17 @@
     namespace KarimQaderi\Zoroaster\Traits;
 
 
-    trait Authorization
+    use Illuminate\Auth\Access\AuthorizationException;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Gate;
+
+    trait Authorizable
     {
+
+        public static function authorizable()
+        {
+            return !is_null(Gate::getPolicyFor(static::newModel()));
+        }
 
 
         /**
@@ -12,7 +21,15 @@
          */
         public function authorizeToIndex($model)
         {
-            return true;
+            if(!static::authorizable())
+            {
+                return  Gate::check('index' , $this->resource);
+            }
+
+            if(method_exists(Gate::getPolicyFor(static::newModel()) , 'index'))
+            {
+                $this->authorizeTo(request() , 'index');
+            }
         }
 
 
@@ -71,6 +88,16 @@
         public function authorizedToRestore($data)
         {
             return true;
+        }
+
+        public function authorizeTo(Request $request , $ability)
+        {
+            throw_unless($this->authorizedTo($request , $ability) , AuthorizationException::class);
+        }
+
+        public function authorizedTo(Request $request , $ability)
+        {
+            return static::authorizable() ? Gate::check($ability , $this->resource) : true;
         }
 
     }
