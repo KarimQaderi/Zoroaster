@@ -4,7 +4,6 @@
 
 
     use Illuminate\Auth\Access\AuthorizationException;
-    use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Gate;
 
     trait Authorizable
@@ -17,87 +16,138 @@
 
 
         /**
-         * @return bool
+         * @ Error
          */
         public function authorizeToIndex($model)
         {
-            if(!static::authorizable())
-            {
-                return  Gate::check('index' , $this->resource);
-            }
-
             if(method_exists(Gate::getPolicyFor(static::newModel()) , 'index'))
             {
-                $this->authorizeTo(request() , 'index');
+                $this->authorizeTo('index' , $model);
             }
         }
 
-
         /**
-         * @return bool
+         * @return bool  true Or False
          */
-        public function authorizeToShow($data)
+        public function authorizedToIndex($model)
         {
-            return true;
+            if(method_exists(Gate::getPolicyFor(static::newModel()) , 'index'))
+            {
+                return $this->authorizedTo('index' , $model);
+            }
+            else
+                return true;
         }
 
 
         /**
-         * @return bool
+         * @ Error
+         */
+        public function authorizeToShow($model)
+        {
+            $this->authorizeTo('view' , $model);
+        }
+
+        /**
+         * @return bool  true Or False
+         */
+        public function authorizedToShow($model)
+        {
+            return $this->authorizedTo('view' , $model);
+        }
+
+        /**
+         * @ Error
          */
         public function authorizeToCreate($model)
         {
-            return true;
+            $this->authorizeTo('create' , $model);
         }
 
         /**
-         * @return bool
+         * @return bool  true Or False
          */
-        public function authorizeToUpdate($data)
+        public function authorizedToCreate($model)
         {
-            return true;
+            return $this->authorizedTo('create' , $model);
+        }
+
+
+        /**
+         * @ Error
+         */
+        public function authorizeToUpdate($model)
+        {
+            $this->authorizeTo('update' , $model);
         }
 
         /**
-         * @return bool
+         * @return bool  true Or False
          */
-        public function authorizeToDelete($data)
+        public function authorizedToUpdate($model)
         {
-            return true;
+            return $this->authorizedTo('update' , $model);
+        }
+
+
+        /**
+         * @ Error
+         */
+        public function authorizeToDelete($model)
+        {
+            $this->authorizeTo('delete' , $model);
         }
 
         /**
-         * @return bool
+         * @return bool  true Or False
          */
-        public function authorizeToForceDelete($data)
+        public function authorizedToDelete($model)
         {
-            return true;
+            return $this->authorizedTo('delete' , $model);
+        }
+
+
+        /**
+         * @ Error
+         */
+        public function authorizeToForceDelete($model)
+        {
+            $this->authorizeTo('forceDelete' , $model);
         }
 
         /**
-         * @return bool
+         * @return bool  true Or False
          */
-        public function authorizedToAdd($data)
+        public function authorizedToForceDelete($model)
         {
-            return true;
+            return $this->authorizedTo('forceDelete' , $model);
         }
 
         /**
-         * @return bool
+         * @ Error
          */
-        public function authorizedToRestore($data)
+        public function authorizeToRestore($model)
         {
-            return true;
+            $this->authorizeTo('restore' , $model);
         }
 
-        public function authorizeTo(Request $request , $ability)
+        /**
+         * @return bool  true Or False
+         */
+        public function authorizedToRestore($model)
         {
-            throw_unless($this->authorizedTo($request , $ability) , AuthorizationException::class);
+            return $this->authorizedTo('restore' , $model);
         }
 
-        public function authorizedTo(Request $request , $ability)
+
+        public function authorizeTo($ability , $model)
         {
-            return static::authorizable() ? Gate::check($ability , $this->resource) : true;
+            throw_unless($this->authorizedTo($ability , $model) , AuthorizationException::class);
+        }
+
+        public function authorizedTo($ability , $model)
+        {
+            return static::authorizable() ? Gate::check($ability , $model) : true;
         }
 
     }

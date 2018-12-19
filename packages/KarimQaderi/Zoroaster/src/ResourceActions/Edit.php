@@ -24,6 +24,6 @@
 
         public function Authorization($request,$data)
         {
-            return $request->Resource()->authorizeToUpdate($data);
+            return $request->Resource()->authorizedToUpdate($data);
         }
     }

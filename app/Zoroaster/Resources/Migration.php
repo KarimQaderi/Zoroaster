@@ -20,7 +20,7 @@
          *
          * @var string
          */
-        public $model = 'App\\Models\\Migration';
+        public static $model = 'App\\Models\\Migration';
 
         public $globallySearchable = false;
         /**

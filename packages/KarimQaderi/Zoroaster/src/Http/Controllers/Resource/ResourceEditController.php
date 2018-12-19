@@ -12,7 +12,7 @@
 
             $resources = $ResourceRequest->Model()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
-            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToUpdate($resources));
+            $ResourceRequest->Resource()->authorizeToUpdate($resources);
 
 
 

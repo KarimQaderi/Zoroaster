@@ -65,7 +65,7 @@
 
         public function Model()
         {
-            return Zoroaster::newModel($this->Resource->model);
+            return Zoroaster::newModel($this->Resource->getModel());
         }
 
         public function ResourceFields($where , $fields = null)

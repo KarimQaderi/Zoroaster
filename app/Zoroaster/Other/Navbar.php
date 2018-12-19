@@ -15,7 +15,7 @@
         static function center()
         {
             return [
-                'Zoroaster'
+                'به پنل زرتشت خوش آمدید'
             ];
         }
 
@@ -23,6 +23,7 @@
         static function right()
         {
             return [
+
 
             ];
         }

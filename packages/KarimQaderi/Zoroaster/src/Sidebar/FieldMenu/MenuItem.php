@@ -52,7 +52,7 @@
                 $this->Label = $label;
 
             if(!is_null($newResource))
-                $this->canSee = $newResource->authorizeToIndex(Zoroaster::newModel($newResource->model));
+                $this->canSee = $newResource->authorizedToIndex($newResource->newModel());
 
             return $this;
         }

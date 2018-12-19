@@ -56,6 +56,7 @@
         {
             return self::RenderViewForm(Sidebar::handle() ,
                 function($field){
+                if(isset($field->canSee) && $field->canSee ==false) return false;
                     return true;
                 } ,
                 'viewDetail' , null , null);

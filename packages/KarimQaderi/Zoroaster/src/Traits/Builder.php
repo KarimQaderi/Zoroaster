@@ -32,10 +32,12 @@
                         $render = $builder;
 
                     elseif($builder->component === 'resource')
-                        $render = view('Zoroaster::resources.index-ajax')->with([
-                            'resource' => $builder,
-                        ]);
-
+                    {
+                        if($builder->authorizedToIndex($builder->newModel()))
+                            $render = view('Zoroaster::resources.index-ajax')->with([
+                                'resource' => $builder ,
+                            ]);
+                    }
                     elseif(is_object($builder) && class_basename($builder) === 'View')
                         $render = $builder->render();
 

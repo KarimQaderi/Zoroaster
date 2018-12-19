@@ -13,7 +13,7 @@
             $render = null;
             foreach(Zoroaster::findAllResource() as $Resource){
                 $newResource = new $Resource;
-                $model = new $newResource->model;
+                $model = $newResource->newModel();
 
                 if($newResource->globallySearchable){
 

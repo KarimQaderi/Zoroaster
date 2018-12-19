@@ -15,7 +15,7 @@
             else
                 $resources = $ResourceRequest->Model()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
-            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToShow($resources));
+            $ResourceRequest->Resource()->authorizeToShow($resources);
 
 
             return view('Zoroaster::resources.Detail')->with([
@@ -24,7 +24,8 @@
                 'model' => $ResourceRequest->Model() ,
                 'resources' => $resources ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
-                    function($field){
+                    function($field)
+                    {
                         if(!isset($field->showOnDetail)) return true;
                         if($field->showOnDetail === true)
                             return true;

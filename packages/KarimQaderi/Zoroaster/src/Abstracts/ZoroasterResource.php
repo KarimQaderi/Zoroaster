@@ -74,6 +74,11 @@
             return new $model;
         }
 
+        public static function getModel()
+        {
+            return  static::$model;
+        }
+
         public function indexQuery($eloquent)
         {
             return $eloquent;

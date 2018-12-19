@@ -25,7 +25,7 @@
         public function Authorization($request , $data)
         {
             if(method_exists($request->Model() , 'isForceDeleting'))
-                return $request->Resource()->authorizeToForceDelete($data);
+                return $request->Resource()->authorizedToForceDelete($data);
             else
                 return false;
 

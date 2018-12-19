@@ -29,9 +29,9 @@
                 if($data->deleted_at !== null)
                     return false;
                 else
-                    return $request->Resource()->authorizeToDelete($data);
+                    return $request->Resource()->authorizedToDelete($data);
             } else
-                return $request->Resource()->authorizeToForceDelete($data);
+                return $request->Resource()->authorizedToForceDelete($data);
 
         }
 

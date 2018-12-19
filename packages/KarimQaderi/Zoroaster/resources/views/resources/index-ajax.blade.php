@@ -1,7 +1,7 @@
 <div class="resource-ajax"
      data-resource="{{ class_basename($resource) }}"
-     data-getKeyName="{{ Zoroaster::newModel($resource->model)->getKeyName() }}"
-     data-isForceDeleting="{{ method_exists(Zoroaster::newModel($resource->model), 'isForceDeleting') }}"
+     data-getKeyName="{{ $resource->newModel()->getKeyName() }}"
+     data-isForceDeleting="{{ method_exists($resource->newModel(), 'isForceDeleting') }}"
 
 >
     <script>

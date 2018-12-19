@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    {!! Zoroaster::ResourceActions($ResourceRequest,null,$model,'IndexTopLeft',null) !!}
+                    {!! Zoroaster::ResourceActions($ResourceRequest,$model,$model,'IndexTopLeft',null) !!}
 
                 </div>
             </div>

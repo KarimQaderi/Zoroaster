@@ -21,7 +21,7 @@
          *
          * @var string
          */
-        public $model = 'App\\User';
+        public static $model = 'App\\User';
 
         /**
          * The single value that should be used to represent the resource when being displayed.

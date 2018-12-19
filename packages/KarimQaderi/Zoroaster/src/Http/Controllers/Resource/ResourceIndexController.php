@@ -11,12 +11,11 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
-           dd( $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model()));
-
-            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model()));
+            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Model());
 
             if(!request()->ajax())
                 return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
+
 
             $resources = $ResourceRequest->Model();
 
@@ -42,6 +41,7 @@
             return response()->json([
                 'render' => $render ,
                 'resource' => $ResourceRequest->resourceClass ,
+                'status' => 'ok' ,
             ]);
 
 

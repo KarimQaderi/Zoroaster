@@ -24,7 +24,7 @@
 
         public function Authorization($request , $data)
         {
-            return $request->Resource()->authorizeToForceDelete($data);
+            return $request->Resource()->authorizedToForceDelete($data);
 
         }
 

@@ -20,7 +20,7 @@
          *
          * @var string
          */
-        public $model = 'App\\Models\\Categorie';
+        public static $model = 'App\\Models\\Categorie';
 
         /**
          * The single value that should be used to represent the resource when being displayed.

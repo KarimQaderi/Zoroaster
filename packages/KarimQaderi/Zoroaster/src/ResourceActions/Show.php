@@ -23,7 +23,7 @@
 
         public function Authorization($request , $data)
         {
-            return $request->Resource()->authorizeToShow($data);
+            return $request->Resource()->authorizedToShow($data);
         }
 
     }
