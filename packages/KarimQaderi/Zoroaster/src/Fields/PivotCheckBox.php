@@ -54,6 +54,7 @@
 
         public function viewForm($field , $data , $resourceRequest = null)
         {
+
             return view('Zoroaster::fields.Form.' . $field->nameViewForm)->with(
                 [
                     'data' => $data ,

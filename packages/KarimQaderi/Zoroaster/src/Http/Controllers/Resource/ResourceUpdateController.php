@@ -40,11 +40,11 @@
          */
         private function Update(ResourceRequest $request)
         {
-            $resource = $request->Model()->where([$request->Model()->getKeyName() => $request->getResourceId()])->first();
+            $resource = $request->newModel()->where([$request->newModel()->getKeyName() => $request->getResourceId()])->first();
 
             if(empty($resource)) abort(404);
 
-            $request->authorizeTo($request->Resource()->authorizeToUpdate($resource));
+            $request->Resource()->authorizeToUpdate($resource);
 
             return $resource;
         }

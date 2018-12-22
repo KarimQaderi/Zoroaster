@@ -14,16 +14,15 @@
             foreach(request()->resourceId as $id)
             {
 
-                $find = $request->Model()->where([$request->Model()->getKeyName() => $id])->first();
+                $find = $request->newModel()->where([$request->newModel()->getKeyName() => $id])->first();
 
                 if(is_null($find)) break;
 
                 if($request->Resource()->authorizedToDelete($find))
                     $find->delete();
 
-                $col = \Zoroaster::ResourceActions($request ,
-                    $find ,
-                    $request->Model() , 'Index' , $request->ResourceFields(function($field)
+                $col = \Zoroaster::ResourceActions($request , $find ,
+                    $request->newModel() , 'Index' , $request->ResourceFields(function($field)
                     {
                         if($field !== null && $field->showOnIndex == true)
                             return true;
@@ -33,7 +32,7 @@
                 );
 
                 $cols [] = [
-                    'id' => $find->{$request->Model()->getKeyName()} ,
+                    'id' => $find->{$request->newModel()->getKeyName()} ,
                     'col' => $col ,
                     'status' => 'ok',
                 ];

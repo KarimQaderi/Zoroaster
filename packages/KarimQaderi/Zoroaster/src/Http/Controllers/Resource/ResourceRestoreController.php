@@ -16,7 +16,7 @@
             foreach(request()->resourceId as $id)
             {
 
-                $find = $request->Model()->withTrashed()->where([$request->Model()->getKeyName() => $id])->first();
+                $find = $request->newModel()->withTrashed()->where([$request->newModel()->getKeyName() => $id])->first();
 
                 if(is_null($find)) break;
 
@@ -25,7 +25,7 @@
 
                 $col = \Zoroaster::ResourceActions($request ,
                     $find ,
-                    $request->Model() , 'Index' , $request->ResourceFields(function($field)
+                    $request->newModel() , 'Index' , $request->ResourceFields(function($field)
                     {
                         if($field !== null && $field->showOnIndex == true)
                             return true;
@@ -35,7 +35,7 @@
                 );
 
                 $cols [] = [
-                    'id' => $find->{$request->Model()->getKeyName()} ,
+                    'id' => $find->{$request->newModel()->getKeyName()} ,
                     'col' => $col ,
                     'status' => 'ok' ,
                 ];

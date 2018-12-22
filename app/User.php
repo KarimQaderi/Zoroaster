@@ -2,12 +2,14 @@
 
     namespace App;
 
+    use App\models\Post;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
+    use KarimQaderi\Zoroaster\Traits\HasPermissions;
 
     class User extends Authenticatable
     {
-        use Notifiable;
+        use Notifiable , HasPermissions;
 
         public $displayTitleField = 'name';
         /**
@@ -28,5 +30,10 @@
             'password' , 'remember_token' ,
         ];
 
+
+        public function posts()
+        {
+            return $this->hasMany(Post::class);
+        }
 
     }

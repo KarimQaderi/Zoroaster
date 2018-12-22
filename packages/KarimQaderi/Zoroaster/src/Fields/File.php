@@ -238,7 +238,8 @@
             return response()->json([
                 'url' => $url ,
                 'RealPath' => $RealPath ,
-                'number' => time() . '' . random_int(100 , 1000)
+                'number' => time() . '' . random_int(100 , 1000),
+                'baseName' => $originalName
 
             ]);
 

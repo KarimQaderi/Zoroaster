@@ -16,12 +16,11 @@
         <div class="imgUpload_img">
             <div class="top">
                 <span uk-icon="delete" class="delete"></span>
-                <a href="${RealPath}" uk-icon="view"></a>
+                <a href="${RealPath}" uk-icon="download-2"></a>
                 <span class="uk-sortable-handle" uk-icon="move"></span>
             </div>
-            <img src="${RealPath}">
+            <div class="baseName">${baseName}</div>
             <input id="url" type="hidden" name="{{ $field->name }}[${number}][url]" value="${url}">
-            <input id="resize" type="hidden" name="{{ $field->name }}[${number}][resize]" value="${resize}">
         </div>
     </template>
 
@@ -74,14 +73,10 @@
     function render(_append, mainTepmlate, items) {
 
         var i = 0, j = 0, Tepmlate = null;
-        // $.each(items, function (key, value) {
         Tepmlate = mainTepmlate;
         $.each(items, function (_key, _value) {
             Tepmlate = Tepmlate.replace(new RegExp('[$]{' + _key + '}', 'g'), _value);
         });
-        // Tepmlate += Tepmlate;
-        // });
-
         $(_append).append(Tepmlate);
     }
 
@@ -144,7 +139,6 @@
         },
 
         beforeSend: function () {
-            // console.log('beforeSend', arguments);
 
         },
         beforeAll: function () {
@@ -156,18 +150,14 @@
             }
         },
         load: function () {
-            // console.log('load', arguments);
 
         },
         error: function () {
-            // console.log('error', arguments);
         },
         complete: function () {
-            // console.log('complete', arguments);
         },
 
         loadStart: function (e) {
-            // console.log('loadStart', arguments);
 
             bar_{{ $field->name }}.removeAttribute('hidden');
             bar_{{ $field->name }}.max = e.total;
@@ -175,14 +165,11 @@
         },
 
         progress: function (e) {
-            // console.log('progress', arguments);
-            //
             bar_{{ $field->name }}.max = e.total;
             bar_{{ $field->name }}.value = e.loaded;
         },
 
         loadEnd: function (e) {
-            // console.log('loadEnd', arguments);
 
             render('#imgUpload_{{ $field->name }}', TepmlateImgUpload_{{ $field->name }} , $.parseJSON(e.currentTarget.response));
 
@@ -191,14 +178,12 @@
         },
 
         completeAll: function () {
-            // console.log('completeAll', arguments);
 
             setTimeout(function () {
                 bar_{{ $field->name }}.setAttribute('hidden', 'hidden');
             }, 500);
 
 
-            // alert('Upload Completed');
         }
 
     });

@@ -13,11 +13,7 @@
         protected $casts = [
             'img_multi' => 'array' ,
             'file' => 'array' ,
-//            'img' => 'array' ,
         ];
 
-        public function user()
-        {
-            return $this->belongsTo('App\User');
-        }
+
     }

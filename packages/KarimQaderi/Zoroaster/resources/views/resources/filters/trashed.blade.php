@@ -14,11 +14,14 @@
             var param = setParameters([{name: '{{ $ResourceRequest->resourceClass }}_FilterTrashed', value: $('[data-resource="{{ $ResourceRequest->resourceClass }}"] [name="FilterTrashed"]')
                     .find(':selected').val()}]);
 
+            $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');
+
+
             param.push({name: 'resource', value: '{{ $ResourceRequest->resourceClass }}'});
 
-            $('[data-resource="{{ $ResourceRequest->resourceClass }}"]').html("<span uk-icon=\"load\"></span>");
+            $this.html("<span uk-icon=\"load\"></span>");
 
-            ajaxGET(Zoroaster_resource_ajax_index, param,
+            ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources('{{ $ResourceRequest->resourceClass }}')),
                 function (data) {
                     $('[data-resource="' + data.resource + '"]').html(data.render);
                 },

@@ -7,9 +7,10 @@
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
+    use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
     use KarimQaderi\Zoroaster\Fields\ID;
-    use KarimQaderi\Zoroaster\Fields\Image;
     use KarimQaderi\Zoroaster\Fields\Password;
+    use KarimQaderi\Zoroaster\Fields\Relations\HasMany;
     use KarimQaderi\Zoroaster\Fields\Select;
     use KarimQaderi\Zoroaster\Fields\Text;
 
@@ -39,7 +40,7 @@
          * @var array
          */
         public $search = [
-            'name' ,'id'
+            'name' , 'id' ,
         ];
 
         /**
@@ -57,11 +58,10 @@
 
                             ID::make()->rules('required')->onlyOnIndex()->sortable() ,
                             Text::make('نام' , 'name')->rules('required') ,
-                            Password::make('رمز کاربر' , 'password')
-                            ->help('برای تغیر نکردن رمز کادر را خالی بزارید'),
+                            Password::make('رمز کاربر' , 'password')->help('برای تغیر نکردن رمز کادر را خالی بزارید') ,
                             Text::make('ایمیل' , 'email')->rules('required' , 'max:255') ,
 
-                        ])
+                        ]) ,
                     ]) ,
 
                     new Col('uk-width-1-3' , [
@@ -72,8 +72,13 @@
                             ]) ,
                             Text::make('created_at' , 'created_at') ,
                             btnSave::make() ,
-                        ])
-                    ])
+                        ]) ,
+                    ]) ,
+                ]) ,
+
+
+                new RowOneCol([
+                    HasMany::make('Posts' , 'user_id' , Post::class) ,
                 ]) ,
 
 
@@ -85,9 +90,4 @@
 
         }
 
-
-        public function AddingAdditionalConstraintsForViewIndex($eloquent)
-        {
-            // TODO: Implement AddingAdditionalConstraintsForViewIndex() method.
-        }
     }

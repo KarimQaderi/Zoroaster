@@ -10,13 +10,13 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
-            $ResourceRequest->authorizeTo($ResourceRequest->Resource()->authorizeToCreate($ResourceRequest->Model()));
+            $ResourceRequest->Resource()->authorizeToCreate($ResourceRequest->newModel());
 
 
             return view('Zoroaster::resources.Form')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->Model() ,
+                'model' => $ResourceRequest->newModel() ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field){
                         if(!isset($field->showOnCreation)) return true;

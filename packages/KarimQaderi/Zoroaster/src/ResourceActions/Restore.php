@@ -24,7 +24,7 @@
 
         public function Authorization($request , $data)
         {
-            if(method_exists($request->Model() , 'isForceDeleting') && $data->deleted_at != null)
+            if(method_exists($request->newModel() , 'isForceDeleting') && $data->deleted_at != null)
                 return $request->Resource()->authorizedToRestore($data);
             else
                 return false;

@@ -37,7 +37,7 @@
 
         public function canSee($request)
         {
-            if(method_exists($request->Model() , 'isForceDeleting'))
+            if(method_exists($request->newModel() , 'isForceDeleting'))
                 return true;
             else
                 return false;

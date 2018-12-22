@@ -14,19 +14,19 @@
         {
             foreach(request()->resourceId as $id)
             {
-                if(method_exists($request->Model() , 'isForceDeleting'))
-                    $find = $request->Model()->withTrashed()->where([$request->Model()->getKeyName() => $id])->first();
+                if(method_exists($request->newModel() , 'isForceDeleting'))
+                    $find = $request->newModel()->withTrashed()->where([$request->newModel()->getKeyName() => $id])->first();
                 else
-                    $find = $request->Model()->where([$request->Model()->getKeyName() => $id])->first();
+                    $find = $request->newModel()->where([$request->newModel()->getKeyName() => $id])->first();
 
                 if($request->Resource()->authorizedToForceDelete($find))
                 {
                     $this->ResourceDestroyField($request , $find);
 
-                    if(method_exists($request->Model() , 'isForceDeleting'))
+                    if(method_exists($request->newModel() , 'isForceDeleting'))
                         $find->forceDelete();
                     else
-                        $request->Model()->destroy($id);
+                        $request->newModel()->destroy($id);
                 }
 
             }

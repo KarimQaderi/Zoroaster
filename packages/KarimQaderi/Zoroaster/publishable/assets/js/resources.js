@@ -103,6 +103,16 @@ function mergeArray(array_1, array_2) {
     return array_1;
 }
 
+function get_data_index_resources(resource) {
+
+    $this = $('[data-resource="' + resource + '"]');
+
+    return [
+        {name: 'resource', value: resource},
+        {name: 'HasMany', value: $this.attr('data-HasMany')},
+    ]
+}
+
 function index_resources(resource) {
 
     $this = $('[data-resource="' + resource + '"]');
@@ -110,9 +120,8 @@ function index_resources(resource) {
     $($this).html("<span uk-icon=\"load\"></span>");
 
     var param = getUrlVars();
-    param.push({name: 'resource', value: resource});
 
-    ajaxGET(Zoroaster_resource_ajax_index, param,
+    ajaxGET(Zoroaster_resource_ajax_index, mergeArray(param, get_data_index_resources(resource)),
         function (data) {
             $('[data-resource="' + data.resource + '"]').html(data.render);
         }, function (data) {

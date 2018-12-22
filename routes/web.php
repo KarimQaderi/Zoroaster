@@ -35,9 +35,10 @@
 
     Auth::routes();
     Auth::loginUsingId(1);
+    Zoroaster::routes();
+
     Route::group(['middleware' => 'back'] , function(){
 
-        Zoroaster::routes();
 
         Route::group(['prefix' => 'back' , 'namespace' => 'back' , 'as' => 'back.'] , function(){
 

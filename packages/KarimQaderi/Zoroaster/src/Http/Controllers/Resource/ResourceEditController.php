@@ -10,7 +10,7 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
-            $resources = $ResourceRequest->Model()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
+            $resources = $ResourceRequest->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
             $ResourceRequest->Resource()->authorizeToUpdate($resources);
 
@@ -19,7 +19,7 @@
             return view('Zoroaster::resources.Form')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->Model() ,
+                'model' => $ResourceRequest->newModel() ,
                 'resources' => $resources ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field){

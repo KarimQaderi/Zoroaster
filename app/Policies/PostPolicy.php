@@ -25,7 +25,7 @@
          *
          * @return mixed
          */
-        public function view(User $user , Post $post)
+        public function show(User $user , Post $post)
         {
             return true;
         }
@@ -52,6 +52,7 @@
          */
         public function update(User $user , Post $post)
         {
+            return false;
             return true;
         }
 

@@ -7,18 +7,14 @@
     {
         public function viewForm($field , $data , $resourceRequest = null)
         {
-            try{
-                return view('Zoroaster::fields.Form.' . $field->nameViewForm)->with(
-                    [
-                        'field' => $field ,
-                        'data' => $data ,
-                        'value' => isset($data->{$field->name})? $data->{$field->name} : null ,
-                        'resourceRequest' => $resourceRequest ,
-                    ]);
-            }catch(\Exception $exception)
-            {
-                dd($field);
-            }
+            return view('Zoroaster::fields.Form.' . $field->nameViewForm)->with(
+                [
+                    'field' => $field ,
+                    'data' => $data ,
+                    'value' => isset($data->{$field->name}) ? $data->{$field->name} : null ,
+                    'resourceRequest' => $resourceRequest ,
+                ]);
+
         }
 
         public function viewDetail($field , $data , $resourceRequest = null)
@@ -27,7 +23,7 @@
                 [
                     'field' => $field ,
                     'data' => $data ,
-                    'value' => isset($data->{$field->name})? $data->{$field->name} : null ,
+                    'value' => isset($data->{$field->name}) ? $data->{$field->name} : null ,
                     'resourceRequest' => $resourceRequest ,
                 ]);
         }
@@ -38,7 +34,7 @@
                 [
                     'field' => $field ,
                     'data' => $data ,
-                    'value' => isset($data->{$field->name})? $data->{$field->name} : null ,
+                    'value' => isset($data->{$field->name}) ? $data->{$field->name} : null ,
                     'resourceRequest' => $resourceRequest ,
                 ]);
         }

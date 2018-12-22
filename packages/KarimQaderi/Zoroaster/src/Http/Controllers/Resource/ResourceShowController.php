@@ -10,10 +10,10 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
-            if(method_exists($ResourceRequest->Model() , 'isForceDeleting'))
-                $resources = $ResourceRequest->Model()->withTrashed()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
+            if(method_exists($ResourceRequest->newModel() , 'isForceDeleting'))
+                $resources = $ResourceRequest->newModel()->withTrashed()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
             else
-                $resources = $ResourceRequest->Model()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
+                $resources = $ResourceRequest->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
             $ResourceRequest->Resource()->authorizeToShow($resources);
 
@@ -21,7 +21,7 @@
             return view('Zoroaster::resources.Detail')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->Model() ,
+                'model' => $ResourceRequest->newModel() ,
                 'resources' => $resources ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field)

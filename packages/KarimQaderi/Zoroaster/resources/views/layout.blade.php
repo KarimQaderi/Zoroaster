@@ -9,8 +9,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <meta name="Development" content="Partak Group Ltd."/>
-    <meta name="Author" content="Hessam Shahpouri"/>
+    <meta name="Author" content="Karim Qaderi"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico"/>
 
@@ -41,7 +40,6 @@
 
 
             function sidebarToggle(toogle) {
-                console.log(toogle);
                 var sidebar = jQuery("#sidebar"), padder = $(".tm-main");
                 if (toogle) {
                     jQuery(".notyf").removeAttr("style");
@@ -89,7 +87,7 @@
                     <div class="uk-display-inline-block GlobalSearch">
                         <form class="uk-search">
                             <span class="uk-search-icon-flip" uk-search-icon></span>
-                            <input class="uk-search-input" type="search" placeholder="جستجو...">
+                            <input class="uk-search-input" type="search" placeholder="جستجو ...">
                         </form>
                         <div class="data" data-hidden="0">
                             <div class="NoItem">متن خود را جستجو کنید</div>

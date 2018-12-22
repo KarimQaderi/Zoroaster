@@ -17,7 +17,8 @@
         {
             $this->app->register(ZoroasterServiceProvider::class);
 
-            if(!$this->app->configurationIsCached()){
+            if(!$this->app->configurationIsCached())
+            {
                 $this->mergeConfigFrom(__DIR__ . '/../config/Zoroaster.php' , 'Zoroaster');
             }
 
@@ -35,7 +36,8 @@
          */
         public function register()
         {
-            if(!defined('ZOROASTER_PATH')){
+            if(!defined('ZOROASTER_PATH'))
+            {
                 define('ZOROASTER_PATH' , realpath(__DIR__ . '/../'));
             }
 
@@ -44,35 +46,24 @@
 
         private function Helpers()
         {
-            foreach(glob(__DIR__ . '/Helpers/*.php') as $file){
+            foreach(glob(__DIR__ . '/Helpers/*.php') as $file)
+            {
                 require_once($file);
             }
         }
 
         private function Gates()
         {
+            if(!config('Zoroaster.permission')) return;
 
-            foreach(glob(app_path('Zoroaster/Resources').'/*.php') as $file){
-
-                $basename = class_basename(str_replace_last('.php','',$file));
-
-                Gate::define('create-'.$basename , function($user ){
-                    return false;
+            foreach(\KarimQaderi\Zoroaster\Models\Permission::all() as $permission)
+            {
+                Gate::define($permission->name , function($user) use ($permission)
+                {
+                    return $user->hasPermission($permission->name);
                 });
-
-                Gate::define('edit-'.$basename , function($user , $comment){
-                    return true;
-                });
-
-                Gate::define('update-'.$basename , function($user , $comment){
-                    return true;
-                });
-
-                Gate::define('delete-'.$basename , function($user , $comment){
-                    return true;
-                });
-
             }
+
 
         }
     }

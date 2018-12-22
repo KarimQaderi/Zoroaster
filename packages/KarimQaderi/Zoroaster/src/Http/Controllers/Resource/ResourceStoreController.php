@@ -13,7 +13,7 @@
         public function handle(ResourceRequest $request)
         {
 
-            $request->authorizeTo($request->Resource()->authorizeToCreate($request->Model()));
+            $request->Resource()->authorizeToCreate($request->newModel());
 
             $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
                 if($field->showOnCreation == true && $field->OnCreation == true)
@@ -23,7 +23,7 @@
             }));
 
 
-            $resource = $request->Model()->create($this->CustomResourceController($request , $request->Model() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
+            $resource = $request->newModel()->create($this->CustomResourceController($request , $request->newModel() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'ResourceStore');
 
@@ -32,7 +32,7 @@
                     'success' => 'اطلاعات اضافه شد'
                 ]);
 
-            return redirect(route('Zoroaster.resource.show' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->Model()->getKeyName()}]))->with([
+            return redirect(route('Zoroaster.resource.show' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->newModel()->getKeyName()}]))->with([
                 'success' => 'اطلاعات اضافه شد'
             ]);
 

@@ -5,33 +5,30 @@
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\btnSave;
     use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
-    use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
-    use KarimQaderi\Zoroaster\Fields\Group\Row;
+    use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
     use KarimQaderi\Zoroaster\Fields\ID;
-    use KarimQaderi\Zoroaster\Fields\Number;
     use KarimQaderi\Zoroaster\Fields\Text;
 
 
-    class Migration extends ZoroasterResource
+    class Permission extends ZoroasterResource
     {
         /**
          * The model the resource corresponds to.
          *
          * @var string
          */
-        public static $model = 'App\\Models\\Migration';
+        public static $model = 'KarimQaderi\\Zoroaster\\Models\\Permission';
 
-        public $globallySearchable = false;
         /**
          * The single value that should be used to represent the resource when being displayed.
          *
          * @var string
          */
-        public $title = 'id';
+        public $title = 'name';
 
-        public $labels = 'مایگریشن ها';
-        public $label = 'مایگریشن';
+        public $labels = 'مجوز ها';
+        public $label = 'مجوز';
 
         /**
          * The columns that should be searched.
@@ -51,21 +48,19 @@
         {
             return [
 
-                new Row([
-                    new Col('uk-width-2-3' , [
-                        new Panel('title' , [
+                new RowOneCol([
+                    new Panel('' , [
 
-                            ID::make()->rules('required')->onlyOnIndex() ,
-                            Text::make('Migration' , 'migration')->rules('required') ,
-                            Number::make('batch' , 'batch')->rules('required') ,
-                            btnSave::make() ,
-                            CreateAndAddAnotherOne::make() ,
-
-                        ])
+                        ID::make()->rules('required')->sortable()->onlyOnIndex() ,
+                        Text::make('نام' , 'name')->rules('required') ,
+                        Text::make('نام نمایشی' , 'display_name')->rules('required') ,
                     ]) ,
 
+                    new Panel('' , [
+                        btnSave::make() ,
+                        CreateAndAddAnotherOne::make() ,
+                    ]) ,
                 ]) ,
-
 
             ];
         }
@@ -75,8 +70,5 @@
 
         }
 
-        public function AddingAdditionalConstraintsForViewIndex($eloquent)
-        {
-            // TODO: Implement AddingAdditionalConstraintsForViewIndex() method.
-        }
+
     }

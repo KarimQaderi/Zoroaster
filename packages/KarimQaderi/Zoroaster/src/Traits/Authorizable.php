@@ -14,16 +14,17 @@
             return !is_null(Gate::getPolicyFor(static::newModel()));
         }
 
+        public function getClass()
+        {
+            return strtolower(class_basename($this));
+        }
 
         /**
          * @ Error
          */
         public function authorizeToIndex($model)
         {
-            if(method_exists(Gate::getPolicyFor(static::newModel()) , 'index'))
-            {
-                $this->authorizeTo('index' , $model);
-            }
+            $this->authorizeTo('index' , $model);
         }
 
         /**
@@ -31,12 +32,7 @@
          */
         public function authorizedToIndex($model)
         {
-            if(method_exists(Gate::getPolicyFor(static::newModel()) , 'index'))
-            {
-                return $this->authorizedTo('index' , $model);
-            }
-            else
-                return true;
+            return $this->authorizedTo('index' , $model);
         }
 
 
@@ -45,7 +41,7 @@
          */
         public function authorizeToShow($model)
         {
-            $this->authorizeTo('view' , $model);
+            $this->authorizeTo('show' , $model);
         }
 
         /**
@@ -53,7 +49,7 @@
          */
         public function authorizedToShow($model)
         {
-            return $this->authorizedTo('view' , $model);
+            return $this->authorizedTo('show' , $model);
         }
 
         /**
@@ -147,7 +143,14 @@
 
         public function authorizedTo($ability , $model)
         {
-            return static::authorizable() ? Gate::check($ability , $model) : true;
+            if(config('Zoroaster.permission'))
+                return auth()->user()->hasPermission($ability . '-' . $this->getClass());
+
+            if(method_exists(Gate::getPolicyFor(static::newModel()) , $ability))
+                return static::authorizable() ? Gate::check($ability , $model) : true;
+            else
+                return true;
         }
+
 
     }

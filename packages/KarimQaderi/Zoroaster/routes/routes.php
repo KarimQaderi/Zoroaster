@@ -13,6 +13,7 @@
         Route::group(['prefix' => 'resource/ajax' , 'as' => 'resource-ajax.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function()
         {
             Route::get('/' , 'ResourceIndexController@handle')->name('index');
+            Route::get('/ResourceIndexRelationship' , 'ResourceIndexRelationshipController@handle')->name('index.relationship');
             Route::post('/SoftDeleting' , 'ResourceSoftDeletingController@handle')->name('softDeleting');
             Route::put('/restore' , 'ResourceRestoreController@handle')->name('restore');
             Route::delete('/' , 'ResourceDestroyController@handle')->name('destroy');

@@ -31,6 +31,12 @@
                     if(is_string($builder))
                         $render = $builder;
 
+                    elseif($builder->component === 'relationship')
+                    {
+                        if($builder->authorizedToIndex($builder))
+                            $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
+                    }
+
                     elseif($builder->component === 'resource')
                     {
                         if($builder->authorizedToIndex($builder->newModel()))
@@ -90,7 +96,7 @@
 
             }
 
-            return $renders;
+            return \Zoroaster::minifyHtml($renders);
         }
 
         /**

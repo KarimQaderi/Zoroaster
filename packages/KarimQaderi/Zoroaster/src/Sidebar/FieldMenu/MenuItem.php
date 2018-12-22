@@ -81,10 +81,16 @@
             return $this;
         }
 
-
-        public function canSee(boolean $canSee)
+        public function gate($gate_name)
         {
-            $this->canSee = $canSee;
+            $this->canSee = auth()->user()->can($gate_name);
+            return $this;
+
+        }
+
+        public function canSee($canSee)
+        {
+            $this->canSee = call_user_func($canSee);
             return $this;
         }
 

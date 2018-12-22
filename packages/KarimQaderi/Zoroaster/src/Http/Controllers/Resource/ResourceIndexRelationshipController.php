@@ -6,23 +6,39 @@
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
     use KarimQaderi\Zoroaster\Traits\ResourceIndexQuery;
 
-    class ResourceIndexController extends Controller
+    class ResourceIndexRelationshipController extends Controller
     {
         use ResourceIndexQuery;
 
         public function handle(ResourceRequest $ResourceRequest)
         {
-            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->newModel());
 
-            if(!request()->ajax())
-                return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
+            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->newModel());
 
 
             $resources = $ResourceRequest->newModel();
 
-            $resources = $this->toQuery($resources , $ResourceRequest);
+            $HasMany = \Zoroaster::getFieldResource(request()->viaRelationship , request()->viaRelationshipFieldName);
+            if(is_null($HasMany)) throw new Exception('Field پیدا نشد');
+
+            // relationshipType
+            switch(request()->relationshipType)
+            {
+                case 'HasMany':
+                    $resources = $this->toQuery($resources->where($HasMany->relationship_id , request()->viaResourceId) , $ResourceRequest);
+                    break;
+                case 'HasOne':
+                    $resources = $resources->where($HasMany->relationship_id , request()->viaResourceId)->limit(1)->get();
+                    break;
+                default:
+                    throw new Exception('Relationship پیدا نشد');
+                    break;
+            }
+
+
             $render = null;
             $render .= view('Zoroaster::resources.index-resource')->with([
+                'relationshipType' => request()->relationshipType ,
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->newModel() ,

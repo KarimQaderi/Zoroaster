@@ -91,7 +91,7 @@
 
                             new RowOneCol([
                                 File::make('فایل' , 'file')
-                                    ->onlyOnForms()
+                                    ->hideFromIndex()
                                     ->count(5)
                                     ->storeOriginalName(function($file){
                                         return now()->day . '-' . time() . '-' . $file->getClientOriginalName();
@@ -103,7 +103,7 @@
 
                             new RowOneCol([
                                 Image::make('عکس پست' , 'img')
-                                    ->onlyOnForms()
+                                    ->hideFromIndex()
                                     ->storeOriginalName(function($file){
                                         return now()->day . '-' . time() . '-' . $file->getClientOriginalName();
                                     })
@@ -116,9 +116,11 @@
                                 Image::make('گالری' , 'img_multi')
 //                                    ->resize('small' , 20 , 30)
 //                                    ->resize('smagll33' , 200 , 300)
-                                    ->onlyOnForms()
+                                    ->hideFromIndex()
                                     ->count(2) ,
                             ]) ,
+
+
 
 
                         ]) ,
@@ -178,7 +180,7 @@
 
         public function indexQuery($eloquent)
         {
-            return $eloquent->orderBy('updated_at');
+            return $eloquent->orderByDesc('updated_at');
         }
 
 //        public function authorizeToUpdate($data)

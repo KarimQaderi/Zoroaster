@@ -18,7 +18,8 @@
 
         public function apply($resources , $ResourceRequest)
         {
-            return $resources->paginate(((int)$ResourceRequest->Request()->{$ResourceRequest->resourceClass.'_perPage'} ?? 25))->appends(request()->all());
+            $name_perPage = $ResourceRequest->resourceClass . '_perPage';
+            return $resources->paginate(((int)$ResourceRequest->Request()->{$name_perPage} ?? 25) , ['*'] , $ResourceRequest->resourceClass . '_Page');
         }
 
         public function canSee($request)

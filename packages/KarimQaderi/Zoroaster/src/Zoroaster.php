@@ -21,7 +21,7 @@
                 'domain' => config('Zoroaster.domain' , null) ,
                 'as' => 'Zoroaster.' , // Route name
                 'prefix' => 'Zoroaster' ,
-                'middleware' => 'Zoroaster' ,
+//                'middleware' => 'Zoroaster' ,
             ];
         }
 

@@ -63,7 +63,7 @@
             return $this->Resource;
         }
 
-        public function Model()
+        public function newModel()
         {
             return Zoroaster::newModel($this->Resource->getModel());
         }
