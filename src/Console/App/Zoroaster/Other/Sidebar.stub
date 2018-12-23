@@ -19,14 +19,24 @@
                 Menu::make([
                     MenuItem::make()->route('Zoroaster.home' , 'داشبورد')->icon('home') ,
                     Divider::make() ,
-                    MenuItem::make()->resource('Post')->icon('list') ,
                     MenuItem::make()->resource('User')->icon('users') ,
-                    MenuItem::make()->resource('Role')->icon('unlock') ,
-                    MenuItem::make()->resource('Permission')->icon('lock') ,
-                    MenuItem::make()->resource('Categorie')->icon('list') ,
+                    static::PermissionAndRole() ,
                     MenuItem::make()->route('Zoroaster.settings.icons' , 'ایکون ها')->icon('Zoroaster') ,
                 ]) ,
 
             ];
         }
+
+        static function PermissionAndRole()
+        {
+            if(config('Zoroaster.permission'))
+                return [
+                    MenuItem::make()->resource('Role')->icon('unlock') ,
+                    MenuItem::make()->resource('Permission')->icon('lock'),
+                ];
+
+            return null;
+
+        }
+
     }

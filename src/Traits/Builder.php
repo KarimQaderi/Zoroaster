@@ -31,6 +31,9 @@
                     if(is_string($builder))
                         $render = $builder;
 
+                    elseif(is_array($builder))
+                        $render =  self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
+
                     elseif($builder->component === 'relationship')
                     {
                         if($builder->authorizedToIndex($builder))
