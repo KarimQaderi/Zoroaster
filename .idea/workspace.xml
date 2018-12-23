@@ -31,8 +31,8 @@
       <file leaf-file-name="composer.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
+            <state relative-caret-position="459">
+              <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -130,7 +130,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/packages/KarimQaderi/Zoroaster/resources/views/fields/Detail/image.blade.php" />
         <option value="$PROJECT_DIR$/app/Zoroaster/Resources/Post.php" />
         <option value="$PROJECT_DIR$/packages/KarimQaderi/Zoroaster/resources/views/fields/Detail/file.blade.php" />
         <option value="$PROJECT_DIR$/packages/KarimQaderi/Zoroaster/src/Http/Controllers/Resource/ResourceCreateController.php" />
@@ -181,6 +180,7 @@
         <option value="$PROJECT_DIR$/app/Zoroaster/Other/Sidebar.php" />
         <option value="$PROJECT_DIR$/packages/KarimQaderi/Zoroaster/composer.json" />
         <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -206,7 +206,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zoroaster" type="cbb8eebc:String" user="Zoroaster" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zoroaster" type="cbb8eebc:String" user="Zoroaster" />
+              <item name=".idea" type="cbb8eebc:String" user=".idea" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -263,19 +278,19 @@
     <property name="settings.editor.splitter.proportion" value="0.16919617" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\laragon\www\Zoroaster\app\Models" />
-      <recent name="D:\laragon\www\Zoroaster\app\Zoroaster\Resources" />
-      <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\src\Fields\Relations" />
-      <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\resources\views\fields\Detail" />
-      <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\src\Http\Controllers\Resource" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\src\Models" />
       <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\resources\views\fields\Detail" />
       <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\src\Traits" />
       <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\resources\flatpickr" />
       <recent name="D:\laragon\www\Zoroaster\app\Zoroaster\Resources" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\laragon\www\Zoroaster\app\Models" />
+      <recent name="D:\laragon\www\Zoroaster\app\Zoroaster\Resources" />
+      <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\src\Fields\Relations" />
+      <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\resources\views\fields\Detail" />
+      <recent name="D:\laragon\www\Zoroaster\packages\KarimQaderi\Zoroaster\src\Http\Controllers\Resource" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -350,16 +365,15 @@
       <workItem from="1545164863215" duration="497000" />
       <workItem from="1545165429744" duration="17340000" />
       <workItem from="1545311651002" duration="42444000" />
-      <workItem from="1545553650809" duration="2527000" />
+      <workItem from="1545553650809" duration="3670000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="666354000" />
+    <option name="totallyTimeSpent" value="667497000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="65" width="1928" height="1019" extended-state="6" />
-    <editor active="true" />
+    <frame x="-4" y="65" width="1928" height="1019" extended-state="7" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.32912844" />
@@ -399,20 +413,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Zoroaster/Other/Sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/KarimQaderi/Zoroaster/src/Sidebar/FieldMenu/MenuItem.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="83" column="40" lean-forward="true" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/KarimQaderi/Zoroaster/src/Traits/Builder.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
@@ -761,10 +761,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
+          <folding>
+            <element signature="e#2997#3001#0" expanded="true" />
+            <element signature="e#3035#3039#0" expanded="true" />
+            <element signature="e#3289#3293#0" expanded="true" />
+            <element signature="e#3444#3448#0" expanded="true" />
+            <element signature="e#3732#3736#0" expanded="true" />
+            <element signature="e#3744#3748#0" expanded="true" />
+            <element signature="e#3827#3831#0" expanded="true" />
+            <element signature="e#4819#4825#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
+        <state relative-caret-position="459">
+          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
         </state>
       </provider>
     </entry>
