@@ -109,6 +109,7 @@ class ZoroasterServiceProvider extends ServiceProvider
             Console\PublishCommand::class,
             Console\ResourceCommand::class,
             Console\CreateAdminCommand::class,
+            Console\PermissionCommand::class,
         ]);
     }
 }
