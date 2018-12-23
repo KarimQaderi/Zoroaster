@@ -13,15 +13,13 @@
     |
     */
 
-    for($i = 1; $i <= 50; $i++){
-        $factory->define(App\User::class , function(Faker $faker){
+        $factory->define(App\Models\CategoriePivot::class , function(Faker $faker){
             return [
-                'name' => $faker->name ,
-                'email' => $faker->unique()->safeEmail ,
-                'email_verified_at' => now() ,
-                'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm' , // secret
-                'remember_token' => str_random(10) ,
+                'post_id' => random_int(1,50) ,
+                'categorie_id' => random_int(1,20) ,
+                'type' => 'post' ,
+                'created_at' => now() ,
+                'updated_at' => now() ,
             ];
         });
 
-    }

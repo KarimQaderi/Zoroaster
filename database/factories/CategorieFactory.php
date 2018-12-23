@@ -13,21 +13,11 @@
     |
     */
 
-    for($i = 1; $i <= 1; $i++){
-        $factory->define(App\Models\Post::class , function(Faker $faker){
-            $w = str_limit($faker->realText() , random_int(17 , 30) , '');
+        $factory->define(App\Models\Categorie::class , function(Faker $faker){
             return [
-                'user_id' => function(){
-                    return factory(App\User::class)->create()->id;
-                } ,
-                'slug' => Zoroaster::url_slug($w) ,
-                'title' => $w ,
-                'is_published' => $faker->boolean ,
-                'featured' => $faker->boolean ,
-                'body' => $faker->realText(1000) ,
+                'title' => $faker->unique()->city ,
                 'created_at' => now() ,
                 'updated_at' => now() ,
             ];
         });
 
-    }

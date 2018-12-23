@@ -29,25 +29,27 @@
          */
         public function handle()
         {
-            $this->comment('Publishing Zoroaster Assets / Resources...');
-            $this->callSilent('Zoroaster:publish');
+            $this->comment('Start install Zoroaster');
 
-            $this->comment('Publishing Zoroaster Service Provider...');
-            $this->callSilent('vendor:publish' , ['--tag' => 'Zoroaster-provider']);
+            $this->callSilent('Zoroaster:publish');
 
             $this->registerZoroasterServiceProvider();
 
             \Zoroaster::makeDirectory(app_path('Zoroaster/Other'));
             \Zoroaster::makeDirectory(app_path('Zoroaster/Resources'));
 
-            $this->comment('Generating User Resource...');
-            copy(__DIR__ . '/AppZoroaster/Other/Dashboard.stub' , app_path('Zoroaster/Other/Dashboard.php'));
-            copy(__DIR__ . '/AppZoroaster/Other/Sidebar.stub' , app_path('Zoroaster/Other/Sidebar.php'));
-            copy(__DIR__ . '/AppZoroaster/Resources/Post.stub' , app_path('Zoroaster/Resources/Post.php'));
-            copy(__DIR__ . '/AppZoroaster/Resources/User.stub' , app_path('Zoroaster/Resources/User.php'));
+            copy(__DIR__ . '/App/Zoroaster/Other/Dashboard.stub' , app_path('Zoroaster/Other/Dashboard.php'));
+            copy(__DIR__ . '/App/Zoroaster/Other/Navbar.stub' , app_path('Zoroaster/Other/Navbar.php'));
+            copy(__DIR__ . '/App/Zoroaster/Other/Sidebar.stub' , app_path('Zoroaster/Other/Sidebar.php'));
+            copy(__DIR__ . '/App/Zoroaster/Resources/User.stub' , app_path('Zoroaster/Resources/User.php'));
+
+            copy(__DIR__.'/../../database/migrations/2014_10_12_000000_create_users_table.php' , database_path('migrations/2014_10_12_000000_create_users_table.php'));
+
+            $this->call('migrate');
+//            copy(__DIR__ . '/App/Zoroaster/Resources/Post.stub' , app_path('Zoroaster/Resources/Post.php'));
 
 
-            $this->info('Zoroaster scaffolding installed successfully.');
+            $this->info('Zoroaster installed successfully');
         }
 
         /**
@@ -59,11 +61,14 @@
         {
             $namespace = str_replace_last('\\' , '' , $this->getAppNamespace());
 
-            file_put_contents(config_path('app.php') , str_replace(
-                "{$namespace}\\Providers\EventServiceProvider::class," . PHP_EOL ,
-                "{$namespace}\\Providers\EventServiceProvider::class," . PHP_EOL . "        {$namespace}\Providers\ZoroasterServiceProvider::class," . PHP_EOL ,
-                file_get_contents(config_path('app.php'))
-            ));
+            $app = file_get_contents(config_path('app.php'));
+
+            if(str_contains($app , "KarimQaderi\Zoroaster\ZoroasterCoreServiceProvider::class") === false)
+                file_put_contents(config_path('app.php') , str_replace(
+                    "{$namespace}\Providers\EventServiceProvider::class," ,
+                    PHP_EOL . "        {$namespace}\Providers\EventServiceProvider::class," . PHP_EOL . "        KarimQaderi\Zoroaster\ZoroasterCoreServiceProvider::class," ,
+                    $app));
+
         }
 
 

@@ -36,10 +36,10 @@
          */
         public function register()
         {
-            if(!defined('ZOROASTER_PATH'))
-            {
-                define('ZOROASTER_PATH' , realpath(__DIR__ . '/../'));
-            }
+//            if(!defined('ZOROASTER_PATH'))
+//            {
+//                define('ZOROASTER_PATH' , realpath(__DIR__ . '/../'));
+//            }
 
             $this->Helpers();
         }

@@ -37,9 +37,9 @@ class ZoroasterServiceProvider extends ServiceProvider
             __DIR__.'/../publishable' => public_path('vendor/Zoroaster'),
         ], 'Zoroaster-assets');
 
-        $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/Zoroaster'),
-        ], 'Zoroaster-lang');
+//        $this->publishes([
+//            __DIR__.'/../resources/lang' => resource_path('lang/vendor/Zoroaster'),
+//        ], 'Zoroaster-lang');
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/Zoroaster'),
@@ -108,6 +108,7 @@ class ZoroasterServiceProvider extends ServiceProvider
             Console\InstallCommand::class,
             Console\PublishCommand::class,
             Console\ResourceCommand::class,
+            Console\CreateAdminCommand::class,
         ]);
     }
 }

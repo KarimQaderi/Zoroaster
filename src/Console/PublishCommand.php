@@ -38,9 +38,16 @@ class PublishCommand extends Command
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'Zoroaster-lang',
-            '--force' => $this->option('force'),
+            '--tag' => 'Zoroaster-migration-user',
+            '--force' => true,
         ]);
+
+
+
+//        $this->call('vendor:publish', [
+//            '--tag' => 'Zoroaster-lang',
+//            '--force' => $this->option('force'),
+//        ]);
 
 //        $this->call('vendor:publish', [
 //            '--tag' => 'Zoroaster-views',
