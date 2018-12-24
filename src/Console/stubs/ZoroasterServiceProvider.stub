@@ -1,82 +1,33 @@
 <?php
 
-namespace App\Providers;
+    namespace App\Providers;
 
-use KarimQaderi\Zoroaster\Zoroaster;
-use KarimQaderi\Zoroaster\Cards\Help;
-use Illuminate\Support\Facades\Gate;
-use KarimQaderi\Zoroaster\ZoroasterApplicationServiceProvider;
+    use Illuminate\Support\Facades\Gate;
 
-class ZoroasterServiceProvider
-{
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    class ZoroasterServiceProvider extends \KarimQaderi\Zoroaster\ZoroasterServiceProvider
     {
-        parent::boot();
-    }
+        /**
+         * Bootstrap any application services.
+         *
+         * @return void
+         */
+        public function boot()
+        {
+            parent::boot();
 
-    /**
-     * Register the Zoroaster routes.
-     *
-     * @return void
-     */
-    protected function routes()
-    {
-        Zoroaster::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
-    }
 
-    /**
-     * Register the Zoroaster gate.
-     *
-     * This gate determines who can access Zoroaster in non-local environments.
-     *
-     * @return void
-     */
-    protected function gate()
-    {
-        Gate::define('viewZoroaster', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
-        });
-    }
+        }
 
-    /**
-     * Get the cards that should be displayed on the Zoroaster dashboard.
-     *
-     * @return array
-     */
-    protected function cards()
-    {
-        return [
-            new Help,
-        ];
-    }
+        /**
+         * Register any application services.
+         *
+         * @return void
+         */
+        public function register()
+        {
+            parent::register();
+        }
 
-    /**
-     * Get the tools that should be listed in the Zoroaster sidebar.
-     *
-     * @return array
-     */
-    public function tools()
-    {
-        return [];
-    }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+
     }
-}

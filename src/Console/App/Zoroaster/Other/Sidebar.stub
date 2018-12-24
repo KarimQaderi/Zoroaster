@@ -17,7 +17,7 @@
                 SidebarHeader::make() ,
 
                 Menu::make([
-                    MenuItem::make()->route('Zoroaster.home' , 'داشبورد')->icon('home') ,
+                    MenuItem::make()->route('Zoroaster.dashboard' , 'داشبورد')->icon('home') ,
                     Divider::make() ,
                     MenuItem::make()->resource('User')->icon('users') ,
                     static::PermissionAndRole() ,

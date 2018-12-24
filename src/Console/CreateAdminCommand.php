@@ -74,6 +74,10 @@
                         'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
                         'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
                     ];
+
+                    $Permission = Permission::firstOrCreate(['display_name' => 'دسترسی کلی به قسمت ادمین'],['name' => 'viewZoroaster']);
+                    RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
+
                     foreach($Permissions as $key => $value)
                     {
                         $Permission = Permission::firstOrCreate(['display_name' => $value . ' ' . $resource->label],['name' => $key . '-' . $resource_name]);

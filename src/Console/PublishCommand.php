@@ -42,6 +42,11 @@ class PublishCommand extends Command
             '--force' => true,
         ]);
 
+        $this->call('vendor:publish', [
+            '--tag' => 'Zoroaster-provider',
+            '--force' => true,
+        ]);
+
 
 
 //        $this->call('vendor:publish', [

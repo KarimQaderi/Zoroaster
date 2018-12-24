@@ -45,8 +45,13 @@
         {
             $this->Helpers();
 
-            $this->registerRoutes();
-
+            $this->commands([
+                Console\InstallCommand::class,
+                Console\PublishCommand::class,
+                Console\ResourceCommand::class,
+                Console\CreateAdminCommand::class,
+                Console\PermissionCommand::class,
+            ]);
         }
 
 
@@ -59,7 +64,7 @@
         {
 
             $this->publishes([
-                __DIR__ . '/Console/stubs/NovaServiceProvider.stub' => app_path('Providers/NovaServiceProvider.php') ,
+                __DIR__ . '/Console/stubs/ZoroasterServiceProvider.stub' => app_path('Providers/ZoroasterServiceProvider.php') ,
             ] , 'Zoroaster-provider');
 
             $this->publishes([
@@ -94,18 +99,11 @@
 //            $this->loadTranslationsFrom(__DIR__ . '/../resources/lang' , 'Zoroaster');
 //            $this->loadJsonTranslationsFrom(resource_path('lang/vendor/Zoroaster'));
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
-        }
-
-        /**
-         * Register the package routes.
-         *
-         * @return void
-         */
-        protected function registerRoutes()
-        {
             $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
+
+
         }
+
 
         private function Helpers()
         {
