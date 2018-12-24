@@ -9,10 +9,10 @@
         private static $resourcesByModel = [];
         private static $resources = [];
 
-        public static function routes()
-        {
-            return require __DIR__ . '/../routes/routes.php';
-        }
+//        public static function routes()
+//        {
+//            return require __DIR__ . '/../routes/routes.php';
+//        }
 
         public static function routeConfiguration()
         {

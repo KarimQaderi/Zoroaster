@@ -1,4 +1,4 @@
-@if ($errors->any())
+@if (isset($errors) && $errors->any())
     <div class="uk-alert-danger" uk-alert>
         <a class="uk-alert-close" uk-close></a>
         <ul>
@@ -9,7 +9,6 @@
     </div>
 @endif
 
-    {{ Session::get('kekssssseyy') }}
 @foreach(['success','error'] as $_massage)
     @php($txt_massage=Session::get($_massage))
     @if($txt_massage !== null)

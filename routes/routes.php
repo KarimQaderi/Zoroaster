@@ -3,7 +3,6 @@
     use Illuminate\Support\Facades\Route;
     use KarimQaderi\Zoroaster\Zoroaster;
 
-//    Markdown::convertToHtml($value);
     Route::group(Zoroaster::routeConfiguration() , function()
     {
 
