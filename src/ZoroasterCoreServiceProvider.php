@@ -30,7 +30,10 @@
                 $this->registerPublishing();
             }
 
+
             $this->registerResources();
+
+
 
             $this->Gates();
 
