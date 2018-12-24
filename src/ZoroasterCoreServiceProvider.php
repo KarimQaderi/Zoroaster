@@ -33,8 +33,6 @@
 
             $this->registerResources();
 
-
-
             $this->Gates();
 
         }
