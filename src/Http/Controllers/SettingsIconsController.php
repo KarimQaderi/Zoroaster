@@ -10,6 +10,8 @@
         {
 
             return view('Zoroaster::Settings.icons');
+
+            
         }
 
 
