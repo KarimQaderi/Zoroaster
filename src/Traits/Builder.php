@@ -32,7 +32,7 @@
                         $render = $builder;
 
                     elseif(is_array($builder))
-                        $render =  self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
+                        $render = self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
 
                     elseif($builder->component === 'relationship')
                     {
