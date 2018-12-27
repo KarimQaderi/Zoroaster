@@ -37,6 +37,7 @@
             copy(__DIR__ . '/App/Zoroaster/Resources/Role.stub' , app_path('Zoroaster/Resources/Role.php'));
 
             copy(__DIR__.'/../../database/migrations/2018_12_21_131041_create_permission_tables.php' , database_path('migrations/2018_12_21_131041_create_permission_tables.php'));
+            copy(__DIR__.'/../../database/migrations/2018_12_26_070424_add_column_to_table_users.php' , database_path('migrations/2018_12_26_070424_add_column_to_table_users.php'));
 
             $this->call('migrate');
 

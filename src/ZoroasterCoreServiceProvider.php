@@ -30,6 +30,7 @@
                 $this->registerPublishing();
             }
 
+
             
             $this->registerResources();
 

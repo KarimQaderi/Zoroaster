@@ -44,9 +44,8 @@
             copy(__DIR__ . '/App/Zoroaster/Other/Sidebar.stub' , app_path('Zoroaster/Other/Sidebar.php'));
             copy(__DIR__ . '/App/Zoroaster/Resources/User.stub' , app_path('Zoroaster/Resources/User.php'));
 
-            copy(__DIR__.'/../../database/migrations/2014_10_12_000000_create_users_table.php' , database_path('migrations/2014_10_12_000000_create_users_table.php'));
 
-            $this->call('migrate');
+//            $this->call('migrate');
 //            copy(__DIR__ . '/App/Zoroaster/Resources/Post.stub' , app_path('Zoroaster/Resources/Post.php'));
 
 

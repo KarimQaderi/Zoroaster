@@ -3,6 +3,7 @@
     "description": "laravel admin Zoroaster",
     "keywords": ["laravel", "admin"],
     "homepage": "https://github.com/KarimQaderi/Zoroaster",
+    "license": "MIT",
     "support": {
         "issues": "https://github.com/KarimQaderi/Zoroaster/issues",
         "source": "https://github.com/KarimQaderi/Zoroaster"
