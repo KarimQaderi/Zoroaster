@@ -109,7 +109,10 @@ function get_data_index_resources(resource) {
 
     return [
         {name: 'resource', value: resource},
-        {name: 'HasMany', value: $this.attr('data-HasMany')},
+        {name: 'viaRelationshipFieldName', value: $this.attr('data-viaRelationshipFieldName')},
+        {name: 'viaRelationship', value: $this.attr('data-viaRelationship')},
+        {name: 'viaResourceId', value: $this.attr('data-viaResourceId')},
+        {name: 'relationshipType', value: $this.attr('data-relationshipType')},
     ]
 }
 
@@ -121,7 +124,7 @@ function index_resources(resource) {
 
     var param = getUrlVars();
 
-    ajaxGET(Zoroaster_resource_ajax_index, mergeArray(param, get_data_index_resources(resource)),
+    ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources(resource)),
         function (data) {
             $('[data-resource="' + data.resource + '"]').html(data.render);
         }, function (data) {
@@ -397,7 +400,8 @@ $(document).ready(function () {
 
 
         $ThisresourceClass.html("<span uk-icon=\"load\"></span>");
-        ajaxGET(Zoroaster_resource_ajax_index, param,
+
+        ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources($resourceClass)),
             function (data) {
                 $('[data-resource="' + data.resource + '"]').html(data.render);
             },
@@ -425,7 +429,7 @@ $(document).ready(function () {
 
             param.push({name: 'resource', value: $resourceClass});
 
-            ajaxGET(Zoroaster_resource_ajax_index, param,
+            ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources($resourceClass)),
                 function (data) {
                     $('[data-resource="' + data.resource + '"]').html(data.render);
                 }, function (data) {
@@ -433,5 +437,32 @@ $(document).ready(function () {
                 });
 
         }
+    });
+
+    // dataTables_paginate
+    $(document).on('click', '.dataTables_paginate div', function (e) {
+
+        $this = $(this).closest('.resource-ajax');
+        $resourceClass = $this.attr('data-resource');
+        $ThisresourceClass = $('[data-resource="' + $resourceClass + '"]');
+
+        var page = $(this).attr('data-page');
+
+        var param = [{name: $resourceClass+'_Page' , value: page}];
+
+        param = setParameters(param);
+
+        param.push({name: 'resource', value: $resourceClass});
+
+        $ThisresourceClass.html("<span uk-icon=\"load\"></span>");
+        ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources($resourceClass)),
+            function (data) {
+                $('[data-resource="' + data.resource + '"]').html(data.render);
+            },
+            function (data) {
+                var errors = data.responseJSON;
+            }
+        );
+
     });
 });

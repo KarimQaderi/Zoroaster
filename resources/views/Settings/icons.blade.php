@@ -7,9 +7,57 @@
     <div class="card-w uk-padding-small">
         <h4 class="uk-heading-line"><span>...</span></h4>
 
+
         <div class="uk-child-width-1-3@s" uk-grid>
             <div>
                 <ul class="uk-list">
+                    <li><span class="uk-margin-small-right" uk-icon="activity"></span> activity</li>
+                    <li><span class="uk-margin-small-right" uk-icon="alert-circle"></span> alert-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="alert-triangle"></span> alert-triangle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-back"></span> arrow-back</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-circle-down"></span> arrow-circle-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-circle-left"></span> arrow-circle-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-circle-right"></span> arrow-circle-right</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-circle-up"></span> arrow-circle-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-downward"></span> arrow-downward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-forward"></span> arrow-forward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-ios-back"></span> arrow-ios-back</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-ios-downward"></span> arrow-ios-downward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-ios-forward"></span> arrow-ios-forward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-ios-upward"></span> arrow-ios-upward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrow-upward"></span> arrow-upward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrowhead-down"></span> arrowhead-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrowhead-left"></span> arrowhead-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrowhead-right"></span> arrowhead-right</li>
+                    <li><span class="uk-margin-small-right" uk-icon="arrowhead-up"></span> arrowhead-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="attach-2"></span> attach-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="award"></span> award</li>
+                    <li><span class="uk-margin-small-right" uk-icon="backspace"></span> backspace</li>
+                    <li><span class="uk-margin-small-right" uk-icon="bar-chart-2"></span> bar-chart-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="battery"></span> battery</li>
+                    <li><span class="uk-margin-small-right" uk-icon="bell-off"></span> bell-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="bluetooth"></span> bluetooth</li>
+                    <li><span class="uk-margin-small-right" uk-icon="book-open"></span> book-open</li>
+                    <li><span class="uk-margin-small-right" uk-icon="brush"></span> brush</li>
+                    <li><span class="uk-margin-small-right" uk-icon="bulb"></span> bulb</li>
+                    <li><span class="uk-margin-small-right" uk-icon="cast"></span> cast</li>
+                    <li><span class="uk-margin-small-right" uk-icon="charging"></span> charging</li>
+                    <li><span class="uk-margin-small-right" uk-icon="checkmark-circle-2"></span> checkmark-circle-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="checkmark-square-2"></span> checkmark-square-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="close-circle"></span> close-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="close-square"></span> close-square</li>
+                    <li><span class="uk-margin-small-right" uk-icon="code-download"></span> code-download</li>
+                    <li><span class="uk-margin-small-right" uk-icon="collapse"></span> collapse</li>
+                    <li><span class="uk-margin-small-right" uk-icon="color-palette"></span> color-palette</li>
+                    <li><span class="uk-margin-small-right" uk-icon="color-picker"></span> color-picker</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-down-left"></span> corner-down-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-down-right"></span> corner-down-right</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-left-down"></span> corner-left-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-left-up"></span> corner-left-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-right-down"></span> corner-right-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-right-up"></span> corner-right-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-up-left"></span> corner-up-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="corner-up-right"></span> corner-up-right</li>
                     <li><span class="uk-margin-small-right" uk-icon="exclamation"></span> exclamation</li>
                     <li><span class="uk-margin-small-right" uk-icon="external-link"></span> external-link</li>
                     <li><span class="uk-margin-small-right" uk-icon="file-blank"></span> file-blank</li>
@@ -53,6 +101,53 @@
             </div>
             <div>
                 <ul class="uk-list">
+                    <li><span class="uk-margin-small-right" uk-icon="cube"></span> cube</li>
+                    <li><span class="uk-margin-small-right" uk-icon="diagonal-arrow-left-down"></span> diagonal-arrow-left-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="diagonal-arrow-left-up"></span> diagonal-arrow-left-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="diagonal-arrow-right-down"></span> diagonal-arrow-right-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="diagonal-arrow-right-up"></span> diagonal-arrow-right-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="done-all"></span> done-all</li>
+                    <li><span class="uk-margin-small-right" uk-icon="droplet-off"></span> droplet-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="edit-2"></span> edit-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="email"></span> email</li>
+                    <li><span class="uk-margin-small-right" uk-icon="eye-off-2"></span> eye-off-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="file-add"></span> file-add</li>
+                    <li><span class="uk-margin-small-right" uk-icon="file-remove"></span> file-remove</li>
+                    <li><span class="uk-margin-small-right" uk-icon="flash-off"></span> flash-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="flip-2"></span> flip-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="folder-add"></span> folder-add</li>
+                    <li><span class="uk-margin-small-right" uk-icon="folder-remove"></span> folder-remove</li>
+                    <li><span class="uk-margin-small-right" uk-icon="funnel"></span> funnel</li>
+                    <li><span class="uk-margin-small-right" uk-icon="gift"></span> gift</li>
+                    <li><span class="uk-margin-small-right" uk-icon="globe-2"></span> globe-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="hard-drive"></span> hard-drive</li>
+                    <li><span class="uk-margin-small-right" uk-icon="headphones"></span> headphones</li>
+                    <li><span class="uk-margin-small-right" uk-icon="keypad"></span> keypad</li>
+                    <li><span class="uk-margin-small-right" uk-icon="layers"></span> layers</li>
+                    <li><span class="uk-margin-small-right" uk-icon="layout"></span> layout</li>
+                    <li><span class="uk-margin-small-right" uk-icon="loader"></span> loader</li>
+                    <li><span class="uk-margin-small-right" uk-icon="log-in"></span> log-in</li>
+                    <li><span class="uk-margin-small-right" uk-icon="log-out"></span> log-out</li>
+                    <li><span class="uk-margin-small-right" uk-icon="maximize"></span> maximize</li>
+                    <li><span class="uk-margin-small-right" uk-icon="menu-arrow"></span> menu-arrow</li>
+                    <li><span class="uk-margin-small-right" uk-icon="message-circle"></span> message-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="message-square"></span> message-square</li>
+                    <li><span class="uk-margin-small-right" uk-icon="mic-off"></span> mic-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="minimize"></span> minimize</li>
+                    <li><span class="uk-margin-small-right" uk-icon="monitor"></span> monitor</li>
+                    <li><span class="uk-margin-small-right" uk-icon="more-horizontal"></span> more-horizontal</li>
+                    <li><span class="uk-margin-small-right" uk-icon="navigation-2"></span> navigation-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="npm"></span> npm</li>
+                    <li><span class="uk-margin-small-right" uk-icon="options-2"></span> options-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="pantone"></span> pantone</li>
+                    <li><span class="uk-margin-small-right" uk-icon="paper-plane"></span> paper-plane</li>
+                    <li><span class="uk-margin-small-right" uk-icon="pause-circle"></span> pause-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="people"></span> people</li>
+                    <li><span class="uk-margin-small-right" uk-icon="percent"></span> percent</li>
+                    <li><span class="uk-margin-small-right" uk-icon="person-add"></span> person-add</li>
+                    <li><span class="uk-margin-small-right" uk-icon="person-delete"></span> person-delete</li>
+                    <li><span class="uk-margin-small-right" uk-icon="person-done"></span> person-done</li>
+                    <li><span class="uk-margin-small-right" uk-icon="person-remove"></span> person-remove</li>
                     <li><span class="uk-margin-small-right" uk-icon="announcement"></span> announcement</li>
                     <li><span class="uk-margin-small-right" uk-icon="archive"></span> archive</li>
                     <li><span class="uk-margin-small-right" uk-icon="arrow-down-2"></span> arrow-down-2</li>
@@ -96,6 +191,48 @@
             </div>
             <div>
                 <ul class="uk-list">
+                    <li><span class="uk-margin-small-right" uk-icon="phone-call"></span> phone-call</li>
+                    <li><span class="uk-margin-small-right" uk-icon="phone-missed"></span> phone-missed</li>
+                    <li><span class="uk-margin-small-right" uk-icon="phone-off"></span> phone-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="pie-chart"></span> pie-chart</li>
+                    <li><span class="uk-margin-small-right" uk-icon="power"></span> power</li>
+                    <li><span class="uk-margin-small-right" uk-icon="pricetags"></span> pricetags</li>
+                    <li><span class="uk-margin-small-right" uk-icon="printer"></span> printer</li>
+                    <li><span class="uk-margin-small-right" uk-icon="question-mark-circle"></span> question-mark-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="radio-button-off"></span> radio-button-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="radio-button-on"></span> radio-button-on</li>
+                    <li><span class="uk-margin-small-right" uk-icon="recording"></span> recording</li>
+                    <li><span class="uk-margin-small-right" uk-icon="rewind-left"></span> rewind-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="rewind-right"></span> rewind-right</li>
+                    <li><span class="uk-margin-small-right" uk-icon="scissors"></span> scissors</li>
+                    <li><span class="uk-margin-small-right" uk-icon="settings-2"></span> settings-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="shake"></span> shake</li>
+                    <li><span class="uk-margin-small-right" uk-icon="share"></span> share</li>
+                    <li><span class="uk-margin-small-right" uk-icon="shield-off"></span> shield-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="shopping-bag"></span> shopping-bag</li>
+                    <li><span class="uk-margin-small-right" uk-icon="shopping-cart"></span> shopping-cart</li>
+                    <li><span class="uk-margin-small-right" uk-icon="shuffle-2"></span> shuffle-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="skip-back"></span> skip-back</li>
+                    <li><span class="uk-margin-small-right" uk-icon="skip-forward"></span> skip-forward</li>
+                    <li><span class="uk-margin-small-right" uk-icon="slash"></span> slash</li>
+                    <li><span class="uk-margin-small-right" uk-icon="smartphone"></span> smartphone</li>
+                    <li><span class="uk-margin-small-right" uk-icon="stop-circle"></span> stop-circle</li>
+                    <li><span class="uk-margin-small-right" uk-icon="sun"></span> sun</li>
+                    <li><span class="uk-margin-small-right" uk-icon="swap"></span> swap</li>
+                    <li><span class="uk-margin-small-right" uk-icon="sync"></span> sync</li>
+                    <li><span class="uk-margin-small-right" uk-icon="thermometer-minus"></span> thermometer-minus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="thermometer-plus"></span> thermometer-plus</li>
+                    <li><span class="uk-margin-small-right" uk-icon="toggle-left"></span> toggle-left</li>
+                    <li><span class="uk-margin-small-right" uk-icon="toggle-right"></span> toggle-right</li>
+                    <li><span class="uk-margin-small-right" uk-icon="trash-2"></span> trash-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="umbrella"></span> umbrella</li>
+                    <li><span class="uk-margin-small-right" uk-icon="undo"></span> undo</li>
+                    <li><span class="uk-margin-small-right" uk-icon="video-off"></span> video-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="volume-down"></span> volume-down</li>
+                    <li><span class="uk-margin-small-right" uk-icon="volume-mute"></span> volume-mute</li>
+                    <li><span class="uk-margin-small-right" uk-icon="volume-off"></span> volume-off</li>
+                    <li><span class="uk-margin-small-right" uk-icon="volume-up"></span> volume-up</li>
+                    <li><span class="uk-margin-small-right" uk-icon="wifi-off"></span> wifi-off</li>
                     <li><span class="uk-margin-small-right" uk-icon="news"></span> news</li>
                     <li><span class="uk-margin-small-right" uk-icon="notification"></span> notification</li>
                     <li><span class="uk-margin-small-right" uk-icon="plus-circle-2"></span> plus-circle-2</li>

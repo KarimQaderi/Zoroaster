@@ -1833,17 +1833,21 @@ tr.Restore-resourceid td {
     padding: 2px;
 }
 
-.dataTables_paginate a {
+.dataTables_paginate div {
     font-weight: bold;
     text-decoration: none;
+    display: inline-block;
+    color: rgb(64, 153, 222);
+    cursor: pointer;
 }
 
-.dataTables_paginate a svg {
+.dataTables_paginate div svg {
     /* margin: 0 10px; */
 }
 
-.dataTables_paginate a:hover {
+.dataTables_paginate div:hover {
     text-decoration: none !important;
+    opacity: .7;
 }
 
 .SidebarHeader svg {
@@ -2476,4 +2480,21 @@ ul#side-menu a:hover, ul#side-menu a {
     text-align: center;
     padding: 50px 0;
     background-color: rgb(255, 255, 255);
+}
+
+.ResourceActions_dataTables .MianForceDeletingAll {
+    margin-right: 5px;
+}
+
+.pivot_check_box .baron__scroller {
+    max-height: 300px;
+}
+
+.pivot_check_box .uk-label-success {
+    text-transform: none;
+    margin: 1px;
+}
+
+.CreateAndAddAnotherOne {
+    margin: 0 10px;
 }
