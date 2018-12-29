@@ -15,13 +15,13 @@
         use Builder;
 
 
-        public static function getCurentUrl($url,$replace)
+        public static function getCurentUrl($url , $replace)
         {
             $u = explode('?' , $url)[0];
 
             $url = str_replace($u , '' , $url);
             $url = str_replace($u , '' , $url);
-            return str_replace($replace.'_Page=','',substr($url,1));
+            return str_replace($replace . '_Page=' , '' , substr($url , 1));
         }
 
         public static function Filters($request)
@@ -291,7 +291,7 @@
                 'Ā' => 'A' , 'Č' => 'C' , 'Ē' => 'E' , 'Ģ' => 'G' , 'Ī' => 'i' , 'Ķ' => 'k' , 'Ļ' => 'L' , 'Ņ' => 'N' ,
                 'Š' => 'S' , 'Ū' => 'u' , 'Ž' => 'Z' ,
                 'ā' => 'a' , 'č' => 'c' , 'ē' => 'e' , 'ģ' => 'g' , 'ī' => 'i' , 'ķ' => 'k' , 'ļ' => 'l' , 'ņ' => 'n' ,
-                'š' => 's' , 'ū' => 'u' , 'ž' => 'z',
+                'š' => 's' , 'ū' => 'u' , 'ž' => 'z' ,
             ];
 
             // Make custom replacements
@@ -332,7 +332,7 @@
                 '>' ,
                 '<' ,
                 '\\1' ,
-                '',
+                '' ,
             ];
 
             return preg_replace($search , $replace , $html);
@@ -374,6 +374,11 @@
                 }
             }
 
+        }
+
+        public static function asset($path , $secure = null)
+        {
+            return asset(config('Zoroaster.assets_path') . '/' . $path , $secure);
         }
 
     }

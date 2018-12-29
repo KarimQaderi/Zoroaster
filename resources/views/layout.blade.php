@@ -2,31 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 
-    <meta name="_token" content="{{ csrf_token() }}"/>
-
-
-    <title>Zoroaster</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <meta name="Author" content="Karim Qaderi"/>
-    <link rel="icon" type="image/png" href="favicon.png"/>
-    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico"/>
-
-
-    {{--<link rel="stylesheet" type="text/css" href="{{ mix('css/back_2.css') }}"/>--}}
-    {{--<link rel="stylesheet" type="text/css" href="{{ asset('css/back.css') }}"/>--}}
-
-
-    {{--<script type="application/javascript" src="/js/jquery.js"></script>--}}
-    {{--<script type="application/javascript" src="/js/uikit.js"></script>--}}
-    {{--<script type="application/javascript" src="/js/uikit-icons.js"></script>--}}
-
-
-    <script type="application/javascript" src="{{ asset('js/ZoroasterJs.js') }}"></script>
-    <script type="application/javascript" src="{{ asset('js/resources.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/ZoroasterCss.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/back.css') }}"/>
+    @include('Zoroaster::partials.head')
 
     <script>
         var Zoroaster_resource_ajax_index = '{{ route('Zoroaster.resource-ajax.index') }}',

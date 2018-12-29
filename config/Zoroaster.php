@@ -1,6 +1,8 @@
 <?php
 
 
+    use KarimQaderi\Zoroaster\Http\Middleware\CheckLogin;
+
     return [
 
         /*
@@ -60,9 +62,22 @@
 
         'middleware' => [
             'web' ,
+            CheckLogin::class
+
         ] ,
 
         // Enable Resources permission
-        'permission' => true ,
+        'permission' => false ,
+
+        /*
+           |--------------------------------------------------------------------------
+           | Path to the Zoroaster Assets
+           |--------------------------------------------------------------------------
+           |
+           | Here you can specify the location of the Zoroaster assets path
+           |
+           */
+
+        'assets_path' => '/vendor/Zoroaster/assets',
 
     ];

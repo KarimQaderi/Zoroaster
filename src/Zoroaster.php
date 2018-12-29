@@ -14,15 +14,24 @@
 //            return require __DIR__ . '/../routes/routes.php';
 //        }
 
-        public static function routeConfiguration()
+        public static function routeConfiguration($unset = null)
         {
-            return [
+            $var = [
                 'namespace' => '\KarimQaderi\Zoroaster\Http\Controllers' ,
                 'domain' => config('Zoroaster.domain' , null) ,
                 'as' => 'Zoroaster.' , // Route name
                 'prefix' => 'Zoroaster' ,
-                'middleware' => 'can:viewZoroaster' ,
+                'middleware' => ['Zoroaster' , 'can:viewZoroaster'] ,
             ];
+
+            if(is_string($unset))
+                unset($var[$unset]);
+
+            if(is_array($unset))
+                foreach($unset as $un)
+                    unset($var[$un]);
+
+            return $var;
         }
 
 
@@ -66,7 +75,7 @@
 
         public static function findAllResource()
         {
-            $namespace  = str_replace_last('\\' , '' , config('Zoroaster.Resources'));
+            $namespace = str_replace_last('\\' , '' , config('Zoroaster.Resources'));
             $Re = str_replace_first('App' , 'app' , $namespace);
 
             return self::finderAllClassByPath($namespace , $Re);
@@ -78,9 +87,11 @@
             $finder->files()->in(base_path($path));
 
             $find = [];
-            foreach($finder as $file){
+            foreach($finder as $file)
+            {
                 $ns = $namespace;
-                if($relativePath = $file->getRelativePath()){
+                if($relativePath = $file->getRelativePath())
+                {
                     $ns .= '\\' . strtr($relativePath , '/' , '\\');
                 }
                 $class = $ns . '\\' . $file->getBasename('.php');

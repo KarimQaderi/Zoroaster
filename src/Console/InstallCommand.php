@@ -33,7 +33,6 @@
 
             $this->callSilent('Zoroaster:publish');
 
-
 //            $this->registerZoroasterServiceProvider();
 
             \Zoroaster::makeDirectory(app_path('Zoroaster/Other'));

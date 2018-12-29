@@ -39,7 +39,15 @@
 
         Route::get('/metrics' , 'MetricController@handle')->name('metrics');
 
-
 //        Route::post('/UploadFile/Delete' , 'UploadFileControllers@delete')->name('DeleteFile');
 
+    });
+
+
+
+    Route::group(Zoroaster::routeConfiguration('middleware') , function()
+    {
+        Route::get('/login' , 'LoginController@showLoginForm');
+        Route::post('/login' , 'LoginController@login')->name('login');
+        Route::get('/logout' , 'LoginController@logout')->name('logout');
     });

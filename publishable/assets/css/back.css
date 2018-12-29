@@ -2498,3 +2498,32 @@ ul#side-menu a:hover, ul#side-menu a {
 .CreateAndAddAnotherOne {
     margin: 0 10px;
 }
+
+.login {
+    background-color: rgb(255, 255, 255);
+    border-radius: 14px;
+}
+
+.login button {
+    border-radius: 40px;
+}
+
+.login input {
+    border-radius: 5px;
+}
+
+.Zoroaster-login svg {
+    width: 80px;
+}
+
+.Zoroaster-login {
+    display: block;
+    text-align: center;
+    background-color: rgb(248, 248, 248);
+    color: rgb(64, 153, 222);
+    padding-top: 70px;
+}
+
+.login {
+    max-width: 460px;
+}

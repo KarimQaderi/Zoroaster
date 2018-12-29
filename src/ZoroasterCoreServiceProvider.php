@@ -2,6 +2,7 @@
 
     namespace KarimQaderi\Zoroaster;
 
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\ServiceProvider;
@@ -15,7 +16,9 @@
          */
         public function boot()
         {
-            $this->app->register(ZoroasterServiceProvider::class);
+
+
+//            $this->app->register(ZoroasterServiceProvider::class);
 
             if(!$this->app->configurationIsCached())
             {
@@ -117,6 +120,7 @@
 
         private function Gates()
         {
+
             if(!config('Zoroaster.permission')) return;
 
             foreach(\KarimQaderi\Zoroaster\Models\Permission::all() as $permission)
@@ -129,4 +133,6 @@
 
 
         }
+
+
     }

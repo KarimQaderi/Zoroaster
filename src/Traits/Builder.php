@@ -4,6 +4,8 @@
     namespace KarimQaderi\Zoroaster\Traits;
 
 
+    use Mockery\Exception;
+
     trait  Builder
     {
 
@@ -33,6 +35,12 @@
 
                     elseif(is_array($builder))
                         $render = self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
+
+                    elseif(is_null($builder))
+                        $render = null;
+
+                    elseif($builder->component == 'view')
+                        $render = self::call($builder , 'Render' , $builder);
 
                     elseif($builder->component === 'relationship')
                     {
@@ -66,9 +74,6 @@
                             $render = self::call($builder , 'Render' , $builder);
                     }
 
-
-                    elseif($builder->component == 'view')
-                        $render = self::call($builder , 'Render' , $builder);
 
 
                     elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric']))
