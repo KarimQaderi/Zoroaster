@@ -1,1 +1,1 @@
-{!! $data->{$field->name} !!}
+{!! $value !!}

@@ -4,7 +4,7 @@
         @empty($data)
             چیزی پیدا نشد
         @else
-            {{ $data->{$field->displayTitleField} }}
+            {{ $value }}
         @endempty
     </div>
 </label>

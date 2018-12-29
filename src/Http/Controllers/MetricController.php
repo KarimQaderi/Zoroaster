@@ -18,14 +18,6 @@
             $newClass = new $class;
 
 
-//            dd(array_merge((array)$newClass->calculate($request) , [
-//                'class' => $class ,
-//                'classN' => str_replace('\\' , '-' , $class) ,
-//                'ranges' => method_exists($newClass,'ranges')? $newClass->ranges() : null ,
-//                'label' => $newClass->label() ,
-//                'range' => $request->range ,
-//            ]));
-
             if($newClass->canSee())
                 return [
                     'class' => $request->class ,

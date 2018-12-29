@@ -7,7 +7,7 @@
                     @if (old($field->name)!==null)
                     @if (old($field->name)==$item['value']) selected @endif
                     @else
-                    @if (isset($data->{$field->name}) && $data->{$field->name}==$item['value']) selected @endif
+                    @if (isset($value) && $value==$item['value']) selected @endif
                     @endif
                     value="{{ $item['value'] }}">{{ $item['label']  }}</option>
         @endforeach

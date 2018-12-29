@@ -1,1 +1,1 @@
-<span class="uk-border-pill @if($data->{$field->name}===1) boolen-green @else boolen-red @endif"></span>
+<span class="uk-border-pill @if($value===1) boolen-green @else boolen-red @endif"></span>
