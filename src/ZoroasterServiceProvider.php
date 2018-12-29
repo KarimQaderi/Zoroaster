@@ -15,10 +15,10 @@
         public function boot()
         {
 
-
             // Configure the Zoroaster authorization services.
             Gate::define('viewZoroaster' , function($user)
             {
+
                 if(config('Zoroaster.permission'))
                     return auth()->user()->hasPermission('viewZoroaster');
 

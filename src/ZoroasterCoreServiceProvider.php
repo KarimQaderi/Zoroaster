@@ -18,7 +18,7 @@
         {
 
 
-//            $this->app->register(ZoroasterServiceProvider::class);
+            $this->app->register(ZoroasterServiceProvider::class);
 
             if(!$this->app->configurationIsCached())
             {

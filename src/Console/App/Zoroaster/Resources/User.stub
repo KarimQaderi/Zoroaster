@@ -77,10 +77,6 @@
                 ]) ,
 
 
-                new RowOneCol([
-                    HasMany::make('Posts' , 'user_id' , Post::class) ,
-                ]) ,
-
 
             ];
         }
