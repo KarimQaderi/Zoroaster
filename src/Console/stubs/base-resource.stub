@@ -4,29 +4,25 @@
 
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\ID;
-    use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
-    use KarimQaderi\Zoroaster\Fields\btnSave;
-    use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
-    use KarimQaderi\Zoroaster\Fields\Group\Panel;
 
-    class DummyClass extends ZoroasterResource
+    class Post extends ZoroasterResource
     {
         /**
          * The model the resource corresponds to.
          *
          * @var string
          */
-        public static $model = 'DummyFullModel';
+        public static $model = '';
 
         /**
          * The single value that should be used to represent the resource when being displayed.
          *
          * @var string
          */
-        public $title = 'id';
+        public $title = 'title';
 
-        public $labels = 'DummyClasss';
-        public $label = 'DummyClass';
+        public $labels = '';
+        public $label = '';
 
         /**
          * The columns that should be searched.
@@ -46,20 +42,7 @@
         {
 
             return [
-
-             new RowOneCol([
-
-                 new Panel('' , [
-                     ID::make()->sortable() ,
-                 ]),
-
-                 new Panel('' , [
-                      btnSave::make() ,
-                      CreateAndAddAnotherOne::make() ,
-                 ]) ,
-
-             ]),
-
+                ID::make() ,
             ];
         }
 
@@ -71,7 +54,9 @@
 
         function filters()
         {
-            return [];
+            return [
+
+            ];
         }
 
 

@@ -33,14 +33,12 @@ class ResourceCommand extends GeneratorCommand
      * Execute the console command.
      *
      * @return bool|null
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function handle()
     {
         parent::handle();
 
-        $this->callSilent('Zoroaster:base-resource', [
-            'name' => 'Resource',
-        ]);
     }
 
     /**
@@ -84,7 +82,7 @@ class ResourceCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Zoroaster';
+        return $rootNamespace.'\Zoroaster\Resources';
     }
 
     /**
