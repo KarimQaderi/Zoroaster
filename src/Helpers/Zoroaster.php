@@ -381,4 +381,12 @@
             return asset(config('Zoroaster.assets_path') . '/' . $path , $secure);
         }
 
+        public static function replace_str_in_file($file , $str_search , $str_replace)
+        {
+            $app = file_get_contents($file);
+
+            file_put_contents($file , str_replace($str_search , $str_replace , $app));
+        }
+
+
     }

@@ -2527,3 +2527,9 @@ ul#side-menu a:hover, ul#side-menu a {
 .login {
     max-width: 460px;
 }
+
+.login h3 {
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+    color: rgb(64, 153, 222);
+}

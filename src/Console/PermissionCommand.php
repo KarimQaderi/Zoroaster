@@ -4,6 +4,7 @@
 
     use Illuminate\Console\Command;
     use Illuminate\Console\DetectsApplicationNamespace;
+    use Illuminate\Support\Facades\Config;
 
     class PermissionCommand extends Command
     {
@@ -31,7 +32,7 @@
         {
             $this->comment('Start install Permission');
 
-            config()->set('Zoroaster.permission','true');
+            \Zoroaster::replace_str_in_file(config_path('Zoroaster.php'),"'permission' => false ,","'permission' => true ,");
 
             copy(__DIR__ . '/App/Zoroaster/Resources/Permission.stub' , app_path('Zoroaster/Resources/Permission.php'));
             copy(__DIR__ . '/App/Zoroaster/Resources/Role.stub' , app_path('Zoroaster/Resources/Role.php'));

@@ -38,9 +38,9 @@
 
             $model = config('auth.providers.users.model');
 
-            $create = $model::where('email' , $email)->first();
+            $check_has_user = $model::where('email' , $email)->first();
 
-            if(is_null($create))
+            if(is_null($check_has_user))
             {
                 $name = $this->ask('Enter the admin name');
                 $password = $this->secret('Enter admin password');
@@ -59,33 +59,32 @@
 
                     return;
                 }
+            }
 
+            $Role = Role::firstOrCreate(['guard_name' => 'web'] , ['name' => 'ادمین']);
 
-                $Role = Role::create([
-                    'name' => 'ادمین' ,
-                    'guard_name' => 'web' ,
-                ]);
+            foreach(\KarimQaderi\Zoroaster\Zoroaster::findAllResource() as $resource)
+            {
+                $resource_name = strtolower(basename($resource));
+                $resource = new $resource;
+                $Permissions = [
+                    'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
+                    'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
+                ];
 
-                foreach(\KarimQaderi\Zoroaster\Zoroaster::findAllResource() as $resource)
+                $Permission = Permission::firstOrCreate(['display_name' => 'دسترسی کلی به قسمت ادمین'] , ['name' => 'viewZoroaster']);
+                RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
+
+                foreach($Permissions as $key => $value)
                 {
-                    $resource_name = strtolower(basename($resource));
-                    $resource = new $resource;
-                    $Permissions = [
-                        'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
-                        'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
-                    ];
-
-                    $Permission = Permission::firstOrCreate(['display_name' => 'دسترسی کلی به قسمت ادمین'],['name' => 'viewZoroaster']);
+                    $Permission = Permission::firstOrCreate(['display_name' => $value . ' ' . $resource->label] , ['name' => $key . '-' . $resource_name]);
                     RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
-
-                    foreach($Permissions as $key => $value)
-                    {
-                        $Permission = Permission::firstOrCreate(['display_name' => $value . ' ' . $resource->label],['name' => $key . '-' . $resource_name]);
-                        RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
-                    }
-
                 }
 
+            }
+
+            if(is_null($check_has_user))
+            {
                 $model::create([
                     'name' => $name ,
                     'email' => $email ,
@@ -98,7 +97,9 @@
             }
             else
             {
-                $this->info('his email is already out of stock');
+                $model::where('email' , $email)->update(['role_id' => $Role->id]);
+
+                $this->info('update admin account');
 
             }
 

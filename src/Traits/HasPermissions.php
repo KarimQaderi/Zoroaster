@@ -19,7 +19,7 @@
         {
             $find = Permission::with(['role_has_permissions' => function($q) use ($permission_name)
             {
-                $q->where('role_id' , $this->{'id'});
+                $q->where('role_id' , $this->{'role_id'});
 
             }])->where('name' , $permission_name)->first();
 

@@ -55,6 +55,7 @@
                 Console\PublishCommand::class,
                 Console\ResourceCommand::class,
                 Console\CreateAdminCommand::class,
+                Console\CreateUserCommand::class,
                 Console\PermissionCommand::class,
             ]);
         }
@@ -88,9 +89,9 @@
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/Zoroaster') ,
             ] , 'Zoroaster-views');
 
-            $this->publishes([
-                __DIR__ . '/../database' => database_path() ,
-            ] , 'Zoroaster-migrations');
+//            $this->publishes([
+//                __DIR__ . '/../database' => database_path() ,
+//            ] , 'Zoroaster-migrations');
         }
 
         /**
@@ -103,7 +104,7 @@
             $this->loadViewsFrom(__DIR__ . '/../resources/views' , 'Zoroaster');
 //            $this->loadTranslationsFrom(__DIR__ . '/../resources/lang' , 'Zoroaster');
 //            $this->loadJsonTranslationsFrom(resource_path('lang/vendor/Zoroaster'));
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+//            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
             $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
 

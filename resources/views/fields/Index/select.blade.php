@@ -1,1 +1,1 @@
-{{ Zoroaster::getOptionsSelect($field,$data->{$field->name},'label') }}
+{{ Zoroaster::getOptionsSelect($field,$value,'label') }}
