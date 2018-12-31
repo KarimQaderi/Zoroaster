@@ -69,6 +69,7 @@
                                 '1' => 'Admin' ,
                                 '0' => 'User' ,
                             ]) ,
+                            Text::make('created_at' , 'created_at') ,
                             btnSave::make() ,
                         ]) ,
                     ]) ,

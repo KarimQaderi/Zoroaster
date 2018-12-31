@@ -7,6 +7,7 @@
 
     trait HasPermissions
     {
+        public $permissions = null;
 
         public function permissions()
         {
@@ -17,12 +18,15 @@
 
         public function hasPermission($permission_name)
         {
-            $find = Permission::with(['role_has_permissions' => function($q) use ($permission_name)
-            {
-                $q->where('role_id' , $this->{'role_id'});
+            if(empty($this->permissions))
+                $this->permissions = Permission::with(['role_has_permissions' => function($q) use ($permission_name)
+                {
+                    $q->where('role_id' , $this->{'role_id'});
 
-            }])->where('name' , $permission_name)->first();
+                }])->select('name' , 'id')->get();
 
-            return (bool)(is_null($find)? false : $find->role_has_permissions->count());
+            $find = $this->permissions->where('name' , $permission_name)->first();
+
+            return (bool)(is_null($find) ? false : $find->role_has_permissions->count());
         }
     }

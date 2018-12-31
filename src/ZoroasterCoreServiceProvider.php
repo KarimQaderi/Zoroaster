@@ -2,7 +2,6 @@
 
     namespace KarimQaderi\Zoroaster;
 
-    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\ServiceProvider;
@@ -34,10 +33,9 @@
             }
 
 
-            
             $this->registerResources();
 
-            $this->Gates();
+            $this->registerGates();
 
         }
 
@@ -51,12 +49,12 @@
             $this->Helpers();
 
             $this->commands([
-                Console\InstallCommand::class,
-                Console\PublishCommand::class,
-                Console\ResourceCommand::class,
-                Console\CreateAdminCommand::class,
-                Console\CreateUserCommand::class,
-                Console\PermissionCommand::class,
+                Console\InstallCommand::class ,
+                Console\PublishCommand::class ,
+                Console\ResourceCommand::class ,
+                Console\CreateAdminCommand::class ,
+                Console\CreateUserCommand::class ,
+                Console\PermissionCommand::class ,
             ]);
         }
 
@@ -119,11 +117,12 @@
             }
         }
 
-        private function Gates()
+        private function registerGates()
         {
 
             if(!config('Zoroaster.permission')) return;
 
+            // use $user->can('update-post'); Or $this->authorize('update-post');
             foreach(\KarimQaderi\Zoroaster\Models\Permission::all() as $permission)
             {
                 Gate::define($permission->name , function($user) use ($permission)
@@ -132,6 +131,21 @@
                 });
             }
 
+
+            // use $user->can('update', $post); Or $this->authorize('update', $post);
+            $Permissions = [
+                'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
+                'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
+            ];
+            foreach($Permissions as $key => $value)
+            {
+                Gate::define($key , function($user , $model) use ($key)
+                {
+                    $basename_model = strtolower(basename($model));
+
+                    return $user->hasPermission($key . '-' . $basename_model);
+                });
+            }
 
         }
 
