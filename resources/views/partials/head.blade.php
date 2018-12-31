@@ -6,8 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
 <meta name="Author" content="Karim Qaderi"/>
-<link rel="icon" type="image/png" href="favicon.png"/>
-<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico"/>
+<link rel="icon" href="{{ Zoroaster::asset('img/logo.png') }}">
 
 <script type="application/javascript" src="{{ Zoroaster::asset('js/ZoroasterJs.js') }}"></script>
 <script type="application/javascript" src="{{ Zoroaster::asset('js/resources.js') }}"></script>
