@@ -90,7 +90,6 @@
                 'viewDetail' , null , null);
         }
 
-
         public static function newResourceByModelName($modelName)
         {
             $resource = self::getFullNameResourceByModelName($modelName);
