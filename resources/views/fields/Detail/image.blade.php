@@ -1,6 +1,3 @@
-        @if (is_string($data->{$field->name}) || ($data->{$field->name})=='')
-
-            @if (!is_null($data->{$field->name}))
 <label>
     <span class="label">{{ $field->label }}</span>&nbsp;
 </label>
