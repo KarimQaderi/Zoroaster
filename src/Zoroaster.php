@@ -76,6 +76,8 @@
         public static function findAllResource()
         {
             $namespace = str_replace_last('\\' , '' , config('Zoroaster.Resources'));
+            $namespace = str_replace('\\' , '/' , $namespace);
+
             $Re = str_replace_first('App' , 'app' , $namespace);
 
             return self::finderAllClassByPath($namespace , $Re);
@@ -92,11 +94,11 @@
                 $ns = $namespace;
                 if($relativePath = $file->getRelativePath())
                 {
-                    $ns .= '\\' . strtr($relativePath , '/' , '\\');
+                    $ns .= '/' . strtr($relativePath , '/' , '/');
                 }
-                $class = $ns . '\\' . $file->getBasename('.php');
+                $class = $ns . '/' . $file->getBasename('.php');
 
-                $r = new \ReflectionClass($class);
+                $r = new \ReflectionClass(str_replace('/','\\',$class));
 
                 $find[] = $r->getName();
 

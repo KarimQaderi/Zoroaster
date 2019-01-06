@@ -47,7 +47,7 @@
                 if(!is_null($newResource))
                     $this->Label = $newResource->labels;
                 else
-                    $this->Label = 'منبع پیدا نشد لطفا بررسی کنید';
+                    $this->Label = 'Resource پیدا نشد لطفا بررسی کنید';
             else
                 $this->Label = $label;
 

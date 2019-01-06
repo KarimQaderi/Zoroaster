@@ -16,10 +16,11 @@
             foreach(request()->resourceId as $id)
             {
 
-                $find = $request->newModel()->withTrashed()->where([$request->newModel()->getKeyName() => $id])->first();
+                $model_query = $this->check_isForceDeleting($request->newModel());
 
-                if(is_null($find)) break;
+                $find = $model_query->where([$request->newModel()->getKeyName() => $id])->first();
 
+                if(!is_null($find))
                 if($request->Resource()->authorizedToRestore($find))
                     $find->restore();
 
@@ -52,5 +53,13 @@
             return response($cols);
         }
 
+        private function check_isForceDeleting($model)
+        {
 
+            if(method_exists($model , 'isForceDeleting'))
+                return $model->withTrashed();
+            else
+                return $model;
+
+        }
     }

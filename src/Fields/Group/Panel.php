@@ -16,7 +16,7 @@
          * @var string
          */
         public $component = 'field_group';
-        public $nameViewForm = 'Panel';
+        public $nameViewForm = 'panel';
 
         public $name;
 

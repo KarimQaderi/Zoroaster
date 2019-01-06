@@ -40,51 +40,46 @@
 
             $check_has_user = $model::where('email' , $email)->first();
 
-            if(is_null($check_has_user))
-            {
+            if(is_null($check_has_user)){
                 $name = $this->ask('Enter the admin name');
                 $password = $this->secret('Enter admin password');
                 $confirmPassword = $this->secret('Confirm Password');
 
                 // Ask for email if there wasnt set one
-                if(!$email)
-                {
+                if(!$email){
                     $email = $this->ask('Enter the admin email');
                 }
 
                 // Passwords don't match
-                if($password != $confirmPassword)
-                {
+                if($password != $confirmPassword){
                     $this->info("Passwords don't match");
 
                     return;
                 }
             }
 
-            $Role = Role::firstOrCreate(['guard_name' => 'web'] , ['name' => 'ادمین']);
+            $Role = Role::firstOrCreate(['name' => 'ادمین'] , ['guard_name' => 'web']);
 
-            foreach(\KarimQaderi\Zoroaster\Zoroaster::findAllResource() as $resource)
-            {
-                $resource_name = strtolower(basename($resource));
+            foreach(\KarimQaderi\Zoroaster\Zoroaster::findAllResource() as $resource){
+                $resource_name = strtolower(class_basename($resource));
+
                 $resource = new $resource;
                 $Permissions = [
                     'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
                     'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
                 ];
 
-                $Permission = Permission::firstOrCreate(['display_name' => 'دسترسی کلی به قسمت ادمین'] , ['name' => 'viewZoroaster']);
+                $Permission = Permission::firstOrCreate(['name' => 'viewZoroaster'] , ['display_name' => 'دسترسی کلی به قسمت ادمین']);
                 RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
 
-                foreach($Permissions as $key => $value)
-                {
-                    $Permission = Permission::firstOrCreate(['display_name' => $value . ' ' . $resource->label] , ['name' => $key . '-' . $resource_name]);
+                foreach($Permissions as $key => $value){
+                    $Permission = Permission::firstOrCreate(['name' => $key . '-' . $resource_name] , ['display_name' => $value . ' ' . $resource->label]);
                     RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
                 }
 
             }
 
-            if(is_null($check_has_user))
-            {
+            if(is_null($check_has_user)){
                 $model::create([
                     'name' => $name ,
                     'email' => $email ,
@@ -94,9 +89,7 @@
 
                 $this->info('Creating admin account');
 
-            }
-            else
-            {
+            } else{
                 $model::where('email' , $email)->update(['role_id' => $Role->id]);
 
                 $this->info('update admin account');

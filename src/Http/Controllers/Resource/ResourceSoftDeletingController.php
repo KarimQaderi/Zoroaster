@@ -11,19 +11,19 @@
         {
             $cols = null;
             $col = null;
-            foreach(request()->resourceId as $id)
-            {
+            foreach(request()->resourceId as $id){
 
-                $find = $request->newModel()->where([$request->newModel()->getKeyName() => $id])->first();
 
-                if(is_null($find)) break;
+                $model_query = $this->check_isForceDeleting($request->newModel());
 
-                if($request->Resource()->authorizedToDelete($find))
-                    $find->delete();
+                $find = $model_query->where([$request->newModel()->getKeyName() => $id])->first();
+
+                if(!is_null($find))
+                    if($request->Resource()->authorizedToDelete($find))
+                        $find->delete();
 
                 $col = \Zoroaster::ResourceActions($request , $find ,
-                    $request->newModel() , 'Index' , $request->ResourceFields(function($field)
-                    {
+                    $request->newModel() , 'Index' , $request->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)
                             return true;
                         else
@@ -34,7 +34,7 @@
                 $cols [] = [
                     'id' => $find->{$request->newModel()->getKeyName()} ,
                     'col' => $col ,
-                    'status' => 'ok',
+                    'status' => 'ok' ,
                 ];
 
 
@@ -43,11 +43,20 @@
 
             if(request()->has('redirect'))
                 redirect(request()->redirect)->with([
-                    'success' => 'منبع مورد نظر حذف شد',
+                    'success' => 'منبع مورد نظر حذف شد' ,
                 ])->send();
 
             return response($cols);
         }
 
+        private function check_isForceDeleting($model)
+        {
+
+            if(method_exists($model , 'isForceDeleting'))
+                return $model->withTrashed();
+            else
+                return $model;
+
+        }
 
     }
