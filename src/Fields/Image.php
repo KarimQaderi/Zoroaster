@@ -17,9 +17,6 @@
         public $thumbnail = null;
 
 
-
-
-
         public function resize($name , $width , $hight)
         {
             $this->resize [] = [

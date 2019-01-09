@@ -9,10 +9,15 @@
     {
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
+
+        /**
+         * view نام
+         *
+         * @var string
+         */
         public $nameViewForm = 'boolean';
         public $textAlign = 'center';
 
-        public $customResourceController = true;
 
 
 

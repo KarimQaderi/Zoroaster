@@ -11,29 +11,46 @@
         use TraitView;
 
         /**
-         * The name of the panel.
+         * عنصر نام
          *
          * @var string
          */
         public $component = 'field_group';
+
+        /**
+         * view نام
+         *
+         * @var string
+         */
         public $nameViewForm = 'panel';
 
-        public $name;
-
+        /**
+         * عنصر دادهای
+         *
+         * @var string
+         */
         public $class;
 
         /**
-         * The panel fields.
+         * دیتابیس در عنصر فیلد نام
+         *
+         * @var string
+         */
+        public $name;
+
+        /**
+         * ها عنصر
          *
          * @var array
          */
         public $data;
 
         /**
-         * Create a new panel instance.
+         * ایجاد
          *
          * @param  string $name
          * @param  \Closure|array $fields
+         * @param  string $class
          * @return void
          */
         public function __construct($name , $fields = [] , $class = null)
@@ -45,7 +62,7 @@
         }
 
         /**
-         * Prepare the given fields.
+         * ها عنصر سازی اماده
          *
          * @param  \Closure|array $fields
          * @return array
@@ -59,14 +76,14 @@
 
 
         /**
-         * Prepare the panel for JSON serialization.
+         * کند می اماده JSON serialization برای را عنصر
          *
          * @return array
          */
         public function jsonSerialize()
         {
             return [
-                'component' => 'Panel' ,
+                'component' => $this->component ,
                 'name' => $this->name ,
             ];
         }

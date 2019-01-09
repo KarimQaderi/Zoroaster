@@ -10,20 +10,18 @@
     class BelongsTo extends Field
     {
         use Resource;
+
+
         /**
-         * The field's component.
+         * view نام
          *
          * @var string
          */
         public $nameViewForm = 'belongs-to';
 
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $display = null;
 
+
+        public $display = null;
 
         public $routeShow = null;
 

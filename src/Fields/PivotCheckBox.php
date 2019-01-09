@@ -2,7 +2,6 @@
 
     namespace KarimQaderi\Zoroaster\Fields;
 
-
     use KarimQaderi\Zoroaster\Fields\Other\Field;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
     use KarimQaderi\Zoroaster\Zoroaster;
@@ -12,9 +11,7 @@
 
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
-
         public $nameViewForm = 'pivot_check_box';
-
 
         public $model_pivot = null;
         public $model_pivot_foreign_key = null;

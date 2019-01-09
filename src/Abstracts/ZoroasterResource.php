@@ -18,42 +18,57 @@
 
         public $component = 'resource';
 
+
+        public $resource;
+
         /**
-         * The underlying model resource instance.
+         * مربوطه Model نام
          *
          * @var \Illuminate\Database\Eloquent\Model
          */
-        public $resource;
-
         public static $model = '';
 
         /**
-         * The single value that should be used to represent the resource when being displayed.
+         * دادن نمایش برای پیشفرض فیلد نام
          *
          * @var string
          */
         public $title = 'id';
 
+        /**
+         * جمع بصورت Resource نام
+         *
+         * مثال : ها پست
+         *
+         * @var string
+         */
         public $labels = '';
+
+        /**
+         * فرد بصورت Resource نام
+         *
+         * مثال : پست
+         *
+         * @var string
+         */
         public $label = '';
 
         /**
-         * Indicates if the resoruce should be globally searchable.
+         * سراسری جستجوی کردن فعال غیر یا فعال
          *
          * @var bool
          */
         public $globallySearchable = true;
 
         /**
-         * The columns that should be searched.
+         * جستحو قابل های فیلد
          *
          * @var array
          */
-        public $search = [
-            'id' ,
-        ];
+        public $search = ['id'];
 
-        public function __construct(){
+        public function __construct()
+        {
 
             $this->resource = new static::$model;
         }
@@ -63,7 +78,7 @@
         abstract function filters();
 
         /**
-         * Get a fresh instance of the model represented by the resource.
+         * جدید Model گرفتن
          *
          * @return mixed
          */
@@ -74,14 +89,26 @@
             return new $model;
         }
 
+        /**
+         * Model گرفتن
+         *
+         * @return mixed
+         */
         public static function getModel()
         {
-            return  static::$model;
+            return static::$model;
         }
 
-        public function indexQuery($eloquent)
+
+        /**
+         * index صغحه برای query اعمال
+         *
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @return \Illuminate\Database\Eloquent\Builder
+         */
+        public function indexQuery($query)
         {
-            return $eloquent;
+            return $query;
         }
 
         public function ResourceActions()

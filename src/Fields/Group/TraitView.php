@@ -5,6 +5,7 @@
 
     trait TraitView
     {
+
         public function render($field , $data , $resourceRequest = null)
         {
             return view('Zoroaster::fields.' . $field->nameViewForm)->with(

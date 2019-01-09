@@ -6,7 +6,6 @@
     use Illuminate\Support\Str;
     use Illuminate\Support\Traits\Macroable;
     use JsonSerializable;
-    use KarimQaderi\Zoroaster\Contracts\Resolvable;
     use KarimQaderi\Zoroaster\Fields\Traits\ResourceDefault;
     use KarimQaderi\Zoroaster\Fields\Traits\View;
 
@@ -15,75 +14,55 @@
         use Macroable , View , ResourceDefault;
 
         /**
-         * The displayable name of the field.
+         * فارسی بصورت عنصر نام
          *
          * @var string
          */
         public $label;
 
         /**
-         * The name / column name of the field.
+         * دیتابیس در عنصر فیلد نام
          *
          * @var string
          */
         public $name;
 
         /**
-         * The field's resolved value.
+         * خروجی در مشاهد قابل مقدار
          *
-         * @var mixed
+         * @var string
          */
         public $value;
 
 
         /**
-         * The validation rules for creation and updates.
+         * کردن اضافه یا آپدیت برای قوانین
          *
          * @var array
          */
         public $rules = [];
 
-        /**
-         * The validation rules for creation.
-         *
-         * @var array
-         */
-        public $creationRules = [];
 
         /**
-         * The validation rules for updates.
-         *
-         * @var array
-         */
-        public $updateRules = [];
-
-        /**
-         * Indicates if the field should be sortable.
+         * سازی مرتب قابل فیلد
          *
          * @var bool
          */
         public $sortable = false;
 
         /**
-         * The text alignment for the field's text in tables.
+         * جداول در فیلد متن برای متن تراز
          *
          * @var string
          */
         public $textAlign = 'right';
 
-        /**
-         * The custom components registered for fields.
-         *
-         * @var array
-         */
-        public static $customComponents = [];
 
         /**
-         * Create a new field.
+         * جدید فیلد ایجاد
          *
          * @param  string $label
          * @param  string|null $name
-         * @param  mixed|null $resolveCallback
          * @return void
          */
         public function __construct($label , $name = null)
@@ -93,7 +72,7 @@
         }
 
         /**
-         * Set the help text for the field.
+         * Form صفحه در راهنما تنظیم
          *
          * @param  string $helpText
          * @return $this
@@ -105,7 +84,7 @@
 
 
         /**
-         * Set the validation rules for the field.
+         * فیلد برای rules کردن اضافه
          *
          * @param  callable|array|string $rules
          * @return $this
@@ -119,7 +98,7 @@
 
 
         /**
-         * Specify that this field should be sortable.
+         * باشد سازی مرتب قابل فیلد اینکه اعمال
          *
          * @param  bool $value
          * @return $this
@@ -130,29 +109,5 @@
 
             return $this;
         }
-
-
-
-
-        /**
-         * Prepare the field for JSON serialization.
-         *
-         * @return array
-         */
-        public function jsonSerialize()
-        {
-            return array_merge([
-                'component' => $this->component() ,
-                'prefixComponent' => true ,
-                'indexName' => $this->label ,
-                'label' => $this->label ,
-                'name' => $this->name ,
-                'value' => $this->value ,
-                'panel' => $this->panel ,
-                'sortable' => $this->sortable ,
-                'textAlign' => $this->textAlign ,
-            ] , $this->meta());
-        }
-
 
     }

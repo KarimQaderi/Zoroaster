@@ -15,15 +15,10 @@
         use Builder;
 
 
-        public static function getCurentUrl($url , $replace)
-        {
-            $u = explode('?' , $url)[0];
-
-            $url = str_replace($u , '' , $url);
-            $url = str_replace($u , '' , $url);
-            return str_replace($replace . '_Page=' , '' , substr($url , 1));
-        }
-
+        /**
+         * index صفحه برای فیلترها گرفتن
+         *
+         */
         public static function Filters($request)
         {
             $Filters = null;
@@ -41,6 +36,11 @@
 
         }
 
+
+        /**
+         * index صفحه برای Actions گرفتن
+         *
+         */
         public static function ResourceActions($request , $data , $model , $view , $field = null)
         {
             $Actions = null;
@@ -54,6 +54,11 @@
             return $Actions;
         }
 
+
+        /**
+         * Sidebar گرفتن
+         *
+         */
         public static function Sidebar()
         {
             return self::RenderViewForm(Sidebar::handle() ,
@@ -80,6 +85,10 @@
                 'viewDetail' , null , null);
         }
 
+        /**
+         * داشبورد صفحه برای Widgets گرفتن
+         *
+         */
         public static function Widgets()
         {
             return self::RenderViewForm(Dashboard::handle() ,
@@ -90,6 +99,10 @@
                 'viewDetail' , null , null);
         }
 
+        /**
+         * Model نام از استفاده با جدید Resource
+         *
+         */
         public static function newResourceByModelName($modelName)
         {
             $resource = self::getFullNameResourceByModelName($modelName);
@@ -104,11 +117,19 @@
             return SrcZoroaster::newModel($model);
         }
 
+        /**
+         * جدید Resource
+         *
+         */
         public static function newResourceByResourceName($ResourceName)
         {
             return SrcZoroaster::newResource($ResourceName);
         }
 
+        /**
+         * Resource در فیلد نام براساس فیلد کردن پیدا
+         *
+         */
         public static function getFieldResource($Resource , $FindNameField)
         {
             if(is_string($Resource))
@@ -121,6 +142,36 @@
             return self::ResourceFieldFind($FindNameField , $Resource->fields());
         }
 
+        /**
+         * Resource در فیلد نام براساس فیلد کردن پیدا
+         *
+         */
+        private static function ResourceFieldFind($FindNameField , $fields)
+        {
+            $find = null;
+
+            foreach($fields as $field)
+            {
+                switch(true)
+                {
+                    case isset($field->data):
+                        $find = self::ResourceFieldFind($FindNameField , $field->data);
+                        break;
+                    default:
+                        if($field->name == $FindNameField)
+                            $find = $field;
+                        break;
+                }
+                if(!is_null($find)) break;
+            }
+
+            return $find;
+        }
+
+        /**
+         * داشبورد صفحه برای Metric گرفتن
+         *
+         */
         public static function getDashboardMetricFind($find , $data = null)
         {
 
@@ -150,33 +201,20 @@
         }
 
 
-        public static function ResourceFieldFind($FindNameField , $fields)
-        {
-            $find = null;
-
-            foreach($fields as $field)
-            {
-                switch(true)
-                {
-                    case isset($field->data):
-                        $find = self::ResourceFieldFind($FindNameField , $field->data);
-                        break;
-                    default:
-                        if($field->name == $FindNameField)
-                            $find = $field;
-                        break;
-                }
-                if(!is_null($find)) break;
-            }
-
-            return $find;
-        }
-
+        /**
+         * Model نام از استفاده با Resource namespace گرفتن
+         *
+         */
         public static function getFullNameResourceByModelName($modelName)
         {
             return config('Zoroaster.Resources') . self::getNameResourceByModelName($modelName);
         }
 
+
+        /**
+         * Model نام از استفاده با Resource نام گرفتن
+         *
+         */
         public static function getNameResourceByModelName($modelName)
         {
             return array_last(explode('\\' , $modelName));

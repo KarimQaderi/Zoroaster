@@ -5,59 +5,42 @@
 
     return [
 
+
         /*
-        |--------------------------------------------------------------------------
-        | Zoroaster App Name
-        |--------------------------------------------------------------------------
-        */
+       |--------------------------------------------------------------------------
+       نام برنامه |
+       |--------------------------------------------------------------------------
+       */
 
         'name' => 'Zoroaster' ,
 
 
         /*
         |--------------------------------------------------------------------------
-        | Zoroaster Resources
+        مسیر Resources |
         |--------------------------------------------------------------------------
         */
 
         'Resources' => 'App\\Zoroaster\\Resources\\' ,
 
-        /*
-        |--------------------------------------------------------------------------
-        | Zoroaster App URL
-        |--------------------------------------------------------------------------
-        |
-        | This URL is where users will be directed when clicking the application
-        | name in the Zoroaster navigation bar. You are free to change this URL to
-        | any location you wish depending on the needs of your application.
-        |
-        */
-
-        'url' => env('APP_URL' , '/') ,
 
         /*
         |--------------------------------------------------------------------------
-        | Zoroaster Path
+        مسیر ادرس بخش پنل ادمین |
         |--------------------------------------------------------------------------
-        |
-        | This is the URI path where Zoroaster will be accessible from. Feel free to
-        | change this path to anything you like. Note that this URI will not
-        | affect Zoroaster's internal API routes which aren't exposed to users.
-        |
+        برای مثال |
+        | http://127.0.0.1:8000/Zoroaster
+        به این تبدیل کنید |
+        | http://127.0.0.1:8000/Admin
         */
 
-        'path' => '/back' ,
+        'path' => '/Zoroaster' ,
 
 
         /*
         |--------------------------------------------------------------------------
         | Zoroaster Route Middleware
         |--------------------------------------------------------------------------
-        |
-        | These middleware will be assigned to every Zoroaster route, giving you the
-        | chance to add your own middleware to this stack or override any of
-        | the existing middleware. Or, you can just stick with this stack.
-        |
         */
 
         'middleware' => [
@@ -66,18 +49,23 @@
 
         ] ,
 
-        // Enable Resources permission
-        'permission' => false ,
 
         /*
-           |--------------------------------------------------------------------------
-           | Path to the Zoroaster Assets
-           |--------------------------------------------------------------------------
-           |
-           | Here you can specify the location of the Zoroaster assets path
-           |
-           */
+        |--------------------------------------------------------------------------
+        فعال یا غیرفعال کردن Resource permission |
+        |--------------------------------------------------------------------------
+        برای احراز هویت است |
+        */
 
-        'assets_path' => '/vendor/Zoroaster/assets',
+        'permission' => false ,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        مسیر Assets |
+        |--------------------------------------------------------------------------
+        */
+
+        'assets_path' => '/vendor/Zoroaster/assets' ,
 
     ];

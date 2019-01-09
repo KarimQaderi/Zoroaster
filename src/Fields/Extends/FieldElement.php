@@ -9,59 +9,51 @@
     {
 
         /**
-         * check For Update Or Save
+         * شدن آپدیت قابلیت
          *
          * @var bool
          */
         public $OnUpdate = true;
+
+        /**
+         * شدن اضافه قابلیت
+         *
+         * @var bool
+         */
         public $OnCreation = true;
 
 
 
         /**
-         * Custom Controller
-         *
-         * @var bool
-         */
-        public $customResourceController = false;
-
-        /**
-         * The field's assigned panel.
-         *
-         * @var string
-         */
-        public $panel;
-
-        /**
-         * Indicates if the element should be shown on the index view.
+         * Index صفحه در مشاهده قابل
          *
          * @var bool
          */
         public $showOnIndex = true;
 
         /**
-         * Indicates if the element should be shown on the detail view.
+         * Detail صفحه در مشاهده قابل
          *
          * @var bool
          */
         public $showOnDetail = true;
 
         /**
-         * Indicates if the element should be shown on the creation view.
+         * Creation صفحه در مشاهده قابل
          *
          * @var bool
          */
         public $showOnCreation = true;
 
         /**
-         * Indicates if the element should be shown on the update view.
+         * Update صفحه در مشاهده قابل
          *
          * @var bool
          */
         public $showOnUpdate = true;
 
         /**
-         * Specify that the element should be hidden from the index view.
+         * باشد مخفی Index صفحه داخل در عنصر کنید مشخص
          *
          * @return $this
          */
@@ -73,7 +65,7 @@
         }
 
         /**
-         * Specify that the element should be hidden from the detail view.
+         * باشد مخفی Detail صفحه داخل در عنصر کنید مشخص
          *
          * @return $this
          */
@@ -85,7 +77,7 @@
         }
 
         /**
-         * Specify that the element should be hidden from the creation view.
+         * باشد مخفی Creating( صفحه داخل در عنصر کنید مشخص
          *
          * @return $this
          */
@@ -97,7 +89,7 @@
         }
 
         /**
-         * Specify that the element should be hidden from the update view.
+         * باشد مخفی Updating صفحه داخل در عنصر کنید مشخص
          *
          * @return $this
          */
@@ -109,7 +101,7 @@
         }
 
         /**
-         * Specify that the element should only be shown on the index view.
+         *  Index صفحه در مشاده قابل فقط
          *
          * @return $this
          */
@@ -124,7 +116,7 @@
         }
 
         /**
-         * Specify that the element should only be shown on the detail view.
+         *  Detail صفحه در مشاده قابل فقط
          *
          * @return $this
          */
@@ -141,7 +133,7 @@
         }
 
         /**
-         * Specify that the element should only be shown on forms.
+         *  Forms صفحه در مشاده قابل فقط
          *
          * @return $this
          */
@@ -156,7 +148,7 @@
         }
 
         /**
-         * Specify that the element should be hidden from forms.
+         *  Index - Detail صفحه در مشاده قابل فقط
          *
          * @return $this
          */
@@ -171,14 +163,12 @@
         }
 
         /**
-         * Prepare the field element for JSON serialization.
+         * کند می اماده JSON serialization برای را عنصر
          *
          * @return array
          */
         public function jsonSerialize()
         {
-            return array_merge(parent::jsonSerialize() , [
-                'panel' => $this->panel ,
-            ]);
+            return array_merge(parent::jsonSerialize() , []);
         }
     }

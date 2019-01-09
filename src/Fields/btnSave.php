@@ -7,12 +7,19 @@
 
     class btnSave extends Field
     {
+
         /**
-         * The field's component.
+         * عنصر نام
          *
          * @var string
          */
         public $component = 'btn';
+
+        /**
+         * view نام
+         *
+         * @var string
+         */
         public $nameViewForm = 'btnSave';
 
         public $OnCreation = false;

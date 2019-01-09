@@ -2,24 +2,16 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Relations;
 
-    use Illuminate\Http\Request;
     use KarimQaderi\Zoroaster\Fields\Other\Field;
 
     class HasOne extends Field
     {
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
-        public $nameViewForm = 'has-one';
 
+        public $nameViewForm = 'has-one';
 
         public $resourceClass;
 
-
         public $resourceName;
-
 
         public $relationship_id;
 
@@ -27,7 +19,6 @@
 
 
         /**
-         * HasMany constructor.
          *
          * @param      $name
          * @param      $relationship_id

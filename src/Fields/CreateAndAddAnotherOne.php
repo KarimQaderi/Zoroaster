@@ -7,11 +7,7 @@
 
     class CreateAndAddAnotherOne extends Field
     {
-        /**
-         * The field's component.
-         *
-         * @var string
-         */
+
         public $component = 'btn';
         public $nameViewForm = 'CreateAndAddAnotherOne';
 

@@ -12,8 +12,6 @@
     {
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
-
-
         public $nameViewForm = 'file';
 
 
@@ -25,26 +23,6 @@
         public $count = 1;
 
 
-        /**
-         * The callback used to retrieve the thumbnail URL.
-         *
-         * @var callable
-         */
-        public $thumbnailUrlCallback;
-
-        /**
-         * The callback used to retrieve the preview URL.
-         *
-         * @var callable
-         */
-        public $previewUrlCallback;
-
-        /**
-         * The callback used to generate the download HTTP response.
-         *
-         * @var callable
-         */
-        public $downloadResponseCallback;
 
         /**
          * The name of the disk the file uses by default.
@@ -60,12 +38,6 @@
          */
         public $storagePath = '/';
 
-        /**
-         * The callback that should be used to determine the file's storage name.
-         *
-         * @var callable|null
-         */
-        public $storeAsCallback;
 
         /**
          * The column where the file's original name should be stored.
@@ -121,44 +93,6 @@
             return $this;
         }
 
-        /**
-         * Specify the callback that should be used to retrieve the thumbnail URL.
-         *
-         * @param  callable $thumbnailUrlCallback
-         * @return $this
-         */
-        public function thumbnail(callable $thumbnailUrlCallback)
-        {
-            $this->thumbnailUrlCallback = $thumbnailUrlCallback;
-
-            return $this;
-        }
-
-        /**
-         * Specify the callback that should be used to retrieve the preview URL.
-         *
-         * @param  callable $previewUrlCallback
-         * @return $this
-         */
-        public function preview(callable $previewUrlCallback)
-        {
-            $this->previewUrlCallback = $previewUrlCallback;
-
-            return $this;
-        }
-
-        /**
-         * Specify the callback that should be used to create a download HTTP response.
-         *
-         * @param  callable $downloadResponseCallback
-         * @return $this
-         */
-        public function download(callable $downloadResponseCallback)
-        {
-            $this->downloadResponseCallback = $downloadResponseCallback;
-
-            return $this;
-        }
 
         /**
          * Specify the column where the file's original name should be stored.
@@ -200,12 +134,7 @@
          */
         public function meta()
         {
-            return array_merge([
-                'thumbnailUrl' => $this->resolveThumbnailUrl() ,
-                'previewUrl' => call_user_func($this->previewUrlCallback) ,
-                'downloadable' => isset($this->downloadResponseCallback) && !empty($this->value) ,
-                'deletable' => isset($this->deleteCallback) && $this->deletable ,
-            ] , $this->meta);
+            return array_merge([] , $this->meta);
         }
 
 

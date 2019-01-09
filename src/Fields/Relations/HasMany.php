@@ -2,28 +2,35 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Relations;
 
-    use Illuminate\Http\Request;
     use KarimQaderi\Zoroaster\Fields\Other\Field;
 
     class HasMany extends Field
     {
 
+        /**
+         * عنصر نام
+         *
+         * @var string
+         */
         public $component = 'relationship';
 
-        public $nameViewForm = 'has-many';
 
+        /**
+         * view نام
+         *
+         * @var string
+         */
+        public $nameViewForm = 'has-many';
 
         public $resourceClass;
 
-
         public $resourceName;
-
 
         public $relationship_id;
 
 
         /**
-         * HasMany constructor.
+         * HasMany .
          *
          * @param      $name
          * @param      $relationship_id
@@ -41,7 +48,6 @@
         }
 
         /**
-         * @param Request $field
          *
          * @return bool
          */

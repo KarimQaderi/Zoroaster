@@ -13,36 +13,39 @@
 
 
         /**
-         * The name of the panel.
+         * عنصر نام
          *
          * @var string
          */
-
+        public $component = 'field_group';
 
         /**
-         * The panel fields.
+         * view نام
+         *
+         * @var string
+         */
+        public $nameViewForm = 'row';
+
+        /**
+         * ها عنصر
          *
          * @var array
          */
-        public $component = 'field_group';
-        public $nameViewForm = 'row';
         public $data;
 
         /**
-         * Create a new panel instance.
+         * ایجاد
          *
-         * @param  string $name
          * @param  \Closure|array $fields
          * @return void
          */
         public function __construct($fields = [])
         {
-
             parent::__construct($this->prepareFields($fields));
         }
 
         /**
-         * Prepare the given fields.
+         * ها عنصر سازی اماده
          *
          * @param  \Closure|array $fields
          * @return array
@@ -55,14 +58,14 @@
 
 
         /**
-         * Prepare the panel for JSON serialization.
+         * کند می اماده JSON serialization برای را عنصر
          *
          * @return array
          */
         public function jsonSerialize()
         {
             return [
-                'component' => 'row' ,
+                'component' => $this->component  ,
             ];
         }
 

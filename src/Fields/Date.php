@@ -12,7 +12,6 @@
         use Resource;
 
 
-
         public $nameViewForm = 'date';
 
         public $format = 'Y-m-d';

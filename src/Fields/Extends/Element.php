@@ -4,45 +4,49 @@ namespace KarimQaderi\Zoroaster;
 
 use Closure;
 use JsonSerializable;
-use Illuminate\Http\Request;
 
 abstract class Element implements JsonSerializable
 {
     use ProxiesCanSeeToGate;
 
 
+    /**
+     * view نام
+     *
+     * @var string
+     */
     public $nameViewForm = '';
 
     /**
-     * The element's component.
+     * عنصر نام
      *
      * @var string
      */
     public $component = 'field';
 
     /**
-     * The callback used to authorize viewing the card.
+     * مشاهده قابل مجوزه فراخوانی
      *
      * @var \Closure|null
      */
     public $seeCallback;
 
     /**
-     * Indicates if the element is only shown on the detail screen.
+     * detail صفحه در مشاهده قابل فقط
      *
      * @var bool
      */
     public $onlyOnDetail = false;
 
     /**
-     * The meta data for the element.
+     * عنصر دادهای
      *
      * @var array
      */
     public $meta = [];
 
     /**
-     * Create a new element.
+     * عنصر ایجاد
      *
      * @param  string|null  $component
      * @return void
@@ -53,7 +57,7 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * Create a new element.
+     * عنصر ایجاد
      *
      * @return static
      */
@@ -62,19 +66,9 @@ abstract class Element implements JsonSerializable
         return new static(...$arguments);
     }
 
-    /**
-     * Determine if the element should be displayed for the given request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return bool
-     */
-    public function authorize(Request $request)
-    {
-        return $this->authorizedToSee($request);
-    }
 
     /**
-     * Set the callback to be run to authorize viewing the card.
+     * مشاهده قابل مجوزه اعمال
      *
      * @param  \Closure  $callback
      * @return $this
@@ -87,18 +81,17 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * Determine if the card should be available for the given request.
+     * نه یا هست مشاهده قابل که کند می مشخص
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    public function authorizedToSee(Request $request)
+    public function authorizedToSee()
     {
-        return $this->seeCallback ? call_user_func($this->seeCallback, $request) : true;
+        return $this->seeCallback ? call_user_func($this->seeCallback) : true;
     }
 
     /**
-     * Get the component name for the element.
+     * عنصر نام گرفتن
      *
      * @return string
      */
@@ -108,9 +101,9 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * Specify that the element should only be shown on the detail view.
+     * detail صفحه در مشاهده قابل فقط اعمال
      *
-     * @return $this
+     * @var bool
      */
     public function onlyOnDetail()
     {
@@ -120,7 +113,7 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * Get additional meta information to merge with the element payload.
+     * عنصر دادهای گرفتن
      *
      * @return array
      */
@@ -130,7 +123,7 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * Set additional meta information for the element.
+     * جدید عنصر داده کردن اضافه
      *
      * @param  array  $meta
      * @return $this
@@ -142,8 +135,9 @@ abstract class Element implements JsonSerializable
         return $this;
     }
 
+
     /**
-     * Prepare the element for JSON serialization.
+     * کند می اماده JSON serialization برای را عنصر
      *
      * @return array
      */
@@ -151,8 +145,8 @@ abstract class Element implements JsonSerializable
     {
         return array_merge([
             'component' => $this->component(),
-            'prefixComponent' => false,
             'onlyOnDetail' => $this->onlyOnDetail,
         ], $this->meta());
     }
+
 }

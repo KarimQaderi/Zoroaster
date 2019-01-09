@@ -2,18 +2,14 @@
 
     namespace KarimQaderi\Zoroaster\Fields;
 
-
     use Illuminate\Support\Facades\Hash;
     use KarimQaderi\Zoroaster\Fields\Other\Field;
     use KarimQaderi\Zoroaster\Fields\Traits\Resource;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
-
     class Password extends Field
     {
         use Resource;
-
-
 
         public $nameViewForm = 'password';
 
