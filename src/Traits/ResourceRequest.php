@@ -67,6 +67,10 @@
         {
             return Zoroaster::newModel($this->Resource->getModel());
         }
+        public function getModelKeyName()
+        {
+            return $this->newModel()->getKeyName();
+        }
 
         public function ResourceFields($where , $fields = null)
         {

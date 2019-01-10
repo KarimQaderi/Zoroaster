@@ -10,10 +10,15 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
+            /**
+             * نظر مورد رکورد کردن پیدا
+             */
             $resources = $ResourceRequest->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
+            /**
+             * دسترسی سطع بررسی
+             */
             $ResourceRequest->Resource()->authorizeToUpdate($resources);
-
 
 
             return view('Zoroaster::resources.Form')->with([

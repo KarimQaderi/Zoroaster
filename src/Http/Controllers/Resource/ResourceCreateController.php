@@ -10,8 +10,10 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
+            /**
+             * دسترسی سطع بررسی
+             */
             $ResourceRequest->Resource()->authorizeToCreate($ResourceRequest->newModel());
-
 
             return view('Zoroaster::resources.Form')->with([
                 'request' => $ResourceRequest ,
@@ -30,5 +32,4 @@
         }
 
 
-
-}
+    }

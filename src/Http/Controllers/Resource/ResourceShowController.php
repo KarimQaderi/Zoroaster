@@ -10,11 +10,14 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
-            if(method_exists($ResourceRequest->newModel() , 'isForceDeleting'))
-                $resources = $ResourceRequest->newModel()->withTrashed()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
-            else
-                $resources = $ResourceRequest->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
+            /**
+             * نظر مورد رکورد کردن پیدا
+             */
+            $resources = $ResourceRequest->getModelAndWhereTrashed()->findOrFail($ResourceRequest->RequestParameters()->resourceId);
 
+            /**
+             * دسترسی سطع بررسی
+             */
             $ResourceRequest->Resource()->authorizeToShow($resources);
 
 
@@ -24,8 +27,7 @@
                 'model' => $ResourceRequest->newModel() ,
                 'resources' => $resources ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
-                    function($field)
-                    {
+                    function($field){
                         if(!isset($field->showOnDetail)) return true;
                         if($field->showOnDetail === true)
                             return true;

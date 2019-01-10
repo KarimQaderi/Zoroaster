@@ -13,6 +13,9 @@
         public function handle(ResourceRequest $request)
         {
 
+            /**
+             * دسترسی سطع بررسی
+             */
             $request->Resource()->authorizeToCreate($request->newModel());
 
             $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
@@ -28,13 +31,12 @@
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'ResourceStore');
 
             if(request()->redirect != null)
-                return redirect(request()->redirect)->with([
-                    'success' => 'اطلاعات اضافه شد'
-                ]);
+                return redirect(request()->redirect)->with(['success' => 'اطلاعات اضافه شد']);
 
-            return redirect(route('Zoroaster.resource.show' , ['resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->newModel()->getKeyName()}]))->with([
-                'success' => 'اطلاعات اضافه شد'
-            ]);
+            return redirect(route('Zoroaster.resource.show' ,
+                [
+                    'resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->getModelKeyName()}
+                ]))->with(['success' => 'اطلاعات اضافه شد']);
 
         }
 

@@ -9,10 +9,18 @@
         private static $resourcesByModel = [];
         private static $resources = [];
 
-//        public static function routes()
-//        {
-//            return require __DIR__ . '/../routes/routes.php';
-//        }
+        /**
+         * Register the given resources.
+         *
+         * @param  array  $resources
+         * @return static
+         */
+        public static function resources(array $resources)
+        {
+            static::$resources = array_merge(static::$resources, $resources);
+
+            return new static;
+        }
 
         public static function routeConfiguration($unset = null)
         {
@@ -20,7 +28,7 @@
                 'namespace' => '\KarimQaderi\Zoroaster\Http\Controllers' ,
                 'domain' => config('Zoroaster.domain' , null) ,
                 'as' => 'Zoroaster.' , // Route name
-                'prefix' => 'Zoroaster' ,
+                'prefix' => config('Zoroaster.path' , 'Zoroaster') ,
                 'middleware' => ['Zoroaster' , 'can:viewZoroaster'] ,
             ];
 

@@ -12,18 +12,26 @@
 
         public function handle(ResourceRequest $request)
         {
-            foreach(request()->resourceId as $id)
-            {
-                if(method_exists($request->newModel() , 'isForceDeleting'))
-                    $find = $request->newModel()->withTrashed()->where([$request->newModel()->getKeyName() => $id])->first();
-                else
-                    $find = $request->newModel()->where([$request->newModel()->getKeyName() => $id])->first();
+            foreach(request()->resourceId as $id){
 
-                if($request->Resource()->authorizedToForceDelete($find))
-                {
+                /**
+                 * نظر مورد رکورد کردن پیدا
+                 */
+                $find = $request->getModelAndWhereTrashed()->where([$request->newModel()->getKeyName() => $id])->first();
+
+
+                /**
+                 * دسترسی سطع بررسی
+                 */
+                if($request->Resource()->authorizedToForceDelete($find)){
+
+                    /**
+                     * ها فیلد به حذف درخواست ارسال
+                     * بشن حذف هم فیلد اون های عکس باید شه می حذف Resource رکورد وقتی بگیرید نظر در رو عکس فیلد یه مثال برای
+                     */
                     $this->ResourceDestroyField($request , $find);
 
-                    if(method_exists($request->newModel() , 'isForceDeleting'))
+                    if($request->isForceDeleting())
                         $find->forceDelete();
                     else
                         $request->newModel()->destroy($id);
@@ -31,10 +39,9 @@
 
             }
 
+
             if(request()->has('redirect'))
-                redirect(request()->redirect)->with([
-                    'success' => 'منبع مورد نظر حذف شد',
-                ])->send();
+                redirect(request()->redirect)->with(['success' => 'منبع مورد نظر حذف شد' ])->send();
 
             return response(['status' => 'ok']);
         }
@@ -44,8 +51,7 @@
             $customResourceController = $request->ResourceFields(function($field){ return true; });
 
             $ResourceError = [];
-            foreach($customResourceController as $field)
-            {
+            foreach($customResourceController as $field){
 
                 $RequestField = new RequestField();
                 $RequestField->request = $request->Request();
@@ -55,8 +61,7 @@
                 $RequestField->MergeResourceFieldsAndRequest = null;
 
                 $ResourceDestroy = (object)$field->ResourceDestroy($RequestField);
-                if(isset($ResourceDestroy->error) && $ResourceDestroy->error !== null)
-                {
+                if(isset($ResourceDestroy->error) && $ResourceDestroy->error !== null){
 
                     if(is_array($ResourceDestroy->error))
                         $ResourceError = array_merge($ResourceError , $ResourceDestroy->error);

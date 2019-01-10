@@ -12,15 +12,19 @@
 
         public function handle(ResourceRequest $ResourceRequest)
         {
+
+            /**
+             * دسترسی سطع بررسی
+             */
             $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->newModel());
 
             if(!request()->ajax())
                 return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
 
-
-            $resources = $ResourceRequest->newModel();
-
-            $resources = $this->toQuery($resources , $ResourceRequest);
+            /**
+             * فیلترها اعمال
+             */
+            $resources = $this->toQuery($ResourceRequest->newModel() , $ResourceRequest);
             $render = null;
             $render .= view('Zoroaster::resources.index-resource')->with([
                 'ResourceRequest' => $ResourceRequest ,
