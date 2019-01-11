@@ -4,6 +4,7 @@
 
 
     use KarimQaderi\Zoroaster\Traits\Builder;
+    use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest as TraitsResourceRequest;
 
     class ResourceRequest
@@ -18,7 +19,7 @@
 
 
         /**
-         * @return \Illuminate\Database\Eloquent\Model
+         * @return \Illuminate\Database\Eloquent\Model & EloquentBuilder
          */
         function getModelAndWhereTrashed()
         {

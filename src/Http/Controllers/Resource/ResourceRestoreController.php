@@ -3,6 +3,8 @@
     namespace KarimQaderi\Zoroaster\Http\Controllers\Resource;
 
     use App\Http\Controllers\Controller;
+    use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
     class ResourceRestoreController extends Controller
@@ -19,6 +21,7 @@
                  * نظر مورد رکورد کردن پیدا
                  */
                 $find = $request->getModelAndWhereTrashed()->where([$request->Resource()->getModelKeyName() => $id])->first();
+
 
                 /**
                  * رکورد بازیابی و دستررسی سطع بررسی

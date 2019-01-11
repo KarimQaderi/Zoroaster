@@ -2,6 +2,9 @@
 
     namespace KarimQaderi\Zoroaster\Abstracts;
 
+    use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\SoftDeletes;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
@@ -19,14 +22,14 @@
         public $component = 'resource';
 
         /**
-         * @var \Illuminate\Database\Eloquent\Model
+         * @var Model
          */
         public $resource;
 
         /**
          * مربوطه Model نام
          *
-         * @var \Illuminate\Database\Eloquent\Model
+         * @var Model
          */
         public static $model = '';
 
@@ -82,7 +85,7 @@
         /**
          * جدید Model گرفتن
          *
-         * @return \Illuminate\Database\Eloquent\Model
+         * @return Model & SoftDeletes & Builder
          */
         public static function newModel()
         {

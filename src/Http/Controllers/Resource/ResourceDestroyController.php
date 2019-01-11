@@ -3,6 +3,7 @@
     namespace KarimQaderi\Zoroaster\Http\Controllers\Resource;
 
     use App\Http\Controllers\Controller;
+    use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
@@ -16,6 +17,8 @@
 
                 /**
                  * نظر مورد رکورد کردن پیدا
+                 *
+                 * @var Model $find
                  */
                 $find = $ResourceRequest->getModelAndWhereTrashed()->where([$ResourceRequest->Resource()->getModelKeyName() => $id])->first();
 

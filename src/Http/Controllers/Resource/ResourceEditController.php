@@ -13,8 +13,7 @@
             /**
              * نظر مورد رکورد کردن پیدا
              */
-            $resources = $ResourceRequest->Resource()->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
-
+            $resources = $ResourceRequest->Resource()->newModel()->findOrFail($ResourceRequest->RequestParameters()->resourceId);
             /**
              * دسترسی سطع بررسی
              */
