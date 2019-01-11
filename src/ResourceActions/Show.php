@@ -2,8 +2,10 @@
 
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
+    use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
-    class Show extends ShowOrHiden
+    class Show extends ResourceActionsAbastract
     {
         public $component = 'show';
 
@@ -21,9 +23,13 @@
                 ]);
         }
 
-        public function Authorization($request , $data)
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return bool
+         */
+        public function Authorization($ResourceRequest , $data)
         {
-            return $request->Resource()->authorizedToShow($data);
+            return $ResourceRequest->Resource()->authorizedToShow($data);
         }
 
     }

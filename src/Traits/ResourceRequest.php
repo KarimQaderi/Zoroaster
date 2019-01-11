@@ -21,7 +21,6 @@
                 $this->resourceClass = request()->resource;
 
 
-
             if(is_null($this->resourceClass)) abort(404);
 
             $this->Resource = $this->Resource();
@@ -56,31 +55,36 @@
             return $this->RequestParameters()->resource;
         }
 
+
+        /**
+         * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource
+         */
         public function Resource()
         {
-            $this->Resource = Zoroaster::newResource($this->resourceClass);
-
-            return $this->Resource;
+            return $this->Resource = Zoroaster::newResource($this->resourceClass);
         }
 
-        public function newModel()
-        {
-            return Zoroaster::newModel($this->Resource->getModel());
-        }
-        public function getModelKeyName()
-        {
-            return $this->newModel()->getKeyName();
-        }
+
+        /**
+         * @return \Illuminate\Database\Eloquent\Model
+         */
+//        public function newModel()
+//        {
+//            return Zoroaster::newModel($this->Resource->getModel());
+//        }
+//
+//        public function getModelKeyName()
+//        {
+//            return $this->newModel()->getKeyName();
+//        }
 
         public function ResourceFields($where , $fields = null)
         {
             $Fields = [];
             $fields = ($fields == null) ? $this->Resource()->fields() : $fields;
 
-            foreach($fields as $field)
-            {
-                switch(true)
-                {
+            foreach($fields as $field){
+                switch(true){
                     case isset($field->data):
                         if($Fields == null)
                             $Fields = $this->ResourceFields($where , $field->data);
@@ -104,11 +108,9 @@
             $validator = [];
             $customAttributes = [];
 
-            foreach($fields as $field)
-            {
+            foreach($fields as $field){
                 $requestMerge = array_merge($requestMerge , [$field->name => $this->getRequest($field->name)]);
-                if(count($field->rules) != 0)
-                {
+                if(count($field->rules) != 0){
                     $validator = array_merge($validator , [$field->name => $field->rules]);
                     $customAttributes = array_merge($customAttributes , [$field->name => $field->label]);
                 }
@@ -126,10 +128,8 @@
         {
             $Fields = null;
             $fields = ($fields === null) ? $this->Resource()->fields() : $fields;
-            foreach($fields as $field)
-            {
-                switch(true)
-                {
+            foreach($fields as $field){
+                switch(true){
 
                     case isset($field->data):
                         $Fields .= $field->$view($this->BuilderFields($where , $view , $resources , $field->data) , $field , $this->Resource());

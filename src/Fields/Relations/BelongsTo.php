@@ -3,7 +3,7 @@
     namespace KarimQaderi\Zoroaster\Fields\Relations;
 
 
-    use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Extend\Field;
     use KarimQaderi\Zoroaster\Fields\Traits\Resource;
     use KarimQaderi\Zoroaster\Zoroaster;
 
@@ -18,7 +18,6 @@
          * @var string
          */
         public $nameViewForm = 'belongs-to';
-
 
 
         public $display = null;
@@ -36,8 +35,7 @@
             $this->model = $model;
             $this->belongsToRelationship = $belongsToRelationship;
 
-            if(Zoroaster::hasNewResourceByModelName($model))
-            {
+            if(Zoroaster::hasNewResourceByModelName($model)){
                 if(is_null($this->display))
                     $this->display = Zoroaster::newResourceByModelName($model)->title;
 
@@ -70,7 +68,7 @@
                 [
                     'value' => is_null($data) ? null : $data->{$field->belongsToRelationship} ,
                     'field' => $field ,
-                    'foreign_key' => Zoroaster::newModel($field->model)->getKeyName() ,
+                    'foreign_key' => $ResourceRequest->getModelKeyName() ,
                     'all' => Zoroaster::newModel($field->model)->get() ,
                     'resourceRequest' => $resourceRequest ,
                 ]);
@@ -87,7 +85,7 @@
                     'data_relation' => is_null($data) ? null : $data->{$field->belongsToRelationship} ,
                     'value' => is_null($data) ? null : $data->{$field->belongsToRelationship}->{$field->display} ,
                     'field' => $field ,
-                    'foreign_key' => Zoroaster::newModel($field->model)->getKeyName() ,
+                    'foreign_key' => $ResourceRequest->getModelKeyName() ,
                     'resourceRequest' => $resourceRequest ,
                 ]);
         }
@@ -96,13 +94,15 @@
         {
             $this->hasRelationship($field , $data , $resourceRequest);
 
+            $data_relation = $data->{$field->belongsToRelationship};
+
             return view('Zoroaster::fields.Index.' . $field->nameViewForm)->with(
                 [
                     'data' => is_null($data) ? null : $data ,
-                    'data_relation' => is_null($data) ? null : $data->{$field->belongsToRelationship} ,
-                    'value' => is_null($data) ? null : $data->{$field->belongsToRelationship}->{$field->display} ,
+                    'data_relation' => is_null($data) || is_null($data_relation) ? null : $data_relation ,
+                    'value' => is_null($data) || is_null($data_relation) ? null : $data_relation->{$field->display} ,
                     'field' => $field ,
-                    'foreign_key' => Zoroaster::newModel($field->model)->getKeyName() ,
+                    'foreign_key' => $ResourceRequest->getModelKeyName() ,
                     'resourceRequest' => $resourceRequest ,
                 ]);
         }
@@ -110,8 +110,8 @@
         private function hasRelationship($field , $data , $resourceRequest)
         {
 
-            if(!is_null($data) && !isset($data->{$field->belongsToRelationship}))
-                throw new \Exception('Relationship پیدا نشد' . ' به ' . $resourceRequest->resourceClass . ' رفته و  ' . ' BelongsTo ' . ' رو بررسی کنید ');
+            if(!is_null($data) && !method_exists($data , $field->belongsToRelationship))
+                throw new \Exception('Relationship پیدا نشد' . ' به ' . $ResourceRequest->resourceClass . ' رفته و  ' . ' BelongsTo ' . ' رو بررسی کنید ');
         }
 
 

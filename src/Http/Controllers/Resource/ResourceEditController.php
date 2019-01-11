@@ -13,7 +13,7 @@
             /**
              * نظر مورد رکورد کردن پیدا
              */
-            $resources = $ResourceRequest->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
+            $resources = $ResourceRequest->Resource()->newModel()->findOrFail(($ResourceRequest->RequestParameters()->resourceId));
 
             /**
              * دسترسی سطع بررسی
@@ -24,7 +24,7 @@
             return view('Zoroaster::resources.Form')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->newModel() ,
+                'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field){

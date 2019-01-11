@@ -24,7 +24,7 @@
             return view('Zoroaster::resources.Detail')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->newModel() ,
+                'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
                 'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
                     function($field){

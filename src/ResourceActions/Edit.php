@@ -3,7 +3,10 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class Edit extends ShowOrHiden
+    use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
+
+    class Edit extends ResourceActionsAbastract
     {
         public $component = 'edit';
 
@@ -22,8 +25,12 @@
                 ]);
         }
 
-        public function Authorization($request,$data)
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return bool
+         */
+        public function Authorization($ResourceRequest,$data)
         {
-            return $request->Resource()->authorizedToUpdate($data);
+            return $ResourceRequest->Resource()->authorizedToUpdate($data);
         }
     }

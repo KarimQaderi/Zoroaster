@@ -3,7 +3,10 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class Restore extends ShowOrHiden
+    use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
+
+    class Restore extends ResourceActionsAbastract
     {
         public $component = 'show';
 
@@ -22,10 +25,14 @@
                 ]);
         }
 
-        public function Authorization($request , $data)
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return bool
+         */
+        public function Authorization($ResourceRequest , $data)
         {
-            if(method_exists($request->newModel() , 'isForceDeleting') && $data->deleted_at != null)
-                return $request->Resource()->authorizedToRestore($data);
+            if(method_exists($ResourceRequest->Resource()->newModel() , 'isForceDeleting') && $data->deleted_at != null)
+                return $ResourceRequest->Resource()->authorizedToRestore($data);
             else
                 return false;
         }

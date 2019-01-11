@@ -3,7 +3,7 @@
     namespace KarimQaderi\Zoroaster\Fields;
 
     use Illuminate\Support\Facades\Hash;
-    use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Extend\Field;
     use KarimQaderi\Zoroaster\Fields\Traits\Resource;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
@@ -23,7 +23,7 @@
         public function ResourceUpdate(RequestField $requestField)
         {
 
-            $value = $requestField->request->{$requestField->field->name};
+            $value = $requestField->$ResourceRequest->{$requestField->field->name};
 
             if(empty($value))
                 return [

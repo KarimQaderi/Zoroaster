@@ -16,7 +16,8 @@
             /**
              * دسترسی سطع بررسی
              */
-            $request->Resource()->authorizeToCreate($request->newModel());
+            $request->Resource()->authorizeToCreate($request->Resource()->newModel());
+
 
             $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
                 if($field->showOnCreation == true && $field->OnCreation == true)
@@ -26,7 +27,7 @@
             }));
 
 
-            $resource = $request->newModel()->create($this->CustomResourceController($request , $request->newModel() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
+            $resource = $request->Resource()->newModel()->create($this->CustomResourceController($request , $request->Resource()->newModel() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'ResourceStore');
 
@@ -35,16 +36,13 @@
 
             return redirect(route('Zoroaster.resource.show' ,
                 [
-                    'resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->getModelKeyName()}
+                    'resource' => $request->getResourceName() , 'resourceId' => $resource->{$request->Resource()->getModelKeyName()}
                 ]))->with(['success' => 'اطلاعات اضافه شد']);
 
         }
 
 
-        /**
-         * @param ResourceRequest $request
-         * @param $resource
-         */
+
         private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest , $method)
         {
             $customResourceController = $request->ResourceFields(function($field){

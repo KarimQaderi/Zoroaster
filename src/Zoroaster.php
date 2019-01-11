@@ -42,7 +42,9 @@
             return $var;
         }
 
-
+        /**
+         * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource
+         */
         public static function newResource($resource)
         {
             $resource = config('Zoroaster.Resources') . $resource;
@@ -62,6 +64,9 @@
                 return false;
         }
 
+        /**
+         * @return \KarimQaderi\Zoroaster\Resource
+         */
         public static function newResourceByModelName($modelName)
         {
             return \Zoroaster::newResourceByModelName($modelName);

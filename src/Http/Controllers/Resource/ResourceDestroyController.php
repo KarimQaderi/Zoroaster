@@ -10,31 +10,31 @@
     {
         use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
 
-        public function handle(ResourceRequest $request)
+        public function handle(ResourceRequest $ResourceRequest)
         {
             foreach(request()->resourceId as $id){
 
                 /**
                  * نظر مورد رکورد کردن پیدا
                  */
-                $find = $request->getModelAndWhereTrashed()->where([$request->newModel()->getKeyName() => $id])->first();
+                $find = $ResourceRequest->getModelAndWhereTrashed()->where([$ResourceRequest->Resource()->getModelKeyName() => $id])->first();
 
 
                 /**
                  * دسترسی سطع بررسی
                  */
-                if($request->Resource()->authorizedToForceDelete($find)){
+                if($ResourceRequest->Resource()->authorizedToForceDelete($find)){
 
                     /**
                      * ها فیلد به حذف درخواست ارسال
                      * بشن حذف هم فیلد اون های عکس باید شه می حذف Resource رکورد وقتی بگیرید نظر در رو عکس فیلد یه مثال برای
                      */
-                    $this->ResourceDestroyField($request , $find);
+                    $this->ResourceDestroyField($ResourceRequest , $find);
 
-                    if($request->isForceDeleting())
+                    if($ResourceRequest->isForceDeleting())
                         $find->forceDelete();
                     else
-                        $request->newModel()->destroy($id);
+                        $ResourceRequest->Resource()->newModel()->destroy($id);
                 }
 
             }
@@ -46,7 +46,11 @@
             return response(['status' => 'ok']);
         }
 
-        private function ResourceDestroyField(ResourceRequest $request , $find)
+        /**
+         * @param ResourceRequest $request
+         * @param $find
+         */
+        private function ResourceDestroyField($request , $find)
         {
             $customResourceController = $request->ResourceFields(function($field){ return true; });
 

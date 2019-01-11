@@ -3,9 +3,16 @@
     namespace KarimQaderi\Zoroaster\ResourceFilters;
 
 
+    use Illuminate\Database\Eloquent\Model;
+    use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
+
     class Trashed
     {
 
+        /**
+         * @param $ResourceRequest
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
         public function render($ResourceRequest)
         {
             return view('Zoroaster::resources.filters.trashed')
@@ -15,8 +22,12 @@
                 ]);
         }
 
-
-        public function apply($resources , $ResourceRequest)
+        /**
+         * @param $resource Model
+         * @param $ResourceRequest ResourceRequest
+         * @return Model
+         */
+        public function apply($resource , $ResourceRequest)
         {
 
             if(request()->has($ResourceRequest->resourceClass . '_FilterTrashed'))
@@ -25,19 +36,23 @@
                     case '':
                         break;
                     case 'all':
-                        $resources = $resources->withTrashed();
+                        $resource = $resource->withTrashed();
                         break;
                     case 'only':
-                        $resources = $resources->onlyTrashed();
+                        $resource = $resource->onlyTrashed();
                         break;
                 }
 
-            return $resources;
+            return $resource;
         }
 
-        public function canSee($request)
+        /**
+         * @param $ResourceRequest ResourceRequest
+         * @return bool
+         */
+        public function canSee($ResourceRequest)
         {
-            if(method_exists($request->newModel() , 'isForceDeleting'))
+            if(method_exists($ResourceRequest->Resource()->newModel() , 'isForceDeleting'))
                 return true;
             else
                 return false;

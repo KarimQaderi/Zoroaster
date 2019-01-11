@@ -8,7 +8,12 @@
     trait ResourceIndexQuery
     {
 
-        private function toQuery($resources , ResourceRequest $ResourceRequest)
+        /**
+         * @param \Illuminate\Database\Eloquent\Model $resources
+         * @param ResourceRequest $ResourceRequest
+         * @return \Illuminate\Database\Eloquent\Builder
+         */
+        private function toQuery($resources , $ResourceRequest)
         {
 
             if(request()->has($ResourceRequest->resourceClass . '_search'))

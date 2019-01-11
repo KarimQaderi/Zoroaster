@@ -11,7 +11,12 @@
     {
 
 
-        private function getValidatorField(RequestField $requestField)
+        /**
+         * @param RequestField $requestField
+         * @return |null
+         * @throws \Exception
+         */
+        private function getValidatorField($requestField)
         {
             $fieldName = $requestField->field->name;
             $field = \Zoroaster::getFieldResource(class_basename($requestField->resource) , $fieldName);

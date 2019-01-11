@@ -1,9 +1,8 @@
 <?php
 
-    namespace KarimQaderi\Zoroaster\Fields\Other;
+    namespace KarimQaderi\Zoroaster\Fields\Extend;
 
 
-    use KarimQaderi\Zoroaster\Element;
 
     abstract class FieldElement extends Element
     {

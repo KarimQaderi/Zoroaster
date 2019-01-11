@@ -18,7 +18,7 @@
                 /**
                  * نظر مورد رکورد کردن پیدا
                  */
-                $find = $request->getModelAndWhereTrashed()->where([$request->getModelKeyName() => $id])->first();
+                $find = $request->getModelAndWhereTrashed()->where([$request->Resource()->getModelKeyName() => $id])->first();
 
                 /**
                  * رکورد بازیابی و دستررسی سطع بررسی
@@ -32,7 +32,7 @@
                  */
                 $col = \Zoroaster::ResourceActions($request ,
                     $find ,
-                    $request->newModel() , 'Index' , $request->ResourceFields(function($field){
+                    $request->Resource()->newModel() , 'Index' , $request->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)
                             return true;
                         else
@@ -41,7 +41,7 @@
                 );
 
                 $cols [] = [
-                    'id' => $find->{$request->getModelKeyName()} ,
+                    'id' => $find->{$request->Resource()->getModelKeyName()} ,
                     'col' => $col ,
                     'status' => 'ok' ,
                 ];

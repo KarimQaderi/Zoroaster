@@ -3,7 +3,10 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class DeleteAll extends ShowOrHiden
+    use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
+
+    class DeleteAll extends ResourceActionsAbastract
     {
 
         public $component = 'delete';
@@ -22,9 +25,13 @@
                 ]);
         }
 
-        public function Authorization($request , $data)
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return bool
+         */
+        public function Authorization($ResourceRequest , $data)
         {
-            return $request->Resource()->authorizedToForceDelete($data);
+            return $ResourceRequest->Resource()->authorizedToForceDelete($data);
 
         }
 

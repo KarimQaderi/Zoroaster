@@ -1,6 +1,6 @@
 <?php
 
-    namespace KarimQaderi\Zoroaster\Fields\Other;
+    namespace KarimQaderi\Zoroaster\Fields\Extend;
 
 
     use Illuminate\Support\Str;

@@ -2,7 +2,7 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Relations;
 
-    use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Extend\Field;
 
     class HasMany extends Field
     {

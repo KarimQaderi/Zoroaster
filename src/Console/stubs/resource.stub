@@ -2,14 +2,14 @@
 
     namespace App\Zoroaster\Resources;
 
-    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
+    use KarimQaderi\Zoroaster\Resource;
     use KarimQaderi\Zoroaster\Fields\ID;
     use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
     use KarimQaderi\Zoroaster\Fields\btnSave;
     use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
 
-    class DummyClass extends ZoroasterResource
+    class DummyClass extends Resource
     {
         /**
          * The model the resource corresponds to.

@@ -3,8 +3,12 @@
     namespace KarimQaderi\Zoroaster\ResourceFilters;
 
 
+    use Illuminate\Database\Eloquent\Model;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
+
     class PerPage
     {
+
 
         public function render($ResourceRequest)
         {
@@ -15,14 +19,22 @@
                 ]);
         }
 
-
-        public function apply($resources , $ResourceRequest)
+        /**
+         * @param Model $resource
+         * @param ResourceRequest $ResourceRequest
+         * @return Model
+         */
+        public function apply($resource , $ResourceRequest)
         {
             $name_perPage = $ResourceRequest->resourceClass . '_perPage';
-            return $resources->paginate(((int)$ResourceRequest->Request()->{$name_perPage} ?? 25) , ['*'] , $ResourceRequest->resourceClass . '_Page');
+            return $resource->paginate(((int)$ResourceRequest->Request()->{$name_perPage} ?? 25) , ['*'] , $ResourceRequest->resourceClass . '_Page');
         }
 
-        public function canSee($request)
+        /**
+         * @param $ResourceRequest ResourceRequest
+         * @return bool
+         */
+        public function canSee($ResourceRequest)
         {
             return true;
         }

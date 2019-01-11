@@ -5,7 +5,6 @@
 
     use KarimQaderi\Zoroaster\Traits\Builder;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest as TraitsResourceRequest;
-    use phpDocumentor\Reflection\Types\This;
 
     class ResourceRequest
     {
@@ -18,17 +17,20 @@
         }
 
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Model
+         */
         function getModelAndWhereTrashed()
         {
-            if(method_exists($this->newModel() , 'isForceDeleting'))
-                return $this->newModel()->withTrashed();
+            if(method_exists($this->Resource()->newModel() , 'isForceDeleting'))
+                return $this->Resource()->newModel()->withTrashed();
             else
-                return $this->newModel();
+                return $this->Resource()->newModel();
         }
 
         function isForceDeleting()
         {
-            return method_exists($this->newModel() , 'isForceDeleting');
+            return method_exists($this->Resource()->newModel() , 'isForceDeleting');
         }
 
     }

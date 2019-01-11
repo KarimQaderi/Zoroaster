@@ -16,24 +16,24 @@
             /**
              * دسترسی سطع بررسی
              */
-            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->newModel());
+            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Resource()->newModel());
 
             if(!request()->ajax())
-                return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
+//                return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
 
             /**
              * فیلترها اعمال
              */
-            $resources = $this->toQuery($ResourceRequest->newModel() , $ResourceRequest);
+            $resources = $this->toQuery($ResourceRequest->Resource()->newModel() , $ResourceRequest);
+
             $render = null;
             $render .= view('Zoroaster::resources.index-resource')->with([
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->newModel() ,
+                'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
                 'fields' =>
-                    $ResourceRequest->ResourceFields(function($field)
-                    {
+                    $ResourceRequest->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)
                             return true;
                         else

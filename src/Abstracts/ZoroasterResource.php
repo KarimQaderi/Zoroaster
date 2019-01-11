@@ -18,7 +18,9 @@
 
         public $component = 'resource';
 
-
+        /**
+         * @var \Illuminate\Database\Eloquent\Model
+         */
         public $resource;
 
         /**
@@ -80,13 +82,23 @@
         /**
          * جدید Model گرفتن
          *
-         * @return mixed
+         * @return \Illuminate\Database\Eloquent\Model
          */
         public static function newModel()
         {
             $model = static::$model;
 
             return new $model;
+        }
+
+        /**
+         * اصلی ID ستون  گرفتن
+         *
+         * @return mixed
+         */
+        public function getModelKeyName()
+        {
+            return $this->newModel()->getKeyName();
         }
 
         /**

@@ -40,7 +40,7 @@
          */
         private function Update(ResourceRequest $request)
         {
-            $resource = $request->newModel()->where([$request->newModel()->getKeyName() => $request->getResourceId()])->first();
+            $resource = $request->Resource()->newModel()->where([$request->Resource()->newModel()->getKeyName() => $request->getResourceId()])->first();
 
             if(empty($resource)) abort(404);
 
@@ -51,7 +51,7 @@
 
         /**
          * @param ResourceRequest $request
-         * @param $resource
+         * @param \Illuminate\Database\Eloquent\Model $resource
          */
         private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest): void
         {

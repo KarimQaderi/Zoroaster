@@ -13,10 +13,10 @@
         public function handle(ResourceRequest $ResourceRequest)
         {
 
-            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->newModel());
+            $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Resource()->newModel());
 
 
-            $resources = $ResourceRequest->newModel();
+            $resources = $ResourceRequest->Resource()->newModel();
 
             $HasMany = \Zoroaster::getFieldResource(request()->viaRelationship , request()->viaRelationshipFieldName);
             if(is_null($HasMany)) throw new Exception('Field پیدا نشد');
@@ -41,7 +41,7 @@
                 'relationshipType' => request()->relationshipType ,
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
-                'model' => $ResourceRequest->newModel() ,
+                'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
                 'fields' =>
                     $ResourceRequest->ResourceFields(function($field)

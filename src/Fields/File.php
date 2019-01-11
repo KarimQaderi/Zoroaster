@@ -5,7 +5,7 @@
 
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Storage;
-    use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Extend\Field;
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
 
     class File extends Field

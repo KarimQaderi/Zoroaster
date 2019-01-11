@@ -1,6 +1,6 @@
 <?php
 
-    namespace KarimQaderi\Zoroaster;
+    namespace KarimQaderi\Zoroaster\Fields\Extend;
 
     use Closure;
     use JsonSerializable;

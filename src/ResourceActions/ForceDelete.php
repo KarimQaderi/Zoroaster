@@ -3,12 +3,16 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
-    class ForceDelete extends ShowOrHiden
+    use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
+
+    class ForceDelete extends ResourceActionsAbastract
     {
 
         public $component = 'delete';
 
         public $showFromDetail = true;
+
 
         public function render($request , $data , $model , $view , $field = null)
         {
@@ -22,10 +26,14 @@
                 ]);
         }
 
-        public function Authorization($request , $data)
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return bool
+         */
+        public function Authorization($ResourceRequest , $data)
         {
-            if(method_exists($request->newModel() , 'isForceDeleting'))
-                return $request->Resource()->authorizedToForceDelete($data);
+            if(method_exists($ResourceRequest->Resource()->newModel() , 'isForceDeleting'))
+                return $ResourceRequest->Resource()->authorizedToForceDelete($data);
             else
                 return false;
 

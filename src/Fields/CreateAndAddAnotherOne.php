@@ -3,7 +3,7 @@
     namespace KarimQaderi\Zoroaster\Fields;
 
 
-    use KarimQaderi\Zoroaster\Fields\Other\Field;
+    use KarimQaderi\Zoroaster\Fields\Extend\Field;
 
     class CreateAndAddAnotherOne extends Field
     {
