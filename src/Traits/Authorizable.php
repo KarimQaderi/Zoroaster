@@ -5,6 +5,7 @@
 
     use Illuminate\Auth\Access\AuthorizationException;
     use Illuminate\Support\Facades\Gate;
+    use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 
     trait Authorizable
     {
@@ -20,7 +21,7 @@
         }
 
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToIndex($model)
         {
@@ -28,7 +29,7 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToIndex($model)
         {
@@ -37,7 +38,7 @@
 
 
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToShow($model)
         {
@@ -45,7 +46,7 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToShow($model)
         {
@@ -53,7 +54,7 @@
         }
 
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToCreate($model)
         {
@@ -61,7 +62,7 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToCreate($model)
         {
@@ -70,7 +71,7 @@
 
 
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToUpdate($model)
         {
@@ -78,7 +79,7 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToUpdate($model)
         {
@@ -87,7 +88,7 @@
 
 
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToDelete($model)
         {
@@ -95,7 +96,7 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToDelete($model)
         {
@@ -104,7 +105,7 @@
 
 
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToForceDelete($model)
         {
@@ -112,15 +113,16 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToForceDelete($model)
         {
             return $this->authorizedTo('forceDelete' , $model);
         }
 
+
         /**
-         * @ Error
+         * @param $model
          */
         public function authorizeToRestore($model)
         {
@@ -128,12 +130,13 @@
         }
 
         /**
-         * @return bool  true Or False
+         * @return bool
          */
         public function authorizedToRestore($model)
         {
             return $this->authorizedTo('restore' , $model);
         }
+
 
 
         public function authorizeTo($ability , $model)

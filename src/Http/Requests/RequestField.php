@@ -9,8 +9,8 @@
         public $request = null;
         public $resource = null;
         /**
-         * @var \KarimQaderi\Zoroaster\Fields\Extend\Field
-         */
+         * @var \KarimQaderi\Zoroaster\Fields\Extend\Field $field
+        */
         public $field = null;
         public $fieldAll = null;
 //        public $customAttributes = null;

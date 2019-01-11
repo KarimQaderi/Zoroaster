@@ -3,6 +3,9 @@
     namespace KarimQaderi\Zoroaster;
 
 
+    use Illuminate\Database\Eloquent\Model;
+    use phpDocumentor\Reflection\Types\Null_;
+
     class Zoroaster
     {
 
@@ -12,12 +15,12 @@
         /**
          * Register the given resources.
          *
-         * @param  array  $resources
+         * @param  array $resources
          * @return static
          */
         public static function resources(array $resources)
         {
-            static::$resources = array_merge(static::$resources, $resources);
+            static::$resources = array_merge(static::$resources , $resources);
 
             return new static;
         }
@@ -48,20 +51,12 @@
         public static function newResource($resource)
         {
             $resource = config('Zoroaster.Resources') . $resource;
-            if(class_exists($resource))
-                return new $resource;
-            else
-                return null;
+            return class_exists($resource) ? new $resource : null;
         }
 
         public static function hasNewResourceByModelName($model)
         {
-            if(empty($model)) return false;
-
-            if(class_exists(\Zoroaster::getFullNameResourceByModelName($model)))
-                return true;
-            else
-                return false;
+            return !empty($model) && class_exists(\Zoroaster::getFullNameResourceByModelName($model)) ? true : false;
         }
 
         /**
@@ -72,12 +67,12 @@
             return \Zoroaster::newResourceByModelName($modelName);
         }
 
+        /**
+         * @return Model
+         */
         public static function newModel($model)
         {
-            if(class_exists($model))
-                return new $model;
-            else
-                return null;
+            return class_exists($model) ? new $model : null;
         }
 
         public static function viewRender($view)
@@ -102,16 +97,14 @@
             $finder->files()->in(base_path($path));
 
             $find = [];
-            foreach($finder as $file)
-            {
+            foreach($finder as $file){
                 $ns = $namespace;
-                if($relativePath = $file->getRelativePath())
-                {
+                if($relativePath = $file->getRelativePath()){
                     $ns .= '/' . strtr($relativePath , '/' , '/');
                 }
                 $class = $ns . '/' . $file->getBasename('.php');
 
-                $r = new \ReflectionClass(str_replace('/','\\',$class));
+                $r = new \ReflectionClass(str_replace('/' , '\\' , $class));
 
                 $find[] = $r->getName();
 

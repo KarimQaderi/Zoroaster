@@ -6,8 +6,8 @@
     Route::group(Zoroaster::routeConfiguration() , function()
     {
 
-        Route::get('/' , 'DashboardController@handle')->name('dashboard');
-        Route::get('/Settings/icons' , 'SettingsIconsController@handle')->name('settings.icons');
+        Route::view('/' , 'Zoroaster::index')->name('dashboard');
+        Route::view('/Settings/icons' , 'Zoroaster::Settings.icons')->name('settings.icons');
 
         Route::group(['prefix' => 'resource/ajax' , 'as' => 'resource-ajax.' , 'namespace' => Zoroaster::routeConfiguration()['namespace'] . '\Resource'] , function()
         {

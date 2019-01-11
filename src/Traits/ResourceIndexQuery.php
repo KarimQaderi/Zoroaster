@@ -9,7 +9,7 @@
     {
 
         /**
-         * @param \Illuminate\Database\Eloquent\Model $resources
+         * @param \Illuminate\Database\Eloquent\Model & \Illuminate\Database\Eloquent\Builder $resources
          * @param ResourceRequest $ResourceRequest
          * @return \Illuminate\Database\Eloquent\Builder
          */
@@ -42,6 +42,9 @@
 
             foreach($filters as $filter)
             {
+                /**
+                 * @var
+                 */
                 if($filter->canSee($ResourceRequest))
                     $resources = $filter->apply($resources , $ResourceRequest);
             }

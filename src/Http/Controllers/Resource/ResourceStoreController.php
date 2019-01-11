@@ -42,7 +42,6 @@
         }
 
 
-
         private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest , $method)
         {
             $customResourceController = $request->ResourceFields(function($field){

@@ -22,8 +22,7 @@
             if(is_null($HasMany)) throw new Exception('Field پیدا نشد');
 
             // relationshipType
-            switch(request()->relationshipType)
-            {
+            switch(request()->relationshipType){
                 case 'HasMany':
                     $resources = $this->toQuery($resources->where($HasMany->relationship_id , request()->viaResourceId) , $ResourceRequest);
                     break;
@@ -44,8 +43,7 @@
                 'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
                 'fields' =>
-                    $ResourceRequest->ResourceFields(function($field)
-                    {
+                    $ResourceRequest->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)
                             return true;
                         else

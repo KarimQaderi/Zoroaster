@@ -6,7 +6,7 @@
     use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
 
-    class Trashed
+    class Trashed extends FiltersAbastrect
     {
 
         /**
@@ -18,21 +18,20 @@
             return view('Zoroaster::resources.filters.trashed')
                 ->with([
                     'FilterTrashed' => ['' => '—' , 'all' => 'همه' , 'only' => 'فقط زباله'] ,
-                    'ResourceRequest' => $ResourceRequest,
+                    'ResourceRequest' => $ResourceRequest ,
                 ]);
         }
 
         /**
-         * @param $resource Model
-         * @param $ResourceRequest ResourceRequest
+         * @param Model $resource
+         * @param ResourceRequest $ResourceRequest
          * @return Model
          */
         public function apply($resource , $ResourceRequest)
         {
 
             if(request()->has($ResourceRequest->resourceClass . '_FilterTrashed'))
-                switch(request()->{$ResourceRequest->resourceClass . '_FilterTrashed'})
-                {
+                switch(request()->{$ResourceRequest->resourceClass . '_FilterTrashed'}){
                     case '':
                         break;
                     case 'all':

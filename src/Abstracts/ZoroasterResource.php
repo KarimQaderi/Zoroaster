@@ -5,6 +5,7 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
+    use Illuminate\Database\Eloquent\SoftDeletingScope;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
@@ -85,7 +86,7 @@
         /**
          * جدید Model گرفتن
          *
-         * @return Model & SoftDeletes & Builder
+         * @return Model & Builder & SoftDeletes
          */
         public static function newModel()
         {

@@ -1,8 +1,6 @@
 @extends('Zoroaster::layout')
 @section('content')
 
-    <h1 class="resourceName">داشبورد</h1>
-
     <div class="Widgets">
         {!! Zoroaster::Widgets() !!}
     </div>

@@ -3,13 +3,18 @@
     namespace KarimQaderi\Zoroaster\ResourceFilters;
 
 
+    use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
-    class PerPage
+    class PerPage extends FiltersAbastrect
     {
 
 
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
         public function render($ResourceRequest)
         {
             return view('Zoroaster::resources.filters.perPage')
@@ -20,7 +25,7 @@
         }
 
         /**
-         * @param Model $resource
+         * @param Model & Builder $resource
          * @param ResourceRequest $ResourceRequest
          * @return Model
          */
