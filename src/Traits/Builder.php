@@ -26,58 +26,50 @@
 
                 $render = null;
 
-                if(call_user_func($where , $builder) === true)
+                if(call_user_func($where , $builder) === false) break;
 
-                    if(is_string($builder))
-                        $render = $builder;
+                if(isset($builder->data) && is_array($builder->data))
+                    $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
 
-                    elseif(is_array($builder))
-                        $render = self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
+                if(is_string($builder))
+                    $render = $builder;
 
-                    elseif(is_null($builder))
-                        $render = null;
+                elseif(is_null($builder))
+                    $render = null;
 
-                    elseif($builder->component == 'view')
-                        $render = self::call($builder , 'Render' , $builder);
+                elseif(is_array($builder))
+                    $render = self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
 
-                    elseif($builder->component === 'relationship'){
-                        if($builder->authorizedToIndex($builder))
-                            $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
+                elseif($builder->component == 'view')
+                    $render = self::call($builder , 'Render' , $builder);
 
-                    } elseif($builder->component === 'resource'){
-                        if($builder->authorizedToIndex($builder->newModel()))
-                            $render = view('Zoroaster::resources.index-ajax')->with([
-                                'resource' => $builder ,
-                            ]);
+                elseif($builder->component === 'relationship' && $builder->authorizedToIndex($builder))
+                    $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
 
-                    } elseif(is_object($builder) && class_basename($builder) === 'View')
-                        $render = $builder->render();
+                elseif($builder->component === 'resource' && $builder->authorizedToIndex($builder->newModel()))
+                    $render = view('Zoroaster::resources.index-ajax')->with(['resource' => $builder ]);
 
-                    elseif($builder->component == 'MenuItem'){
-                        if(is_array($builder->data))
-                            $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
-                        $render = $builder->Render($builder);
+                elseif(is_object($builder) && class_basename($builder) === 'View')
+                    $render = $builder->render();
 
-                    } elseif($builder->component == 'Menu'){
-                        if(is_array($builder->data))
-                            $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
-                        if($builder->canSee)
-                            $render = self::call($builder , 'Render' , $builder);
-                    } elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric'])){
-                        if($builder->canSee())
-                            $render = self::call($builder , 'render' , $builder);
-                    } elseif($builder->component == 'field_group'){
-                        $render = self::call($builder , 'render' ,
-                            $builder , self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest) , $ResourceRequest
-                        );
-                    } elseif($builder->component == 'field' || $builder->component == 'btn')
-                        $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
+                elseif($builder->component == 'MenuItem')
+                    $render = $builder->Render($builder);
+
+                elseif($builder->component == 'Menu' && $builder->canSee)
+                    $render = self::call($builder , 'Render' , $builder);
+
+                elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric']) && $builder->canSee())
+                    $render = self::call($builder , 'render' , $builder);
+
+                elseif($builder->component == 'field_group')
+                    $render = self::call($builder , 'render' , $builder , $builder->data , $ResourceRequest);
+
+                elseif($builder->component == 'field' || $builder->component == 'btn')
+                    $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
 
 
-                    elseif(isset($builder->data))
-                        $render = self::call($builder , $viewForm ,
-                            $builder , self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest) , $ResourceRequest
-                        );
+                elseif(isset($builder->data))
+                    $render = self::call($builder , $viewForm , $builder , $builder->data , $ResourceRequest);
 
 
                 $renders .= $render;

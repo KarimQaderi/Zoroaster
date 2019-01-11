@@ -4,6 +4,7 @@
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Zoroaster;
 
     class ResourceGlobalSearchController extends Controller
@@ -12,7 +13,9 @@
         {
             $render = null;
             foreach(Zoroaster::findAllResource() as $Resource){
-                $newResource = Zoroaster::newResource($Resource) ;
+
+                /** @var ZoroasterResource $newResource */
+                $newResource = new $Resource;
                 $model = $newResource->newModel();
 
                 if($newResource->globallySearchable){
