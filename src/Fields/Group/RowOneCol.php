@@ -35,7 +35,7 @@
         /**
          * ایجاد
          *
-         * @param  \Closure|array $fields
+         * @param  array $fields
          * @return void
          */
         public function __construct($fields = [])
@@ -46,7 +46,7 @@
         /**
          * ها عنصر سازی اماده
          *
-         * @param  \Closure|array $fields
+         * @param  array $fields
          * @return array
          */
         protected function prepareFields($fields)

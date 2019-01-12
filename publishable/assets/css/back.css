@@ -42,6 +42,7 @@ body {
     min-height: 100%;
     /* overflow-y: hidden; */
     background-color: rgb(238, 241, 244);
+    min-width: 1200px;
 }
 
 p {
@@ -262,6 +263,7 @@ ul.uk-nav-sub {
     border-left: 1px #E8E8E8 solid;
     overflow: auto;
     background-color: rgb(64, 153, 222);
+    right: 0;
 }
 
 #overlay {

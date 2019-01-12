@@ -4,6 +4,7 @@
 
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Query\Builder;
     use phpDocumentor\Reflection\Types\Null_;
 
     class Zoroaster
@@ -68,7 +69,7 @@
         }
 
         /**
-         * @return Model
+         * @return Builder & Model
          */
         public static function newModel($model)
         {

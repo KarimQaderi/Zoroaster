@@ -49,7 +49,7 @@
          * ایجاد
          *
          * @param  string $name
-         * @param  \Closure|array $fields
+         * @param  array $fields
          * @param  string $class
          * @return void
          */

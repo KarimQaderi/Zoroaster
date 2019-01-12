@@ -5,7 +5,6 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
-    use Illuminate\Database\Eloquent\SoftDeletingScope;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
@@ -98,7 +97,7 @@
         /**
          * اصلی ID ستون  گرفتن
          *
-         * @return mixed
+         * @return string
          */
         public function getModelKeyName()
         {

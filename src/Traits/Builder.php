@@ -26,7 +26,7 @@
 
                 $render = null;
 
-                if(call_user_func($where , $builder) === false) break;
+                if(call_user_func($where , $builder) === false) continue;
 
                 if(isset($builder->data) && is_array($builder->data))
                     $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);

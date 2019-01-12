@@ -6,11 +6,10 @@
     use Illuminate\Http\Resources\MergeValue;
     use JsonSerializable;
 
-    class Row extends MergeValue implements JsonSerializable
+    class RowOneColBg extends MergeValue implements JsonSerializable
     {
 
         use TraitView;
-
 
         /**
          * عنصر نام
@@ -24,7 +23,7 @@
          *
          * @var string
          */
-        public $nameViewForm = 'row';
+        public $nameViewForm = 'RowOneColBg';
 
         /**
          * ها عنصر
@@ -47,7 +46,7 @@
         /**
          * ها عنصر سازی اماده
          *
-         * @param  \Closure|array $fields
+         * @param  array $fields
          * @return array
          */
         protected function prepareFields($fields)
