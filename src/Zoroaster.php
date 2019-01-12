@@ -32,7 +32,7 @@
                 'domain' => config('Zoroaster.domain' , null) ,
                 'as' => 'Zoroaster.' , // Route name
                 'prefix' => config('Zoroaster.path' , 'Zoroaster') ,
-                'middleware' => ['Zoroaster' , 'can:viewZoroaster'] ,
+                'middleware' => ['Zoroaster' , 'can:Zoroaster'] ,
             ];
 
             if(is_string($unset))

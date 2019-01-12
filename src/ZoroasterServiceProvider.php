@@ -16,11 +16,11 @@
         {
 
             // Configure the Zoroaster authorization services.
-            Gate::define('viewZoroaster' , function($user)
+            Gate::define('Zoroaster' , function($user)
             {
 
                 if(config('Zoroaster.permission'))
-                    return auth()->user()->hasPermission('viewZoroaster');
+                    return auth()->user()->hasPermission('Zoroaster');
 
                 return true;
 

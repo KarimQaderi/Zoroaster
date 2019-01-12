@@ -9,13 +9,12 @@
 
 </head>
 
-<body dir="rtl" class="uk-background-muted uk-height-viewport">
-
+<body dir="rtl" class="uk-height-viewport">
 
 
 <div id="app">
 
-    <div class="Zoroaster-login" uk-icon="Zoroaster"></div>
+    @include('Zoroaster::sidebar.SidebarHeader')
 
     <div class="uk-container uk-margin-large uk-flex uk-flex-center">
         <div class="uk-card  uk-width-1-2@s  login">
@@ -24,12 +23,12 @@
                 <h3 class="uk-card-title uk-margin-remove">خوش آمدید</h3>
             </div>
 
-            <form class="uk-form-stacked" method="POST" action="{{ route('Zoroaster.login') }}" >
+            <form class="uk-form-stacked" method="POST" action="{{ route('Zoroaster.login') }}">
                 {{ csrf_field() }}
                 <div class="uk-card-body">
                     <div class="uk-margin">
                         <label class="uk-form-label {{  $errors->has('email') ? ' uk-text-danger' : '' }}">
-                           ایمیل
+                            ایمیل
                         </label>
                         <div class="uk-width-1-1 uk-inline">
 						<span class="uk-form-icon {{  $errors->has('email') ? ' uk-text-danger' : '' }}" uk-icon="icon: user">

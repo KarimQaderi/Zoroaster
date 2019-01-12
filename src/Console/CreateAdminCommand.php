@@ -69,7 +69,7 @@
                     'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
                 ];
 
-                $Permission = Permission::firstOrCreate(['name' => 'viewZoroaster'] , ['display_name' => 'دسترسی کلی به قسمت ادمین']);
+                $Permission = Permission::firstOrCreate(['name' => 'Zoroaster'] , ['display_name' => 'دسترسی کلی به قسمت ادمین']);
                 RoleHasPermission::firstOrCreate(['permission_id' => $Permission->id , 'role_id' => $Role->id]);
 
                 foreach($Permissions as $key => $value){
