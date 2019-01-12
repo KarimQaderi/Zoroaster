@@ -15,7 +15,7 @@
         public $showFromIndex = true;
 
         /**
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         * @return \Illuminate\View\View
          */
         public function render($request , $data , $model , $view , $field = null)
         {

@@ -13,7 +13,7 @@
 
         /**
          * @param ResourceRequest $ResourceRequest
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         * @return \Illuminate\View\View
          */
         public function render($ResourceRequest)
         {
@@ -31,7 +31,7 @@
          */
         public function apply($resource , $ResourceRequest)
         {
-            return $resource->paginate(((int)$this->Request('perPage') ?? 25) , ['*'] , $this->Request('Page'));
+            return $resource->paginate(((int)$this->Request('perPage') ?? 25) , ['*'] , $this->resourceClassRequest . '_Page');
         }
 
         /**

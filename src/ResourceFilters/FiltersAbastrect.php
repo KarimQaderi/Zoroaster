@@ -11,7 +11,7 @@
     abstract class FiltersAbastrect
     {
 
-        private $resourceClassRequest = null;
+        public $resourceClassRequest = null;
 
         public function __construct()
         {
@@ -20,7 +20,7 @@
 
         /**
          * @param ResourceRequest $ResourceRequest
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         * @return \Illuminate\View\View
          */
         abstract public function render($ResourceRequest);
 

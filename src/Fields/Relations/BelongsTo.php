@@ -64,7 +64,7 @@
          * @param $field
          * @param $data
          * @param ResourceRequest $resourceRequest
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Field
+         * @return \Illuminate\View\View
          * @throws \Exception
          */
         public function viewForm($field , $data , $resourceRequest = null)
@@ -84,11 +84,12 @@
                 throw new \Exception($exception);
             }
         }
+
         /**
          * @param $field
          * @param $data
          * @param ResourceRequest $resourceRequest
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Field
+         * @return \Illuminate\View\View
          * @throws \Exception
          */
         public function viewDetail($field , $data , $resourceRequest = null)
@@ -114,7 +115,7 @@
          * @param $field
          * @param $data
          * @param ResourceRequest $resourceRequest
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Field
+         * @return \Illuminate\View\View
          * @throws \Exception
          */
         public function viewIndex($field , $data , $resourceRequest = null)

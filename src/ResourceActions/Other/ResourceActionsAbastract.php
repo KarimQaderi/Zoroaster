@@ -21,7 +21,7 @@
          * @param $model
          * @param $view
          * @param null $field
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         * @return \Illuminate\View\View
          */
         abstract public function render($request , $data , $model , $view , $field = null);
 
