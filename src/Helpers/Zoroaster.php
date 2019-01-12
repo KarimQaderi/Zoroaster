@@ -14,6 +14,16 @@
     {
         use Builder;
 
+        /**
+         * @return mixed
+         */
+        public static function getCurrentRouteResource(){
+
+            if(isset(\Illuminate\Support\Facades\Route::getCurrentRoute()->parameters()['resource']))
+                return \Illuminate\Support\Facades\Route::getCurrentRoute()->parameters()['resource'];
+            else
+                return request()->resource;
+        }
 
         /**
          * index صفحه برای فیلترها گرفتن

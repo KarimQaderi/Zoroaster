@@ -21,9 +21,8 @@
                 if($newResource->globallySearchable){
 
                     $resources = $model->where(function($q) use ($request , $newResource){
-                        foreach($newResource->search as $field){
+                        foreach($newResource->search as $field)
                             $q->orWhere($field , 'like' , '%' . $request->search . '%');
-                        }
                     })->limit(5)->get();
 
                     $render .= view('Zoroaster::resources.GlobalSearch')

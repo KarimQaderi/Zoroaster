@@ -15,11 +15,7 @@
         public function __construct()
         {
 
-            if(isset(Route::getCurrentRoute()->parameters()['resource']))
-                $this->resourceClass = Route::getCurrentRoute()->parameters()['resource'];
-            else
-                $this->resourceClass = request()->resource;
-
+            $this->resourceClass = \Zoroaster::getCurrentRouteResource();
 
             if(is_null($this->resourceClass)) abort(404);
 
@@ -64,19 +60,6 @@
             return $this->Resource = Zoroaster::newResource($this->resourceClass);
         }
 
-
-        /**
-         * @return \Illuminate\Database\Eloquent\Model
-         */
-//        public function newModel()
-//        {
-//            return Zoroaster::newModel($this->Resource->getModel());
-//        }
-//
-//        public function getModelKeyName()
-//        {
-//            return $this->newModel()->getKeyName();
-//        }
 
         public function ResourceFields($where , $fields = null)
         {
@@ -145,15 +128,5 @@
 
             return $Fields;
         }
-
-
-        private function setValue($data , $Field)
-        {
-            if($data == null) return $Field;
-            $Field->value = $data->{$Field->name};
-
-            return $Field;
-        }
-
 
     }

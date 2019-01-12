@@ -31,8 +31,7 @@
          */
         public function apply($resource , $ResourceRequest)
         {
-            $name_perPage = $ResourceRequest->resourceClass . '_perPage';
-            return $resource->paginate(((int)$ResourceRequest->Request()->{$name_perPage} ?? 25) , ['*'] , $ResourceRequest->resourceClass . '_Page');
+            return $resource->paginate(((int)$this->Request('perPage') ?? 25) , ['*'] , $this->Request('Page'));
         }
 
         /**

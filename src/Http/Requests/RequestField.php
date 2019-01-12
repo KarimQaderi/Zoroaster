@@ -8,12 +8,9 @@
     {
         public $request = null;
         public $resource = null;
-        /**
-         * @var \KarimQaderi\Zoroaster\Fields\Extend\Field $field
-        */
+
+        /** @var \KarimQaderi\Zoroaster\Fields\Extend\Field $field */
         public $field = null;
         public $fieldAll = null;
-//        public $customAttributes = null;
-//        public $validator = null;
         public $MergeResourceFieldsAndRequest = null;
     }

@@ -8,6 +8,8 @@
     trait ResourceIndexQuery
     {
 
+        private $resourceClassRequest = null;
+
         /**
          * @param \Illuminate\Database\Eloquent\Model & \Illuminate\Database\Eloquent\Builder $resources
          * @param ResourceRequest $ResourceRequest
@@ -16,18 +18,18 @@
         private function toQuery($resources , $ResourceRequest)
         {
 
-            if(request()->has($ResourceRequest->resourceClass . '_search'))
-                $resources = $resources->where(function($q) use ($ResourceRequest)
-                {
-                    foreach($ResourceRequest->Resource()->search as $field)
-                    {
-                        $q->orWhere($field , 'like' , '%' . request()->{$ResourceRequest->resourceClass . '_search'} . '%');
+            $this->resourceClassRequest = $ResourceRequest->resourceClass;
+
+            if($this->requestHas('search'))
+                $resources = $resources->where(function($q) use ($ResourceRequest){
+                    foreach($ResourceRequest->Resource()->search as $field){
+                        $q->orWhere($field , 'like' , '%' . $this->request('search') . '%');
                     }
                 });
 
             // Sort Table
-            if(request()->has($ResourceRequest->resourceClass . '_sortable_direction') && request()->has($ResourceRequest->resourceClass . '_sortable_field'))
-                $resources = $resources->orderBy(request()->{$ResourceRequest->resourceClass . '_sortable_field'} , request()->{$ResourceRequest->resourceClass . '_sortable_direction'});
+            if($this->requestHas('sortable_direction') && $this->requestHas('sortable_field'))
+                $resources = $resources->orderBy($this->request('sortable_field') , $this->request('sortable_direction'));
 
 
             // indexQuery
@@ -40,11 +42,7 @@
             if($ResourceRequest->Resource()->filters() != null)
                 $filters = array_merge($ResourceRequest->Resource()->filters() , $filters);
 
-            foreach($filters as $filter)
-            {
-                /**
-                 * @var
-                 */
+            foreach($filters as $filter){
                 if($filter->canSee($ResourceRequest))
                     $resources = $filter->apply($resources , $ResourceRequest);
             }
@@ -52,6 +50,24 @@
 
             return $resources;
 
+        }
+
+        /**
+         * @param $name
+         * @return bool
+         */
+        private function requestHas($name)
+        {
+            return request()->has($this->resourceClassRequest . '_' . $name);
+        }
+
+        /**
+         * @param $name
+         * @return string
+         */
+        private function request($name)
+        {
+            return request()->{$this->resourceClassRequest . '_' . $name};
         }
 
     }

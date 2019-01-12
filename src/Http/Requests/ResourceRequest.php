@@ -29,6 +29,9 @@
                 return $this->Resource()->newModel();
         }
 
+        /**
+         * @return bool
+         */
         function isForceDeleting()
         {
             return method_exists($this->Resource()->newModel() , 'isForceDeleting');

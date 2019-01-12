@@ -30,8 +30,8 @@
         public function apply($resource , $ResourceRequest)
         {
 
-            if(request()->has($ResourceRequest->resourceClass . '_FilterTrashed'))
-                switch(request()->{$ResourceRequest->resourceClass . '_FilterTrashed'}){
+            if($this->requestHas('FilterTrashed'))
+                switch($this->request('FilterTrashed')){
                     case '':
                         break;
                     case 'all':
