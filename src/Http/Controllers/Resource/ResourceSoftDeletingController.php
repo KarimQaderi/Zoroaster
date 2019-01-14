@@ -16,7 +16,7 @@
                 /**
                  * نظر مورد رکورد کردن پیدا
                  */
-                $find = $request->getModelAndWhereTrashed()->where([$request->Resource()->getModelKeyName() => $id])->first();
+                $find = $request->findOrfail();
 
                 /**
                  * رکورد حذف و دستررسی سطع بررسی

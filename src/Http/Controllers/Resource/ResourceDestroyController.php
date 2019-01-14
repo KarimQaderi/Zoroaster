@@ -20,7 +20,7 @@
                  *
                  * @var Model $find
                  */
-                $find = $ResourceRequest->getModelAndWhereTrashed()->where([$ResourceRequest->Resource()->getModelKeyName() => $id])->first();
+                $find = $ResourceRequest->findOrfail();
 
 
                 /**

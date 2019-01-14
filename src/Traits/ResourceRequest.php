@@ -2,6 +2,7 @@
 
     namespace KarimQaderi\Zoroaster\Traits;
 
+    use Illuminate\Database\Eloquent\Model;
     use Illuminate\Support\Facades\Route;
     use KarimQaderi\Zoroaster\Zoroaster;
 
@@ -27,7 +28,7 @@
         }
 
         /**
-         * @return \Illuminate\Database\Eloquent\Builder | \Illuminate\Database\Eloquent\Model
+         * @return object|\Illuminate\Database\Eloquent\Builder & \Illuminate\Database\Eloquent\Model
          */
         public function findOrfail()
         {

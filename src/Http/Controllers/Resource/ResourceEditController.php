@@ -13,7 +13,7 @@
             /**
              * نظر مورد رکورد کردن پیدا
              */
-            $resources = $ResourceRequest->findOrFail();
+            $resources = $ResourceRequest->findOrfail();
             /**
              * دسترسی سطع بررسی
              */
