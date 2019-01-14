@@ -20,7 +20,7 @@
                  *
                  * @var Model $find
                  */
-                $find = $ResourceRequest->findOrfail();
+                $find = $ResourceRequest->find();
 
 
                 /**

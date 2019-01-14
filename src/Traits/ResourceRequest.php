@@ -37,6 +37,16 @@
                 ->firstOrFail();
         }
 
+        /**
+         * @return object|\Illuminate\Database\Eloquent\Builder & \Illuminate\Database\Eloquent\Model
+         */
+        public function find()
+        {
+            return $this->getModelAndWhereTrashed()
+                ->where([$this->Resource()->newModel()->getKeyName() => $this->getResourceId()])
+                ->first();
+        }
+
 
         /**
          * @return \Illuminate\Database\Eloquent\Model & \Illuminate\Database\Eloquent\Builder

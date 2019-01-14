@@ -20,7 +20,7 @@
                 /**
                  * نظر مورد رکورد کردن پیدا
                  */
-                $find = $request->findOrfail();
+                $find = $request->find();
 
 
                 /**
