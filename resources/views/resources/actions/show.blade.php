@@ -1,1 +1,1 @@
-<a uk-icon="view" href="{{ route('Zoroaster.resource.show',['resource'=> class_basename($request->Resource()),'resourceId'=> $data->{$model->getKeyName()}]) }}" class="uk-icon action--show"></a>
+<a uk-icon="view" href="{{ route('Zoroaster.resource.show',['resource'=> $request->Resource()->uriKey(),'resourceId'=> $data->{$model->getKeyName()}]) }}" class="uk-icon action--show"></a>

@@ -16,14 +16,11 @@
         public function __construct()
         {
 
-            $this->resourceClass = \Zoroaster::getCurrentRouteResource();
-
-            if(is_null($this->resourceClass)) abort(404);
-
-            $this->Resource = $this->Resource();
+            $this->Resource = Zoroaster::resourceFindByUriKey(\Zoroaster::getParameterCurrentRoute('resource'));
 
             if(is_null($this->Resource)) abort(404);
 
+            $this->resourceClass = $this->Resource->uriKey();
 
         }
 
@@ -102,7 +99,7 @@
          */
         public function Resource()
         {
-            return $this->Resource = Zoroaster::newResource($this->resourceClass);
+            return $this->Resource;
         }
 
 

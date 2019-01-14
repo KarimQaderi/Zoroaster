@@ -34,14 +34,12 @@
             return $this;
         }
 
-        public function resource($resource , $label = null)
+        public function resource($urlkey , $label = null)
         {
             $this->TypeLink = 'resource';
-            $this->Link = route("Zoroaster.resource.index" , ['resource' => $resource]);
+            $this->Link = route("Zoroaster.resource.index" , ['resource' => $urlkey]);
 
-            $newResource = null;
-            if(Zoroaster::hasNewResourceByModelName($resource))
-                $newResource = Zoroaster::newResource($resource);
+            $newResource = Zoroaster::resourceFindByUriKey($urlkey);
 
             if($label == null)
                 if(!is_null($newResource))

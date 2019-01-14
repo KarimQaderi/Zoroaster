@@ -5,6 +5,7 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
+    use Illuminate\Support\Str;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
@@ -20,6 +21,13 @@
 
 
         public $component = 'resource';
+
+        /**
+         *  صفحه ادرس
+         *
+         * @var string
+         */
+        public $uriKey;
 
         /**
          * @var Model
@@ -124,6 +132,17 @@
         public function indexQuery($query)
         {
             return $query;
+        }
+
+
+        /**
+         * صفحه ادرس گرفتن
+         *
+         * @return string
+         */
+        public function uriKey()
+        {
+            return Str::snake($this->uriKey ?? class_basename(get_called_class()) , '-');
         }
 
         public function ResourceActions()

@@ -2,6 +2,7 @@
 
     namespace KarimQaderi\Zoroaster;
 
+    use App\Zoroaster\Resources\Post;
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\ServiceProvider;
@@ -18,6 +19,8 @@
 
 
             $this->app->register(ZoroasterServiceProvider::class);
+
+            Zoroaster::resources(Zoroaster::findAllResource());
 
             if(!$this->app->configurationIsCached())
             {

@@ -1,6 +1,6 @@
 <div class="resource-ajax"
      data-route="{{ route('Zoroaster.resource-ajax.index.relationship') }}"
-     data-resource="{{ class_basename($resource) }}"
+     data-resource="{{ $resource->uriKey() }}"
      data-getKeyName="{{ $resource->newModel()->getKeyName() }}"
      data-isForceDeleting="{{ method_exists($resource->newModel(), 'isForceDeleting') }}"
      data-viaRelationshipFieldName="{{ $field->name  }}"
@@ -12,7 +12,7 @@
 >
     <script>
         $(document).ready(function () {
-            index_resources('{{ class_basename($resource) }}');
+            index_resources('{{ $resource->uriKey() }}');
         });
     </script>
 </div>

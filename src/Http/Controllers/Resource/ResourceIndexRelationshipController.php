@@ -5,7 +5,6 @@
     use App\Http\Controllers\Controller;
     use KarimQaderi\Zoroaster\Exceptions\NotFoundField;
     use KarimQaderi\Zoroaster\Exceptions\NotFoundRelationship;
-    use KarimQaderi\Zoroaster\Exceptions\NotFoundsetField;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
     use KarimQaderi\Zoroaster\Traits\ResourceIndexQuery;
 

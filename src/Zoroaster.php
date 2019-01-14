@@ -10,20 +10,103 @@
     class Zoroaster
     {
 
-        private static $resourcesByModel = [];
-        private static $resources = [];
+        /**
+         * resources همه
+         *
+         * @var array
+         */
+        public static $resources = [];
+
+        /**
+         * scripts همه
+         *
+         * @var array
+         */
+        public static $scripts = [];
+
+        /**
+         * CSS همه
+         *
+         * @var array
+         */
+        public static $styles = [];
+
 
         /**
          * Register the given resources.
          *
          * @param  array $resources
-         * @return static
          */
         public static function resources(array $resources)
         {
             static::$resources = array_merge(static::$resources , $resources);
+        }
 
-            return new static;
+        /**
+         * Register the given styles.
+         *
+         * @param  array $styles
+         */
+        public static function styles(array $styles)
+        {
+            static::$styles = array_merge(static::$styles , $styles);
+        }
+
+        /**
+         * Register the given scripts.
+         *
+         * @param  array $scripts
+         */
+        public static function scripts(array $scripts)
+        {
+            static::$scripts = array_merge(static::$scripts , $scripts);
+        }
+
+
+        /**
+         * resourceFindByUriKey
+         *
+         * @param  string $uriKey
+         * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource | null
+         */
+        public static function resourceFindByUriKey($uriKey)
+        {
+            foreach(static::$resources as $resource){
+                $new = new $resource;
+                if($new->uriKey() == $uriKey)
+                    return $new;
+            }
+
+            return null;
+        }
+
+
+        /**
+         * resourceFindByUriKey
+         *
+         * @param  string $uriKey
+         * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource | null
+         */
+        public static function resourceFindByModel($model)
+        {
+            foreach(static::$resources as $resource){
+                if(class_basename(($new = new $resource)->getModel()) == $model)
+                    return $new;
+            }
+
+            return null;
+        }
+
+        /**
+         * resourceFindByUriKey
+         *
+         * @param  string $uriKey
+         * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource | null
+         */
+        public static function resourceFindByUriKeyOrFail($uriKey)
+        {
+            return self::resourceFindByUriKey($uriKey);
+
         }
 
         public static function routeConfiguration($unset = null)

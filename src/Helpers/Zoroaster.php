@@ -15,16 +15,6 @@
     {
         use Builder;
 
-        /**
-         * @return mixed
-         */
-        public static function getCurrentRouteResource(){
-
-            if(isset(Route::getCurrentRoute()->parameters()['resource']))
-                return Route::getCurrentRoute()->parameters()['resource'];
-            else
-                return request()->resource;
-        }
 
         /**
          * @return mixed
@@ -93,6 +83,24 @@
         }
 
         /**
+         * scripts گرفتن
+         *
+         */
+        public static function scripts()
+        {
+            return KarimQaderi\Zoroaster\Zoroaster::$scripts;
+        }
+
+        /**
+         * styles گرفتن
+         *
+         */
+        public static function styles()
+        {
+            return KarimQaderi\Zoroaster\Zoroaster::$styles;
+        }
+
+        /**
          * @param string $position left || right || center
          *
          * @return null|string
@@ -124,16 +132,17 @@
         /**
          * Model نام از استفاده با جدید Resource
          *
+         * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource
          */
         public static function newResourceByModelName($modelName)
         {
-            $resource = self::getFullNameResourceByModelName($modelName);
-            if(class_exists($resource))
-                return new $resource;
-            else
-                return null;
+            return KarimQaderi\Zoroaster\Zoroaster::resourceFindByModel(class_basename($modelName));
         }
 
+        /**
+         * @param $model
+         * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder
+         */
         public static function newModel($model)
         {
             return SrcZoroaster::newModel($model);
@@ -239,7 +248,7 @@
          */
         public static function getNameResourceByModelName($modelName)
         {
-            return array_last(explode('\\' , $modelName));
+            return class_basename($modelName);
         }
 
         static function getMeta($meta , $meta_name)
