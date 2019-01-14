@@ -18,23 +18,6 @@
         }
 
 
-        /**
-         * @return \Illuminate\Database\Eloquent\Model & EloquentBuilder
-         */
-        function getModelAndWhereTrashed()
-        {
-            if(method_exists($this->Resource()->newModel() , 'isForceDeleting'))
-                return $this->Resource()->newModel()->withTrashed();
-            else
-                return $this->Resource()->newModel();
-        }
 
-        /**
-         * @return bool
-         */
-        function isForceDeleting()
-        {
-            return method_exists($this->Resource()->newModel() , 'isForceDeleting');
-        }
 
     }

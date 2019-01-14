@@ -24,33 +24,33 @@
         </div>
     </template>
 
-    @isset($data->{$field->name})
-        @if (is_string($data->{$field->name}) || ($data->{$field->name})=='')
+    @isset($value)
+        @if (is_string($value) || ($value)=='')
 
-            @if (!is_null($data->{$field->name}))
+            @if (!is_null($value))
                 <div class="imgUpload_img">
                     <div class="top">
                         <span uk-icon="delete" class="delete"></span>
-                        <a href="{{ Storage::disk($field->disk)->url($data->{$field->name}) }}" uk-icon="download-2"></a>
+                        <a href="{{ Storage::disk($field->disk)->url($value) }}" uk-icon="download-2"></a>
                         <span class="uk-sortable-handle" uk-icon="move"></span>
                     </div>
-                    <div class="baseName">{{ array_last(explode('/',$val)) }}</div>
-                    <input id="url" type="hidden" name="{{ $field->name }}[${number}][url]" value="{{ $data->{$field->name} }}">
+                    <div class="baseName">{{ array_last(explode('/',$value)) }}</div>
+                    <input id="url" type="hidden" name="{{ $field->name }}[${number}][url]" value="{{ $value }}">
                 </div>
             @endif
 
         @else
 
-            @foreach(($data->{$field->name}) as $val)
+            @foreach(($value) as $val)
                 @php($time=time() . random_int(100 , 1000))
                 <div class="imgUpload_img">
                     <div class="top">
                         <span uk-icon="delete" class="delete"></span>
-                        <a href="{{ Storage::disk($field->disk)->url($val) }}" uk-icon="download-2"></a>
+                        <a href="{{ Storage::disk($field->disk)->url($value) }}" uk-icon="download-2"></a>
                         <span class="uk-sortable-handle" uk-icon="move"></span>
                     </div>
-                    <div class="baseName">{{ array_last(explode('/',$val)) }}</div>
-                    <input id="url" type="hidden" name="{{ $field->name }}[{{ $time }}][url]" value="{{ $val }}">
+                    <div class="baseName">{{ array_last(explode('/',$value)) }}</div>
+                    <input id="url" type="hidden" name="{{ $field->name }}[{{ $time }}][url]" value="{{ $value }}">
                 </div>
 
             @endforeach

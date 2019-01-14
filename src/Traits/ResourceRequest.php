@@ -26,6 +26,36 @@
 
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Builder | \Illuminate\Database\Eloquent\Model
+         */
+        public function findOrfail()
+        {
+            return $this->getModelAndWhereTrashed()
+                ->where([$this->Resource()->newModel()->getKeyName() => $this->getResourceId()])
+                ->firstOrFail();
+        }
+
+
+        /**
+         * @return \Illuminate\Database\Eloquent\Model & \Illuminate\Database\Eloquent\Builder
+         */
+        function getModelAndWhereTrashed()
+        {
+            if($this->isForceDeleting())
+                return $this->Resource()->newModel()->withTrashed();
+            else
+                return $this->Resource()->newModel();
+        }
+
+        /**
+         * @return bool
+         */
+        function isForceDeleting()
+        {
+            return method_exists($this->Resource()->newModel() , 'isForceDeleting');
+        }
+
         public function RequestParameters()
         {
             return (object)Route::getCurrentRoute()->parameters();

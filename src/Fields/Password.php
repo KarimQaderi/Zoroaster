@@ -23,7 +23,7 @@
         public function ResourceUpdate(RequestField $requestField)
         {
 
-            $value = $requestField->$ResourceRequest->{$requestField->field->name};
+            $value = $requestField->request->{$requestField->field->name};
 
             if(empty($value))
                 return [

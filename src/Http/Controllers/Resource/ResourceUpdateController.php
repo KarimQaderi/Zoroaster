@@ -20,9 +20,12 @@
                     return false;
             }));
 
+            $resource = $request->findOrfail();
 
-
-            $resource = $this->Update($request);
+            /**
+             * دسترسی سطع بررسی
+             */
+            $request->Resource()->authorizeToUpdate($resource);
 
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest);
 
@@ -34,20 +37,6 @@
         }
 
 
-        /**
-         * @param ResourceRequest $request
-         * @return mixed
-         */
-        private function Update(ResourceRequest $request)
-        {
-            $resource = $request->Resource()->newModel()->where([$request->Resource()->newModel()->getKeyName() => $request->getResourceId()])->first();
-
-            if(empty($resource)) abort(404);
-
-            $request->Resource()->authorizeToUpdate($resource);
-
-            return $resource;
-        }
 
         /**
          * @param ResourceRequest $request
