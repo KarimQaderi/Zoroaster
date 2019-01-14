@@ -2,7 +2,7 @@
 
     namespace KarimQaderi\Zoroaster\Traits;
 
-    use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Support\Facades\Route;
     use KarimQaderi\Zoroaster\Zoroaster;
 
@@ -32,18 +32,22 @@
          */
         public function findOrfail()
         {
-            return $this->getModelAndWhereTrashed()
-                ->where([$this->Resource()->newModel()->getKeyName() => $this->getResourceId()])
-                ->firstOrFail();
+
+            if(!is_null($model = $this->find())){
+                return $model;
+            }
+
+            throw (new ModelNotFoundException())->setModel($this->Resource()->getModel());
+
         }
 
         /**
          * @return object|\Illuminate\Database\Eloquent\Builder & \Illuminate\Database\Eloquent\Model
          */
-        public function find()
+        public function find($find = null)
         {
             return $this->getModelAndWhereTrashed()
-                ->where([$this->Resource()->newModel()->getKeyName() => $this->getResourceId()])
+                ->where([$this->Resource()->getModelKeyName() => $find ?? $this->getResourceId()])
                 ->first();
         }
 
@@ -84,12 +88,12 @@
 
         public function getResourceId()
         {
-            return $this->RequestParameters()->resourceId;
+            return \Zoroaster::getParameterCurrentRoute('resourceId');
         }
 
         public function getResourceName()
         {
-            return $this->RequestParameters()->resource;
+            return \Zoroaster::getParameterCurrentRoute('resource');
         }
 
 
@@ -148,6 +152,15 @@
         }
 
 
+        /**
+         * ها فیلد گرفتن
+         *
+         * @param $where
+         * @param $view
+         * @param null $resources
+         * @param null $fields
+         * @return string|null
+         */
         public function BuilderFields($where , $view , $resources = null , $fields = null)
         {
             $Fields = null;

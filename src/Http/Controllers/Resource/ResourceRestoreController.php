@@ -44,7 +44,7 @@
                 );
 
                 $cols [] = [
-                    'id' => $find->{$request->Resource()->getModelKeyName()} ,
+                    'id' => $id ,
                     'col' => $col ,
                     'status' => 'ok' ,
                 ];

@@ -3,6 +3,7 @@
     namespace KarimQaderi\Zoroaster\Fields\Relations;
 
 
+    use KarimQaderi\Zoroaster\Exceptions\NotFoundRelationship;
     use KarimQaderi\Zoroaster\Fields\Extend\Field;
     use KarimQaderi\Zoroaster\Fields\Traits\Resource;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
@@ -145,7 +146,8 @@
         {
 
             if(!is_null($data) && !method_exists($data , $field->belongsToRelationship))
-                throw new \Exception('Relationship پیدا نشد' . ' به ' . $resourceRequest->resourceClass . ' رفته و  ' . ' BelongsTo ' . ' رو بررسی کنید ');
+                throw (new NotFoundRelationship())->setRelationship(request()->resourceClass);
+
         }
 
 

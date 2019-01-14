@@ -3,6 +3,9 @@
     namespace KarimQaderi\Zoroaster\Http\Controllers\Resource;
 
     use App\Http\Controllers\Controller;
+    use KarimQaderi\Zoroaster\Exceptions\NotFoundField;
+    use KarimQaderi\Zoroaster\Exceptions\NotFoundRelationship;
+    use KarimQaderi\Zoroaster\Exceptions\NotFoundsetField;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
     use KarimQaderi\Zoroaster\Traits\ResourceIndexQuery;
 
@@ -19,7 +22,7 @@
             $resources = $ResourceRequest->Resource()->newModel();
 
             $HasMany = \Zoroaster::getFieldResource(request()->viaRelationship , request()->viaRelationshipFieldName);
-            if(is_null($HasMany)) throw new Exception('Field پیدا نشد');
+            if(is_null($HasMany)) throw (new NotFoundField())->setField(request()->viaRelationshipFieldName);
 
             // relationshipType
             switch(request()->relationshipType){
@@ -30,7 +33,7 @@
                     $resources = $resources->where($HasMany->relationship_id , request()->viaResourceId)->limit(1)->get();
                     break;
                 default:
-                    throw new Exception('Relationship پیدا نشد');
+                    throw (new NotFoundRelationship())->setRelationship(request()->relationshipType);
                     break;
             }
 

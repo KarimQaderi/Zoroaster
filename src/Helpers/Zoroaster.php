@@ -5,6 +5,7 @@
     use App\Zoroaster\Other\Navbar;
     use App\Zoroaster\Other\Sidebar;
     use Illuminate\Support\Facades\File;
+    use Illuminate\Support\Facades\Route;
     use KarimQaderi\Zoroaster\ResourceFilters\DefaultFilters;
     use KarimQaderi\Zoroaster\Traits\Builder;
     use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
@@ -19,10 +20,21 @@
          */
         public static function getCurrentRouteResource(){
 
-            if(isset(\Illuminate\Support\Facades\Route::getCurrentRoute()->parameters()['resource']))
-                return \Illuminate\Support\Facades\Route::getCurrentRoute()->parameters()['resource'];
+            if(isset(Route::getCurrentRoute()->parameters()['resource']))
+                return Route::getCurrentRoute()->parameters()['resource'];
             else
                 return request()->resource;
+        }
+
+        /**
+         * @return mixed
+         */
+        public static function getParameterCurrentRoute($parameters){
+
+            if(isset(Route::getCurrentRoute()->parameters()[$parameters]))
+                return Route::getCurrentRoute()->parameters()[$parameters];
+            else
+                return request()->{$parameters};
         }
 
         /**
@@ -143,13 +155,13 @@
         public static function getFieldResource($Resource , $FindNameField)
         {
             if(is_string($Resource))
-                $Resource = SrcZoroaster::newResource($Resource);
+                $Resourcefind = SrcZoroaster::newResource($Resource);
 
-            if($Resource === null)
-                throw new Exception ('Resource پیدا نشد');
+            if($Resourcefind === null)
+                throw (new \KarimQaderi\Zoroaster\Exceptions\NotFoundResource())->setResource($Resource);
 
 
-            return self::ResourceFieldFind($FindNameField , $Resource->fields());
+            return self::ResourceFieldFind($FindNameField , $Resourcefind->fields());
         }
 
         /**

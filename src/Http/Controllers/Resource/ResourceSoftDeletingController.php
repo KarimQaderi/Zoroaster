@@ -16,7 +16,7 @@
                 /**
                  * نظر مورد رکورد کردن پیدا
                  */
-                $find = $request->find();
+                $find = $request->find($id);
 
                 /**
                  * رکورد حذف و دستررسی سطع بررسی
@@ -28,7 +28,7 @@
                  * ها Action دوباره گرفتن
                  */
                 $col = \Zoroaster::ResourceActions($request , $find ,
-                    $request->Resource()->newModel() , 'Index' , $request->ResourceFields(function($field){
+                    $find, 'Index' , $request->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)
                             return true;
                         else
@@ -37,7 +37,7 @@
                 );
 
                 $cols [] = [
-                    'id' => $find->{$request->Resource()->newModel()->getKeyName()} ,
+                    'id' => $id ,
                     'col' => $col ,
                     'status' => 'ok' ,
                 ];
