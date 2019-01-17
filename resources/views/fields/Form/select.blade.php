@@ -1,7 +1,7 @@
 <label>
     <span class="label">{{ $field->label }}</span>&nbsp;
     <span class="uk-text-warning uk-text-small-2">{{ Zoroaster::getMeta($field,'helpText') }}</span>
-    <select class="uk-select" name="{{ $field->name }}">
+    <select class="uk-select {{ $field->name.time() }}" name="{{ $field->name }}">
         @foreach(Zoroaster::getMeta($field,'options')  as $item)
             <option
                     @if (old($field->name)!==null)
@@ -13,3 +13,23 @@
         @endforeach
     </select>
 </label>
+
+<script>
+
+    var {{ $field->name.time() }}_hiden_element = @json(Zoroaster::getMeta($field,'activeEelementByClass') );
+    activeEelementByClass({{ $field->name.time() }}_hiden_element);
+
+    $select = $('.{{ $field->name.time() }}').find(':selected').val();
+    $('.' + activeEelementByClassFind({{ $field->name.time() }}_hiden_element,$select)).removeClass('hidden');
+
+    $(document).ready(function () {
+        $(document).on('change', '.{{ $field->name.time() }}', function () {
+            $select = $('.{{ $field->name.time() }}').find(':selected').val();
+            activeEelementByClass({{ $field->name.time() }}_hiden_element);
+
+            $('.' + activeEelementByClassFind({{ $field->name.time() }}_hiden_element,$select)).removeClass('hidden');
+
+        });
+    });
+
+</script>

@@ -4,8 +4,6 @@
     namespace KarimQaderi\Zoroaster\Traits;
 
 
-    use Mockery\Exception;
-
     trait  Builder
     {
 
@@ -31,6 +29,7 @@
                 if(isset($builder->data) && is_array($builder->data))
                     $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
 
+
                 if(is_string($builder))
                     $render = $builder;
 
@@ -41,21 +40,18 @@
                     $render = self::RenderViewForm($builder , $where , $viewForm , $resource , $ResourceRequest);
 
                 elseif($builder->component == 'view')
-                    $render = self::call($builder , 'Render' , $builder);
-
+                    $render = self::call($builder , 'render' , $builder , $resource , $ResourceRequest);
+//dd(method_exists($builder,'render'));
                 elseif($builder->component === 'relationship' && $builder->authorizedToIndex($builder))
                     $render = self::call($builder , $viewForm , $builder , $resource , $ResourceRequest);
 
                 elseif($builder->component === 'resource' && $builder->authorizedToIndex($builder->newModel()))
-                    $render = view('Zoroaster::resources.index-ajax')->with(['resource' => $builder ]);
+                    $render = view('Zoroaster::resources.index-ajax')->with(['resource' => $builder]);
 
                 elseif(is_object($builder) && class_basename($builder) === 'View')
-                    $render = $builder->render();
+                    $render = self::call($builder , 'Render');
 
-                elseif($builder->component == 'MenuItem')
-                    $render = $builder->Render($builder);
-
-                elseif($builder->component == 'Menu' && $builder->canSee)
+                elseif($builder->component == 'MenuItem' || $builder->component == 'Menu')
                     $render = self::call($builder , 'Render' , $builder);
 
                 elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric']) && $builder->canSee())
@@ -72,7 +68,11 @@
                     $render = self::call($builder , $viewForm , $builder , $builder->data , $ResourceRequest);
 
 
-                $renders .= $render;
+                try{
+                    $renders .= $render;
+                } catch(\Exception $exception){
+                    dd($viewForm);
+                }
 
             }
 

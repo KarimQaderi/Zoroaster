@@ -18,6 +18,13 @@
         public static $resources = [];
 
         /**
+         * resources همه
+         *
+         * @var array
+         */
+        public static $SidebarMenus = [];
+
+        /**
          * scripts همه
          *
          * @var array
@@ -42,24 +49,35 @@
             static::$resources = array_merge(static::$resources , $resources);
         }
 
+
+        /**
+         * Register the given SidebarMenus.
+         *
+         * @param  array
+         */
+        public static function SidebarMenus(array $SidebarMenus)
+        {
+            static::$SidebarMenus = array_merge(static::$SidebarMenus , $SidebarMenus);
+        }
+
         /**
          * Register the given styles.
          *
-         * @param  array $styles
+         * @param  array | string $styles
          */
-        public static function styles(array $styles)
+        public static function styles($styles)
         {
-            static::$styles = array_merge(static::$styles , $styles);
+            static::$styles = array_merge(static::$styles , is_array($styles)? $styles : [$styles]);
         }
 
         /**
          * Register the given scripts.
          *
-         * @param  array $scripts
+         * @param  array | string $scripts
          */
-        public static function scripts(array $scripts)
+        public static function scripts($scripts)
         {
-            static::$scripts = array_merge(static::$scripts , $scripts);
+            static::$scripts = array_merge(static::$scripts , is_array($scripts) ? $scripts : [$scripts]);
         }
 
 

@@ -1,7 +1,7 @@
 <label>
     <span class="label">{{ $field->label }}</span>&nbsp;
     <span class="uk-text-warning uk-text-small-2">{{ Zoroaster::getMeta($field,'helpText') }}</span>
-    <textarea name="{{ $field->name }}">{{ (old($field->name)===null)? $value ?? null : old($field->name) }}</textarea>
+    <textarea name="{{ $field->name }}">{{ old($field->name,$value) }}</textarea>
 </label>
 
 <script>

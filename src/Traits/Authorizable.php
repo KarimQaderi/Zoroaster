@@ -5,7 +5,6 @@
 
     use Illuminate\Auth\Access\AuthorizationException;
     use Illuminate\Support\Facades\Gate;
-    use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 
     trait Authorizable
     {

@@ -8,6 +8,8 @@
     use JsonSerializable;
     use KarimQaderi\Zoroaster\Fields\Traits\ResourceDefault;
     use KarimQaderi\Zoroaster\Fields\Traits\View;
+    use KarimQaderi\ZoroasterMenuBuilder\Http\Models\Menu;
+    use KarimQaderi\ZoroasterMenuBuilder\Http\Models\MenuItems;
 
     abstract class Field extends FieldElement implements JsonSerializable
     {
@@ -56,6 +58,9 @@
          * @var string
          */
         public $textAlign = 'right';
+
+        public $displayCallback;
+
 
 
         /**
@@ -106,6 +111,13 @@
         public function sortable($value = true)
         {
             $this->sortable = $value;
+
+            return $this;
+        }
+
+        public function displayUsing(callable $displayCallback)
+        {
+            $this->displayCallback = $displayCallback;
 
             return $this;
         }

@@ -29,7 +29,7 @@
          */
         public $title = 'title';
 
-        public $labels = 'دسته بندی ها';
+        public $singularLabel = 'دسته بندی ها';
         public $label = 'دسته بندی';
 
         /**

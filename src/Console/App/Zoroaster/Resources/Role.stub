@@ -28,7 +28,7 @@
          */
         public $title = 'title';
 
-        public $labels = 'نقش ها';
+        public $singularLabel = 'نقش ها';
         public $label = 'نقش';
 
         /**

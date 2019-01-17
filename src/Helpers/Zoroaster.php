@@ -7,6 +7,7 @@
     use Illuminate\Support\Facades\File;
     use Illuminate\Support\Facades\Route;
     use KarimQaderi\Zoroaster\ResourceFilters\DefaultFilters;
+    use KarimQaderi\Zoroaster\Sidebar\FieldMenu\Menu;
     use KarimQaderi\Zoroaster\Traits\Builder;
     use KarimQaderi\Zoroaster\Zoroaster as SrcZoroaster;
 
@@ -19,7 +20,8 @@
         /**
          * @return mixed
          */
-        public static function getParameterCurrentRoute($parameters){
+        public static function getParameterCurrentRoute($parameters)
+        {
 
             if(isset(Route::getCurrentRoute()->parameters()[$parameters]))
                 return Route::getCurrentRoute()->parameters()[$parameters];
@@ -38,8 +40,7 @@
             if($request->Resource()->filters() != null)
                 $filters = array_merge($filters , $request->Resource()->filters());
 
-            foreach($filters as $filter)
-            {
+            foreach($filters as $filter){
                 if($filter->canSee($request))
                     $Filters .= $filter->render($request)->render();
             }
@@ -56,8 +57,7 @@
         public static function ResourceActions($request , $data , $model , $view , $field = null)
         {
             $Actions = null;
-            foreach($request->Resource()->ResourceActions() as $Action)
-            {
+            foreach($request->Resource()->ResourceActions() as $Action){
                 if($Action->{'showFrom' . $view} == true && $Action->Authorization($request , $data))
                     $Actions .= $Action->render($request , $data , $model , $view , $field);
 
@@ -73,14 +73,15 @@
          */
         public static function Sidebar()
         {
-            return self::RenderViewForm(Sidebar::handle() ,
-                function($field)
-                {
+            return self::RenderViewForm(array_merge(Sidebar::handle() ,
+                [Menu::make(array_merge(Sidebar::Menu(),KarimQaderi\Zoroaster\Zoroaster::$SidebarMenus))]) ,
+                function($field){
                     if(isset($field->canSee) && $field->canSee == false) return false;
                     return true;
                 } ,
                 'viewDetail' , null , null);
         }
+
 
         /**
          * scripts گرفتن
@@ -108,8 +109,7 @@
         public static function Navbar($position = 'left')
         {
             return self::RenderViewForm(Navbar::$position() ,
-                function($field)
-                {
+                function($field){
                     return true;
                 } ,
                 'viewDetail' , null , null);
@@ -122,8 +122,7 @@
         public static function Widgets()
         {
             return self::RenderViewForm(Dashboard::handle() ,
-                function($field)
-                {
+                function($field){
                     return true;
                 } ,
                 'viewDetail' , null , null);
@@ -163,28 +162,19 @@
          */
         public static function getFieldResource($Resource , $FindNameField)
         {
-            if(is_string($Resource))
-                $Resourcefind = SrcZoroaster::newResource($Resource);
-
-            if($Resourcefind === null)
-                throw (new \KarimQaderi\Zoroaster\Exceptions\NotFoundResource())->setResource($Resource);
-
-
-            return self::ResourceFieldFind($FindNameField , $Resourcefind->fields());
+            return self::ResourceFieldFind($FindNameField , $Resource->fields());
         }
 
         /**
          * Resource در فیلد نام براساس فیلد کردن پیدا
          *
          */
-        private static function ResourceFieldFind($FindNameField , $fields)
+        public static function ResourceFieldFind($FindNameField , $fields)
         {
             $find = null;
 
-            foreach($fields as $field)
-            {
-                switch(true)
-                {
+            foreach($fields as $field){
+                switch(true){
                     case isset($field->data):
                         $find = self::ResourceFieldFind($FindNameField , $field->data);
                         break;
@@ -209,11 +199,9 @@
             $_find = null;
 
             if(is_null($data)) $data = Dashboard::handle();
-            foreach($data as $field)
-            {
+            foreach($data as $field){
 
-                switch(true)
-                {
+                switch(true){
                     case isset($field->data):
                         $_find = self::getDashboardMetricFind($find , $field->data);
                         break;
@@ -266,11 +254,9 @@
             if($options === null) return null;
             if($select === null) return null;
 
-            foreach($options as $option)
-            {
+            foreach($options as $option){
                 $option = (object)$option;
-                if($option->value == $select)
-                {
+                if($option->value == $select){
                     if(in_array($show , ['label' , 'value']))
                         return $option->$show;
                     break;
@@ -366,8 +352,7 @@
             $str = preg_replace(array_keys($options['replacements']) , $options['replacements'] , $str);
 
             // Transliterate characters to ASCII
-            if($options['transliterate'])
-            {
+            if($options['transliterate']){
                 $str = str_replace(array_keys($char_map) , $char_map , $str);
             }
 
@@ -389,10 +374,11 @@
 
         static function minifyHtml($html)
         {
+
             $search = [
                 '/\>[^\S ]+/s' ,     // strip whitespaces after tags, except space
                 '/[^\S ]+\</s' ,     // strip whitespaces before tags, except space
-                '/(\s)+/s' ,         // shorten multiple whitespace sequences
+//                '/(\s)+/s' ,         // shorten multiple whitespace sequences
                 '/<!--(.|\s)*?-->/' // Remove HTML comments
             ];
 
@@ -408,20 +394,13 @@
 
         static function sizeInBytesToReadable($size)
         {
-            if($size < 1024)
-            {
+            if($size < 1024){
                 $size = $size . " Bytes";
-            }
-            else if($size < 1048576 && $size > 1023)
-            {
+            } else if($size < 1048576 && $size > 1023){
                 $size = round($size / 1024 , 1) . " KB";
-            }
-            else if($size < 1073741824 && $size > 1048575)
-            {
+            } else if($size < 1073741824 && $size > 1048575){
                 $size = round($size / 1048576 , 1) . " MB";
-            }
-            else
-            {
+            } else{
                 $size = round($size / 1073741824 , 1) . " GB";
             }
             return $size;
@@ -433,11 +412,9 @@
             $tags = explode('/' , str_replace('//' , '/' , $upPath));            // explode the full path
             $mkDir = "";
 
-            foreach($tags as $folder)
-            {
+            foreach($tags as $folder){
                 $mkDir = $mkDir . $folder . "/";   // make one directory join one other for the nest directory to make
-                if(!File::exists($mkDir))
-                {             // check if directory exist or not
+                if(!File::exists($mkDir)){             // check if directory exist or not
                     File::makeDirectory($mkDir);
                 }
             }

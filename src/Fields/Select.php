@@ -20,5 +20,14 @@
             ]);
         }
 
+        public function activeEelementByClass($optionsKey_and_Class)
+        {
+            return $this->withMeta([
+                'activeEelementByClass' => collect($optionsKey_and_Class ?? [])->map(function ($class, $key) {
+                    return ['optionsKey' => $key, 'class' => $class];
+                })->values()->all(),
+            ]);
+        }
+
 
     }

@@ -29,9 +29,9 @@
 
         public function Render($item)
         {
-            return Zoroaster::viewRender(view('Zoroaster::sidebar.Menu')->with([
+            return view('Zoroaster::sidebar.Menu')->with([
                 'item' => $item
-            ]));
+            ]);
         }
 
     }

@@ -25,7 +25,7 @@
          */
         public $title = 'id';
 
-        public $labels = 'DummyClasss';
+        public $singularLabel = 'DummyClasss';
         public $label = 'DummyClass';
 
         /**

@@ -26,7 +26,7 @@ class PartitionResult implements JsonSerializable
     }
 
     /**
-     * Format the labels for the partition result.
+     * Format the singularLabel for the partition result.
      *
      * @param  \Closure  $callback
      * @return $this

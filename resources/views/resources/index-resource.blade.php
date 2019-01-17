@@ -1,6 +1,6 @@
 <div class="uk-card">
 
-    <h1 class="resourceName">{{ $resourceClass->labels }}</h1>
+    <h1 class="resourceName">{{ $resourceClass->singularLabel }}</h1>
     <div class="uk-child-width-1-2 resourceName_2" uk-grid>
         <div>
             <div class="uk-search search">

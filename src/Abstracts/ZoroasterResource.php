@@ -5,6 +5,7 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
+    use Illuminate\Http\Resources\DelegatesToResource;
     use Illuminate\Support\Str;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
@@ -17,7 +18,7 @@
 
     abstract class ZoroasterResource
     {
-        use Authorizable;
+        use Authorizable , DelegatesToResource;
 
 
         public $component = 'resource';
@@ -48,6 +49,7 @@
          */
         public $title = 'id';
 
+
         /**
          * جمع بصورت Resource نام
          *
@@ -55,7 +57,7 @@
          *
          * @var string
          */
-        public $labels = '';
+        public $label = '';
 
         /**
          * فرد بصورت Resource نام
@@ -64,7 +66,7 @@
          *
          * @var string
          */
-        public $label = '';
+        public $singularLabel = '';
 
         /**
          * سراسری جستجوی کردن فعال غیر یا فعال
@@ -82,7 +84,6 @@
 
         public function __construct()
         {
-
             $this->resource = new static::$model;
         }
 
@@ -126,7 +127,7 @@
         /**
          * index صغحه برای query اعمال
          *
-         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  \Illuminate\Database\Eloquent\Builder $query
          * @return \Illuminate\Database\Eloquent\Builder
          */
         public function indexQuery($query)

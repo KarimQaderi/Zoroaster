@@ -60,7 +60,7 @@
 
             $Role = Role::firstOrCreate(['name' => 'ادمین'] , ['guard_name' => 'web']);
 
-            foreach(\KarimQaderi\Zoroaster\Zoroaster::findAllResource() as $resource){
+            foreach(\KarimQaderi\Zoroaster\Zoroaster::$resources as $resource){
                 $resource_name = strtolower(class_basename($resource));
 
                 $resource = new $resource;

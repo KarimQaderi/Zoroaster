@@ -37,12 +37,14 @@
             $this->text = $text;
         }
 
+
+
         /**
          *  نمایش
          *
          * @return string
          */
-        public function render($builder)
+        public function render($builder, $field = null, $ResourceRequest = null)
         {
             return "<{$builder->element} class='{$builder->class}'>" . $builder->text . "</{$builder->element}>";
         }

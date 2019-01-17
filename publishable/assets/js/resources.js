@@ -466,3 +466,22 @@ $(document).ready(function () {
 
     });
 });
+
+
+
+function activeEelementByClass($activeEelementByClass) {
+
+    $.each($activeEelementByClass, function ($item, $items) {
+        $('.' + $items.class).addClass('hidden');
+    });
+}
+
+function activeEelementByClassFind($activeEelementByClass, $find) {
+
+    $found=null;
+    $.each($activeEelementByClass, function ($item, $items) {
+        if ($items.optionsKey == $find)
+            $found= $items.class;
+    });
+    return $found;
+}

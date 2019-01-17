@@ -31,6 +31,7 @@
         {
 
             if(!is_null($model = $this->find())){
+                $this->Resource()->resource = $model;
                 return $model;
             }
 
@@ -43,9 +44,13 @@
          */
         public function find($find = null)
         {
-            return $this->getModelAndWhereTrashed()
+            $find =$this->getModelAndWhereTrashed()
                 ->where([$this->Resource()->getModelKeyName() => $find ?? $this->getResourceId()])
                 ->first();
+
+            $this->Resource()->resource = $find;
+
+            return $find;
         }
 
 

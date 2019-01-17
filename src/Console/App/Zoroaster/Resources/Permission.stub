@@ -27,7 +27,7 @@
          */
         public $title = 'name';
 
-        public $labels = 'مجوز ها';
+        public $singularLabel = 'مجوز ها';
         public $label = 'مجوز';
 
         /**

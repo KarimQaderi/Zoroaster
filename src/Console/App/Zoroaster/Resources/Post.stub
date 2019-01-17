@@ -35,7 +35,7 @@
          */
         public $title = 'title';
 
-        public $labels = 'پست ها';
+        public $singularLabel = 'پست ها';
         public $label = 'پست';
 
         /**

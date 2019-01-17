@@ -30,7 +30,7 @@
          */
         public $title = 'name';
 
-        public $labels = 'کاربران';
+        public $singularLabel = 'کاربران';
         public $label = 'کاربر';
 
         /**

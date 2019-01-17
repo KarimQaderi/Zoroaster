@@ -4,7 +4,6 @@
 
 
     use KarimQaderi\Zoroaster\Zoroaster;
-    use phpDocumentor\Reflection\Types\Boolean;
 
     class MenuItem
     {
@@ -19,9 +18,6 @@
         public $icon = null;
         public $canSee = null;
 
-        public function __construct(...$arguments)
-        {
-        }
 
         public static function make()
         {
@@ -37,20 +33,18 @@
         public function resource($urlkey , $label = null)
         {
             $this->TypeLink = 'resource';
-            $this->Link = route("Zoroaster.resource.index" , ['resource' => $urlkey]);
 
-            $newResource = Zoroaster::resourceFindByUriKey($urlkey);
+            $this->Link = $urlkey;
+
+            $this->canSee = Zoroaster::resourceFindByUriKey($urlkey);
 
             if($label == null)
-                if(!is_null($newResource))
-                    $this->Label = $newResource->labels;
+                if(!is_null($this->canSee))
+                    $this->Label = $this->canSee->label;
                 else
                     $this->Label = 'Resource پیدا نشد لطفا بررسی کنید';
             else
                 $this->Label = $label;
-
-            if(!is_null($newResource))
-                $this->canSee = $newResource->authorizedToIndex($newResource->newModel());
 
             return $this;
         }
@@ -74,21 +68,23 @@
         public function action($action , $label)
         {
             $this->TypeLink = 'action';
-            $this->Link = action($action);
+            $this->Link = $action;
             $this->Label = $label;
             return $this;
         }
 
         public function gate($gate_name)
         {
-            $this->canSee = auth()->user()->can($gate_name);
+            $this->canSee = function() use ($gate_name){
+                auth()->user()->can($gate_name);
+            };
             return $this;
 
         }
 
         public function canSee($canSee)
         {
-            $this->canSee = call_user_func($canSee);
+            $this->canSee = $canSee;
             return $this;
         }
 
@@ -99,11 +95,24 @@
         }
 
 
-        public function Render($item)
+        public function Render(MenuItem $item)
         {
-            return Zoroaster::viewRender(view('Zoroaster::sidebar.MenuItem')->with([
+            switch($item->TypeLink){
+                case 'resource';
+                    if(!$item->canSee->authorizedToIndex($item->canSee->newModel())) return null;
+                    $item->Link = route("Zoroaster.resource.index" , ['resource' => $item->Link]);
+                    break;
+                case 'action';
+                    $item->Link = action($item->Link);
+                    break;
+
+            }
+
+            if(is_callable($item->canSee) && call_user_func($item->canSee)) return null;
+
+            return view('Zoroaster::sidebar.MenuItem')->with([
                 'item' => $item
-            ]));
+            ]);
         }
 
 

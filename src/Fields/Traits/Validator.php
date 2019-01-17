@@ -19,7 +19,7 @@
         private function getValidatorField($requestField)
         {
             $fieldName = $requestField->field->name;
-            $field = \Zoroaster::getFieldResource(class_basename($requestField->resource) , $fieldName);
+            $field = \Zoroaster::ResourceFieldFind( $fieldName, $requestField->fieldAll);
             $validator = MainValidator::make(
                 $requestField->MergeResourceFieldsAndRequest->request ,
                 [

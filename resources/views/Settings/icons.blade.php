@@ -225,6 +225,7 @@
                     <li><span class="uk-margin-small-right" uk-icon="toggle-left"></span> toggle-left</li>
                     <li><span class="uk-margin-small-right" uk-icon="toggle-right"></span> toggle-right</li>
                     <li><span class="uk-margin-small-right" uk-icon="trash-2"></span> trash-2</li>
+                    <li><span class="uk-margin-small-right" uk-icon="delete"></span> delete</li>
                     <li><span class="uk-margin-small-right" uk-icon="umbrella"></span> umbrella</li>
                     <li><span class="uk-margin-small-right" uk-icon="undo"></span> undo</li>
                     <li><span class="uk-margin-small-right" uk-icon="video-off"></span> video-off</li>

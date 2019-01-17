@@ -1541,7 +1541,7 @@ h1.resourceName {
     display: inline-block;
 }
 
-.uk-grid.row .uk-grid.row:after {
+.uk-grid.row .uk-grid.row:after,.uk-grid.row.RowOneCol:after {
     border-bottom: 1px solid rgb(230, 230, 230);
     content: '';
     width: 100%;
@@ -2006,6 +2006,7 @@ tr.Restore-resourceid td {
 
 .uk-nav-divider {
     border-color: rgba(229, 229, 229, 0.46);
+    /* border-top: 1px solid #e5e5e5; */
 }
 
 .load .one {
@@ -2549,4 +2550,20 @@ ul#side-menu a:hover, ul#side-menu a {
 
 html {
     background-color: #eef1f4;
+}
+
+
+
+.BuilderFields .uk-nav-divider {
+    border-bottom: 2px solid #4099de;
+    display: block;
+    margin: 20px 0px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+code>span {
+    display: inline-block;
 }
