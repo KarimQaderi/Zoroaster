@@ -1,6 +1,6 @@
 <div class="uk-card">
 
-    <h1 class="resourceName">{{ $resourceClass->singularLabel }}</h1>
+    <h1 class="resourceName">{{ $resourceClass->label }}</h1>
     <div class="uk-child-width-1-2 resourceName_2" uk-grid>
         <div>
             <div class="uk-search search">
@@ -10,7 +10,7 @@
         </div>
         <div class="uk-text-left">
             <a href="{{ route('Zoroaster.resource.create',['resoure'=> $ResourceRequest->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
-                کردن {{ $resourceClass->label }}</a>
+                کردن {{ $resourceClass->singularLabel }}</a>
         </div>
     </div>
     <div class="card-w">

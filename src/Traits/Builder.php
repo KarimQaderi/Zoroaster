@@ -7,6 +7,10 @@
     trait  Builder
     {
 
+        public static function RenderForm($fields , $resource = null , $where = null)
+        {
+            return static::RenderViewForm($fields , $where , 'viewForm' , $resource , null);
+        }
 
         /**
          * @param          $builders
@@ -15,7 +19,7 @@
          * @param          $resource
          * @return null|string
          */
-        public static function RenderViewForm($builders , callable $where , $viewForm , $resource , $ResourceRequest = null)
+        public static function RenderViewForm($builders , $where , $viewForm , $resource , $ResourceRequest = null)
         {
             $renders = null;
 
@@ -24,7 +28,7 @@
 
                 $render = null;
 
-                if(call_user_func($where , $builder) === false) continue;
+                if(!is_null($where) && call_user_func($where , $builder) === false) continue;
 
                 if(isset($builder->data) && is_array($builder->data))
                     $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);
@@ -78,6 +82,7 @@
 
             return \Zoroaster::minifyHtml($renders);
         }
+
 
         /**
          * @param       $class

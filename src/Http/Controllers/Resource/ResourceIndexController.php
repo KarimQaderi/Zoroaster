@@ -34,7 +34,7 @@
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Resource()->newModel() ,
-                'resources' =>  $resources,
+                'resources' => $resources ,
                 'fields' =>
                     $ResourceRequest->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)

@@ -31,18 +31,19 @@
 
         /**
          * index صفحه برای فیلترها گرفتن
-         *
+         * @param \KarimQaderi\Zoroaster\Traits\ResourceRequest $ResourceRequest
+         * @return string|null
          */
-        public static function Filters($request)
+        public static function Filters($ResourceRequest)
         {
             $Filters = null;
             $filters = array_reverse((new DefaultFilters())->hendle());
-            if($request->Resource()->filters() != null)
-                $filters = array_merge($filters , $request->Resource()->filters());
+            if($ResourceRequest->Resource()->filters() != null)
+                $filters = array_merge($filters , $ResourceRequest->Resource()->filters());
 
             foreach($filters as $filter){
-                if($filter->canSee($request))
-                    $Filters .= $filter->render($request)->render();
+                if($filter->canSee($ResourceRequest))
+                    $Filters .= $filter->render($ResourceRequest);
             }
 
             return $Filters;
@@ -74,7 +75,7 @@
         public static function Sidebar()
         {
             return self::RenderViewForm(array_merge(Sidebar::handle() ,
-                [Menu::make(array_merge(Sidebar::Menu(),KarimQaderi\Zoroaster\Zoroaster::$SidebarMenus))]) ,
+                [Menu::make(array_merge(Sidebar::Menu() , KarimQaderi\Zoroaster\Zoroaster::$SidebarMenus))]) ,
                 function($field){
                     if(isset($field->canSee) && $field->canSee == false) return false;
                     return true;

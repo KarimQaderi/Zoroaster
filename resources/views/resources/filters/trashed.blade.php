@@ -1,17 +1,17 @@
-<div>
+<div class="{{ $getKey }}">
     <label>زباله</label>
     <div class="body">
         <select class="uk-select" name="FilterTrashed">
             @foreach($FilterTrashed as $key=>$value)
-                <option @if(request()->{$ResourceRequest->resourceClass.'_FilterTrashed'} == $key) selected @endif value="{{ $key }}">{{ $value }}</option>
+                <option @if(request()->{$getKey} == $key) selected @endif value="{{ $key }}">{{ $value }}</option>
             @endforeach
         </select>
     </div>
 </div>
 <script>
     $(document).ready(function () {
-        $('[data-resource="{{ $ResourceRequest->resourceClass }}"] [name="FilterTrashed"]').change(function () {
-            var param = setParameters([{name: '{{ $ResourceRequest->resourceClass }}_FilterTrashed', value: $('[data-resource="{{ $ResourceRequest->resourceClass }}"] [name="FilterTrashed"]')
+        $('.{{ $getKey }} [name="FilterTrashed"]').change(function () {
+            var param = setParameters([{name: '{{ $getKey}}', value: $('.{{ $getKey }} [name="FilterTrashed"]')
                     .find(':selected').val()}]);
 
             $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');

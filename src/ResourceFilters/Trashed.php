@@ -5,9 +5,12 @@
 
     use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
+    use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\Filter;
 
-    class Trashed extends FiltersAbastrect
+    class Trashed extends Filter
     {
+
+        private $ResourceRequest;
 
         /**
          * @param $ResourceRequest
@@ -15,11 +18,25 @@
          */
         public function render($ResourceRequest)
         {
+            $this->ResourceRequest = $ResourceRequest;
+
             return view('Zoroaster::resources.filters.trashed')
-                ->with([
-                    'FilterTrashed' => ['' => '—' , 'all' => 'همه' , 'only' => 'فقط زباله'] ,
-                    'ResourceRequest' => $ResourceRequest ,
-                ]);
+                ->with($this->options());
+        }
+
+        /**
+         * Get the filter's available options.
+         *
+         * @param  \Illuminate\Http\Request $request
+         * @return array
+         */
+        public function options()
+        {
+            return [
+                'FilterTrashed' => ['' => '—' , 'all' => 'همه' , 'only' => 'فقط زباله'] ,
+                'ResourceRequest' => $this->ResourceRequest ,
+                'getKey' => $this->getKey() ,
+            ];
         }
 
         /**
@@ -30,8 +47,8 @@
         public function apply($resource , $ResourceRequest)
         {
 
-            if($this->requestHas('FilterTrashed'))
-                switch($this->request('FilterTrashed')){
+            if($this->requestHas())
+                switch($this->request()){
                     case '':
                         break;
                     case 'all':
@@ -56,4 +73,6 @@
             else
                 return false;
         }
+
+
     }

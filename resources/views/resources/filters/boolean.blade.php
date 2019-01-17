@@ -1,21 +1,21 @@
 <div class="{{ $getKey }}">
-    <label>تعداد در هر صفحه</label>
+    <label>{{ $name }}</label>
     <div class="body">
-        <select class="uk-select" name="perPage">
-            @foreach($perPages as $perPage)
-                <option @if(request()->{$getKey} == $perPage) selected @endif value="{{ $perPage }}">{{ $perPage }}</option>
-            @endforeach
-        </select>
+        {!! $boolean !!}
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
-        $('.{{ $getKey }} [name="perPage"]').change(function () {
-            var param = setParameters([{name: '{{ $getKey }}', value: $('.{{ $getKey }} [name="perPage"]')
-                    .find(':selected').val()}]);
-            $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');
+        $('.{{ $getKey }} [type="checkbox"]').click( function () {
+            var param = [];
+            @foreach($keys as $key)
+            param.push({name: '{{ $key }}', value: $('[name="{{ $key }}"]').is(':checked')});
+            @endforeach
 
+                    console.log(param);
+            setParameters(param);
+
+            $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');
 
             param.push({name: 'resource', value: '{{ $ResourceRequest->resourceClass }}'});
 

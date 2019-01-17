@@ -5,11 +5,13 @@
 
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
+    use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\Filter;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
-    class PerPage extends FiltersAbastrect
+    class PerPage extends Filter
     {
 
+        private $ResourceRequest;
 
         /**
          * @param ResourceRequest $ResourceRequest
@@ -17,11 +19,26 @@
          */
         public function render($ResourceRequest)
         {
+            $this->ResourceRequest = $ResourceRequest;
+
             return view('Zoroaster::resources.filters.perPage')
-                ->with([
-                    'perPages' => ['25' , '50' , '100' , '300' , '500' , '1000'] ,
-                    'ResourceRequest' => $ResourceRequest ,
-                ]);
+                ->with($this->options());
+        }
+
+        /**
+         * Get the filter's available options.
+         *
+         * @param  \Illuminate\Http\Request $request
+         * @return array
+         */
+        public function options()
+        {
+            return [
+                'perPages' => ['25' , '50' , '100' , '300' , '500' , '1000'] ,
+                'ResourceRequest' => $this->ResourceRequest ,
+                'getKey' => $this->getKey() ,
+            ];
+
         }
 
         /**
@@ -31,7 +48,7 @@
          */
         public function apply($resource , $ResourceRequest)
         {
-            return $resource->paginate(((int)$this->Request('perPage') ?? 25) , ['*'] , $this->resourceClassRequest . '_Page');
+            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $this->resourceClassRequest . '_Page');
         }
 
         /**
