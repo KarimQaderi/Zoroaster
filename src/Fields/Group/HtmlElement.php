@@ -49,5 +49,13 @@
             return "<{$builder->element} class='{$builder->class}'>" . $builder->text . "</{$builder->element}>";
         }
 
-
+        /**
+         * عنصر ایجاد
+         *
+         * @return static
+         */
+        public static function make(...$arguments)
+        {
+            return new static(...$arguments);
+        }
     }

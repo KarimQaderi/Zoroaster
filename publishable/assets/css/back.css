@@ -1207,7 +1207,7 @@ a#sidebar_toggle:hover {
     /* width: 200px; */
 }
 
-.BuilderFields label {
+.BuilderFields .panel  label {
     margin-top: 15px;
     display: block;
 }

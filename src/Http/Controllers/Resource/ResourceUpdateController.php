@@ -64,6 +64,7 @@
                 $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
 
                 $ResourceUpdate = (object)$field->ResourceUpdate($RequestField);
+
                 if(isset($ResourceUpdate->error) && $ResourceUpdate->error !== null){
 
                     if(is_array($ResourceUpdate->error))

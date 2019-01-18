@@ -12,7 +12,6 @@
             param.push({name: '{{ $key }}', value: $('[name="{{ $key }}"]').is(':checked')});
             @endforeach
 
-                    console.log(param);
             setParameters(param);
 
             $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');

@@ -17,6 +17,6 @@
 
         public function Render($item)
         {
-            return Zoroaster::viewRender(view('Zoroaster::sidebar.SidebarHeader'));
+            return view('Zoroaster::sidebar.SidebarHeader');
         }
     }

@@ -22,7 +22,6 @@
          */
         public static function getParameterCurrentRoute($parameters)
         {
-
             if(isset(Route::getCurrentRoute()->parameters()[$parameters]))
                 return Route::getCurrentRoute()->parameters()[$parameters];
             else
@@ -42,7 +41,7 @@
                 $filters = array_merge($filters , $ResourceRequest->Resource()->filters());
 
             foreach($filters as $filter){
-                if($filter->canSee($ResourceRequest))
+                if($filter->authorizedToSee($ResourceRequest))
                     $Filters .= $filter->render($ResourceRequest);
             }
 
@@ -148,14 +147,6 @@
             return SrcZoroaster::newModel($model);
         }
 
-        /**
-         * جدید Resource
-         *
-         */
-        public static function newResourceByResourceName($ResourceName)
-        {
-            return SrcZoroaster::newResource($ResourceName);
-        }
 
         /**
          * Resource در فیلد نام براساس فیلد کردن پیدا
@@ -163,7 +154,7 @@
          */
         public static function getFieldResource($Resource , $FindNameField)
         {
-            return self::ResourceFieldFind($FindNameField , $Resource->fields());
+            return self::ResourceFieldFind($FindNameField , \KarimQaderi\Zoroaster\Zoroaster::resourceFindByUriKey($Resource)->fields());
         }
 
         /**
@@ -220,25 +211,6 @@
 
         }
 
-
-        /**
-         * Model نام از استفاده با Resource namespace گرفتن
-         *
-         */
-        public static function getFullNameResourceByModelName($modelName)
-        {
-            return config('Zoroaster.Resources') . self::getNameResourceByModelName($modelName);
-        }
-
-
-        /**
-         * Model نام از استفاده با Resource نام گرفتن
-         *
-         */
-        public static function getNameResourceByModelName($modelName)
-        {
-            return class_basename($modelName);
-        }
 
         static function getMeta($meta , $meta_name)
         {

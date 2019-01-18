@@ -5,7 +5,6 @@
 
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Query\Builder;
-    use phpDocumentor\Reflection\Types\Null_;
 
     class Zoroaster
     {
@@ -158,11 +157,16 @@
 
         public static function hasNewResourceByModelName($model)
         {
-            return !empty($model) && class_exists(\Zoroaster::getFullNameResourceByModelName($model)) ? true : false;
+            foreach(static::$resources as $resource){
+                if(class_basename(($new = new $resource)->getModel()) == $model)
+                    return true;
+            }
+
+            return false;
         }
 
         /**
-         * @return \KarimQaderi\Zoroaster\Resource
+         * @return Abstracts\ZoroasterResource|Resource
          */
         public static function newResourceByModelName($modelName)
         {
@@ -175,11 +179,6 @@
         public static function newModel($model)
         {
             return class_exists($model) ? new $model : null;
-        }
-
-        public static function viewRender($view)
-        {
-            return $view->render();
         }
 
 

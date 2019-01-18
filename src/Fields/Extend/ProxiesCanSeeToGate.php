@@ -2,27 +2,62 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Extend;
 
-    use Illuminate\Support\Arr;
+    use Illuminate\Support\Facades\Auth;
 
     trait ProxiesCanSeeToGate
     {
         /**
-         * Indicate that the entity can be seen when a given authorization ability is available.
+         * The callback used to authorize viewing.
          *
-         * @param  string $ability
-         * @param  array|mixed $arguments
+         * @var \Closure|null
+         */
+        public $seeCallback;
+
+        public function authorizedToSee()
+        {
+            if(is_callable($this->seeCallback))
+                if(call_user_func($this->seeCallback))
+                    return true;
+                else
+                    return false;
+
+            return true;
+        }
+
+        /**
+         * Set the callback to be run to authorize viewing .
+         *
+         * @param  \Closure $callback
          * @return $this
          */
-        public function canSeeWhen($ability , $arguments = [])
+        public function canSee($callback)
         {
-            $arguments = Arr::wrap($arguments);
+            $this->seeCallback = $callback;
 
-            if(isset($arguments[0]) && $arguments[0]){
-                $arguments[0] = $arguments[0]->resource;
-            }
+            return $this;
+        }
 
-            return $this->canSee(function($request) use ($ability , $arguments){
-                return $request->user()->can($ability , $arguments);
-            });
+        /**
+         * Set the callback to be run to authorize viewing
+         *
+         * @param  bool $bool
+         * @return $this
+         */
+        public function canSeeByBool($bool)
+        {
+            $this->seeCallback = function() use ($bool){
+                return $bool;
+            };
+
+            return $this;
+        }
+
+        public function gate($ability , $arguments = [])
+        {
+            $this->seeCallback = function() use ($ability , $arguments){
+                return Auth::user()->can($ability , $arguments);
+            };
+
+            return $this;
         }
     }

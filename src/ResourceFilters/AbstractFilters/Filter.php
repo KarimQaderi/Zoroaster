@@ -3,6 +3,8 @@
     namespace KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters;
 
     use Closure;
+    use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Model;
     use JsonSerializable;
     use Illuminate\Http\Request;
     use Illuminate\Container\Container;
@@ -29,13 +31,6 @@
          */
         public $component = 'select-filter';
 
-        /**
-         * The callback used to authorize viewing the filter.
-         *
-         * @var \Closure|null
-         */
-        public $seeCallback;
-
 
         public $resourceClassRequest = null;
 
@@ -53,11 +48,11 @@
         /**
          * Apply the filter to the given query.
          *
-         * @param  \Illuminate\Database\Eloquent\Builder $query
-         * @param  mixed $value
-         * @return \Illuminate\Database\Eloquent\Builder
+         * @param Model & Builder $resource
+         * @param ResourceRequest $ResourceRequest
+         * @return Model
          */
-        abstract public function apply($query , $value);
+        abstract public function apply($resource , $ResourceRequest);
 
         /**
          * Get the filter's available options.
@@ -67,29 +62,6 @@
          */
         abstract public function options();
 
-        /**
-         * Determine if the filter should be available for the given request.
-         *
-         * @param  \Illuminate\Http\Request $request
-         * @return bool
-         */
-        public function authorizedToSee(Request $request)
-        {
-            return $this->seeCallback ? call_user_func($this->seeCallback , $request) : true;
-        }
-
-        /**
-         * Set the callback to be run to authorize viewing the filter.
-         *
-         * @param  \Closure $callback
-         * @return $this
-         */
-        public function canSee($callback)
-        {
-            $this->seeCallback = $callback;
-
-            return $this;
-        }
 
         /**
          * Get the displayable name of the filter.
@@ -99,16 +71,6 @@
         public function name()
         {
             return $this->name ?? class_basename($this);
-        }
-
-        /**
-         * Set the default options for the filter.
-         *
-         * @return array
-         */
-        public function default()
-        {
-            return [];
         }
 
 
@@ -127,7 +89,12 @@
          */
         public function request($key = null)
         {
-            return request()->{$this->getKey($key)};
+            $request = request()->{$this->getKey($key)};
+
+            if($request == 'true' || $request == 'on') return true;
+            if($request == 'false' || $request == 'off') return false;
+
+            return $request;
         }
 
 

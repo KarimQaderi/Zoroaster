@@ -29,6 +29,8 @@
 
             $resource = $request->Resource()->newModel()->create($this->CustomResourceController($request , $request->Resource()->newModel() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
 
+            $request->Resource()->resource = $resource;
+
             $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'ResourceStore');
 
             if(request()->redirect != null)
@@ -64,6 +66,8 @@
 
 
                 $beforeResourceData = (object)$field->$method($RequestField);
+
+
                 if(isset($beforeResourceData->error) && $beforeResourceData->error !== null){
 
                     if(is_array($beforeResourceData->error))
@@ -76,9 +80,9 @@
 
             }
 
-            if(count($ResourceError) !== 0)
+            if(count($ResourceError) !== 0){
                 $this->SendErrors($ResourceError);
-            else
+            } else
                 return $ResourceData;
         }
 

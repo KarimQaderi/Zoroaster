@@ -22,7 +22,7 @@
 
         public function Render($item)
         {
-            return Zoroaster::viewRender(view('Zoroaster::sidebar.Divider'));
+            return view('Zoroaster::sidebar.Divider');
         }
 
     }
