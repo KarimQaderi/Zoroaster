@@ -32,15 +32,18 @@
          */
         public $data;
 
+        public $class;
+
         /**
          * ایجاد
          *
          * @param  array $fields
          * @return void
          */
-        public function __construct($fields = [])
+        public function __construct($fields = [] , $class = null)
         {
             parent::__construct($this->prepareFields($fields));
+            $this->class = $class;
         }
 
         /**
@@ -64,7 +67,7 @@
         public function jsonSerialize()
         {
             return [
-                'component' => $this->component  ,
+                'component' => $this->component ,
             ];
         }
 

@@ -13,7 +13,7 @@
          */
         public $seeCallback;
 
-        public function authorizedToSee()
+        public function authorizedToSee($ResourceRequest)
         {
             if(is_callable($this->seeCallback))
                 if(call_user_func($this->seeCallback))

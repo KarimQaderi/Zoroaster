@@ -1,5 +1,5 @@
 @empty(!$data)
-    <div class="uk-grid row">
+    <div class="uk-grid row ">
         {!! $data !!}
     </div>
 @endempty

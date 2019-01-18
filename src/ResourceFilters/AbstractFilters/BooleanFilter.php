@@ -2,15 +2,12 @@
 
     namespace KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters;
 
-    use Illuminate\Http\Request;
-    use Illuminate\Container\Container;
     use KarimQaderi\Zoroaster\Fields\Boolean;
-    use KarimQaderi\Zoroaster\Traits\Builder;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
     abstract class BooleanFilter extends Filter
     {
-        use Builder;
+
         /**
          * The filter's component.
          *
@@ -36,7 +33,7 @@
                 ->with([
                     'getKey' => $this->getKey() ,
                     'keys' => $keys ,
-                    'name' => $this->name() ,
+                    'label' => $this->label() ,
                     'ResourceRequest' => $ResourceRequest ,
                     'boolean' => static::RenderForm([
                         $this->bool()

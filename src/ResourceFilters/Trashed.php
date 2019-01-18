@@ -10,19 +10,7 @@
     class Trashed extends Filter
     {
 
-        private $ResourceRequest;
-
-        /**
-         * @param $ResourceRequest
-         * @return \Illuminate\View\View
-         */
-        public function render($ResourceRequest)
-        {
-            $this->ResourceRequest = $ResourceRequest;
-
-            return view('Zoroaster::resources.filters.trashed')
-                ->with($this->options());
-        }
+        public $label = "زباله";
 
         /**
          * Get the filter's available options.
@@ -32,11 +20,7 @@
          */
         public function options()
         {
-            return [
-                'FilterTrashed' => ['' => '—' , 'all' => 'همه' , 'only' => 'فقط زباله'] ,
-                'ResourceRequest' => $this->ResourceRequest ,
-                'getKey' => $this->getKey() ,
-            ];
+            return ['' => '—' , 'all' => 'همه' , 'only' => 'فقط زباله'];
         }
 
         /**
@@ -62,11 +46,7 @@
             return $resource;
         }
 
-        /**
-         * @param $ResourceRequest ResourceRequest
-         * @return bool
-         */
-        public function canSee($ResourceRequest)
+        public function authorizedToSee($ResourceRequest)
         {
             if(method_exists($ResourceRequest->Resource()->newModel() , 'isForceDeleting'))
                 return true;

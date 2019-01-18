@@ -1,18 +1,14 @@
-<div class="{{ $getKey }}">
-    <label>تعداد در هر صفحه</label>
+<div class="{{ $getKey }} filter_render">
+    <label>{{ $label }}</label>
     <div class="body">
-        <select class="uk-select" name="perPage">
-            @foreach($perPages as $perPage)
-                <option @if(request()->{$getKey} == $perPage) selected @endif value="{{ $perPage }}">{{ $perPage }}</option>
-            @endforeach
-        </select>
+        {!! $render !!}
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $('.{{ $getKey }} [name="perPage"]').change(function () {
-            var param = setParameters([{name: '{{ $getKey }}', value: $('.{{ $getKey }} [name="perPage"]')
+        $('.{{ $getKey }} select').change(function () {
+            var param = setParameters([{name: '{{ $getKey }}', value: $('.{{ $getKey }} select')
                     .find(':selected').val()}]);
             $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');
 

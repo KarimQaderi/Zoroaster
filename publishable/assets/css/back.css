@@ -1569,7 +1569,7 @@ h1.resourceName {
 }
 
 .filter-selector ~ div {
-    width: 280px;
+    width: 300px;
     padding: 0;
     text-align: right;
     -webkit-box-shadow: 0 2px 12px 0 rgba(59, 59, 59, 0.28);
@@ -1581,6 +1581,7 @@ h1.resourceName {
     display: block;
     padding: 8px;
     font-size: .875rem;
+    /* cursor: pointer; */
 }
 
 label {
@@ -2566,4 +2567,36 @@ html {
 
 code>span {
     display: inline-block;
+}
+
+.filter_render .body label {
+    background-color: #b7a5a500 !important;
+    padding: 0 !important;
+}
+
+.filter_render .body select {
+    font-family: tahoma !important;
+}
+
+select.uk-select {
+    background-size: 30px 6px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="%2335393C" fill-rule="nonzero" d="M8.293.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 1.707.293L5 3.586 8.293.293z"/></svg>') !important;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.filter-selector ~ div .body label {
+    cursor: pointer;
+}
+
+.filter_render .uk-grid.row.RowOneCol:after {
+    display: none;
+}
+
+.filter_render .uk-grid.row.RowOneCol {
+    margin: 0;
+}
+
+.filter_render .uk-grid.row.RowOneCol > * {
+    padding: 0 2px !important;
 }

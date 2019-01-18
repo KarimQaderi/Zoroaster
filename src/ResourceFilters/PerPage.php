@@ -11,19 +11,7 @@
     class PerPage extends Filter
     {
 
-        private $ResourceRequest;
-
-        /**
-         * @param ResourceRequest $ResourceRequest
-         * @return \Illuminate\View\View
-         */
-        public function render($ResourceRequest)
-        {
-            $this->ResourceRequest = $ResourceRequest;
-
-            return view('Zoroaster::resources.filters.perPage')
-                ->with($this->options());
-        }
+        public $label = "تعداد در هر صفحه";
 
         /**
          * Get the filter's available options.
@@ -34,9 +22,12 @@
         public function options()
         {
             return [
-                'perPages' => ['25' , '50' , '100' , '300' , '500' , '1000'] ,
-                'ResourceRequest' => $this->ResourceRequest ,
-                'getKey' => $this->getKey() ,
+                '25' => '25' ,
+                '50' => '50' ,
+                '100' => '100' ,
+                '300' => '300' ,
+                '500' => '500' ,
+                '1000' => '1000'
             ];
 
         }
@@ -48,15 +39,6 @@
          */
         public function apply($resource , $ResourceRequest)
         {
-            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $this->resourceClassRequest . '_Page');
-        }
-
-        /**
-         * @param $ResourceRequest ResourceRequest
-         * @return bool
-         */
-        public function canSee($ResourceRequest)
-        {
-            return true;
+            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $this->getKey('Page'));
         }
     }

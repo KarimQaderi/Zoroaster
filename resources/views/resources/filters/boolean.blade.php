@@ -1,5 +1,5 @@
 <div class="{{ $getKey }}">
-    <label>{{ $name }}</label>
+    <label>{{ $label }}</label>
     <div class="body">
         {!! $boolean !!}
     </div>

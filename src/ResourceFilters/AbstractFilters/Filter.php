@@ -2,19 +2,16 @@
 
     namespace KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters;
 
-    use Closure;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
-    use JsonSerializable;
-    use Illuminate\Http\Request;
-    use Illuminate\Container\Container;
     use KarimQaderi\Zoroaster\Fields\Extend\ProxiesCanSeeToGate;
+    use KarimQaderi\Zoroaster\Fields\Select;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
 
     abstract class Filter
     {
-        use ProxiesCanSeeToGate;
+        use ProxiesCanSeeToGate , \KarimQaderi\Zoroaster\Traits\Builder;
 
 
         /**
@@ -22,14 +19,7 @@
          *
          * @var string
          */
-        public $name;
-
-        /**
-         * The filter's component.
-         *
-         * @var string
-         */
-        public $component = 'select-filter';
+        public $label;
 
 
         public $resourceClassRequest = null;
@@ -38,12 +28,6 @@
         {
             $this->resourceClassRequest = \Zoroaster::getParameterCurrentRoute('resource');
         }
-
-        /**
-         * @param ResourceRequest $ResourceRequest
-         * @return \Illuminate\View\View | string
-         */
-        abstract public function render($ResourceRequest);
 
         /**
          * Apply the filter to the given query.
@@ -68,9 +52,9 @@
          *
          * @return string
          */
-        public function name()
+        public function label()
         {
-            return $this->name ?? class_basename($this);
+            return $this->label ?? class_basename($this);
         }
 
 
@@ -106,4 +90,39 @@
         {
             return $this->resourceClassRequest . '_' . class_basename($this) . ($name ? '_' . $name : null);
         }
+
+        /**
+         * @param $name
+         * @return mixed
+         */
+        public function getValue()
+        {
+            $values = [];
+            foreach(request()->all() as $key => $value){
+                if(starts_with($key , $this->getKey()))
+                    $values = array_merge($values , [$key => $value]);
+            }
+            return $values;
+        }
+
+
+        /**
+         * @param ResourceRequest $ResourceRequest
+         * @return \Illuminate\View\View | string
+         */
+        public function render($ResourceRequest)
+        {
+            $data = [$this->getKey() => request()->{$this->getKey()}];
+
+            return view('Zoroaster::resources.filters.render')
+                ->with([
+                    'getKey' => $this->getKey() ,
+                    'label' => $this->label() ,
+                    'ResourceRequest' => $ResourceRequest ,
+                    'render' => static::RenderForm([
+                        Select::make('' , $this->getKey())->options($this->options())
+                    ] , (object)$data)
+                ]);
+        }
+
     }
