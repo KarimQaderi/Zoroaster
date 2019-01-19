@@ -3,6 +3,7 @@
     namespace KarimQaderi\Zoroaster;
 
     use App\Zoroaster\Resources\Post;
+    use Carbon\Carbon;
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\ServiceProvider;
@@ -37,10 +38,12 @@
 
 
             $this->registerResources();
-
+            $this->registerCarbonMacros();
             $this->registerGates();
 
         }
+
+
 
         /**
          * Register any application services.
@@ -61,6 +64,17 @@
             ]);
         }
 
+
+        /**
+         * Register the Zoroaster Carbon macros.
+         *
+         * @return void
+         */
+        protected function registerCarbonMacros()
+        {
+            Carbon::macro('firstDayOfQuarter', new Macros\FirstDayOfQuarter);
+            Carbon::macro('firstDayOfPreviousQuarter', new Macros\FirstDayOfPreviousQuarter);
+        }
 
         /**
          * Register the package's publishable resources.

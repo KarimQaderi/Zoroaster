@@ -264,6 +264,7 @@ ul.uk-nav-sub {
     overflow: auto;
     background-color: rgb(64, 153, 222);
     right: 0;
+    background: linear-gradient(180deg, rgb(11, 111, 198) 0%, rgb(64, 153, 222) 100%);
 }
 
 #overlay {
@@ -1442,6 +1443,7 @@ a, .uk-link {
     -ms-flex-align: center;
     align-items: center;
     cursor: pointer;
+    margin-left: 5px;
 }
 
 .resourceName_3 {
@@ -1663,6 +1665,7 @@ ul.uk-nav-sub ul.uk-nav-sub {
     /* border-bottom: 5px solid rgba(248, 248, 248, 0.02); */
     /* box-shadow: 0 2px 9px black; */
     margin-bottom: 15px;
+    background: rgb(16, 115, 200);
 }
 
 .noCountResources {
@@ -2599,4 +2602,10 @@ select.uk-select {
 
 .filter_render .uk-grid.row.RowOneCol > * {
     padding: 0 2px !important;
+}
+
+ul#side-menu a span.uk-badge {
+    float: left;
+    padding: 4px  !important;
+    display: inline-block;
 }

@@ -39,6 +39,6 @@
          */
         public function apply($resource , $ResourceRequest)
         {
-            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $this->getKey('Page'));
+            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $ResourceRequest->resourceClass.'_Page');
         }
     }

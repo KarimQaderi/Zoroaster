@@ -1,5 +1,5 @@
 @empty(!$data)
-    <div class="uk-grid row RowOneCol {{ empty($field->class)?'uk-width-1-1' : $field->class }} panel">
+    <div class="row RowOneCol {{ isset($field->class)?'uk-grid  '.$field->class : ''}} panel">
             {!! $data !!}
     </div>
 @endempty

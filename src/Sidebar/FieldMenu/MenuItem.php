@@ -4,6 +4,7 @@
 
 
     use KarimQaderi\Zoroaster\Zoroaster;
+    use phpDocumentor\Reflection\Types\Integer;
 
     class MenuItem
     {
@@ -17,6 +18,7 @@
         public $data = null;
         public $icon = null;
         public $canSee = null;
+        public $badge = null;
 
 
         public static function make()
@@ -85,6 +87,16 @@
         public function canSee($canSee)
         {
             $this->canSee = $canSee;
+            return $this;
+        }
+
+        /**
+         * @param Integer $badge
+         * @return $this
+         */
+        public function badge($badge)
+        {
+            $this->badge = $badge;
             return $this;
         }
 

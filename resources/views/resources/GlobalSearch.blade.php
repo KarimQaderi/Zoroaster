@@ -1,4 +1,4 @@
-<label>{{ $newResource->singularLabel }}</label>
+<label>{{ $newResource->label }}</label>
 @forelse($data as $item)
     <a class="item" href="{{ route('Zoroaster.resource.show',['resource'=> class_basename($newResource),'resourceId'=> $item->{$model->getKeyName()}]) }}">{{ $item->{$newResource->title} }}</a>
 @empty

@@ -29,6 +29,7 @@
                 $render = null;
 
                 if(!is_null($where) && call_user_func($where , $builder) === false) continue;
+                if(method_exists($builders,'authorizedToSee') && self::call( $builder, 'authorizedToSee',$ResourceRequest) === false) continue;
 
                 if(isset($builder->data) && is_array($builder->data))
                     $builder->data = self::RenderViewForm($builder->data , $where , $viewForm , $resource , $ResourceRequest);

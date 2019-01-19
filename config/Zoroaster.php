@@ -66,6 +66,6 @@
         |--------------------------------------------------------------------------
         */
 
-        'assets_path' => '/vendor/Zoroaster/assets' ,
+        'assets_path' => '/Zoroaster/Zoroaster/assets' ,
 
     ];

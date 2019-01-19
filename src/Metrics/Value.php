@@ -126,9 +126,9 @@ abstract class Value extends RangedMetric
             ];
         }
 
-//        if ($range == 'QTD') {
-//            return $this->previousQuarterRange();
-//        }
+        if ($range == 'QTD') {
+            return $this->previousQuarterRange();
+        }
 
         if ($range == 'YTD') {
             return [
@@ -171,9 +171,9 @@ abstract class Value extends RangedMetric
             ];
         }
 
-//        if ($range == 'QTD') {
-//            return $this->currentQuarterRange();
-//        }
+        if ($range == 'QTD') {
+            return $this->currentQuarterRange();
+        }
 
         if ($range == 'YTD') {
             return [
