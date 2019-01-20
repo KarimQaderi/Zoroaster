@@ -54,7 +54,7 @@
         public function route($route , $label)
         {
             $this->TypeLink = 'route';
-            $this->Link = route($route);
+            $this->Link =$route;
             $this->Label = $label;
             return $this;
         }
@@ -116,6 +116,9 @@
                     break;
                 case 'action';
                     $item->Link = action($item->Link);
+                    break;
+                    case 'route';
+                    $item->Link =  route($item->Link);
                     break;
 
             }

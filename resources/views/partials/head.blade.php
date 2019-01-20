@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="{{ Zoroaster::asset('css/ZoroasterCss.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ Zoroaster::asset('css/back.css') }}"/>
 
+
 @foreach(Zoroaster::scripts() as $script)
     <script type="application/javascript" src="{{ $script }}"></script>
 @endforeach
@@ -20,3 +21,8 @@
 @foreach(Zoroaster::styles() as $style)
     <link rel="stylesheet" type="text/css" href="{{ $style }}"/>
 @endforeach
+
+<script>
+    var Zoroaster_jsRoute = JSON.parse('@json(Zoroaster::jsRoute())');
+</script>
+

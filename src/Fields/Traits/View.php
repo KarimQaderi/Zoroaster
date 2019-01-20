@@ -76,7 +76,7 @@
         }
 
 
-        private function displayCallback($data , $resourceRequest , $field)
+        public function displayCallback($data , $resourceRequest , $field)
         {
             if(is_callable($field->displayCallback))
                 return call_user_func($field->displayCallback , $data , $resourceRequest , $field);

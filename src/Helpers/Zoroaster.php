@@ -46,6 +46,25 @@
             }
 
             return $Filters;
+        }
+
+        /**
+         * jsRoute
+         * @return array|null
+         */
+        public static function jsRoute()
+        {
+
+            $routes=[];
+            $as=SrcZoroaster::$jsRoute;
+            foreach(Route::getFacadeRoot()->getRoutes()->getRoutes() as $route){
+                if(isset($route->action['as']) && in_array($route->action['as'] , $as)){
+                    $as = array_diff($as , [$route->action['as']]);
+                    $routes[$route->action['as']] = url($route->uri);
+                }
+            }
+
+            return $routes;
 
         }
 
@@ -54,7 +73,8 @@
          * index صفحه برای Actions گرفتن
          *
          */
-        public static function ResourceActions($request , $data , $model , $view , $field = null)
+        public
+        static function ResourceActions($request , $data , $model , $view , $field = null)
         {
             $Actions = null;
             foreach($request->Resource()->ResourceActions() as $Action){
@@ -71,7 +91,8 @@
          * Sidebar گرفتن
          *
          */
-        public static function Sidebar()
+        public
+        static function Sidebar()
         {
             return self::RenderViewForm(array_merge(Sidebar::handle() ,
                 [Menu::make(array_merge(Sidebar::Menu() , KarimQaderi\Zoroaster\Zoroaster::$SidebarMenus))]) ,
@@ -87,7 +108,8 @@
          * scripts گرفتن
          *
          */
-        public static function scripts()
+        public
+        static function scripts()
         {
             return KarimQaderi\Zoroaster\Zoroaster::$scripts;
         }
@@ -96,7 +118,8 @@
          * styles گرفتن
          *
          */
-        public static function styles()
+        public
+        static function styles()
         {
             return KarimQaderi\Zoroaster\Zoroaster::$styles;
         }
@@ -106,7 +129,8 @@
          *
          * @return null|string
          */
-        public static function Navbar($position = 'left')
+        public
+        static function Navbar($position = 'left')
         {
             return self::RenderViewForm(Navbar::$position() ,
                 function($field){
@@ -119,7 +143,8 @@
          * داشبورد صفحه برای Widgets گرفتن
          *
          */
-        public static function Widgets()
+        public
+        static function Widgets()
         {
             return self::RenderViewForm(Dashboard::handle() ,
                 function($field){
@@ -133,7 +158,8 @@
          *
          * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource
          */
-        public static function newResourceByModelName($modelName)
+        public
+        static function newResourceByModelName($modelName)
         {
             return KarimQaderi\Zoroaster\Zoroaster::resourceFindByModel(class_basename($modelName));
         }
@@ -142,7 +168,8 @@
          * @param $model
          * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder
          */
-        public static function newModel($model)
+        public
+        static function newModel($model)
         {
             return SrcZoroaster::newModel($model);
         }
@@ -152,7 +179,8 @@
          * Resource در فیلد نام براساس فیلد کردن پیدا
          *
          */
-        public static function getFieldResource($Resource , $FindNameField)
+        public
+        static function getFieldResource($Resource , $FindNameField)
         {
             return self::ResourceFieldFind($FindNameField , \KarimQaderi\Zoroaster\Zoroaster::resourceFindByUriKey($Resource)->fields());
         }
@@ -161,7 +189,8 @@
          * Resource در فیلد نام براساس فیلد کردن پیدا
          *
          */
-        public static function ResourceFieldFind($FindNameField , $fields)
+        public
+        static function ResourceFieldFind($FindNameField , $fields)
         {
             $find = null;
 
@@ -185,7 +214,8 @@
          * داشبورد صفحه برای Metric گرفتن
          *
          */
-        public static function getDashboardMetricFind($find , $data = null)
+        public
+        static function getDashboardMetricFind($find , $data = null)
         {
 
             $_find = null;
@@ -347,7 +377,7 @@
 
         static function minifyHtml($html)
         {
-            return \KarimQaderi\Zoroaster\HTMLMinify::minify($html,['optimizationLevel'=> \KarimQaderi\Zoroaster\HTMLMinify::OPTIMIZATION_ADVANCED]);
+            return \KarimQaderi\Zoroaster\HTMLMinify::minify($html , ['optimizationLevel' => \KarimQaderi\Zoroaster\HTMLMinify::OPTIMIZATION_ADVANCED]);
 
             //            $search = [
 //                '/\>[^\S ]+/s' ,     // strip whitespaces after tags, except space
@@ -380,7 +410,8 @@
         }
 
 
-        public static function makeDirectory($upPath)
+        public
+        static function makeDirectory($upPath)
         {
             $tags = explode('/' , str_replace('//' , '/' , $upPath));            // explode the full path
             $mkDir = "";
@@ -394,12 +425,14 @@
 
         }
 
-        public static function asset($path , $secure = null)
+        public
+        static function asset($path , $secure = null)
         {
             return asset(config('Zoroaster.assets_path') . '/' . $path , $secure);
         }
 
-        public static function replace_str_in_file($file , $str_search , $str_replace)
+        public
+        static function replace_str_in_file($file , $str_search , $str_replace)
         {
             $app = file_get_contents($file);
 

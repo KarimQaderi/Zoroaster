@@ -36502,3 +36502,1451 @@ header:o[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:o[2].replace(/^ *|\
 !function(a,b){"function"==typeof define&&define.amd?define("Chartist",[],function(){return a.Chartist=b()}):"object"==typeof module&&module.exports?module.exports=b():a.Chartist=b()}(this,function(){var a={version:"0.11.0"};return function(a,b,c){"use strict";c.namespaces={svg:"http://www.w3.org/2000/svg",xmlns:"http://www.w3.org/2000/xmlns/",xhtml:"http://www.w3.org/1999/xhtml",xlink:"http://www.w3.org/1999/xlink",ct:"http://gionkunz.github.com/chartist-js/ct"},c.noop=function(a){return a},c.alphaNumerate=function(a){return String.fromCharCode(97+a%26)},c.extend=function(a){var b,d,e;for(a=a||{},b=1;b<arguments.length;b++){d=arguments[b];for(var f in d)e=d[f],"object"!=typeof e||null===e||e instanceof Array?a[f]=e:a[f]=c.extend(a[f],e)}return a},c.replaceAll=function(a,b,c){return a.replace(new RegExp(b,"g"),c)},c.ensureUnit=function(a,b){return"number"==typeof a&&(a+=b),a},c.quantity=function(a){if("string"==typeof a){var b=/^(\d+)\s*(.*)$/g.exec(a);return{value:+b[1],unit:b[2]||void 0}}return{value:a}},c.querySelector=function(a){return a instanceof Node?a:b.querySelector(a)},c.times=function(a){return Array.apply(null,new Array(a))},c.sum=function(a,b){return a+(b?b:0)},c.mapMultiply=function(a){return function(b){return b*a}},c.mapAdd=function(a){return function(b){return b+a}},c.serialMap=function(a,b){var d=[],e=Math.max.apply(null,a.map(function(a){return a.length}));return c.times(e).forEach(function(c,e){var f=a.map(function(a){return a[e]});d[e]=b.apply(null,f)}),d},c.roundWithPrecision=function(a,b){var d=Math.pow(10,b||c.precision);return Math.round(a*d)/d},c.precision=8,c.escapingMap={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"},c.serialize=function(a){return null===a||void 0===a?a:("number"==typeof a?a=""+a:"object"==typeof a&&(a=JSON.stringify({data:a})),Object.keys(c.escapingMap).reduce(function(a,b){return c.replaceAll(a,b,c.escapingMap[b])},a))},c.deserialize=function(a){if("string"!=typeof a)return a;a=Object.keys(c.escapingMap).reduce(function(a,b){return c.replaceAll(a,c.escapingMap[b],b)},a);try{a=JSON.parse(a),a=void 0!==a.data?a.data:a}catch(b){}return a},c.createSvg=function(a,b,d,e){var f;return b=b||"100%",d=d||"100%",Array.prototype.slice.call(a.querySelectorAll("svg")).filter(function(a){return a.getAttributeNS(c.namespaces.xmlns,"ct")}).forEach(function(b){a.removeChild(b)}),f=new c.Svg("svg").attr({width:b,height:d}).addClass(e),f._node.style.width=b,f._node.style.height=d,a.appendChild(f._node),f},c.normalizeData=function(a,b,d){var e,f={raw:a,normalized:{}};return f.normalized.series=c.getDataArray({series:a.series||[]},b,d),e=f.normalized.series.every(function(a){return a instanceof Array})?Math.max.apply(null,f.normalized.series.map(function(a){return a.length})):f.normalized.series.length,f.normalized.labels=(a.labels||[]).slice(),Array.prototype.push.apply(f.normalized.labels,c.times(Math.max(0,e-f.normalized.labels.length)).map(function(){return""})),b&&c.reverseData(f.normalized),f},c.safeHasProperty=function(a,b){return null!==a&&"object"==typeof a&&a.hasOwnProperty(b)},c.isDataHoleValue=function(a){return null===a||void 0===a||"number"==typeof a&&isNaN(a)},c.reverseData=function(a){a.labels.reverse(),a.series.reverse();for(var b=0;b<a.series.length;b++)"object"==typeof a.series[b]&&void 0!==a.series[b].data?a.series[b].data.reverse():a.series[b]instanceof Array&&a.series[b].reverse()},c.getDataArray=function(a,b,d){function e(a){if(c.safeHasProperty(a,"value"))return e(a.value);if(c.safeHasProperty(a,"data"))return e(a.data);if(a instanceof Array)return a.map(e);if(!c.isDataHoleValue(a)){if(d){var b={};return"string"==typeof d?b[d]=c.getNumberOrUndefined(a):b.y=c.getNumberOrUndefined(a),b.x=a.hasOwnProperty("x")?c.getNumberOrUndefined(a.x):b.x,b.y=a.hasOwnProperty("y")?c.getNumberOrUndefined(a.y):b.y,b}return c.getNumberOrUndefined(a)}}return a.series.map(e)},c.normalizePadding=function(a,b){return b=b||0,"number"==typeof a?{top:a,right:a,bottom:a,left:a}:{top:"number"==typeof a.top?a.top:b,right:"number"==typeof a.right?a.right:b,bottom:"number"==typeof a.bottom?a.bottom:b,left:"number"==typeof a.left?a.left:b}},c.getMetaData=function(a,b){var c=a.data?a.data[b]:a[b];return c?c.meta:void 0},c.orderOfMagnitude=function(a){return Math.floor(Math.log(Math.abs(a))/Math.LN10)},c.projectLength=function(a,b,c){return b/c.range*a},c.getAvailableHeight=function(a,b){return Math.max((c.quantity(b.height).value||a.height())-(b.chartPadding.top+b.chartPadding.bottom)-b.axisX.offset,0)},c.getHighLow=function(a,b,d){function e(a){if(void 0!==a)if(a instanceof Array)for(var b=0;b<a.length;b++)e(a[b]);else{var c=d?+a[d]:+a;g&&c>f.high&&(f.high=c),h&&c<f.low&&(f.low=c)}}b=c.extend({},b,d?b["axis"+d.toUpperCase()]:{});var f={high:void 0===b.high?-Number.MAX_VALUE:+b.high,low:void 0===b.low?Number.MAX_VALUE:+b.low},g=void 0===b.high,h=void 0===b.low;return(g||h)&&e(a),(b.referenceValue||0===b.referenceValue)&&(f.high=Math.max(b.referenceValue,f.high),f.low=Math.min(b.referenceValue,f.low)),f.high<=f.low&&(0===f.low?f.high=1:f.low<0?f.high=0:f.high>0?f.low=0:(f.high=1,f.low=0)),f},c.isNumeric=function(a){return null!==a&&isFinite(a)},c.isFalseyButZero=function(a){return!a&&0!==a},c.getNumberOrUndefined=function(a){return c.isNumeric(a)?+a:void 0},c.isMultiValue=function(a){return"object"==typeof a&&("x"in a||"y"in a)},c.getMultiValue=function(a,b){return c.isMultiValue(a)?c.getNumberOrUndefined(a[b||"y"]):c.getNumberOrUndefined(a)},c.rho=function(a){function b(a,c){return a%c===0?c:b(c,a%c)}function c(a){return a*a+1}if(1===a)return a;var d,e=2,f=2;if(a%2===0)return 2;do e=c(e)%a,f=c(c(f))%a,d=b(Math.abs(e-f),a);while(1===d);return d},c.getBounds=function(a,b,d,e){function f(a,b){return a===(a+=b)&&(a*=1+(b>0?o:-o)),a}var g,h,i,j=0,k={high:b.high,low:b.low};k.valueRange=k.high-k.low,k.oom=c.orderOfMagnitude(k.valueRange),k.step=Math.pow(10,k.oom),k.min=Math.floor(k.low/k.step)*k.step,k.max=Math.ceil(k.high/k.step)*k.step,k.range=k.max-k.min,k.numberOfSteps=Math.round(k.range/k.step);var l=c.projectLength(a,k.step,k),m=l<d,n=e?c.rho(k.range):0;if(e&&c.projectLength(a,1,k)>=d)k.step=1;else if(e&&n<k.step&&c.projectLength(a,n,k)>=d)k.step=n;else for(;;){if(m&&c.projectLength(a,k.step,k)<=d)k.step*=2;else{if(m||!(c.projectLength(a,k.step/2,k)>=d))break;if(k.step/=2,e&&k.step%1!==0){k.step*=2;break}}if(j++>1e3)throw new Error("Exceeded maximum number of iterations while optimizing scale step!")}var o=2.221e-16;for(k.step=Math.max(k.step,o),h=k.min,i=k.max;h+k.step<=k.low;)h=f(h,k.step);for(;i-k.step>=k.high;)i=f(i,-k.step);k.min=h,k.max=i,k.range=k.max-k.min;var p=[];for(g=k.min;g<=k.max;g=f(g,k.step)){var q=c.roundWithPrecision(g);q!==p[p.length-1]&&p.push(q)}return k.values=p,k},c.polarToCartesian=function(a,b,c,d){var e=(d-90)*Math.PI/180;return{x:a+c*Math.cos(e),y:b+c*Math.sin(e)}},c.createChartRect=function(a,b,d){var e=!(!b.axisX&&!b.axisY),f=e?b.axisY.offset:0,g=e?b.axisX.offset:0,h=a.width()||c.quantity(b.width).value||0,i=a.height()||c.quantity(b.height).value||0,j=c.normalizePadding(b.chartPadding,d);h=Math.max(h,f+j.left+j.right),i=Math.max(i,g+j.top+j.bottom);var k={padding:j,width:function(){return this.x2-this.x1},height:function(){return this.y1-this.y2}};return e?("start"===b.axisX.position?(k.y2=j.top+g,k.y1=Math.max(i-j.bottom,k.y2+1)):(k.y2=j.top,k.y1=Math.max(i-j.bottom-g,k.y2+1)),"start"===b.axisY.position?(k.x1=j.left+f,k.x2=Math.max(h-j.right,k.x1+1)):(k.x1=j.left,k.x2=Math.max(h-j.right-f,k.x1+1))):(k.x1=j.left,k.x2=Math.max(h-j.right,k.x1+1),k.y2=j.top,k.y1=Math.max(i-j.bottom,k.y2+1)),k},c.createGrid=function(a,b,d,e,f,g,h,i){var j={};j[d.units.pos+"1"]=a,j[d.units.pos+"2"]=a,j[d.counterUnits.pos+"1"]=e,j[d.counterUnits.pos+"2"]=e+f;var k=g.elem("line",j,h.join(" "));i.emit("draw",c.extend({type:"grid",axis:d,index:b,group:g,element:k},j))},c.createGridBackground=function(a,b,c,d){var e=a.elem("rect",{x:b.x1,y:b.y2,width:b.width(),height:b.height()},c,!0);d.emit("draw",{type:"gridBackground",group:a,element:e})},c.createLabel=function(a,d,e,f,g,h,i,j,k,l,m){var n,o={};if(o[g.units.pos]=a+i[g.units.pos],o[g.counterUnits.pos]=i[g.counterUnits.pos],o[g.units.len]=d,o[g.counterUnits.len]=Math.max(0,h-10),l){var p=b.createElement("span");p.className=k.join(" "),p.setAttribute("xmlns",c.namespaces.xhtml),p.innerText=f[e],p.style[g.units.len]=Math.round(o[g.units.len])+"px",p.style[g.counterUnits.len]=Math.round(o[g.counterUnits.len])+"px",n=j.foreignObject(p,c.extend({style:"overflow: visible;"},o))}else n=j.elem("text",o,k.join(" ")).text(f[e]);m.emit("draw",c.extend({type:"label",axis:g,index:e,group:j,element:n,text:f[e]},o))},c.getSeriesOption=function(a,b,c){if(a.name&&b.series&&b.series[a.name]){var d=b.series[a.name];return d.hasOwnProperty(c)?d[c]:b[c]}return b[c]},c.optionsProvider=function(b,d,e){function f(b){var f=h;if(h=c.extend({},j),d)for(i=0;i<d.length;i++){var g=a.matchMedia(d[i][0]);g.matches&&(h=c.extend(h,d[i][1]))}e&&b&&e.emit("optionsChanged",{previousOptions:f,currentOptions:h})}function g(){k.forEach(function(a){a.removeListener(f)})}var h,i,j=c.extend({},b),k=[];if(!a.matchMedia)throw"window.matchMedia not found! Make sure you're using a polyfill.";if(d)for(i=0;i<d.length;i++){var l=a.matchMedia(d[i][0]);l.addListener(f),k.push(l)}return f(),{removeMediaQueryListeners:g,getCurrentOptions:function(){return c.extend({},h)}}},c.splitIntoSegments=function(a,b,d){var e={increasingX:!1,fillHoles:!1};d=c.extend({},e,d);for(var f=[],g=!0,h=0;h<a.length;h+=2)void 0===c.getMultiValue(b[h/2].value)?d.fillHoles||(g=!0):(d.increasingX&&h>=2&&a[h]<=a[h-2]&&(g=!0),g&&(f.push({pathCoordinates:[],valueData:[]}),g=!1),f[f.length-1].pathCoordinates.push(a[h],a[h+1]),f[f.length-1].valueData.push(b[h/2]));return f}}(window,document,a),function(a,b,c){"use strict";c.Interpolation={},c.Interpolation.none=function(a){var b={fillHoles:!1};return a=c.extend({},b,a),function(b,d){for(var e=new c.Svg.Path,f=!0,g=0;g<b.length;g+=2){var h=b[g],i=b[g+1],j=d[g/2];void 0!==c.getMultiValue(j.value)?(f?e.move(h,i,!1,j):e.line(h,i,!1,j),f=!1):a.fillHoles||(f=!0)}return e}},c.Interpolation.simple=function(a){var b={divisor:2,fillHoles:!1};a=c.extend({},b,a);var d=1/Math.max(1,a.divisor);return function(b,e){for(var f,g,h,i=new c.Svg.Path,j=0;j<b.length;j+=2){var k=b[j],l=b[j+1],m=(k-f)*d,n=e[j/2];void 0!==n.value?(void 0===h?i.move(k,l,!1,n):i.curve(f+m,g,k-m,l,k,l,!1,n),f=k,g=l,h=n):a.fillHoles||(f=k=h=void 0)}return i}},c.Interpolation.cardinal=function(a){var b={tension:1,fillHoles:!1};a=c.extend({},b,a);var d=Math.min(1,Math.max(0,a.tension)),e=1-d;return function f(b,g){var h=c.splitIntoSegments(b,g,{fillHoles:a.fillHoles});if(h.length){if(h.length>1){var i=[];return h.forEach(function(a){i.push(f(a.pathCoordinates,a.valueData))}),c.Svg.Path.join(i)}if(b=h[0].pathCoordinates,g=h[0].valueData,b.length<=4)return c.Interpolation.none()(b,g);for(var j,k=(new c.Svg.Path).move(b[0],b[1],!1,g[0]),l=0,m=b.length;m-2*!j>l;l+=2){var n=[{x:+b[l-2],y:+b[l-1]},{x:+b[l],y:+b[l+1]},{x:+b[l+2],y:+b[l+3]},{x:+b[l+4],y:+b[l+5]}];j?l?m-4===l?n[3]={x:+b[0],y:+b[1]}:m-2===l&&(n[2]={x:+b[0],y:+b[1]},n[3]={x:+b[2],y:+b[3]}):n[0]={x:+b[m-2],y:+b[m-1]}:m-4===l?n[3]=n[2]:l||(n[0]={x:+b[l],y:+b[l+1]}),k.curve(d*(-n[0].x+6*n[1].x+n[2].x)/6+e*n[2].x,d*(-n[0].y+6*n[1].y+n[2].y)/6+e*n[2].y,d*(n[1].x+6*n[2].x-n[3].x)/6+e*n[2].x,d*(n[1].y+6*n[2].y-n[3].y)/6+e*n[2].y,n[2].x,n[2].y,!1,g[(l+2)/2])}return k}return c.Interpolation.none()([])}},c.Interpolation.monotoneCubic=function(a){var b={fillHoles:!1};return a=c.extend({},b,a),function d(b,e){var f=c.splitIntoSegments(b,e,{fillHoles:a.fillHoles,increasingX:!0});if(f.length){if(f.length>1){var g=[];return f.forEach(function(a){g.push(d(a.pathCoordinates,a.valueData))}),c.Svg.Path.join(g)}if(b=f[0].pathCoordinates,e=f[0].valueData,b.length<=4)return c.Interpolation.none()(b,e);var h,i,j=[],k=[],l=b.length/2,m=[],n=[],o=[],p=[];for(h=0;h<l;h++)j[h]=b[2*h],k[h]=b[2*h+1];for(h=0;h<l-1;h++)o[h]=k[h+1]-k[h],p[h]=j[h+1]-j[h],n[h]=o[h]/p[h];for(m[0]=n[0],m[l-1]=n[l-2],h=1;h<l-1;h++)0===n[h]||0===n[h-1]||n[h-1]>0!=n[h]>0?m[h]=0:(m[h]=3*(p[h-1]+p[h])/((2*p[h]+p[h-1])/n[h-1]+(p[h]+2*p[h-1])/n[h]),isFinite(m[h])||(m[h]=0));for(i=(new c.Svg.Path).move(j[0],k[0],!1,e[0]),h=0;h<l-1;h++)i.curve(j[h]+p[h]/3,k[h]+m[h]*p[h]/3,j[h+1]-p[h]/3,k[h+1]-m[h+1]*p[h]/3,j[h+1],k[h+1],!1,e[h+1]);return i}return c.Interpolation.none()([])}},c.Interpolation.step=function(a){var b={postpone:!0,fillHoles:!1};return a=c.extend({},b,a),function(b,d){for(var e,f,g,h=new c.Svg.Path,i=0;i<b.length;i+=2){var j=b[i],k=b[i+1],l=d[i/2];void 0!==l.value?(void 0===g?h.move(j,k,!1,l):(a.postpone?h.line(j,f,!1,g):h.line(e,k,!1,l),h.line(j,k,!1,l)),e=j,f=k,g=l):a.fillHoles||(e=f=g=void 0)}return h}}}(window,document,a),function(a,b,c){"use strict";c.EventEmitter=function(){function a(a,b){d[a]=d[a]||[],d[a].push(b)}function b(a,b){d[a]&&(b?(d[a].splice(d[a].indexOf(b),1),0===d[a].length&&delete d[a]):delete d[a])}function c(a,b){d[a]&&d[a].forEach(function(a){a(b)}),d["*"]&&d["*"].forEach(function(c){c(a,b)})}var d=[];return{addEventHandler:a,removeEventHandler:b,emit:c}}}(window,document,a),function(a,b,c){"use strict";function d(a){var b=[];if(a.length)for(var c=0;c<a.length;c++)b.push(a[c]);return b}function e(a,b){var d=b||this.prototype||c.Class,e=Object.create(d);c.Class.cloneDefinitions(e,a);var f=function(){var a,b=e.constructor||function(){};return a=this===c?Object.create(e):this,b.apply(a,Array.prototype.slice.call(arguments,0)),a};return f.prototype=e,f["super"]=d,f.extend=this.extend,f}function f(){var a=d(arguments),b=a[0];return a.splice(1,a.length-1).forEach(function(a){Object.getOwnPropertyNames(a).forEach(function(c){delete b[c],Object.defineProperty(b,c,Object.getOwnPropertyDescriptor(a,c))})}),b}c.Class={extend:e,cloneDefinitions:f}}(window,document,a),function(a,b,c){"use strict";function d(a,b,d){return a&&(this.data=a||{},this.data.labels=this.data.labels||[],this.data.series=this.data.series||[],this.eventEmitter.emit("data",{type:"update",data:this.data})),b&&(this.options=c.extend({},d?this.options:this.defaultOptions,b),this.initializeTimeoutId||(this.optionsProvider.removeMediaQueryListeners(),this.optionsProvider=c.optionsProvider(this.options,this.responsiveOptions,this.eventEmitter))),this.initializeTimeoutId||this.createChart(this.optionsProvider.getCurrentOptions()),this}function e(){return this.initializeTimeoutId?a.clearTimeout(this.initializeTimeoutId):(a.removeEventListener("resize",this.resizeListener),this.optionsProvider.removeMediaQueryListeners()),this}function f(a,b){return this.eventEmitter.addEventHandler(a,b),this}function g(a,b){return this.eventEmitter.removeEventHandler(a,b),this}function h(){a.addEventListener("resize",this.resizeListener),this.optionsProvider=c.optionsProvider(this.options,this.responsiveOptions,this.eventEmitter),this.eventEmitter.addEventHandler("optionsChanged",function(){this.update()}.bind(this)),this.options.plugins&&this.options.plugins.forEach(function(a){a instanceof Array?a[0](this,a[1]):a(this)}.bind(this)),this.eventEmitter.emit("data",{type:"initial",data:this.data}),this.createChart(this.optionsProvider.getCurrentOptions()),this.initializeTimeoutId=void 0}function i(a,b,d,e,f){this.container=c.querySelector(a),this.data=b||{},this.data.labels=this.data.labels||[],this.data.series=this.data.series||[],this.defaultOptions=d,this.options=e,this.responsiveOptions=f,this.eventEmitter=c.EventEmitter(),this.supportsForeignObject=c.Svg.isSupported("Extensibility"),this.supportsAnimations=c.Svg.isSupported("AnimationEventsAttribute"),this.resizeListener=function(){this.update()}.bind(this),this.container&&(this.container.__chartist__&&this.container.__chartist__.detach(),this.container.__chartist__=this),this.initializeTimeoutId=setTimeout(h.bind(this),0)}c.Base=c.Class.extend({constructor:i,optionsProvider:void 0,container:void 0,svg:void 0,eventEmitter:void 0,createChart:function(){throw new Error("Base chart type can't be instantiated!")},update:d,detach:e,on:f,off:g,version:c.version,supportsForeignObject:!1})}(window,document,a),function(a,b,c){"use strict";function d(a,d,e,f,g){a instanceof Element?this._node=a:(this._node=b.createElementNS(c.namespaces.svg,a),"svg"===a&&this.attr({"xmlns:ct":c.namespaces.ct})),d&&this.attr(d),e&&this.addClass(e),f&&(g&&f._node.firstChild?f._node.insertBefore(this._node,f._node.firstChild):f._node.appendChild(this._node))}function e(a,b){return"string"==typeof a?b?this._node.getAttributeNS(b,a):this._node.getAttribute(a):(Object.keys(a).forEach(function(b){if(void 0!==a[b])if(b.indexOf(":")!==-1){var d=b.split(":");this._node.setAttributeNS(c.namespaces[d[0]],b,a[b])}else this._node.setAttribute(b,a[b])}.bind(this)),this)}function f(a,b,d,e){return new c.Svg(a,b,d,this,e)}function g(){return this._node.parentNode instanceof SVGElement?new c.Svg(this._node.parentNode):null}function h(){for(var a=this._node;"svg"!==a.nodeName;)a=a.parentNode;return new c.Svg(a)}function i(a){var b=this._node.querySelector(a);return b?new c.Svg(b):null}function j(a){var b=this._node.querySelectorAll(a);return b.length?new c.Svg.List(b):null}function k(){return this._node}function l(a,d,e,f){if("string"==typeof a){var g=b.createElement("div");g.innerHTML=a,a=g.firstChild}a.setAttribute("xmlns",c.namespaces.xmlns);var h=this.elem("foreignObject",d,e,f);return h._node.appendChild(a),h}function m(a){return this._node.appendChild(b.createTextNode(a)),this}function n(){for(;this._node.firstChild;)this._node.removeChild(this._node.firstChild);return this}function o(){return this._node.parentNode.removeChild(this._node),this.parent()}function p(a){return this._node.parentNode.replaceChild(a._node,this._node),a}function q(a,b){return b&&this._node.firstChild?this._node.insertBefore(a._node,this._node.firstChild):this._node.appendChild(a._node),this}function r(){return this._node.getAttribute("class")?this._node.getAttribute("class").trim().split(/\s+/):[]}function s(a){return this._node.setAttribute("class",this.classes(this._node).concat(a.trim().split(/\s+/)).filter(function(a,b,c){return c.indexOf(a)===b}).join(" ")),this}function t(a){var b=a.trim().split(/\s+/);return this._node.setAttribute("class",this.classes(this._node).filter(function(a){return b.indexOf(a)===-1}).join(" ")),this}function u(){return this._node.setAttribute("class",""),this}function v(){return this._node.getBoundingClientRect().height}function w(){return this._node.getBoundingClientRect().width}function x(a,b,d){return void 0===b&&(b=!0),Object.keys(a).forEach(function(e){function f(a,b){var f,g,h,i={};a.easing&&(h=a.easing instanceof Array?a.easing:c.Svg.Easing[a.easing],delete a.easing),a.begin=c.ensureUnit(a.begin,"ms"),a.dur=c.ensureUnit(a.dur,"ms"),h&&(a.calcMode="spline",a.keySplines=h.join(" "),a.keyTimes="0;1"),b&&(a.fill="freeze",i[e]=a.from,this.attr(i),g=c.quantity(a.begin||0).value,a.begin="indefinite"),f=this.elem("animate",c.extend({attributeName:e},a)),b&&setTimeout(function(){try{f._node.beginElement()}catch(b){i[e]=a.to,this.attr(i),f.remove()}}.bind(this),g),d&&f._node.addEventListener("beginEvent",function(){d.emit("animationBegin",{element:this,animate:f._node,params:a})}.bind(this)),f._node.addEventListener("endEvent",function(){d&&d.emit("animationEnd",{element:this,animate:f._node,params:a}),b&&(i[e]=a.to,this.attr(i),f.remove())}.bind(this))}a[e]instanceof Array?a[e].forEach(function(a){f.bind(this)(a,!1)}.bind(this)):f.bind(this)(a[e],b)}.bind(this)),this}function y(a){var b=this;this.svgElements=[];for(var d=0;d<a.length;d++)this.svgElements.push(new c.Svg(a[d]));Object.keys(c.Svg.prototype).filter(function(a){return["constructor","parent","querySelector","querySelectorAll","replace","append","classes","height","width"].indexOf(a)===-1}).forEach(function(a){b[a]=function(){var d=Array.prototype.slice.call(arguments,0);return b.svgElements.forEach(function(b){c.Svg.prototype[a].apply(b,d)}),b}})}c.Svg=c.Class.extend({constructor:d,attr:e,elem:f,parent:g,root:h,querySelector:i,querySelectorAll:j,getNode:k,foreignObject:l,text:m,empty:n,remove:o,replace:p,append:q,classes:r,addClass:s,removeClass:t,removeAllClasses:u,height:v,width:w,animate:x}),c.Svg.isSupported=function(a){return b.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#"+a,"1.1")};var z={easeInSine:[.47,0,.745,.715],easeOutSine:[.39,.575,.565,1],easeInOutSine:[.445,.05,.55,.95],easeInQuad:[.55,.085,.68,.53],easeOutQuad:[.25,.46,.45,.94],easeInOutQuad:[.455,.03,.515,.955],easeInCubic:[.55,.055,.675,.19],easeOutCubic:[.215,.61,.355,1],easeInOutCubic:[.645,.045,.355,1],easeInQuart:[.895,.03,.685,.22],easeOutQuart:[.165,.84,.44,1],easeInOutQuart:[.77,0,.175,1],easeInQuint:[.755,.05,.855,.06],easeOutQuint:[.23,1,.32,1],easeInOutQuint:[.86,0,.07,1],easeInExpo:[.95,.05,.795,.035],easeOutExpo:[.19,1,.22,1],easeInOutExpo:[1,0,0,1],easeInCirc:[.6,.04,.98,.335],easeOutCirc:[.075,.82,.165,1],easeInOutCirc:[.785,.135,.15,.86],easeInBack:[.6,-.28,.735,.045],easeOutBack:[.175,.885,.32,1.275],easeInOutBack:[.68,-.55,.265,1.55]};c.Svg.Easing=z,c.Svg.List=c.Class.extend({constructor:y})}(window,document,a),function(a,b,c){"use strict";function d(a,b,d,e,f,g){var h=c.extend({command:f?a.toLowerCase():a.toUpperCase()},b,g?{data:g}:{});d.splice(e,0,h)}function e(a,b){a.forEach(function(c,d){u[c.command.toLowerCase()].forEach(function(e,f){b(c,e,d,f,a)})})}function f(a,b){this.pathElements=[],this.pos=0,this.close=a,this.options=c.extend({},v,b)}function g(a){return void 0!==a?(this.pos=Math.max(0,Math.min(this.pathElements.length,a)),this):this.pos}function h(a){return this.pathElements.splice(this.pos,a),this}function i(a,b,c,e){return d("M",{x:+a,y:+b},this.pathElements,this.pos++,c,e),this}function j(a,b,c,e){return d("L",{x:+a,y:+b},this.pathElements,this.pos++,c,e),this}function k(a,b,c,e,f,g,h,i){return d("C",{x1:+a,y1:+b,x2:+c,y2:+e,x:+f,y:+g},this.pathElements,this.pos++,h,i),this}function l(a,b,c,e,f,g,h,i,j){return d("A",{rx:+a,ry:+b,xAr:+c,lAf:+e,sf:+f,x:+g,y:+h},this.pathElements,this.pos++,i,j),this}function m(a){var b=a.replace(/([A-Za-z])([0-9])/g,"$1 $2").replace(/([0-9])([A-Za-z])/g,"$1 $2").split(/[\s,]+/).reduce(function(a,b){return b.match(/[A-Za-z]/)&&a.push([]),a[a.length-1].push(b),a},[]);"Z"===b[b.length-1][0].toUpperCase()&&b.pop();var d=b.map(function(a){var b=a.shift(),d=u[b.toLowerCase()];return c.extend({command:b},d.reduce(function(b,c,d){return b[c]=+a[d],b},{}))}),e=[this.pos,0];return Array.prototype.push.apply(e,d),Array.prototype.splice.apply(this.pathElements,e),this.pos+=d.length,this}function n(){var a=Math.pow(10,this.options.accuracy);return this.pathElements.reduce(function(b,c){var d=u[c.command.toLowerCase()].map(function(b){return this.options.accuracy?Math.round(c[b]*a)/a:c[b]}.bind(this));return b+c.command+d.join(",")}.bind(this),"")+(this.close?"Z":"")}function o(a,b){return e(this.pathElements,function(c,d){c[d]*="x"===d[0]?a:b}),this}function p(a,b){return e(this.pathElements,function(c,d){c[d]+="x"===d[0]?a:b}),this}function q(a){return e(this.pathElements,function(b,c,d,e,f){var g=a(b,c,d,e,f);(g||0===g)&&(b[c]=g)}),this}function r(a){var b=new c.Svg.Path(a||this.close);return b.pos=this.pos,b.pathElements=this.pathElements.slice().map(function(a){return c.extend({},a)}),b.options=c.extend({},this.options),b}function s(a){var b=[new c.Svg.Path];return this.pathElements.forEach(function(d){d.command===a.toUpperCase()&&0!==b[b.length-1].pathElements.length&&b.push(new c.Svg.Path),b[b.length-1].pathElements.push(d)}),b}function t(a,b,d){for(var e=new c.Svg.Path(b,d),f=0;f<a.length;f++)for(var g=a[f],h=0;h<g.pathElements.length;h++)e.pathElements.push(g.pathElements[h]);return e}var u={m:["x","y"],l:["x","y"],c:["x1","y1","x2","y2","x","y"],a:["rx","ry","xAr","lAf","sf","x","y"]},v={accuracy:3};c.Svg.Path=c.Class.extend({constructor:f,position:g,remove:h,move:i,line:j,curve:k,arc:l,scale:o,translate:p,transform:q,parse:m,stringify:n,clone:r,splitByCommand:s}),c.Svg.Path.elementDescriptions=u,c.Svg.Path.join=t}(window,document,a),function(a,b,c){"use strict";function d(a,b,c,d){this.units=a,this.counterUnits=a===f.x?f.y:f.x,this.chartRect=b,this.axisLength=b[a.rectEnd]-b[a.rectStart],this.gridOffset=b[a.rectOffset],this.ticks=c,this.options=d}function e(a,b,d,e,f){var g=e["axis"+this.units.pos.toUpperCase()],h=this.ticks.map(this.projectValue.bind(this)),i=this.ticks.map(g.labelInterpolationFnc);h.forEach(function(j,k){var l,m={x:0,y:0};l=h[k+1]?h[k+1]-j:Math.max(this.axisLength-j,30),c.isFalseyButZero(i[k])&&""!==i[k]||("x"===this.units.pos?(j=this.chartRect.x1+j,m.x=e.axisX.labelOffset.x,"start"===e.axisX.position?m.y=this.chartRect.padding.top+e.axisX.labelOffset.y+(d?5:20):m.y=this.chartRect.y1+e.axisX.labelOffset.y+(d?5:20)):(j=this.chartRect.y1-j,m.y=e.axisY.labelOffset.y-(d?l:0),"start"===e.axisY.position?m.x=d?this.chartRect.padding.left+e.axisY.labelOffset.x:this.chartRect.x1-10:m.x=this.chartRect.x2+e.axisY.labelOffset.x+10),g.showGrid&&c.createGrid(j,k,this,this.gridOffset,this.chartRect[this.counterUnits.len](),a,[e.classNames.grid,e.classNames[this.units.dir]],f),g.showLabel&&c.createLabel(j,l,k,i,this,g.offset,m,b,[e.classNames.label,e.classNames[this.units.dir],"start"===g.position?e.classNames[g.position]:e.classNames.end],d,f))}.bind(this))}var f={x:{pos:"x",len:"width",dir:"horizontal",rectStart:"x1",rectEnd:"x2",rectOffset:"y2"},y:{pos:"y",len:"height",dir:"vertical",rectStart:"y2",rectEnd:"y1",rectOffset:"x1"}};c.Axis=c.Class.extend({constructor:d,createGridAndLabels:e,projectValue:function(a,b,c){throw new Error("Base axis can't be instantiated!")}}),c.Axis.units=f}(window,document,a),function(a,b,c){"use strict";function d(a,b,d,e){var f=e.highLow||c.getHighLow(b,e,a.pos);this.bounds=c.getBounds(d[a.rectEnd]-d[a.rectStart],f,e.scaleMinSpace||20,e.onlyInteger),this.range={min:this.bounds.min,max:this.bounds.max},c.AutoScaleAxis["super"].constructor.call(this,a,d,this.bounds.values,e)}function e(a){return this.axisLength*(+c.getMultiValue(a,this.units.pos)-this.bounds.min)/this.bounds.range}c.AutoScaleAxis=c.Axis.extend({constructor:d,projectValue:e})}(window,document,a),function(a,b,c){"use strict";function d(a,b,d,e){var f=e.highLow||c.getHighLow(b,e,a.pos);this.divisor=e.divisor||1,this.ticks=e.ticks||c.times(this.divisor).map(function(a,b){return f.low+(f.high-f.low)/this.divisor*b}.bind(this)),this.ticks.sort(function(a,b){return a-b}),this.range={min:f.low,max:f.high},c.FixedScaleAxis["super"].constructor.call(this,a,d,this.ticks,e),this.stepLength=this.axisLength/this.divisor}function e(a){return this.axisLength*(+c.getMultiValue(a,this.units.pos)-this.range.min)/(this.range.max-this.range.min)}c.FixedScaleAxis=c.Axis.extend({constructor:d,projectValue:e})}(window,document,a),function(a,b,c){"use strict";function d(a,b,d,e){c.StepAxis["super"].constructor.call(this,a,d,e.ticks,e);var f=Math.max(1,e.ticks.length-(e.stretch?1:0));this.stepLength=this.axisLength/f}function e(a,b){return this.stepLength*b}c.StepAxis=c.Axis.extend({constructor:d,projectValue:e})}(window,document,a),function(a,b,c){"use strict";function d(a){var b=c.normalizeData(this.data,a.reverseData,!0);this.svg=c.createSvg(this.container,a.width,a.height,a.classNames.chart);var d,e,g=this.svg.elem("g").addClass(a.classNames.gridGroup),h=this.svg.elem("g"),i=this.svg.elem("g").addClass(a.classNames.labelGroup),j=c.createChartRect(this.svg,a,f.padding);d=void 0===a.axisX.type?new c.StepAxis(c.Axis.units.x,b.normalized.series,j,c.extend({},a.axisX,{ticks:b.normalized.labels,stretch:a.fullWidth})):a.axisX.type.call(c,c.Axis.units.x,b.normalized.series,j,a.axisX),e=void 0===a.axisY.type?new c.AutoScaleAxis(c.Axis.units.y,b.normalized.series,j,c.extend({},a.axisY,{high:c.isNumeric(a.high)?a.high:a.axisY.high,low:c.isNumeric(a.low)?a.low:a.axisY.low})):a.axisY.type.call(c,c.Axis.units.y,b.normalized.series,j,a.axisY),d.createGridAndLabels(g,i,this.supportsForeignObject,a,this.eventEmitter),e.createGridAndLabels(g,i,this.supportsForeignObject,a,this.eventEmitter),a.showGridBackground&&c.createGridBackground(g,j,a.classNames.gridBackground,this.eventEmitter),b.raw.series.forEach(function(f,g){var i=h.elem("g");i.attr({"ct:series-name":f.name,"ct:meta":c.serialize(f.meta)}),i.addClass([a.classNames.series,f.className||a.classNames.series+"-"+c.alphaNumerate(g)].join(" "));var k=[],l=[];b.normalized.series[g].forEach(function(a,h){var i={x:j.x1+d.projectValue(a,h,b.normalized.series[g]),y:j.y1-e.projectValue(a,h,b.normalized.series[g])};k.push(i.x,i.y),l.push({value:a,valueIndex:h,meta:c.getMetaData(f,h)})}.bind(this));var m={lineSmooth:c.getSeriesOption(f,a,"lineSmooth"),showPoint:c.getSeriesOption(f,a,"showPoint"),showLine:c.getSeriesOption(f,a,"showLine"),showArea:c.getSeriesOption(f,a,"showArea"),areaBase:c.getSeriesOption(f,a,"areaBase")},n="function"==typeof m.lineSmooth?m.lineSmooth:m.lineSmooth?c.Interpolation.monotoneCubic():c.Interpolation.none(),o=n(k,l);if(m.showPoint&&o.pathElements.forEach(function(b){var h=i.elem("line",{x1:b.x,y1:b.y,x2:b.x+.01,y2:b.y},a.classNames.point).attr({"ct:value":[b.data.value.x,b.data.value.y].filter(c.isNumeric).join(","),"ct:meta":c.serialize(b.data.meta)});this.eventEmitter.emit("draw",{type:"point",value:b.data.value,index:b.data.valueIndex,meta:b.data.meta,series:f,seriesIndex:g,axisX:d,axisY:e,group:i,element:h,x:b.x,y:b.y})}.bind(this)),m.showLine){var p=i.elem("path",{d:o.stringify()},a.classNames.line,!0);this.eventEmitter.emit("draw",{type:"line",values:b.normalized.series[g],path:o.clone(),chartRect:j,index:g,series:f,seriesIndex:g,seriesMeta:f.meta,axisX:d,axisY:e,group:i,element:p})}if(m.showArea&&e.range){var q=Math.max(Math.min(m.areaBase,e.range.max),e.range.min),r=j.y1-e.projectValue(q);o.splitByCommand("M").filter(function(a){return a.pathElements.length>1}).map(function(a){var b=a.pathElements[0],c=a.pathElements[a.pathElements.length-1];return a.clone(!0).position(0).remove(1).move(b.x,r).line(b.x,b.y).position(a.pathElements.length+1).line(c.x,r)}).forEach(function(c){var h=i.elem("path",{d:c.stringify()},a.classNames.area,!0);this.eventEmitter.emit("draw",{type:"area",values:b.normalized.series[g],path:c.clone(),series:f,seriesIndex:g,axisX:d,axisY:e,chartRect:j,index:g,group:i,element:h})}.bind(this))}}.bind(this)),this.eventEmitter.emit("created",{bounds:e.bounds,chartRect:j,axisX:d,axisY:e,svg:this.svg,options:a})}function e(a,b,d,e){c.Line["super"].constructor.call(this,a,b,f,c.extend({},f,d),e)}var f={axisX:{offset:30,position:"end",labelOffset:{x:0,y:0},showLabel:!0,showGrid:!0,labelInterpolationFnc:c.noop,type:void 0},axisY:{offset:40,position:"start",labelOffset:{x:0,y:0},showLabel:!0,showGrid:!0,labelInterpolationFnc:c.noop,type:void 0,scaleMinSpace:20,onlyInteger:!1},width:void 0,height:void 0,showLine:!0,showPoint:!0,showArea:!1,areaBase:0,lineSmooth:!0,showGridBackground:!1,low:void 0,high:void 0,chartPadding:{top:15,right:15,bottom:5,left:10},fullWidth:!1,reverseData:!1,classNames:{chart:"ct-chart-line",label:"ct-label",labelGroup:"ct-labels",series:"ct-series",line:"ct-line",point:"ct-point",area:"ct-area",grid:"ct-grid",gridGroup:"ct-grids",gridBackground:"ct-grid-background",vertical:"ct-vertical",horizontal:"ct-horizontal",start:"ct-start",end:"ct-end"}};c.Line=c.Base.extend({constructor:e,createChart:d})}(window,document,a),function(a,b,c){"use strict";function d(a){var b,d;a.distributeSeries?(b=c.normalizeData(this.data,a.reverseData,a.horizontalBars?"x":"y"),b.normalized.series=b.normalized.series.map(function(a){return[a]})):b=c.normalizeData(this.data,a.reverseData,a.horizontalBars?"x":"y"),this.svg=c.createSvg(this.container,a.width,a.height,a.classNames.chart+(a.horizontalBars?" "+a.classNames.horizontalBars:""));var e=this.svg.elem("g").addClass(a.classNames.gridGroup),g=this.svg.elem("g"),h=this.svg.elem("g").addClass(a.classNames.labelGroup);if(a.stackBars&&0!==b.normalized.series.length){var i=c.serialMap(b.normalized.series,function(){
 return Array.prototype.slice.call(arguments).map(function(a){return a}).reduce(function(a,b){return{x:a.x+(b&&b.x)||0,y:a.y+(b&&b.y)||0}},{x:0,y:0})});d=c.getHighLow([i],a,a.horizontalBars?"x":"y")}else d=c.getHighLow(b.normalized.series,a,a.horizontalBars?"x":"y");d.high=+a.high||(0===a.high?0:d.high),d.low=+a.low||(0===a.low?0:d.low);var j,k,l,m,n,o=c.createChartRect(this.svg,a,f.padding);k=a.distributeSeries&&a.stackBars?b.normalized.labels.slice(0,1):b.normalized.labels,a.horizontalBars?(j=m=void 0===a.axisX.type?new c.AutoScaleAxis(c.Axis.units.x,b.normalized.series,o,c.extend({},a.axisX,{highLow:d,referenceValue:0})):a.axisX.type.call(c,c.Axis.units.x,b.normalized.series,o,c.extend({},a.axisX,{highLow:d,referenceValue:0})),l=n=void 0===a.axisY.type?new c.StepAxis(c.Axis.units.y,b.normalized.series,o,{ticks:k}):a.axisY.type.call(c,c.Axis.units.y,b.normalized.series,o,a.axisY)):(l=m=void 0===a.axisX.type?new c.StepAxis(c.Axis.units.x,b.normalized.series,o,{ticks:k}):a.axisX.type.call(c,c.Axis.units.x,b.normalized.series,o,a.axisX),j=n=void 0===a.axisY.type?new c.AutoScaleAxis(c.Axis.units.y,b.normalized.series,o,c.extend({},a.axisY,{highLow:d,referenceValue:0})):a.axisY.type.call(c,c.Axis.units.y,b.normalized.series,o,c.extend({},a.axisY,{highLow:d,referenceValue:0})));var p=a.horizontalBars?o.x1+j.projectValue(0):o.y1-j.projectValue(0),q=[];l.createGridAndLabels(e,h,this.supportsForeignObject,a,this.eventEmitter),j.createGridAndLabels(e,h,this.supportsForeignObject,a,this.eventEmitter),a.showGridBackground&&c.createGridBackground(e,o,a.classNames.gridBackground,this.eventEmitter),b.raw.series.forEach(function(d,e){var f,h,i=e-(b.raw.series.length-1)/2;f=a.distributeSeries&&!a.stackBars?l.axisLength/b.normalized.series.length/2:a.distributeSeries&&a.stackBars?l.axisLength/2:l.axisLength/b.normalized.series[e].length/2,h=g.elem("g"),h.attr({"ct:series-name":d.name,"ct:meta":c.serialize(d.meta)}),h.addClass([a.classNames.series,d.className||a.classNames.series+"-"+c.alphaNumerate(e)].join(" ")),b.normalized.series[e].forEach(function(g,k){var r,s,t,u;if(u=a.distributeSeries&&!a.stackBars?e:a.distributeSeries&&a.stackBars?0:k,r=a.horizontalBars?{x:o.x1+j.projectValue(g&&g.x?g.x:0,k,b.normalized.series[e]),y:o.y1-l.projectValue(g&&g.y?g.y:0,u,b.normalized.series[e])}:{x:o.x1+l.projectValue(g&&g.x?g.x:0,u,b.normalized.series[e]),y:o.y1-j.projectValue(g&&g.y?g.y:0,k,b.normalized.series[e])},l instanceof c.StepAxis&&(l.options.stretch||(r[l.units.pos]+=f*(a.horizontalBars?-1:1)),r[l.units.pos]+=a.stackBars||a.distributeSeries?0:i*a.seriesBarDistance*(a.horizontalBars?-1:1)),t=q[k]||p,q[k]=t-(p-r[l.counterUnits.pos]),void 0!==g){var v={};v[l.units.pos+"1"]=r[l.units.pos],v[l.units.pos+"2"]=r[l.units.pos],!a.stackBars||"accumulate"!==a.stackMode&&a.stackMode?(v[l.counterUnits.pos+"1"]=p,v[l.counterUnits.pos+"2"]=r[l.counterUnits.pos]):(v[l.counterUnits.pos+"1"]=t,v[l.counterUnits.pos+"2"]=q[k]),v.x1=Math.min(Math.max(v.x1,o.x1),o.x2),v.x2=Math.min(Math.max(v.x2,o.x1),o.x2),v.y1=Math.min(Math.max(v.y1,o.y2),o.y1),v.y2=Math.min(Math.max(v.y2,o.y2),o.y1);var w=c.getMetaData(d,k);s=h.elem("line",v,a.classNames.bar).attr({"ct:value":[g.x,g.y].filter(c.isNumeric).join(","),"ct:meta":c.serialize(w)}),this.eventEmitter.emit("draw",c.extend({type:"bar",value:g,index:k,meta:w,series:d,seriesIndex:e,axisX:m,axisY:n,chartRect:o,group:h,element:s},v))}}.bind(this))}.bind(this)),this.eventEmitter.emit("created",{bounds:j.bounds,chartRect:o,axisX:m,axisY:n,svg:this.svg,options:a})}function e(a,b,d,e){c.Bar["super"].constructor.call(this,a,b,f,c.extend({},f,d),e)}var f={axisX:{offset:30,position:"end",labelOffset:{x:0,y:0},showLabel:!0,showGrid:!0,labelInterpolationFnc:c.noop,scaleMinSpace:30,onlyInteger:!1},axisY:{offset:40,position:"start",labelOffset:{x:0,y:0},showLabel:!0,showGrid:!0,labelInterpolationFnc:c.noop,scaleMinSpace:20,onlyInteger:!1},width:void 0,height:void 0,high:void 0,low:void 0,referenceValue:0,chartPadding:{top:15,right:15,bottom:5,left:10},seriesBarDistance:15,stackBars:!1,stackMode:"accumulate",horizontalBars:!1,distributeSeries:!1,reverseData:!1,showGridBackground:!1,classNames:{chart:"ct-chart-bar",horizontalBars:"ct-horizontal-bars",label:"ct-label",labelGroup:"ct-labels",series:"ct-series",bar:"ct-bar",grid:"ct-grid",gridGroup:"ct-grids",gridBackground:"ct-grid-background",vertical:"ct-vertical",horizontal:"ct-horizontal",start:"ct-start",end:"ct-end"}};c.Bar=c.Base.extend({constructor:e,createChart:d})}(window,document,a),function(a,b,c){"use strict";function d(a,b,c){var d=b.x>a.x;return d&&"explode"===c||!d&&"implode"===c?"start":d&&"implode"===c||!d&&"explode"===c?"end":"middle"}function e(a){var b,e,f,h,i,j=c.normalizeData(this.data),k=[],l=a.startAngle;this.svg=c.createSvg(this.container,a.width,a.height,a.donut?a.classNames.chartDonut:a.classNames.chartPie),e=c.createChartRect(this.svg,a,g.padding),f=Math.min(e.width()/2,e.height()/2),i=a.total||j.normalized.series.reduce(function(a,b){return a+b},0);var m=c.quantity(a.donutWidth);"%"===m.unit&&(m.value*=f/100),f-=a.donut&&!a.donutSolid?m.value/2:0,h="outside"===a.labelPosition||a.donut&&!a.donutSolid?f:"center"===a.labelPosition?0:a.donutSolid?f-m.value/2:f/2,h+=a.labelOffset;var n={x:e.x1+e.width()/2,y:e.y2+e.height()/2},o=1===j.raw.series.filter(function(a){return a.hasOwnProperty("value")?0!==a.value:0!==a}).length;j.raw.series.forEach(function(a,b){k[b]=this.svg.elem("g",null,null)}.bind(this)),a.showLabel&&(b=this.svg.elem("g",null,null)),j.raw.series.forEach(function(e,g){if(0!==j.normalized.series[g]||!a.ignoreEmptyValues){k[g].attr({"ct:series-name":e.name}),k[g].addClass([a.classNames.series,e.className||a.classNames.series+"-"+c.alphaNumerate(g)].join(" "));var p=i>0?l+j.normalized.series[g]/i*360:0,q=Math.max(0,l-(0===g||o?0:.2));p-q>=359.99&&(p=q+359.99);var r,s,t,u=c.polarToCartesian(n.x,n.y,f,q),v=c.polarToCartesian(n.x,n.y,f,p),w=new c.Svg.Path(!a.donut||a.donutSolid).move(v.x,v.y).arc(f,f,0,p-l>180,0,u.x,u.y);a.donut?a.donutSolid&&(t=f-m.value,r=c.polarToCartesian(n.x,n.y,t,l-(0===g||o?0:.2)),s=c.polarToCartesian(n.x,n.y,t,p),w.line(r.x,r.y),w.arc(t,t,0,p-l>180,1,s.x,s.y)):w.line(n.x,n.y);var x=a.classNames.slicePie;a.donut&&(x=a.classNames.sliceDonut,a.donutSolid&&(x=a.classNames.sliceDonutSolid));var y=k[g].elem("path",{d:w.stringify()},x);if(y.attr({"ct:value":j.normalized.series[g],"ct:meta":c.serialize(e.meta)}),a.donut&&!a.donutSolid&&(y._node.style.strokeWidth=m.value+"px"),this.eventEmitter.emit("draw",{type:"slice",value:j.normalized.series[g],totalDataSum:i,index:g,meta:e.meta,series:e,group:k[g],element:y,path:w.clone(),center:n,radius:f,startAngle:l,endAngle:p}),a.showLabel){var z;z=1===j.raw.series.length?{x:n.x,y:n.y}:c.polarToCartesian(n.x,n.y,h,l+(p-l)/2);var A;A=j.normalized.labels&&!c.isFalseyButZero(j.normalized.labels[g])?j.normalized.labels[g]:j.normalized.series[g];var B=a.labelInterpolationFnc(A,g);if(B||0===B){var C=b.elem("text",{dx:z.x,dy:z.y,"text-anchor":d(n,z,a.labelDirection)},a.classNames.label).text(""+B);this.eventEmitter.emit("draw",{type:"label",index:g,group:b,element:C,text:""+B,x:z.x,y:z.y})}}l=p}}.bind(this)),this.eventEmitter.emit("created",{chartRect:e,svg:this.svg,options:a})}function f(a,b,d,e){c.Pie["super"].constructor.call(this,a,b,g,c.extend({},g,d),e)}var g={width:void 0,height:void 0,chartPadding:5,classNames:{chartPie:"ct-chart-pie",chartDonut:"ct-chart-donut",series:"ct-series",slicePie:"ct-slice-pie",sliceDonut:"ct-slice-donut",sliceDonutSolid:"ct-slice-donut-solid",label:"ct-label"},startAngle:0,total:void 0,donut:!1,donutSolid:!1,donutWidth:60,showLabel:!0,labelOffset:0,labelPosition:"inside",labelInterpolationFnc:c.noop,labelDirection:"neutral",reverseData:!1,ignoreEmptyValues:!1};c.Pie=c.Base.extend({constructor:f,createChart:e,determineAnchorPosition:d})}(window,document,a),a});
 //# sourceMappingURL=chartist.min.js.map
+/*!
+ * jquery-confirm v3.3.4 (http://craftpip.github.io/jquery-confirm/)
+ * Author: Boniface Pereira
+ * Website: www.craftpip.com
+ * Contact: hey@craftpip.com
+ *
+ * Copyright 2013-2019 jquery-confirm
+ * Licensed under MIT (https://github.com/craftpip/jquery-confirm/blob/master/LICENSE)
+ */
+
+
+/**
+ * UMD (Universal Module Definition) to support CommonJS, AMD and browser
+ * Thanks to https://github.com/umdjs/umd
+ */
+(function(factory){
+    if(typeof define === 'function' && define.amd){
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    }else if(typeof module === 'object' && module.exports){
+        // Node/CommonJS
+        module.exports = function(root, jQuery){
+            if(jQuery === undefined){
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if(typeof window !== 'undefined'){
+                    jQuery = require('jquery');
+                }
+                else{
+                    jQuery = require('jquery')(root);
+                }
+            }
+            factory(jQuery);
+            return jQuery;
+        };
+    }else{
+        // Browser globals
+        factory(jQuery);
+    }
+}(function($){
+    "use strict";
+
+    // locally assign window
+    var w = window;
+    // w.jconfirm
+    // w.Jconfirm;
+
+    $.fn.confirm = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
+            options = {
+                content: options,
+                title: (option2) ? option2 : false
+            };
+        }
+        /*
+         *  Alias of $.confirm to emulate native confirm()
+         */
+        $(this).each(function(){
+            var $this = $(this);
+            if($this.attr('jc-attached')){
+                console.warn('jConfirm has already been attached to this element ', $this[0]);
+                return;
+            }
+
+            $this.on('click', function(e){
+                e.preventDefault();
+                var jcOption = $.extend({}, options);
+                if($this.attr('data-title'))
+                    jcOption['title'] = $this.attr('data-title');
+                if($this.attr('data-content'))
+                    jcOption['content'] = $this.attr('data-content');
+                if(typeof jcOption['buttons'] === 'undefined')
+                    jcOption['buttons'] = {};
+
+                jcOption['$target'] = $this;
+                if($this.attr('href') && Object.keys(jcOption['buttons']).length === 0){
+                    var buttons = $.extend(true, {}, w.jconfirm.pluginDefaults.defaultButtons, (w.jconfirm.defaults || {}).defaultButtons || {});
+                    var firstBtn = Object.keys(buttons)[0];
+                    jcOption['buttons'] = buttons;
+                    jcOption.buttons[firstBtn].action = function(){
+                        location.href = $this.attr('href');
+                    };
+                }
+                jcOption['closeIcon'] = false;
+                var instance = $.confirm(jcOption);
+            });
+
+            $this.attr('jc-attached', true);
+        });
+        return $(this);
+    };
+    $.confirm = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
+            options = {
+                content: options,
+                title: (option2) ? option2 : false
+            };
+        }
+
+        var putDefaultButtons = !(options['buttons'] === false);
+
+        if(typeof options['buttons'] !== 'object')
+            options['buttons'] = {};
+
+        if(Object.keys(options['buttons']).length === 0 && putDefaultButtons){
+            var buttons = $.extend(true, {}, w.jconfirm.pluginDefaults.defaultButtons, (w.jconfirm.defaults || {}).defaultButtons || {});
+            options['buttons'] = buttons;
+        }
+
+        /*
+         *  Alias of jconfirm
+         */
+        return w.jconfirm(options);
+    };
+    $.alert = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
+            options = {
+                content: options,
+                title: (option2) ? option2 : false
+            };
+        }
+
+        var putDefaultButtons = !(options['buttons'] === false);
+
+        if(typeof options.buttons !== 'object')
+            options.buttons = {};
+
+        if(Object.keys(options['buttons']).length === 0 && putDefaultButtons){
+            var buttons = $.extend(true, {}, w.jconfirm.pluginDefaults.defaultButtons, (w.jconfirm.defaults || {}).defaultButtons || {});
+            var firstBtn = Object.keys(buttons)[0];
+            options['buttons'][firstBtn] = buttons[firstBtn];
+        }
+        /*
+         *  Alias of jconfirm
+         */
+        return w.jconfirm(options);
+    };
+    $.dialog = function(options, option2){
+        if(typeof options === 'undefined') options = {};
+        if(typeof options === 'string'){
+            options = {
+                content: options,
+                title: (option2) ? option2 : false,
+                closeIcon: function(){
+                    // Just close the modal
+                }
+            };
+        }
+
+        options['buttons'] = {}; // purge buttons
+
+        if(typeof options['closeIcon'] === 'undefined'){
+            // Dialog must have a closeIcon.
+            options['closeIcon'] = function(){
+            }
+        }
+        /*
+         *  Alias of jconfirm
+         */
+        options.confirmKeys = [13];
+        return w.jconfirm(options);
+    };
+
+    w.jconfirm = function(options){
+        if(typeof options === 'undefined') options = {};
+        /*
+         * initial function for calling.
+         */
+        var pluginOptions = $.extend(true, {}, w.jconfirm.pluginDefaults);
+        if(w.jconfirm.defaults){
+            pluginOptions = $.extend(true, pluginOptions, w.jconfirm.defaults);
+        }
+
+        /*
+         * merge options with plugin defaults.
+         */
+        pluginOptions = $.extend(true, {}, pluginOptions, options);
+        var instance = new w.Jconfirm(pluginOptions);
+        w.jconfirm.instances.push(instance);
+        return instance;
+    };
+    w.Jconfirm = function(options){
+        /*
+         * constructor function Jconfirm,
+         * options = user options.
+         */
+        $.extend(this, options);
+        this._init();
+    };
+    w.Jconfirm.prototype = {
+        _init: function(){
+            var that = this;
+
+            if(!w.jconfirm.instances.length)
+                w.jconfirm.lastFocused = $('body').find(':focus');
+
+            this._id = Math.round(Math.random() * 99999);
+            /**
+             * contentParsed maintains the contents for $content, before it is put in DOM
+             */
+            this.contentParsed = $(document.createElement('div'));
+
+            if(!this.lazyOpen){
+                setTimeout(function(){
+                    that.open();
+                }, 0);
+            }
+        },
+        _buildHTML: function(){
+            var that = this;
+
+            // prefix the animation string and store in animationParsed
+            this._parseAnimation(this.animation, 'o');
+            this._parseAnimation(this.closeAnimation, 'c');
+            this._parseBgDismissAnimation(this.backgroundDismissAnimation);
+            this._parseColumnClass(this.columnClass);
+            this._parseTheme(this.theme);
+            this._parseType(this.type);
+
+            /*
+             * Append html.
+             */
+            var template = $(this.template);
+            template.find('.jconfirm-box').addClass(this.animationParsed).addClass(this.backgroundDismissAnimationParsed).addClass(this.typeParsed);
+
+            if(this.typeAnimated)
+                template.find('.jconfirm-box').addClass('jconfirm-type-animated');
+
+            if(this.useBootstrap){
+                template.find('.jc-bs3-row').addClass(this.bootstrapClasses.row);
+                template.find('.jc-bs3-row').addClass('justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-center');
+
+                template.find('.jconfirm-box-container').addClass(this.columnClassParsed);
+
+                if(this.containerFluid)
+                    template.find('.jc-bs3-container').addClass(this.bootstrapClasses.containerFluid);
+                else
+                    template.find('.jc-bs3-container').addClass(this.bootstrapClasses.container);
+            }else{
+                template.find('.jconfirm-box').css('width', this.boxWidth);
+            }
+
+            if(this.titleClass)
+                template.find('.jconfirm-title-c').addClass(this.titleClass);
+
+            template.addClass(this.themeParsed);
+            var ariaLabel = 'jconfirm-box' + this._id;
+            template.find('.jconfirm-box').attr('aria-labelledby', ariaLabel).attr('tabindex', -1);
+            template.find('.jconfirm-content').attr('id', ariaLabel);
+            if(this.bgOpacity !== null)
+                template.find('.jconfirm-bg').css('opacity', this.bgOpacity);
+            if(this.rtl)
+                template.addClass('jconfirm-rtl');
+
+            this.$el = template.appendTo(this.container);
+            this.$jconfirmBoxContainer = this.$el.find('.jconfirm-box-container');
+            this.$jconfirmBox = this.$body = this.$el.find('.jconfirm-box');
+            this.$jconfirmBg = this.$el.find('.jconfirm-bg');
+            this.$title = this.$el.find('.jconfirm-title');
+            this.$titleContainer = this.$el.find('.jconfirm-title-c');
+            this.$content = this.$el.find('div.jconfirm-content');
+            this.$contentPane = this.$el.find('.jconfirm-content-pane');
+            this.$icon = this.$el.find('.jconfirm-icon-c');
+            this.$closeIcon = this.$el.find('.jconfirm-closeIcon');
+            this.$holder = this.$el.find('.jconfirm-holder');
+            // this.$content.css(this._getCSS(this.animationSpeed, this.animationBounce));
+            this.$btnc = this.$el.find('.jconfirm-buttons');
+            this.$scrollPane = this.$el.find('.jconfirm-scrollpane');
+
+            that.setStartingPoint();
+
+            // for loading content via URL
+            this._contentReady = $.Deferred();
+            this._modalReady = $.Deferred();
+            this.$holder.css({
+                'padding-top': this.offsetTop,
+                'padding-bottom': this.offsetBottom,
+            });
+
+            this.setTitle();
+            this.setIcon();
+            this._setButtons();
+            this._parseContent();
+            this.initDraggable();
+
+            if(this.isAjax)
+                this.showLoading(false);
+
+            $.when(this._contentReady, this._modalReady).then(function(){
+                if(that.isAjaxLoading)
+                    setTimeout(function(){
+                        that.isAjaxLoading = false;
+                        that.setContent();
+                        that.setTitle();
+                        that.setIcon();
+                        setTimeout(function(){
+                            that.hideLoading(false);
+                            that._updateContentMaxHeight();
+                        }, 100);
+                        if(typeof that.onContentReady === 'function')
+                            that.onContentReady();
+                    }, 50);
+                else{
+                    // that.setContent();
+                    that._updateContentMaxHeight();
+                    that.setTitle();
+                    that.setIcon();
+                    if(typeof that.onContentReady === 'function')
+                        that.onContentReady();
+                }
+
+                // start countdown after content has loaded.
+                if(that.autoClose)
+                    that._startCountDown();
+            }).then(function(){
+                that._watchContent();
+            });
+
+            if(this.animation === 'none'){
+                this.animationSpeed = 1;
+                this.animationBounce = 1;
+            }
+
+            this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
+            this.$contentPane.css(this._getCSS(this.animationSpeed, 1));
+            this.$jconfirmBg.css(this._getCSS(this.animationSpeed, 1));
+            this.$jconfirmBoxContainer.css(this._getCSS(this.animationSpeed, 1));
+        },
+        _typePrefix: 'jconfirm-type-',
+        typeParsed: '',
+        _parseType: function(type){
+            this.typeParsed = this._typePrefix + type;
+        },
+        setType: function(type){
+            var oldClass = this.typeParsed;
+            this._parseType(type);
+            this.$jconfirmBox.removeClass(oldClass).addClass(this.typeParsed);
+        },
+        themeParsed: '',
+        _themePrefix: 'jconfirm-',
+        setTheme: function(theme){
+            var previous = this.theme;
+            this.theme = theme || this.theme;
+            this._parseTheme(this.theme);
+            if(previous)
+                this.$el.removeClass(previous);
+            this.$el.addClass(this.themeParsed);
+            this.theme = theme;
+        },
+        _parseTheme: function(theme){
+            var that = this;
+            theme = theme.split(',');
+            $.each(theme, function(k, a){
+                if(a.indexOf(that._themePrefix) === -1)
+                    theme[k] = that._themePrefix + $.trim(a);
+            });
+            this.themeParsed = theme.join(' ').toLowerCase();
+        },
+        backgroundDismissAnimationParsed: '',
+        _bgDismissPrefix: 'jconfirm-hilight-',
+        _parseBgDismissAnimation: function(bgDismissAnimation){
+            var animation = bgDismissAnimation.split(',');
+            var that = this;
+            $.each(animation, function(k, a){
+                if(a.indexOf(that._bgDismissPrefix) === -1)
+                    animation[k] = that._bgDismissPrefix + $.trim(a);
+            });
+            this.backgroundDismissAnimationParsed = animation.join(' ').toLowerCase();
+        },
+        animationParsed: '',
+        closeAnimationParsed: '',
+        _animationPrefix: 'jconfirm-animation-',
+        setAnimation: function(animation){
+            this.animation = animation || this.animation;
+            this._parseAnimation(this.animation, 'o');
+        },
+        _parseAnimation: function(animation, which){
+            which = which || 'o'; // parse what animation and store where. open or close?
+            var animations = animation.split(',');
+            var that = this;
+            $.each(animations, function(k, a){
+                if(a.indexOf(that._animationPrefix) === -1)
+                    animations[k] = that._animationPrefix + $.trim(a);
+            });
+            var a_string = animations.join(' ').toLowerCase();
+            if(which === 'o')
+                this.animationParsed = a_string;
+            else
+                this.closeAnimationParsed = a_string;
+
+            return a_string;
+        },
+        setCloseAnimation: function(closeAnimation){
+            this.closeAnimation = closeAnimation || this.closeAnimation;
+            this._parseAnimation(this.closeAnimation, 'c');
+        },
+        setAnimationSpeed: function(speed){
+            this.animationSpeed = speed || this.animationSpeed;
+            // this.$body.css(this._getCSS(this.animationSpeed, this.animationBounce));
+        },
+        columnClassParsed: '',
+        setColumnClass: function(colClass){
+            if(!this.useBootstrap){
+                console.warn("cannot set columnClass, useBootstrap is set to false");
+                return;
+            }
+            this.columnClass = colClass || this.columnClass;
+            this._parseColumnClass(this.columnClass);
+            this.$jconfirmBoxContainer.addClass(this.columnClassParsed);
+        },
+        _updateContentMaxHeight: function(){
+            var height = $(window).height() - (this.$jconfirmBox.outerHeight() - this.$contentPane.outerHeight()) - (this.offsetTop + this.offsetBottom);
+            this.$contentPane.css({
+                'max-height': height + 'px'
+            });
+        },
+        setBoxWidth: function(width){
+            if(this.useBootstrap){
+                console.warn("cannot set boxWidth, useBootstrap is set to true");
+                return;
+            }
+            this.boxWidth = width;
+            this.$jconfirmBox.css('width', width);
+        },
+        _parseColumnClass: function(colClass){
+            colClass = colClass.toLowerCase();
+            var p;
+            switch(colClass){
+                case 'xl':
+                case 'xlarge':
+                    p = 'col-md-12';
+                    break;
+                case 'l':
+                case 'large':
+                    p = 'col-md-8 col-md-offset-2';
+                    break;
+                case 'm':
+                case 'medium':
+                    p = 'col-md-6 col-md-offset-3';
+                    break;
+                case 's':
+                case 'small':
+                    p = 'col-md-4 col-md-offset-4';
+                    break;
+                case 'xs':
+                case 'xsmall':
+                    p = 'col-md-2 col-md-offset-5';
+                    break;
+                default:
+                    p = colClass;
+            }
+            this.columnClassParsed = p;
+        },
+        initDraggable: function(){
+            var that = this;
+            var $t = this.$titleContainer;
+
+            this.resetDrag();
+            if(this.draggable){
+                $t.on('mousedown', function(e){
+                    $t.addClass('jconfirm-hand');
+                    that.mouseX = e.clientX;
+                    that.mouseY = e.clientY;
+                    that.isDrag = true;
+                });
+                $(window).on('mousemove.' + this._id, function(e){
+                    if(that.isDrag){
+                        that.movingX = e.clientX - that.mouseX + that.initialX;
+                        that.movingY = e.clientY - that.mouseY + that.initialY;
+                        that.setDrag();
+                    }
+                });
+
+                $(window).on('mouseup.' + this._id, function(){
+                    $t.removeClass('jconfirm-hand');
+                    if(that.isDrag){
+                        that.isDrag = false;
+                        that.initialX = that.movingX;
+                        that.initialY = that.movingY;
+                    }
+                })
+            }
+        },
+        resetDrag: function(){
+            this.isDrag = false;
+            this.initialX = 0;
+            this.initialY = 0;
+            this.movingX = 0;
+            this.movingY = 0;
+            this.mouseX = 0;
+            this.mouseY = 0;
+            this.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
+        },
+        setDrag: function(){
+            if(!this.draggable)
+                return;
+
+            this.alignMiddle = false;
+            var boxWidth = this.$jconfirmBox.outerWidth();
+            var boxHeight = this.$jconfirmBox.outerHeight();
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+            var that = this;
+            var dragUpdate = 1;
+            if(that.movingX % dragUpdate === 0 || that.movingY % dragUpdate === 0){
+                if(that.dragWindowBorder){
+                    var leftDistance = (windowWidth / 2) - boxWidth / 2;
+                    var topDistance = (windowHeight / 2) - boxHeight / 2;
+                    topDistance -= that.dragWindowGap;
+                    leftDistance -= that.dragWindowGap;
+
+                    if(leftDistance + that.movingX < 0){
+                        that.movingX = -leftDistance;
+                    }else if(leftDistance - that.movingX < 0){
+                        that.movingX = leftDistance;
+                    }
+
+                    if(topDistance + that.movingY < 0){
+                        that.movingY = -topDistance;
+                    }else if(topDistance - that.movingY < 0){
+                        that.movingY = topDistance;
+                    }
+                }
+
+                that.$jconfirmBoxContainer.css('transform', 'translate(' + that.movingX + 'px, ' + that.movingY + 'px)');
+            }
+        },
+        _scrollTop: function(){
+            if(typeof pageYOffset !== 'undefined'){
+                //most browsers except IE before #9
+                return pageYOffset;
+            }
+            else{
+                var B = document.body; //IE 'quirks'
+                var D = document.documentElement; //IE with doctype
+                D = (D.clientHeight) ? D : B;
+                return D.scrollTop;
+            }
+        },
+        _watchContent: function(){
+            var that = this;
+            if(this._timer) clearInterval(this._timer);
+
+            var prevContentHeight = 0;
+            this._timer = setInterval(function(){
+                if(that.smoothContent){
+                    var contentHeight = that.$content.outerHeight() || 0;
+                    if(contentHeight !== prevContentHeight){
+
+                        // Commented out to prevent scroll to top when updating the content
+                        // (for example when using ajax in forms in content)
+                        // that.$contentPane.css({
+                        //     'height': contentHeight
+                        // }).scrollTop(0);
+                        prevContentHeight = contentHeight;
+                    }
+                    var wh = $(window).height();
+                    var total = that.offsetTop + that.offsetBottom + that.$jconfirmBox.height() - that.$contentPane.height() + that.$content.height();
+                    if(total < wh){
+                        that.$contentPane.addClass('no-scroll');
+                    }else{
+                        that.$contentPane.removeClass('no-scroll');
+                    }
+                }
+            }, this.watchInterval);
+        },
+        _overflowClass: 'jconfirm-overflow',
+        _hilightAnimating: false,
+        highlight: function(){
+            this.hiLightModal();
+        },
+        hiLightModal: function(){
+            var that = this;
+            if(this._hilightAnimating)
+                return;
+
+            that.$body.addClass('hilight');
+            var duration = parseFloat(that.$body.css('animation-duration')) || 2;
+            this._hilightAnimating = true;
+            setTimeout(function(){
+                that._hilightAnimating = false;
+                that.$body.removeClass('hilight');
+            }, duration * 1000);
+        },
+        _bindEvents: function(){
+            var that = this;
+            this.boxClicked = false;
+
+            this.$scrollPane.click(function(e){ // Ignore propagated clicks
+                if(!that.boxClicked){ // Background clicked
+                    /*
+                     If backgroundDismiss is a function and its return value is truthy
+                     proceed to close the modal.
+                     */
+                    var buttonName = false;
+                    var shouldClose = false;
+                    var str;
+
+                    if(typeof that.backgroundDismiss === 'function')
+                        str = that.backgroundDismiss();
+                    else
+                        str = that.backgroundDismiss;
+
+                    if(typeof str === 'string' && typeof that.buttons[str] !== 'undefined'){
+                        buttonName = str;
+                        shouldClose = false;
+                    }else if(typeof str === 'undefined' || !!(str) === true){
+                        shouldClose = true;
+                    }else{
+                        shouldClose = false;
+                    }
+
+                    if(buttonName){
+                        var btnResponse = that.buttons[buttonName].action.apply(that);
+                        shouldClose = (typeof btnResponse === 'undefined') || !!(btnResponse);
+                    }
+
+                    if(shouldClose)
+                        that.close();
+                    else
+                        that.hiLightModal();
+                }
+                that.boxClicked = false;
+            });
+
+            this.$jconfirmBox.click(function(e){
+                that.boxClicked = true;
+            });
+
+            var isKeyDown = false;
+            $(window).on('jcKeyDown.' + that._id, function(e){
+                if(!isKeyDown){
+                    isKeyDown = true;
+                }
+            });
+            $(window).on('keyup.' + that._id, function(e){
+                if(isKeyDown){
+                    that.reactOnKey(e);
+                    isKeyDown = false;
+                }
+            });
+
+            $(window).on('resize.' + this._id, function(){
+                that._updateContentMaxHeight();
+                setTimeout(function(){
+                    that.resetDrag();
+                }, 100);
+            });
+        },
+        _cubic_bezier: '0.36, 0.55, 0.19',
+        _getCSS: function(speed, bounce){
+            return {
+                '-webkit-transition-duration': speed / 1000 + 's',
+                'transition-duration': speed / 1000 + 's',
+                '-webkit-transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')',
+                'transition-timing-function': 'cubic-bezier(' + this._cubic_bezier + ', ' + bounce + ')'
+            };
+        },
+        _setButtons: function(){
+            var that = this;
+            /*
+             * Settings up buttons
+             */
+
+            var total_buttons = 0;
+            if(typeof this.buttons !== 'object')
+                this.buttons = {};
+
+            $.each(this.buttons, function(key, button){
+                total_buttons += 1;
+                if(typeof button === 'function'){
+                    that.buttons[key] = button = {
+                        action: button
+                    };
+                }
+
+                that.buttons[key].text = button.text || key;
+                that.buttons[key].btnClass = button.btnClass || 'btn-default';
+                that.buttons[key].action = button.action || function(){
+                };
+                that.buttons[key].keys = button.keys || [];
+                that.buttons[key].isHidden = button.isHidden || false;
+                that.buttons[key].isDisabled = button.isDisabled || false;
+
+                $.each(that.buttons[key].keys, function(i, a){
+                    that.buttons[key].keys[i] = a.toLowerCase();
+                });
+
+                var button_element = $('<button type="button" class="btn"></button>')
+                    .html(that.buttons[key].text)
+                    .addClass(that.buttons[key].btnClass)
+                    .prop('disabled', that.buttons[key].isDisabled)
+                    .css('display', that.buttons[key].isHidden ? 'none' : '')
+                    .click(function(e){
+                        e.preventDefault();
+                        var res = that.buttons[key].action.apply(that, [that.buttons[key]]);
+                        that.onAction.apply(that, [key, that.buttons[key]]);
+                        that._stopCountDown();
+                        if(typeof res === 'undefined' || res)
+                            that.close();
+                    });
+
+                that.buttons[key].el = button_element;
+                that.buttons[key].setText = function(text){
+                    button_element.html(text);
+                };
+                that.buttons[key].addClass = function(className){
+                    button_element.addClass(className);
+                };
+                that.buttons[key].removeClass = function(className){
+                    button_element.removeClass(className);
+                };
+                that.buttons[key].disable = function(){
+                    that.buttons[key].isDisabled = true;
+                    button_element.prop('disabled', true);
+                };
+                that.buttons[key].enable = function(){
+                    that.buttons[key].isDisabled = false;
+                    button_element.prop('disabled', false);
+                };
+                that.buttons[key].show = function(){
+                    that.buttons[key].isHidden = false;
+                    button_element.css('display', '');
+                };
+                that.buttons[key].hide = function(){
+                    that.buttons[key].isHidden = true;
+                    button_element.css('display', 'none');
+                };
+                /*
+                 Buttons are prefixed with $_ or $$ for quick access
+                 */
+                that['$_' + key] = that['$$' + key] = button_element;
+                that.$btnc.append(button_element);
+            });
+
+            if(total_buttons === 0) this.$btnc.hide();
+            if(this.closeIcon === null && total_buttons === 0){
+                /*
+                 in case when no buttons are present & closeIcon is null, closeIcon is set to true,
+                 set closeIcon to true to explicitly tell to hide the close icon
+                 */
+                this.closeIcon = true;
+            }
+
+            if(this.closeIcon){
+                if(this.closeIconClass){
+                    // user requires a custom class.
+                    var closeHtml = '<i class="' + this.closeIconClass + '"></i>';
+                    this.$closeIcon.html(closeHtml);
+                }
+
+                this.$closeIcon.click(function(e){
+                    e.preventDefault();
+
+                    var buttonName = false;
+                    var shouldClose = false;
+                    var str;
+
+                    if(typeof that.closeIcon === 'function'){
+                        str = that.closeIcon();
+                    }else{
+                        str = that.closeIcon;
+                    }
+
+                    if(typeof str === 'string' && typeof that.buttons[str] !== 'undefined'){
+                        buttonName = str;
+                        shouldClose = false;
+                    }else if(typeof str === 'undefined' || !!(str) === true){
+                        shouldClose = true;
+                    }else{
+                        shouldClose = false;
+                    }
+                    if(buttonName){
+                        var btnResponse = that.buttons[buttonName].action.apply(that);
+                        shouldClose = (typeof btnResponse === 'undefined') || !!(btnResponse);
+                    }
+                    if(shouldClose){
+                        that.close();
+                    }
+                });
+                this.$closeIcon.show();
+            }else{
+                this.$closeIcon.hide();
+            }
+        },
+        setTitle: function(string, force){
+            force = force || false;
+
+            if(typeof string !== 'undefined')
+                if(typeof string === 'string')
+                    this.title = string;
+                else if(typeof string === 'function'){
+                    if(typeof string.promise === 'function')
+                        console.error('Promise was returned from title function, this is not supported.');
+
+                    var response = string();
+                    if(typeof response === 'string')
+                        this.title = response;
+                    else
+                        this.title = false;
+                }else
+                    this.title = false;
+
+            if(this.isAjaxLoading && !force)
+                return;
+
+            this.$title.html(this.title || '');
+            this.updateTitleContainer();
+        },
+        setIcon: function(iconClass, force){
+            force = force || false;
+
+            if(typeof iconClass !== 'undefined')
+                if(typeof iconClass === 'string')
+                    this.icon = iconClass;
+                else if(typeof iconClass === 'function'){
+                    var response = iconClass();
+                    if(typeof response === 'string')
+                        this.icon = response;
+                    else
+                        this.icon = false;
+                }
+                else
+                    this.icon = false;
+
+            if(this.isAjaxLoading && !force)
+                return;
+
+            this.$icon.html(this.icon ? '<i class="' + this.icon + '"></i>' : '');
+            this.updateTitleContainer();
+        },
+        updateTitleContainer: function(){
+            if(!this.title && !this.icon){
+                this.$titleContainer.hide();
+            }else{
+                this.$titleContainer.show();
+            }
+        },
+        setContentPrepend: function(content, force){
+            if(!content)
+                return;
+
+            this.contentParsed.prepend(content);
+        },
+        setContentAppend: function(content){
+            if(!content)
+                return;
+
+            this.contentParsed.append(content);
+        },
+        setContent: function(content, force){
+            force = !!force;
+            var that = this;
+            if(content)
+                this.contentParsed.html('').append(content);
+            if(this.isAjaxLoading && !force)
+                return;
+
+            this.$content.html('');
+            this.$content.append(this.contentParsed);
+            setTimeout(function(){
+                that.$body.find('input[autofocus]:visible:first').focus();
+            }, 100);
+        },
+        loadingSpinner: false,
+        showLoading: function(disableButtons){
+            this.loadingSpinner = true;
+            this.$jconfirmBox.addClass('loading');
+            if(disableButtons)
+                this.$btnc.find('button').prop('disabled', true);
+
+        },
+        hideLoading: function(enableButtons){
+            this.loadingSpinner = false;
+            this.$jconfirmBox.removeClass('loading');
+            if(enableButtons)
+                this.$btnc.find('button').prop('disabled', false);
+
+        },
+        ajaxResponse: false,
+        contentParsed: '',
+        isAjax: false,
+        isAjaxLoading: false,
+        _parseContent: function(){
+            var that = this;
+            var e = '&nbsp;';
+
+            if(typeof this.content === 'function'){
+                var res = this.content.apply(this);
+                if(typeof res === 'string'){
+                    this.content = res;
+                }
+                else if(typeof res === 'object' && typeof res.always === 'function'){
+                    // this is ajax loading via promise
+                    this.isAjax = true;
+                    this.isAjaxLoading = true;
+                    res.always(function(data, status, xhr){
+                        that.ajaxResponse = {
+                            data: data,
+                            status: status,
+                            xhr: xhr
+                        };
+                        that._contentReady.resolve(data, status, xhr);
+                        if(typeof that.contentLoaded === 'function')
+                            that.contentLoaded(data, status, xhr);
+                    });
+                    this.content = e;
+                }else{
+                    this.content = e;
+                }
+            }
+
+            if(typeof this.content === 'string' && this.content.substr(0, 4).toLowerCase() === 'url:'){
+                this.isAjax = true;
+                this.isAjaxLoading = true;
+                var u = this.content.substring(4, this.content.length);
+                $.get(u).done(function(html){
+                    that.contentParsed.html(html);
+                }).always(function(data, status, xhr){
+                    that.ajaxResponse = {
+                        data: data,
+                        status: status,
+                        xhr: xhr
+                    };
+                    that._contentReady.resolve(data, status, xhr);
+                    if(typeof that.contentLoaded === 'function')
+                        that.contentLoaded(data, status, xhr);
+                });
+            }
+
+            if(!this.content)
+                this.content = e;
+
+            if(!this.isAjax){
+                this.contentParsed.html(this.content);
+                this.setContent();
+                that._contentReady.resolve();
+            }
+        },
+        _stopCountDown: function(){
+            clearInterval(this.autoCloseInterval);
+            if(this.$cd)
+                this.$cd.remove();
+        },
+        _startCountDown: function(){
+            var that = this;
+            var opt = this.autoClose.split('|');
+            if(opt.length !== 2){
+                console.error('Invalid option for autoClose. example \'close|10000\'');
+                return false;
+            }
+
+            var button_key = opt[0];
+            var time = parseInt(opt[1]);
+            if(typeof this.buttons[button_key] === 'undefined'){
+                console.error('Invalid button key \'' + button_key + '\' for autoClose');
+                return false;
+            }
+
+            var seconds = Math.ceil(time / 1000);
+            this.$cd = $('<span class="countdown"> (' + seconds + ')</span>')
+                .appendTo(this['$_' + button_key]);
+
+            this.autoCloseInterval = setInterval(function(){
+                that.$cd.html(' (' + (seconds -= 1) + ') ');
+                if(seconds <= 0){
+                    that['$$' + button_key].trigger('click');
+                    that._stopCountDown();
+                }
+            }, 1000);
+        },
+        _getKey: function(key){
+            // very necessary keys.
+            switch(key){
+                case 192:
+                    return 'tilde';
+                case 13:
+                    return 'enter';
+                case 16:
+                    return 'shift';
+                case 9:
+                    return 'tab';
+                case 20:
+                    return 'capslock';
+                case 17:
+                    return 'ctrl';
+                case 91:
+                    return 'win';
+                case 18:
+                    return 'alt';
+                case 27:
+                    return 'esc';
+                case 32:
+                    return 'space';
+            }
+
+            // only trust alphabets with this.
+            var initial = String.fromCharCode(key);
+            if(/^[A-z0-9]+$/.test(initial))
+                return initial.toLowerCase();
+            else
+                return false;
+        },
+        reactOnKey: function(e){
+            var that = this;
+
+            /*
+             Prevent keyup event if the dialog is not last!
+             */
+            var a = $('.jconfirm');
+            if(a.eq(a.length - 1)[0] !== this.$el[0])
+                return false;
+
+            var key = e.which;
+            /*
+             Do not react if Enter or Space is pressed on input elements
+             */
+            if(this.$content.find(':input').is(':focus') && /13|32/.test(key))
+                return false;
+
+            var keyChar = this._getKey(key);
+
+            // If esc is pressed
+            if(keyChar === 'esc' && this.escapeKey){
+                if(this.escapeKey === true){
+                    this.$scrollPane.trigger('click');
+                }
+                else if(typeof this.escapeKey === 'string' || typeof this.escapeKey === 'function'){
+                    var buttonKey;
+                    if(typeof this.escapeKey === 'function'){
+                        buttonKey = this.escapeKey();
+                    }else{
+                        buttonKey = this.escapeKey;
+                    }
+
+                    if(buttonKey)
+                        if(typeof this.buttons[buttonKey] === 'undefined'){
+                            console.warn('Invalid escapeKey, no buttons found with key ' + buttonKey);
+                        }else{
+                            this['$_' + buttonKey].trigger('click');
+                        }
+                }
+            }
+
+            // check if any button is listening to this key.
+            $.each(this.buttons, function(key, button){
+                if(button.keys.indexOf(keyChar) !== -1){
+                    that['$_' + key].trigger('click');
+                }
+            });
+        },
+        setDialogCenter: function(){
+            console.info('setDialogCenter is deprecated, dialogs are centered with CSS3 tables');
+        },
+        _unwatchContent: function(){
+            clearInterval(this._timer);
+        },
+        close: function(onClosePayload){
+            var that = this;
+
+            if(typeof this.onClose === 'function')
+                this.onClose(onClosePayload);
+
+            this._unwatchContent();
+
+            /*
+             unbind the window resize & keyup event.
+             */
+            $(window).unbind('resize.' + this._id);
+            $(window).unbind('keyup.' + this._id);
+            $(window).unbind('jcKeyDown.' + this._id);
+
+            if(this.draggable){
+                $(window).unbind('mousemove.' + this._id);
+                $(window).unbind('mouseup.' + this._id);
+                this.$titleContainer.unbind('mousedown');
+            }
+
+            that.$el.removeClass(that.loadedClass);
+            $('body').removeClass('jconfirm-no-scroll-' + that._id);
+            that.$jconfirmBoxContainer.removeClass('jconfirm-no-transition');
+
+            setTimeout(function(){
+                that.$body.addClass(that.closeAnimationParsed);
+                that.$jconfirmBg.addClass('jconfirm-bg-h');
+                var closeTimer = (that.closeAnimation === 'none') ? 1 : that.animationSpeed;
+
+                setTimeout(function(){
+                    that.$el.remove();
+
+                    var l = w.jconfirm.instances;
+                    var i = w.jconfirm.instances.length - 1;
+                    for(i; i >= 0; i--){
+                        if(w.jconfirm.instances[i]._id === that._id){
+                            w.jconfirm.instances.splice(i, 1);
+                        }
+                    }
+
+                    // Focusing a element, scrolls automatically to that element.
+                    // no instances should be open, lastFocused should be true, the lastFocused element must exists in DOM
+                    if(!w.jconfirm.instances.length){
+                        if(that.scrollToPreviousElement && w.jconfirm.lastFocused && w.jconfirm.lastFocused.length && $.contains(document, w.jconfirm.lastFocused[0])){
+                            var $lf = w.jconfirm.lastFocused;
+                            if(that.scrollToPreviousElementAnimate){
+                                var st = $(window).scrollTop();
+                                var ot = w.jconfirm.lastFocused.offset().top;
+                                var wh = $(window).height();
+                                if(!(ot > st && ot < (st + wh))){
+                                    var scrollTo = (ot - Math.round((wh / 3)));
+                                    $('html, body').animate({
+                                        scrollTop: scrollTo
+                                    }, that.animationSpeed, 'swing', function(){
+                                        // gracefully scroll and then focus.
+                                        $lf.focus();
+                                    });
+                                }else{
+                                    // the element to be focused is already in view.
+                                    $lf.focus();
+                                }
+                            }else{
+                                $lf.focus();
+                            }
+                            w.jconfirm.lastFocused = false;
+                        }
+                    }
+
+                    if(typeof that.onDestroy === 'function')
+                        that.onDestroy();
+
+                }, closeTimer * 0.40);
+            }, 50);
+
+            return true;
+        },
+        open: function(){
+            if(this.isOpen())
+                return false;
+
+            // var that = this;
+            this._buildHTML();
+            this._bindEvents();
+            this._open();
+
+            return true;
+        },
+        setStartingPoint: function(){
+            var el = false;
+
+            if(this.animateFromElement !== true && this.animateFromElement){
+                el = this.animateFromElement;
+                w.jconfirm.lastClicked = false;
+            }else if(w.jconfirm.lastClicked && this.animateFromElement === true){
+                el = w.jconfirm.lastClicked;
+                w.jconfirm.lastClicked = false;
+            }else{
+                return false;
+            }
+
+            if(!el)
+                return false;
+
+            var offset = el.offset();
+
+            var iTop = el.outerHeight() / 2;
+            var iLeft = el.outerWidth() / 2;
+
+            // placing position of jconfirm modal in center of clicked element
+            iTop -= this.$jconfirmBox.outerHeight() / 2;
+            iLeft -= this.$jconfirmBox.outerWidth() / 2;
+
+            // absolute position on screen
+            var sourceTop = offset.top + iTop;
+            sourceTop = sourceTop - this._scrollTop();
+            var sourceLeft = offset.left + iLeft;
+
+            // window halved
+            var wh = $(window).height() / 2;
+            var ww = $(window).width() / 2;
+
+            var targetH = wh - this.$jconfirmBox.outerHeight() / 2;
+            var targetW = ww - this.$jconfirmBox.outerWidth() / 2;
+
+            sourceTop -= targetH;
+            sourceLeft -= targetW;
+
+            // Check if the element is inside the viewable window.
+            if(Math.abs(sourceTop) > wh || Math.abs(sourceLeft) > ww)
+                return false;
+
+            this.$jconfirmBoxContainer.css('transform', 'translate(' + sourceLeft + 'px, ' + sourceTop + 'px)');
+        },
+        _open: function(){
+            var that = this;
+            if(typeof that.onOpenBefore === 'function')
+                that.onOpenBefore();
+
+            this.$body.removeClass(this.animationParsed);
+            this.$jconfirmBg.removeClass('jconfirm-bg-h');
+            this.$body.focus();
+
+            that.$jconfirmBoxContainer.css('transform', 'translate(' + 0 + 'px, ' + 0 + 'px)');
+
+            setTimeout(function(){
+                that.$body.css(that._getCSS(that.animationSpeed, 1));
+                that.$body.css({
+                    'transition-property': that.$body.css('transition-property') + ', margin'
+                });
+                that.$jconfirmBoxContainer.addClass('jconfirm-no-transition');
+                that._modalReady.resolve();
+                if(typeof that.onOpen === 'function')
+                    that.onOpen();
+
+                that.$el.addClass(that.loadedClass);
+            }, this.animationSpeed);
+        },
+        loadedClass: 'jconfirm-open',
+        isClosed: function(){
+            return !this.$el || this.$el.parent().length === 0;
+        },
+        isOpen: function(){
+            return !this.isClosed();
+        },
+        toggle: function(){
+            if(!this.isOpen())
+                this.open();
+            else
+                this.close();
+        }
+    };
+
+    w.jconfirm.instances = [];
+    w.jconfirm.lastFocused = false;
+    w.jconfirm.pluginDefaults = {
+        template: '' +
+            '<div class="jconfirm">' +
+            '<div class="jconfirm-bg jconfirm-bg-h"></div>' +
+            '<div class="jconfirm-scrollpane">' +
+            '<div class="jconfirm-row">' +
+            '<div class="jconfirm-cell">' +
+            '<div class="jconfirm-holder">' +
+            '<div class="jc-bs3-container">' +
+            '<div class="jc-bs3-row">' +
+            '<div class="jconfirm-box-container jconfirm-animated">' +
+            '<div class="jconfirm-box" role="dialog" aria-labelledby="labelled" tabindex="-1">' +
+            '<div class="jconfirm-closeIcon">&times;</div>' +
+            '<div class="jconfirm-title-c">' +
+            '<span class="jconfirm-icon-c"></span>' +
+            '<span class="jconfirm-title"></span>' +
+            '</div>' +
+            '<div class="jconfirm-content-pane">' +
+            '<div class="jconfirm-content"></div>' +
+            '</div>' +
+            '<div class="jconfirm-buttons">' +
+            '</div>' +
+            '<div class="jconfirm-clear">' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div></div>',
+        title: 'Hello',
+        titleClass: '',
+        type: 'default',
+        typeAnimated: true,
+        draggable: true,
+        dragWindowGap: 15,
+        dragWindowBorder: true,
+        animateFromElement: true,
+        /**
+         * @deprecated
+         */
+        alignMiddle: true,
+        smoothContent: true,
+        content: 'Are you sure to continue?',
+        buttons: {},
+        defaultButtons: {
+            ok: {
+                action: function(){
+                }
+            },
+            close: {
+                action: function(){
+                }
+            }
+        },
+        contentLoaded: function(){
+        },
+        icon: '',
+        lazyOpen: false,
+        bgOpacity: null,
+        theme: 'light',
+        animation: 'scale',
+        closeAnimation: 'scale',
+        animationSpeed: 400,
+        animationBounce: 1,
+        escapeKey: true,
+        rtl: false,
+        container: 'body',
+        containerFluid: false,
+        backgroundDismiss: false,
+        backgroundDismissAnimation: 'shake',
+        autoClose: false,
+        closeIcon: null,
+        closeIconClass: false,
+        watchInterval: 100,
+        columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+        boxWidth: '50%',
+        scrollToPreviousElement: true,
+        scrollToPreviousElementAnimate: true,
+        useBootstrap: true,
+        offsetTop: 40,
+        offsetBottom: 40,
+        bootstrapClasses: {
+            container: 'container',
+            containerFluid: 'container-fluid',
+            row: 'row'
+        },
+        onContentReady: function(){
+
+        },
+        onOpenBefore: function(){
+
+        },
+        onOpen: function(){
+
+        },
+        onClose: function(){
+
+        },
+        onDestroy: function(){
+
+        },
+        onAction: function(){
+
+        }
+    };
+
+    /**
+     * This refers to the issue #241 and #246
+     *
+     * Problem:
+     * Button A is clicked (keydown) using the Keyboard ENTER key
+     * A opens the jconfirm modal B,
+     * B has registered ENTER key for one of its button C
+     * A is released (keyup), B gets the keyup event and triggers C.
+     *
+     * Solution:
+     * Register a global keydown event, that tells jconfirm if the keydown originated inside jconfirm
+     */
+    var keyDown = false;
+    $(window).on('keydown', function(e){
+        if(!keyDown){
+            var $target = $(e.target);
+            var pass = false;
+            if($target.closest('.jconfirm-box').length)
+                pass = true;
+            if(pass)
+                $(window).trigger('jcKeyDown');
+
+            keyDown = true;
+        }
+    });
+    $(window).on('keyup', function(){
+        keyDown = false;
+    });
+    w.jconfirm.lastClicked = false;
+    $(document).on('mousedown', 'button, a, [jc-source]', function(){
+        w.jconfirm.lastClicked = $(this);
+    });
+}));
+
+
+function Prompt($title, $formSubmit, $btn_name, $value = '', $alert = '') {
+    $.confirm({
+        animation: 'zoom',
+        closeAnimation: 'zoom',
+        title: $title,
+        columnClass: 'zoroaster_prompt',
+        content:
+            '<form class="formName">' +
+            '<input type="text" value="' + $value + '" class="uk-input" required />' +
+            '<div class="alert-danger">' + $alert + '</div>' +
+            '</form>',
+        buttons: {
+            formSubmit: {
+                text: isset($btn_name.submit) ? $btn_name.submit : 'ثبت',
+                btnClass: 'btn-blue',
+                action: function () {
+                    $formSubmit(this.$content.find('input').val(), this);
+                }
+            },
+            cancel: {
+                text: isset($btn_name.cancel) ? $btn_name.cancel : 'لــــغــــو',
+                action: function () {
+                    //close
+                },
+            }
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+    })
+}
+
+function Confirm_delete(title,$function) {
+    Confirm( title, $function, {confirm: 'حذف'},'Confirm_delete');
+}
+
+function Confirm(title,confirm_function,btn_name,columnClass='') {
+    $.confirm({
+        animation: 'zoom',
+        closeAnimation: 'zoom',
+        title: title,
+        content: '',
+        columnClass: 'zoroaster_confirm '+columnClass,
+        buttons: {
+            confirm:{
+                text: isset(btn_name.confirm) ? btn_name.confirm : 'ثبت',
+                btnClass: isset(btn_name.submit_class) ? btn_name.submit_class : 'btn-blue',
+                action: function () {
+                    confirm_function();
+                }
+            },
+            cancel: {
+                text: isset(btn_name.cancel) ? btn_name.cancel : 'لــــغــــو',
+                btnClass: isset(btn_name.cancel_class) ? btn_name.cancel_class : '',
+                action: function () {
+                }
+            },
+        }
+    });
+
+}

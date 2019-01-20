@@ -599,8 +599,10 @@ footer .rb-copyright {
 }
 
 .uk-notification-message-success {
-    background: #5CB860;
+    background: #4caf50e6;
     color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #4aab5d;
 }
 
 .uk-notification-message-warning {
@@ -2608,4 +2610,121 @@ ul#side-menu a span.uk-badge {
     float: left;
     padding: 4px  !important;
     display: inline-block;
+}
+
+.zoroaster_prompt {
+    width: 600px;
+    margin: auto;
+    padding: 15px;
+}
+
+.zoroaster_prompt input {
+    border-radius: 5px;
+}
+
+.zoroaster_prompt .jconfirm-box {
+    padding: 25px;
+    /* padding-bottom: 10px; */
+}
+
+.zoroaster_prompt .btn-blue {
+    background-color: rgb(41, 126, 192);
+    -webkit-box-shadow: 0 0 8px rgb(64, 153, 222);
+    box-shadow: 0 0 8px rgb(64, 153, 222);
+}
+
+.zoroaster_prompt button {
+    padding: 8px 15px !important;
+    font-weight: normal !important;
+}
+
+.zoroaster_prompt .jconfirm-buttons {
+    background-color: #ecf0f1;
+    float: none !important;
+    display: block;
+    margin: -25px;
+    padding: 10px 25px;
+    margin-top: auto;
+}
+
+.zoroaster_prompt .jconfirm-title {
+    margin-bottom: 10px;
+}
+
+.zoroaster_prompt .alert-danger {
+    margin-top: 10px;
+    padding: 5px;
+    color: #f55a4e;
+    font-weight: bold;
+}
+
+.uk-notification-message.uk-notification-message-danger {
+    background-color: #f55a4ee6;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #f4695e;
+}
+
+
+.zoroaster_confirm {
+    width: 500px;
+    margin: auto;
+    padding: 15px;
+}
+
+
+
+.zoroaster_confirm .jconfirm-box {
+    padding: 25px;
+    /* padding-bottom: 10px; */
+}
+
+.zoroaster_confirm .btn-blue {
+    background-color: rgb(41, 126, 192);
+    -webkit-box-shadow: 0 0 8px rgb(64, 153, 222);
+    box-shadow: 0 0 8px rgb(64, 153, 222);
+}
+
+.zoroaster_confirm button {
+    padding: 8px 15px !important;
+    font-weight: normal !important;
+}
+
+.zoroaster_confirm .jconfirm-buttons {
+    background-color: #ecf0f1;
+    float: none !important;
+    display: block;
+    margin: -25px;
+    padding: 10px 25px;
+    margin-top: auto;
+}
+
+.zoroaster_confirm .jconfirm-title {
+    margin-bottom: 30px;
+}
+
+.zoroaster_confirm .alert-danger {
+    margin-top: 10px;
+    padding: 5px;
+    color: #f55a4e;
+    font-weight: bold;
+}
+
+.confirm_delete .btn-blue:hover {
+    opacity: .8;
+}
+
+.zoroaster_confirm .no-scroll {
+    transition: 0s all !important;
+    display: none !important;
+    max-height: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    position: absolute !important;
+    left: -100%;
+}
+
+.confirm_delete .btn-blue {
+    background-color: #F44336 !important;
+    -webkit-box-shadow: 0 0 8px #F44336;
+    box-shadow: 0 0 8px #F44336;
 }

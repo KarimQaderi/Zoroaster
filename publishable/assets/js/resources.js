@@ -485,3 +485,42 @@ function activeEelementByClassFind($activeEelementByClass, $find) {
     });
     return $found;
 }
+
+function isset($var) {
+    if(typeof($var) != "undefined" && $var !== null) {
+        return true;
+    }
+    return false;
+}
+
+function dd($var) {
+    console.log($var);
+}
+
+function notification(massage,type) {
+    UIkit.notification(massage, {pos: 'bottom-right',status:type})
+}
+
+function route(name, parameters = []) {
+    if (isset(Zoroaster_jsRoute[name])) {
+        var route = Zoroaster_jsRoute[name];
+        $.each(parameters, function ($key, $value) {
+            route = route.replace('{'+$key+'}',$value);
+        });
+        return route;
+    } else {
+        alert($name + ' روت  پیدا نشد');
+    }
+}
+
+function click(selector, $function) {
+    $(document).on('click', selector, function (e) {
+        $function(this);
+    });
+}
+
+function change(selector, $function) {
+    $(document).on('change', selector, function (e) {
+        $function(this);
+    });
+}

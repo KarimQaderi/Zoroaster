@@ -4,6 +4,8 @@
 
     @include('Zoroaster::partials.head')
 
+
+
     <script>
         var Zoroaster_resource_ajax_index = '{{ route('Zoroaster.resource-ajax.index') }}',
             Zoroaster_resource_restore = '{{ route('Zoroaster.resource-ajax.restore') }}',

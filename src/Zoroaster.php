@@ -39,6 +39,14 @@
 
 
         /**
+         * jsRoute
+         *
+         * @var array
+         */
+        public static $jsRoute = [];
+
+
+        /**
          * Register the given resources.
          *
          * @param  array $resources
@@ -46,6 +54,17 @@
         public static function resources(array $resources)
         {
             static::$resources = array_merge(static::$resources , $resources);
+        }
+
+
+        /**
+         * Register the given jsRoute.
+         *
+         * @param  array | string $jsRoute
+         */
+        public static function jsRoute($jsRoute)
+        {
+            static::$jsRoute = array_merge(static::$jsRoute , is_array($jsRoute) ? $jsRoute : [$jsRoute]);
         }
 
 
