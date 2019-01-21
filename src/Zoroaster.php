@@ -75,7 +75,7 @@
          */
         public static function SidebarMenus(array $SidebarMenus)
         {
-            static::$SidebarMenus = array_merge(static::$SidebarMenus , $SidebarMenus);
+            static::$SidebarMenus = array_merge($SidebarMenus , static::$SidebarMenus);
         }
 
         /**
@@ -85,7 +85,7 @@
          */
         public static function styles($styles)
         {
-            static::$styles = array_merge(static::$styles , is_array($styles)? $styles : [$styles]);
+            static::$styles = array_merge(static::$styles , is_array($styles) ? $styles : [$styles]);
         }
 
         /**
