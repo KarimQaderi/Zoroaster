@@ -33,7 +33,7 @@
                 /**
                  * ها Action دوباره گرفتن
                  */
-                $col = \Zoroaster::ResourceActions($request ,
+                $col = \Zoroaster::ResourceActions($request->Resource() ,
                     $find ,
                     $request->Resource()->newModel() , 'Index' , $request->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)

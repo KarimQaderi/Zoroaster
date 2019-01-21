@@ -30,19 +30,19 @@
 
         /**
          * index صفحه برای فیلترها گرفتن
-         * @param \KarimQaderi\Zoroaster\Traits\ResourceRequest $ResourceRequest
+         * @param \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource $resource
          * @return string|null
          */
-        public static function Filters($ResourceRequest)
+        public static function Filters($resource)
         {
             $Filters = null;
             $filters = array_reverse((new DefaultFilters())->hendle());
-            if($ResourceRequest->Resource()->filters() != null)
-                $filters = array_merge($filters , $ResourceRequest->Resource()->filters());
+            if($resource->filters() != null)
+                $filters = array_merge($filters , $resource->filters());
 
             foreach($filters as $filter){
-                if($filter->authorizedToSee($ResourceRequest))
-                    $Filters .= $filter->render($ResourceRequest);
+                if($filter->authorizedToSee($resource))
+                    $Filters .= $filter->render($resource);
             }
 
             return $Filters;
@@ -55,8 +55,8 @@
         public static function jsRoute()
         {
 
-            $routes=[];
-            $as=SrcZoroaster::$jsRoute;
+            $routes = [];
+            $as = SrcZoroaster::$jsRoute;
             foreach(Route::getFacadeRoot()->getRoutes()->getRoutes() as $route){
                 if(isset($route->action['as']) && in_array($route->action['as'] , $as)){
                     $as = array_diff($as , [$route->action['as']]);
@@ -74,12 +74,12 @@
          *
          */
         public
-        static function ResourceActions($request , $data , $model , $view , $field = null)
+        static function ResourceActions($resource , $data , $model , $view , $field = null)
         {
             $Actions = null;
-            foreach($request->Resource()->ResourceActions() as $Action){
-                if($Action->{'showFrom' . $view} == true && $Action->Authorization($request , $data))
-                    $Actions .= $Action->render($request , $data , $model , $view , $field);
+            foreach($resource->ResourceActions() as $Action){
+                if($Action->{'showFrom' . $view} == true && $Action->Authorization($resource , $data))
+                    $Actions .= $Action->render($resource , $data , $model , $view , $field);
 
             }
 

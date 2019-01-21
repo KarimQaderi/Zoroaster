@@ -37882,13 +37882,13 @@ return Array.prototype.slice.call(arguments).map(function(a){return a}).reduce(f
     });
 }));
 
-
 function Prompt($title, $formSubmit, $btn_name, $value = '', $alert = '') {
     $.confirm({
         animation: 'zoom',
         closeAnimation: 'zoom',
         title: $title,
         columnClass: 'zoroaster_prompt',
+        smoothContent: false,
         content:
             '<form class="formName">' +
             '<input type="text" value="' + $value + '" class="uk-input" required />' +
@@ -37921,19 +37921,20 @@ function Prompt($title, $formSubmit, $btn_name, $value = '', $alert = '') {
     })
 }
 
-function Confirm_delete(title,$function) {
-    Confirm( title, $function, {confirm: 'حذف'},'Confirm_delete');
+function Confirm_delete(title, $function) {
+    Confirm(title, $function, {confirm: 'حذف'}, 'Confirm_delete');
 }
 
-function Confirm(title,confirm_function,btn_name,columnClass='') {
-    $.confirm({
+function Confirm(title, confirm_function, btn_name, columnClass = '') {
+    var that = $.confirm({
         animation: 'zoom',
         closeAnimation: 'zoom',
         title: title,
-        content: '',
-        columnClass: 'zoroaster_confirm '+columnClass,
+        content: null,
+        smoothContent: false,
+        columnClass: 'zoroaster_confirm ' + columnClass,
         buttons: {
-            confirm:{
+            confirm: {
                 text: isset(btn_name.confirm) ? btn_name.confirm : 'ثبت',
                 btnClass: isset(btn_name.submit_class) ? btn_name.submit_class : 'btn-blue',
                 action: function () {
@@ -37948,5 +37949,4 @@ function Confirm(title,confirm_function,btn_name,columnClass='') {
             },
         }
     });
-
 }

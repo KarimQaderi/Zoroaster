@@ -2,6 +2,7 @@
 
     namespace KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters;
 
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\Boolean;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
@@ -17,10 +18,10 @@
 
 
         /**
-         * @param ResourceRequest $ResourceRequest
+         * @param ZoroasterResource $resource
          * @return \Illuminate\View\View | string
          */
-        public function render($ResourceRequest)
+        public function render($resource)
         {
             $keys = null;
             $data = [];
@@ -34,7 +35,7 @@
                     'getKey' => $this->getKey() ,
                     'keys' => $keys ,
                     'label' => $this->label() ,
-                    'ResourceRequest' => $ResourceRequest ,
+                    'resource' => $resource ,
                     'boolean' => static::RenderForm([
                         $this->bool()
                     ] , (object)$data)

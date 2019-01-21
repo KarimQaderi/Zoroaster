@@ -14,20 +14,8 @@
 
             setParameters(param);
 
-            $this = $('[data-resource="{{ $ResourceRequest->resourceClass }}"]');
+            index_resources('{{ $resource->uriKey() }}');
 
-            param.push({name: 'resource', value: '{{ $ResourceRequest->resourceClass }}'});
-
-            $this.html("<span uk-icon=\"load\"></span>");
-
-            ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources('{{ $ResourceRequest->resourceClass }}')),
-                function (data) {
-                    $('[data-resource="' + data.resource + '"]').html(data.render);
-                },
-                function (data) {
-                    var errors = data.responseJSON;
-                }
-            );
         });
     });
 </script>

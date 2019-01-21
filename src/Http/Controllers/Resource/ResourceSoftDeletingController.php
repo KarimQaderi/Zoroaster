@@ -27,7 +27,7 @@
                 /**
                  * ها Action دوباره گرفتن
                  */
-                $col = \Zoroaster::ResourceActions($request , $find ,
+                $col = \Zoroaster::ResourceActions($request->Resource() , $find ,
                     $find, 'Index' , $request->ResourceFields(function($field){
                         if($field !== null && $field->showOnIndex == true)
                             return true;

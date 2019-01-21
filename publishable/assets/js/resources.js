@@ -1,10 +1,3 @@
-function isString($var) {
-    if (Object.prototype.toString.call($var) == '[object String]')
-        return true;
-    else
-        return false;
-}
-
 function ajaxGET(url, data, success, error) {
     $.ajax({
         type: 'GET',
@@ -33,8 +26,7 @@ function RemoveParameter(param) {
             suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
             url_hash = prefix + value[0] + "=" + value[1] + suffix;
 
-        }
-        else {
+        } else {
             if (url_hash.indexOf("?") < 0)
                 url_hash += "?" + value[0] + "=" + value[1];
             else
@@ -120,13 +112,13 @@ function index_resources(resource) {
 
     $this = $('[data-resource="' + resource + '"]');
 
-    $($this).html("<span uk-icon=\"load\"></span>");
+    $($this.find('.data_table')).html("<span uk-icon=\"load\"></span>");
 
     var param = getUrlVars();
 
     ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources(resource)),
         function (data) {
-            $('[data-resource="' + data.resource + '"]').html(data.render);
+            $('[data-resource="' + data.resource + '"] .data_table').html(data.render);
         }, function (data) {
             var errors = data.responseJSON;
         });
@@ -369,9 +361,7 @@ $(document).ready(function () {
     // Sort dataTable
     $(document).on('click', '.dataTables th.cursor-pointer', function () {
 
-        $this = $(this).closest('.resource-ajax');
-        $resourceClass = $this.attr('data-resource');
-        $ThisresourceClass = $('[data-resource="' + $resourceClass + '"]');
+        $resourceClass = $(this).closest('.resource-ajax').attr('data-resource');
 
         var name = $(this).attr('data-sortable_field');
         var sort = $(this).attr('data-sortable');
@@ -396,19 +386,7 @@ $(document).ready(function () {
 
         param = setParameters(param);
 
-        param.push({name: 'resource', value: $resourceClass});
-
-
-        $ThisresourceClass.html("<span uk-icon=\"load\"></span>");
-
-        ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources($resourceClass)),
-            function (data) {
-                $('[data-resource="' + data.resource + '"]').html(data.render);
-            },
-            function (data) {
-                var errors = data.responseJSON;
-            }
-        );
+        index_resources($resourceClass);
 
     });
 
@@ -416,57 +394,29 @@ $(document).ready(function () {
     $(document).on('keyup', '.resource-ajax .search', function (e) {
 
         if (e.keyCode == 13) {
-            $this = $(this).closest('.resource-ajax');
-            $resourceClass = $this.attr('data-resource');
-            $ThisresourceClass = $('[data-resource="' + $resourceClass + '"]');
+            $resourceClass = $(this).closest('.resource-ajax').attr('data-resource');
             $val = $('[data-resource="' + $resourceClass + '"] .search input').val();
-
-            $this.html("<span uk-icon=\"load\"></span>");
-
             var param = [{name: $resourceClass + '_search', value: $val}];
-
             param = setParameters(param);
-
-            param.push({name: 'resource', value: $resourceClass});
-
-            ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources($resourceClass)),
-                function (data) {
-                    $('[data-resource="' + data.resource + '"]').html(data.render);
-                }, function (data) {
-                    var errors = data.responseJSON;
-                });
-
+            index_resources($resourceClass);
         }
     });
 
     // dataTables_paginate
     $(document).on('click', '.dataTables_paginate div', function (e) {
 
-        $this = $(this).closest('.resource-ajax');
-        $resourceClass = $this.attr('data-resource');
-        $ThisresourceClass = $('[data-resource="' + $resourceClass + '"]');
+        $resourceClass = $(this).closest('.resource-ajax').attr('data-resource');
 
         var page = $(this).attr('data-page');
 
-        var param = [{name: $resourceClass+'_Page' , value: page}];
+        var param = [{name: $resourceClass + '_Page', value: page}];
 
         param = setParameters(param);
 
-        param.push({name: 'resource', value: $resourceClass});
-
-        $ThisresourceClass.html("<span uk-icon=\"load\"></span>");
-        ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources($resourceClass)),
-            function (data) {
-                $('[data-resource="' + data.resource + '"]').html(data.render);
-            },
-            function (data) {
-                var errors = data.responseJSON;
-            }
-        );
+        index_resources($resourceClass);
 
     });
 });
-
 
 
 function activeEelementByClass($activeEelementByClass) {
@@ -478,34 +428,42 @@ function activeEelementByClass($activeEelementByClass) {
 
 function activeEelementByClassFind($activeEelementByClass, $find) {
 
-    $found=null;
+    $found = null;
     $.each($activeEelementByClass, function ($item, $items) {
         if ($items.optionsKey == $find)
-            $found= $items.class;
+            $found = $items.class;
     });
     return $found;
 }
 
 function isset($var) {
-    if(typeof($var) != "undefined" && $var !== null) {
+    if (typeof ($var) != "undefined" && $var !== null) {
         return true;
     }
     return false;
 }
 
+function isString($var) {
+    if (Object.prototype.toString.call($var) == '[object String]')
+        return true;
+    else
+        return false;
+}
+
+
 function dd($var) {
     console.log($var);
 }
 
-function notification(massage,type) {
-    UIkit.notification(massage, {pos: 'bottom-right',status:type})
+function notification(massage, type) {
+    UIkit.notification(massage, {pos: 'bottom-right', status: type})
 }
 
 function route(name, parameters = []) {
     if (isset(Zoroaster_jsRoute[name])) {
         var route = Zoroaster_jsRoute[name];
         $.each(parameters, function ($key, $value) {
-            route = route.replace('{'+$key+'}',$value);
+            route = route.replace('{' + $key + '}', $value);
         });
         return route;
     } else {

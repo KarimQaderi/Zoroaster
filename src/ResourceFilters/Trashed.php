@@ -4,6 +4,7 @@
 
 
     use Illuminate\Database\Eloquent\Model;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
     use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\Filter;
 
@@ -25,10 +26,10 @@
 
         /**
          * @param Model $resource
-         * @param ResourceRequest $ResourceRequest
+         * @param ZoroasterResource $ZoroasterResource
          * @return Model
          */
-        public function apply($resource , $ResourceRequest)
+        public function apply($resource , $ZoroasterResource)
         {
 
             if($this->requestHas())
@@ -46,9 +47,9 @@
             return $resource;
         }
 
-        public function authorizedToSee($ResourceRequest)
+        public function authorizedToSee($resource)
         {
-            if(method_exists($ResourceRequest->Resource()->newModel() , 'isForceDeleting'))
+            if(method_exists($resource->newModel() , 'isForceDeleting'))
                 return true;
             else
                 return false;

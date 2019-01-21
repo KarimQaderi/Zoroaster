@@ -43,8 +43,8 @@
                 $filters = array_merge($ResourceRequest->Resource()->filters() , $filters);
 
             foreach($filters as $filter){
-                if($filter->authorizedToSee($ResourceRequest))
-                    $resources = $filter->apply($resources , $ResourceRequest);
+                if($filter->authorizedToSee($ResourceRequest->Resource()))
+                    $resources = $filter->apply($resources , $ResourceRequest->Resource());
             }
 
 

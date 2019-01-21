@@ -16,7 +16,7 @@
                     <h1 class="resourceName">مشاهدی {{ $resourceClass->singularLabel }}</h1>
                 </div>
                 <div class="uk-text-left ResourceActions">
-                    {!! Zoroaster::ResourceActions($request,$resources,$model,'Detail',null) !!}
+                    {!! Zoroaster::ResourceActions($request->Resource(),$resources,$model,'Detail',null) !!}
                 </div>
             </div>
 

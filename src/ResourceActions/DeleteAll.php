@@ -3,6 +3,7 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
@@ -13,11 +14,11 @@
 
         public $showFromIndexTopLeft = true;
 
-        public function render($request , $data , $model , $view , $field = null)
+        public function render($resource , $data , $model , $view , $field = null)
         {
             return view('Zoroaster::resources.actions.deleteAll')
                 ->with([
-                    'request' => $request ,
+                    'resource' => $resource ,
                     'data' => $data ,
                     'model' => $model ,
                     'field' => $field ,
@@ -26,12 +27,12 @@
         }
 
         /**
-         * @param ResourceRequest $ResourceRequest
+         * @param ZoroasterResource $resource
          * @return bool
          */
-        public function Authorization($ResourceRequest , $data)
+        public function Authorization($resource , $data)
         {
-            return $ResourceRequest->Resource()->authorizedToForceDelete($data);
+            return $resource->authorizedToForceDelete($data);
 
         }
 

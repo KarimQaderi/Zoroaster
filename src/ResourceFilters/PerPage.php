@@ -5,6 +5,7 @@
 
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\Filter;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
@@ -34,11 +35,11 @@
 
         /**
          * @param Model & Builder $resource
-         * @param ResourceRequest $ResourceRequest
+         * @param ZoroasterResource $ZoroasterResource
          * @return Model
          */
-        public function apply($resource , $ResourceRequest)
+        public function apply($resource , $ZoroasterResource)
         {
-            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $ResourceRequest->resourceClass.'_Page');
+            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $ZoroasterResource->uriKey().'_Page');
         }
     }

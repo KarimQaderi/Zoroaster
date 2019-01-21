@@ -3,6 +3,7 @@
     namespace KarimQaderi\Zoroaster\ResourceActions\Other;
 
 
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
     abstract class ResourceActionsAbastract
@@ -26,9 +27,9 @@
         abstract public function render($request , $data , $model , $view , $field = null);
 
         /**
-         * @param $ResourceRequest ResourceRequest
+         * @param ZoroasterResource ResourceRequest
          * @return bool
          */
-        abstract public function Authorization($ResourceRequest , $data);
+        abstract public function Authorization($resource , $data);
 
     }

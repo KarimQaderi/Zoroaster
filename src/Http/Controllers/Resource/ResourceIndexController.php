@@ -20,7 +20,12 @@
             $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Resource()->newModel());
 
             if(!request()->ajax())
-                return view('Zoroaster::resources.index')->with(['resource' => $ResourceRequest->Resource()]);
+                return view('Zoroaster::resources.index')->with([
+                    'resource' => $ResourceRequest->Resource(),
+                    'resourceClass' => $ResourceRequest->Resource() ,
+                    'ResourceRequest' => $ResourceRequest ,
+                    'model' => $ResourceRequest->Resource()->newModel() ,
+                ]);
 
             /**
              * فیلترها اعمال

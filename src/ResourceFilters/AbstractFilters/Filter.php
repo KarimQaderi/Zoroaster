@@ -4,6 +4,7 @@
 
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\Extend\ProxiesCanSeeToGate;
     use KarimQaderi\Zoroaster\Fields\Select;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
@@ -107,10 +108,10 @@
 
 
         /**
-         * @param ResourceRequest $ResourceRequest
+         * @param ZoroasterResource $resource
          * @return \Illuminate\View\View | string
          */
-        public function render($ResourceRequest)
+        public function render($resource)
         {
             $data = [$this->getKey() => request()->{$this->getKey()}];
 
@@ -118,7 +119,7 @@
                 ->with([
                     'getKey' => $this->getKey() ,
                     'label' => $this->label() ,
-                    'ResourceRequest' => $ResourceRequest ,
+                    'resource' => $resource ,
                     'render' => static::RenderForm([
                         Select::make('' , $this->getKey())->options($this->options())
                     ] , (object)$data)

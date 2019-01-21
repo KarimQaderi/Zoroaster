@@ -3,8 +3,8 @@
     namespace KarimQaderi\Zoroaster\ResourceActions;
 
 
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\ResourceActions\Other\ResourceActionsAbastract;
-    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
     class Restore extends ResourceActionsAbastract
     {
@@ -13,11 +13,11 @@
         public $showFromIndex = true;
         public $showFromDetail = true;
 
-        public function render($request , $data , $model , $view , $field = null)
+        public function render($resource , $data , $model , $view , $field = null)
         {
             return view('Zoroaster::resources.actions.restore')
                 ->with([
-                    'request' => $request ,
+                    'resource' => $resource ,
                     'data' => $data ,
                     'model' => $model ,
                     'field' => $field ,
@@ -26,13 +26,13 @@
         }
 
         /**
-         * @param ResourceRequest $ResourceRequest
+         * @param ZoroasterResource $resource
          * @return bool
          */
-        public function Authorization($ResourceRequest , $data)
+        public function Authorization($resource , $data)
         {
-            if(method_exists($ResourceRequest->Resource()->newModel() , 'isForceDeleting') && $data->deleted_at != null)
-                return $ResourceRequest->Resource()->authorizedToRestore($data);
+            if(method_exists($resource->newModel() , 'isForceDeleting') && $data->deleted_at != null)
+                return $resource->authorizedToRestore($data);
             else
                 return false;
         }
