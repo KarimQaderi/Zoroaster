@@ -44,7 +44,10 @@
 
             foreach($filters as $filter){
                 if($filter->authorizedToSee($ResourceRequest->Resource()))
+                {
+                    $filter->resourceClassRequest = $ResourceRequest->Resource()->uriKey();
                     $resources = $filter->apply($resources , $ResourceRequest->Resource());
+                }
             }
 
 

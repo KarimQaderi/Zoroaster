@@ -41,8 +41,10 @@
                 $filters = array_merge($filters , $resource->filters());
 
             foreach($filters as $filter){
-                if($filter->authorizedToSee($resource))
+                if($filter->authorizedToSee($resource)){
+                    $filter->resourceClassRequest = $resource->uriKey();
                     $Filters .= $filter->render($resource);
+                }
             }
 
             return $Filters;

@@ -1680,7 +1680,7 @@ ul.uk-nav-sub ul.uk-nav-sub {
 }
 
 #side-menu .uk-active, .uk-nav > li > a:hover, .uk-nav .uk-open > a {
-    background-color: rgb(45, 142, 217);
+    background-color: rgba(255, 255, 255, 0.12);
     /* color: #fff !important; */
 }
 

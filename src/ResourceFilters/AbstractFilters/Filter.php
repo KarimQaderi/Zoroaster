@@ -27,7 +27,7 @@
 
         public function __construct()
         {
-            $this->resourceClassRequest = \Zoroaster::getParameterCurrentRoute('resource');
+
         }
 
         /**
