@@ -83,7 +83,7 @@
          *
          * @param  array | string $styles
          */
-        public static function styles($styles)
+        public static function style($styles)
         {
             static::$styles = array_merge(static::$styles , is_array($styles) ? $styles : [$styles]);
         }
@@ -93,7 +93,7 @@
          *
          * @param  array | string $scripts
          */
-        public static function scripts($scripts)
+        public static function script($scripts)
         {
             static::$scripts = array_merge(static::$scripts , is_array($scripts) ? $scripts : [$scripts]);
         }

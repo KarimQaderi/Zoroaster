@@ -2768,3 +2768,29 @@ code {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
     border-radius: .5rem;
 }
+
+.ZoroasterCard {
+    background-color: rgb(255, 255, 255);
+    /* text-align: center; */
+    padding: 20px;
+    min-height: 118px;
+    position: relative;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+    border-radius: .5rem;
+}
+
+h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
+    color: #666666;
+}
+
+.uk-button-primary:hover {
+    background-color: #4099de;
+    opacity: .8;
+    color: #fff;
+    cursor: pointer;
+}
+
+.BuilderFields .uk-button-primary {
+    margin-left: 15px;
+}
