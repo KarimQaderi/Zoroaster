@@ -72,12 +72,12 @@
                         </div>
                     </div>
 
-                    {!! Zoroaster::Navbar('right') !!}
+                    {!! Zoroaster::Navbar('Right') !!}
 
                 </div>
-                <div class="uk-navbar-center">{!! Zoroaster::Navbar('center') !!}</div>
+                <div class="uk-navbar-center">{!! Zoroaster::Navbar('Center') !!}</div>
                 <div class="uk-navbar-left">
-                    {!! Zoroaster::Navbar('left') !!}
+                    {!! Zoroaster::Navbar('Left') !!}
                 </div>
             </nav>
         </div>

@@ -113,7 +113,7 @@
          */
         public function render($resource)
         {
-            $data = [$this->getKey() => request()->{$this->getKey()}];
+            $data = [$this->getKey() => $this->request()];
 
             return view('Zoroaster::resources.filters.render')
                 ->with([

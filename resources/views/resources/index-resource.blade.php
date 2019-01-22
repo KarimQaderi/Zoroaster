@@ -48,32 +48,15 @@
     </table>
 
     @if(!(isset($relationshipType) && $relationshipType=='HasOne'))
-        <div class="dataTables_info uk-child-width-1-3" uk-grid>
-            <div class="dataTables_paginate">
-                @if (!$resources->onFirstPage())
-                    <div data-page="{{ $resources->currentPage()-1 }}"><span class="uk-margin-small-right uk-margin-small-left"
-                                                                             uk-pagination-previous></span> قبلی
-                    </div>
-                @endif
-            </div>
-            <div class="uk-text-center"> نمایش {{ $resources->firstItem() }} تا {{ $resources->lastItem() }} از {{ $resources->total() }}
-                رکورد
-            </div>
-            <div class="uk-text-left dataTables_paginate">
-                @if ($resources->hasMorePages())
-                    <div data-page="{{ $resources->currentPage()+1 }}">بعدی <span class="uk-margin-small-left uk-margin-small-right"
-                                                                                  uk-pagination-next></span></div>
-                @endif
-            </div>
-        </div>
+        @include('Zoroaster::paginate.resources')
     @endif
 
 @else
     <div class="noCountResources">
         <span uk-icon="icon: plus-circle; ratio: 2"></span>
-        <div class="text">هیچ {{ $resourceClass->label }}ی پیدا نشد</div>
+        <div class="text">هیچ {{ $resourceClass->singularLabel }}ی پیدا نشد</div>
         <a href="{{ route('Zoroaster.resource.create',['resoure'=> $ResourceRequest->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
-            کردن {{ $resourceClass->label }}</a>
+            کردن {{ $resourceClass->singularLabel }}</a>
     </div>
 @endif
 

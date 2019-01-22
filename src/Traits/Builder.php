@@ -12,6 +12,11 @@
             return static::RenderViewForm($fields , $where , 'viewForm' , $resource , null);
         }
 
+        public static function RenderDetail($fields , $resource = null , $where = null)
+        {
+            return static::RenderViewForm($fields , $where , 'viewDetail' , $resource , null);
+        }
+
         /**
          * @param          $builders
          * @param callable $where

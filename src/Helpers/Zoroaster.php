@@ -52,11 +52,11 @@
 
         /**
          * jsRoute
+         *
          * @return array|null
          */
         public static function jsRoute()
         {
-
             $routes = [];
             $as = SrcZoroaster::$jsRoute;
             foreach(Route::getFacadeRoot()->getRoutes()->getRoutes() as $route){
@@ -75,8 +75,7 @@
          * index صفحه برای Actions گرفتن
          *
          */
-        public
-        static function ResourceActions($resource , $data , $model , $view , $field = null)
+        public static function ResourceActions($resource , $data , $model , $view , $field = null)
         {
             $Actions = null;
             foreach($resource->ResourceActions() as $Action){
@@ -93,16 +92,19 @@
          * Sidebar گرفتن
          *
          */
-        public
-        static function Sidebar()
+        public static function Sidebar()
         {
-            return self::RenderViewForm(array_merge(Sidebar::handle() ,
-                [Menu::make(array_merge(Sidebar::Menu() , KarimQaderi\Zoroaster\Zoroaster::$SidebarMenus))]) ,
+            return self::RenderDetail(
+                array_merge(
+                    Sidebar::Top() ,
+                    [Menu::make(array_merge(Sidebar::Menu() , KarimQaderi\Zoroaster\Zoroaster::$SidebarMenus))],
+                    Sidebar::Bottom()
+                ) ,
+                null,
                 function($field){
                     if(isset($field->canSee) && $field->canSee == false) return false;
                     return true;
-                } ,
-                'viewDetail' , null , null);
+                });
         }
 
 
@@ -110,8 +112,7 @@
          * scripts گرفتن
          *
          */
-        public
-        static function scripts()
+        public static function scripts()
         {
             return KarimQaderi\Zoroaster\Zoroaster::$scripts;
         }
@@ -120,39 +121,28 @@
          * styles گرفتن
          *
          */
-        public
-        static function styles()
+        public static function styles()
         {
             return KarimQaderi\Zoroaster\Zoroaster::$styles;
         }
 
         /**
-         * @param string $position left || right || center
+         * @param string $position Left | Right | Center
          *
          * @return null|string
          */
-        public
-        static function Navbar($position = 'left')
+        public static function Navbar($position = 'Left')
         {
-            return self::RenderViewForm(Navbar::$position() ,
-                function($field){
-                    return true;
-                } ,
-                'viewDetail' , null , null);
+            return self::RenderDetail(Navbar::$position());
         }
 
         /**
          * داشبورد صفحه برای Widgets گرفتن
          *
          */
-        public
-        static function Widgets()
+        public static function Widgets()
         {
-            return self::RenderViewForm(Dashboard::handle() ,
-                function($field){
-                    return true;
-                } ,
-                'viewDetail' , null , null);
+            return self::RenderDetail(Dashboard::handle());
         }
 
         /**
@@ -160,8 +150,7 @@
          *
          * @return \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource
          */
-        public
-        static function newResourceByModelName($modelName)
+        public static function newResourceByModelName($modelName)
         {
             return KarimQaderi\Zoroaster\Zoroaster::resourceFindByModel(class_basename($modelName));
         }
@@ -170,8 +159,7 @@
          * @param $model
          * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder
          */
-        public
-        static function newModel($model)
+        public static function newModel($model)
         {
             return SrcZoroaster::newModel($model);
         }
@@ -181,8 +169,7 @@
          * Resource در فیلد نام براساس فیلد کردن پیدا
          *
          */
-        public
-        static function getFieldResource($Resource , $FindNameField)
+        public static function getFieldResource($Resource , $FindNameField)
         {
             return self::ResourceFieldFind($FindNameField , \KarimQaderi\Zoroaster\Zoroaster::resourceFindByUriKey($Resource)->fields());
         }
@@ -191,8 +178,7 @@
          * Resource در فیلد نام براساس فیلد کردن پیدا
          *
          */
-        public
-        static function ResourceFieldFind($FindNameField , $fields)
+        public static function ResourceFieldFind($FindNameField , $fields)
         {
             $find = null;
 
@@ -216,8 +202,7 @@
          * داشبورد صفحه برای Metric گرفتن
          *
          */
-        public
-        static function getDashboardMetricFind($find , $data = null)
+        public static function getDashboardMetricFind($find , $data = null)
         {
 
             $_find = null;
@@ -397,23 +382,9 @@
 //            return preg_replace($search , $replace , $html);
         }
 
-        static function sizeInBytesToReadable($size)
-        {
-            if($size < 1024){
-                $size = $size . " Bytes";
-            } else if($size < 1048576 && $size > 1023){
-                $size = round($size / 1024 , 1) . " KB";
-            } else if($size < 1073741824 && $size > 1048575){
-                $size = round($size / 1048576 , 1) . " MB";
-            } else{
-                $size = round($size / 1073741824 , 1) . " GB";
-            }
-            return $size;
-        }
 
 
-        public
-        static function makeDirectory($upPath)
+        public static function makeDirectory($upPath)
         {
             $tags = explode('/' , str_replace('//' , '/' , $upPath));            // explode the full path
             $mkDir = "";
@@ -427,14 +398,12 @@
 
         }
 
-        public
-        static function asset($path , $secure = null)
+        public static function asset($path , $secure = null)
         {
             return asset(config('Zoroaster.assets_path') . '/' . $path , $secure);
         }
 
-        public
-        static function replace_str_in_file($file , $str_search , $str_replace)
+        public static function replace_str_in_file($file , $str_search , $str_replace)
         {
             $app = file_get_contents($file);
 

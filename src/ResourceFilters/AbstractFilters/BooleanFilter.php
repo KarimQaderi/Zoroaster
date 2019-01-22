@@ -27,7 +27,7 @@
             $data = [];
             foreach($this->options() as $value => $label){
                 $keys[] = $this->getKey($value);
-                $data = array_merge($data , [$this->getKey($value) => request()->{$this->getKey($value)} == "true" ? true : false]);
+                $data = array_merge($data , [$this->getKey($value) => $this->request($value) ]);
             }
 
             return view('Zoroaster::resources.filters.boolean')

@@ -2,7 +2,8 @@
 
     namespace KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters;
 
-    use Illuminate\Http\Request;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
+    use KarimQaderi\Zoroaster\Fields\DateTime;
 
     abstract class DateFilter extends Filter
     {
@@ -13,14 +14,23 @@
          */
         public $component = 'date-filter';
 
+
         /**
-         * Get the filter's available options.
-         *
-         * @param  \Illuminate\Http\Request $request
-         * @return array
+         * @param ZoroasterResource $resource
+         * @return \Illuminate\View\View | string
          */
-        public function options()
+        public function render($resource)
         {
-            //
+            $data = [$this->getKey() => $this->request()];
+
+            return view('Zoroaster::resources.filters.render')
+                ->with([
+                    'getKey' => $this->getKey() ,
+                    'label' => $this->label() ,
+                    'resource' => $resource ,
+                    'boolean' => static::RenderForm([
+                        DateTime::make('' , $this->getKey())
+                    ] , (object)$data)
+                ]);
         }
     }
