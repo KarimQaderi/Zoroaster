@@ -21,7 +21,7 @@
         |--------------------------------------------------------------------------
         */
 
-        'Resources' => 'App\\Zoroaster\\Resources\\' ,
+        'Resources' => app_path('Zoroaster/Resources') ,
 
 
         /*

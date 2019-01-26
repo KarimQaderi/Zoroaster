@@ -20,6 +20,7 @@
 
 
             $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
+                if($field->authorizedToSee() === false) return false;
                 if($field->showOnCreation == true && $field->OnCreation == true)
                     return true;
                 else
@@ -47,6 +48,7 @@
         private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest , $method)
         {
             $customResourceController = $request->ResourceFields(function($field){
+                if($field->authorizedToSee() === false) return false;
                 if($field->showOnCreation == true && $field->OnCreation == true)
                     return true;
                 else

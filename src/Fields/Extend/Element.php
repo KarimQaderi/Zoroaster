@@ -2,10 +2,8 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Extend;
 
-    use Closure;
-    use JsonSerializable;
 
-    abstract class Element implements JsonSerializable
+    abstract class Element
     {
         use ProxiesCanSeeToGate;
 
@@ -37,7 +35,7 @@
          *
          * @var bool
          */
-        public $onlyOnDetail = false;
+        public $onlyOnDetail = true;
 
         /**
          * عنصر دادهای
@@ -67,29 +65,6 @@
             return new static(...$arguments);
         }
 
-
-        /**
-         * مشاهده قابل مجوزه اعمال
-         *
-         * @param  \Closure $callback
-         * @return $this
-         */
-        public function canSee(Closure $callback)
-        {
-            $this->seeCallback = $callback;
-
-            return $this;
-        }
-
-        /**
-         * نه یا هست مشاهده قابل که کند می مشخص
-         *
-         * @return bool
-         */
-        public function authorizedToSee()
-        {
-            return $this->seeCallback ? call_user_func($this->seeCallback) : true;
-        }
 
         /**
          * عنصر نام گرفتن
@@ -137,17 +112,5 @@
         }
 
 
-        /**
-         * کند می اماده JSON serialization برای را عنصر
-         *
-         * @return array
-         */
-        public function jsonSerialize()
-        {
-            return array_merge([
-                'component' => $this->component() ,
-                'onlyOnDetail' => $this->onlyOnDetail ,
-            ] , $this->meta());
-        }
 
     }

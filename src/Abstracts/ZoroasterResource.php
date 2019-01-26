@@ -87,6 +87,11 @@
             $this->resource = new static::$model;
         }
 
+        /**
+         * دادها نمایش برای فیلدها گرفتن
+         *
+         * @return array
+         */
         abstract public function fields();
 
         abstract function filters();
@@ -125,7 +130,7 @@
 
 
         /**
-         * index صغحه برای query اعمال
+         * index صفحه برای query اعمال
          *
          * @param  \Illuminate\Database\Eloquent\Builder $query
          * @return \Illuminate\Database\Eloquent\Builder

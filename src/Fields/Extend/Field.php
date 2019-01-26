@@ -11,7 +11,7 @@
     use KarimQaderi\ZoroasterMenuBuilder\Http\Models\Menu;
     use KarimQaderi\ZoroasterMenuBuilder\Http\Models\MenuItems;
 
-    abstract class Field extends FieldElement implements JsonSerializable
+    abstract class Field extends FieldElement
     {
         use Macroable , View , ResourceDefault;
 

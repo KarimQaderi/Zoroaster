@@ -7,6 +7,14 @@
     abstract class FieldElement extends Element
     {
 
+
+        /**
+         * عنصر نام
+         *
+         * @var string
+         */
+        public $component = 'field';
+
         /**
          * شدن آپدیت قابلیت
          *
@@ -20,7 +28,6 @@
          * @var bool
          */
         public $OnCreation = true;
-
 
 
         /**
@@ -161,13 +168,4 @@
             return $this;
         }
 
-        /**
-         * کند می اماده JSON serialization برای را عنصر
-         *
-         * @return array
-         */
-        public function jsonSerialize()
-        {
-            return array_merge(parent::jsonSerialize() , []);
-        }
     }

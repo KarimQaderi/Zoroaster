@@ -32,7 +32,7 @@
                     'guard_name' => 'web' ,
                 ]);
 
-                foreach(\KarimQaderi\Zoroaster\Zoroaster::findAllResource() as $resource)
+                foreach(\KarimQaderi\Zoroaster\Zoroaster::$resources as $resource)
                 {
                     $resource_name = strtolower(basename($resource));
                     $resource = new $resource;

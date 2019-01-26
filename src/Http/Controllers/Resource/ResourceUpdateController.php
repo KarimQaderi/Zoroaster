@@ -14,6 +14,7 @@
         {
 
             $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
+                if($field->authorizedToSee() === false) return false;
                 if($field->showOnUpdate == true && $field->OnUpdate == true)
                     return true;
                 else
@@ -45,6 +46,7 @@
         private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest): void
         {
             $customResourceController = $request->ResourceFields(function($field){
+                if($field->authorizedToSee() === false) return false;
                 if($field->showOnUpdate == true && $field->OnUpdate == true)
                     return true;
                 else

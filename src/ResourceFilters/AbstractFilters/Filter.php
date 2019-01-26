@@ -5,8 +5,8 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
-    use KarimQaderi\Zoroaster\Fields\Extend\ProxiesCanSeeToGate;
     use KarimQaderi\Zoroaster\Fields\Select;
+    use KarimQaderi\Zoroaster\ResourceFilters\ProxiesCanSeeToGate;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
 
@@ -21,7 +21,6 @@
          * @var string
          */
         public $label;
-
 
         public $resourceClassRequest = null;
 

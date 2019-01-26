@@ -1,5 +1,5 @@
-@empty(!$data)
+@empty(!$builder->data)
     <div class="uk-grid row ">
-        {!! $data !!}
+        {!! $builder->data !!}
     </div>
 @endempty

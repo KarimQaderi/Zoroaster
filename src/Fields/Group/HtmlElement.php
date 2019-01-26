@@ -54,8 +54,8 @@
          *
          * @return static
          */
-        public static function make(...$arguments)
+        public static function make($element , $text , $class = null)
         {
-            return new static(...$arguments);
+            return new static($element , $text , $class);
         }
     }

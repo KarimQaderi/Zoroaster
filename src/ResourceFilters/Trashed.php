@@ -47,8 +47,13 @@
             return $resource;
         }
 
+        /**
+         * @param ZoroasterResource $resource
+         * @return bool
+         */
         public function authorizedToSee($resource)
         {
+
             if(method_exists($resource->newModel() , 'isForceDeleting'))
                 return true;
             else

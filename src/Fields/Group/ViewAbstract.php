@@ -19,13 +19,4 @@
          */
         abstract public function render($builder , $field = null, $ResourceRequest = null);
 
-//        /**
-//         * عنصر ایجاد
-//         *
-//         * @return static
-//         */
-//        public static function make(...$arguments)
-//        {
-//            return new static(...$arguments);
-//        }
     }

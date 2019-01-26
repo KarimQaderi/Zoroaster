@@ -1,8 +1,8 @@
-@empty(!$data)
-    <div class="panel {{ $field->class }}">
-        @empty(!$field->name)
-            <h3>{{ $field->name }}</h3>
+@empty(!$builder->data)
+    <div class="panel {{ $builder->class }}">
+        @empty(!$builder->name)
+            <h3>{{ $builder->name }}</h3>
         @endempty
-        {!! $data !!}
+        {!! $builder->data !!}
     </div>
 @endempty

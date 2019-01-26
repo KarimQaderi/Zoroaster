@@ -6,13 +6,14 @@
     trait TraitView
     {
 
-        public function render($field , $data , $resourceRequest = null)
+
+        public function render($builder , $field = null, $ResourceRequest = null)
         {
-            return view('Zoroaster::fields.' . $field->nameViewForm)->with(
+            return view('Zoroaster::fields.' . $builder->nameViewForm)->with(
                 [
-                    'data' => $data ,
+                    'builder' => $builder ,
                     'field' => $field ,
-                    'newResource' => $resourceRequest ,
+                    'newResource' => $ResourceRequest ,
                 ]);
         }
 

@@ -1,8 +1,9 @@
 <?php
 
-    namespace KarimQaderi\Zoroaster\Fields\Extend;
+    namespace KarimQaderi\Zoroaster\ResourceFilters;
 
     use Illuminate\Support\Facades\Auth;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
 
     trait ProxiesCanSeeToGate
     {
@@ -13,7 +14,11 @@
          */
         public $seeCallback;
 
-        public function authorizedToSee()
+        /**
+         * @param ZoroasterResource $resource
+         * @return bool
+         */
+        public function authorizedToSee($resource)
         {
             if(is_callable($this->seeCallback))
                 if(call_user_func($this->seeCallback))

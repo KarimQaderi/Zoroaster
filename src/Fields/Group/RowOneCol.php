@@ -3,20 +3,11 @@
     namespace KarimQaderi\Zoroaster\Fields\Group;
 
 
-    use Illuminate\Http\Resources\MergeValue;
-    use JsonSerializable;
-
-    class RowOneCol extends MergeValue implements JsonSerializable
+    class RowOneCol extends ViewAbstract
     {
 
         use TraitView;
 
-        /**
-         * عنصر نام
-         *
-         * @var string
-         */
-        public $component = 'field_group';
 
         /**
          * view نام
@@ -40,32 +31,8 @@
          */
         public function __construct($fields = [])
         {
-            parent::__construct($this->prepareFields($fields));
+            $this->data = $fields;
         }
 
-        /**
-         * ها عنصر سازی اماده
-         *
-         * @param  array $fields
-         * @return array
-         */
-        protected function prepareFields($fields)
-        {
-            return collect(is_callable($fields) ? $fields() : $fields)->each(function($field){
-            })->all();
-        }
-
-
-        /**
-         * کند می اماده JSON serialization برای را عنصر
-         *
-         * @return array
-         */
-        public function jsonSerialize()
-        {
-            return [
-                'component' => $this->component  ,
-            ];
-        }
 
     }

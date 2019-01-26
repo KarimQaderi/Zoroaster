@@ -2,11 +2,7 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Group;
 
-
-    use Illuminate\Http\Resources\MergeValue;
-    use JsonSerializable;
-
-    class Panel extends MergeValue implements JsonSerializable
+    class Panel
     {
         use TraitView;
 
@@ -57,35 +53,8 @@
         {
             $this->name = $name;
             $this->class = $class;
+            $this->data = $fields;
 
-            parent::__construct($this->prepareFields($fields));
-        }
-
-        /**
-         * ها عنصر سازی اماده
-         *
-         * @param  \Closure|array $fields
-         * @return array
-         */
-        protected function prepareFields($fields)
-        {
-            return collect(is_callable($fields) ? $fields() : $fields)->each(function($field){
-                $field->panel = $this->name;
-            })->all();
-        }
-
-
-        /**
-         * کند می اماده JSON serialization برای را عنصر
-         *
-         * @return array
-         */
-        public function jsonSerialize()
-        {
-            return [
-                'component' => $this->component ,
-                'name' => $this->name ,
-            ];
         }
 
     }

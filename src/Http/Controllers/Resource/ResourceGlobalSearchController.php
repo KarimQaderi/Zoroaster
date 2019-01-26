@@ -12,7 +12,7 @@
         public function handle(Request $request)
         {
             $render = null;
-            foreach(Zoroaster::findAllResource() as $Resource){
+            foreach(Zoroaster::$resources as $Resource){
 
                 /** @var ZoroasterResource $newResource */
                 $newResource = new $Resource;

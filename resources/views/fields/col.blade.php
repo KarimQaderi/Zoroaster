@@ -1,3 +1,3 @@
-<div class="col {{ $field->class }}">
-    {!! $data !!}
+<div class="col {{ $builder->class }}">
+    {!! $builder->data !!}
 </div>

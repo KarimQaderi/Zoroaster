@@ -5,6 +5,9 @@
 
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Query\Builder;
+    use Illuminate\Support\Str;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
+    use Symfony\Component\Finder\Finder;
 
     class Zoroaster
     {
@@ -49,11 +52,22 @@
         /**
          * Register the given resources.
          *
-         * @param  array $resources
+         * @param  array | string $resources
          */
-        public static function resources(array $resources)
+        public static function resources($resources)
         {
-            static::$resources = array_merge(static::$resources , $resources);
+            static::$resources = array_merge(static::$resources , is_array($resources) ? $resources : [$resources]);
+        }
+
+        /**
+         * Register all of the resource classes in the given directory.
+         *
+         * @param  string $directory
+         * @return void
+         */
+        public static function resourcesIn($directory)
+        {
+            Zoroaster::resources(Zoroaster::findAllResource($directory));
         }
 
 
@@ -201,15 +215,41 @@
         }
 
 
-        public static function findAllResource()
+        public static function findAllResource($directory)
         {
-            $namespace = str_replace_last('\\' , '' , config('Zoroaster.Resources'));
-            $namespace = str_replace('\\' , '/' , $namespace);
 
-            $Re = str_replace_first('App' , 'app' , $namespace);
+            $namespace = app()->getNamespace();
 
-            return self::finderAllClassByPath($namespace , $Re);
+            $resources = [];
+
+            foreach((new Finder())->in($directory)->files() as $resource){
+                $resource = $namespace . str_replace(
+                        ['/' , '.php'] ,
+                        ['\\' , ''] ,
+                        Str::after($resource->getPathname() , app_path() . DIRECTORY_SEPARATOR)
+                    );
+
+
+                if(is_subclass_of($resource , ZoroasterResource::class) &&
+                    !(new \ReflectionClass($resource))->isAbstract()){
+                    $resources[] = $resource;
+                }
+
+            }
+
+            return $resources;
+
         }
+
+//        public static function findAllResource()
+//        {
+//            $namespace = str_replace_last('\\' , '' , config('Zoroaster.Resources'));
+//            $namespace = str_replace('\\' , '/' , $namespace);
+//
+//            $Re = str_replace_first('App' , 'app' , $namespace);
+//
+//            return self::finderAllClassByPath($namespace , $Re);
+//        }
 
         public static function finderAllClassByPath($namespace = '' , $path = '')
         {

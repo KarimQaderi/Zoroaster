@@ -21,7 +21,7 @@
 
             $this->app->register(ZoroasterServiceProvider::class);
 
-            Zoroaster::resources(Zoroaster::findAllResource());
+            Zoroaster::resourcesIn(config('Zoroaster.Resources'));
 
             if(!$this->app->configurationIsCached())
             {
