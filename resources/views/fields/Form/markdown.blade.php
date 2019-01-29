@@ -1,5 +1,5 @@
 <label>
-    <span class="label">{{ $field->label }}</span>&nbsp;
+    <span class="label">{{ $field->label }}</span>
     <span class="uk-text-warning uk-text-small-2">{{ Zoroaster::getMeta($field,'helpText') }}</span>
     <textarea name="{{ $field->name }}">{{ old($field->name,$value) }}</textarea>
 </label>

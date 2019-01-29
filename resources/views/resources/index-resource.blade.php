@@ -24,6 +24,9 @@
         <tbody>
 
         @foreach($resources as $data)
+
+            @php($ResourceRequest->Resource()->resource = $data)
+
             <tr destroy-resourceId="{{ $data->{$model->getKeyName()} }}">
                 <td style="width: 32px;">
                     <input name="{{ $model->getKeyName() }}[]" value="{{ $data->{$model->getKeyName()} }}"
@@ -32,9 +35,7 @@
                 </td>
 
                 @foreach($fields as $field)
-
                     <td style="text-align: {{ $field->textAlign }}" class="uk-text-nowrap">{!! $field->viewIndex($field,$data,$ResourceRequest) !!}</td>
-
                 @endforeach
 
                 <td class="action_btn" style="text-align: center">

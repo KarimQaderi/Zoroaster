@@ -16,7 +16,7 @@
 
 
         /**
-         * The displayable name of the action.
+         * نمایشی نام.
          *
          * @var string
          */
@@ -30,18 +30,17 @@
         }
 
         /**
-         * Apply the filter to the given query.
+         * فیلتر اعمال.
          *
-         * @param Model & Builder $resource
+         * @param Model & Builder $query
          * @param ResourceRequest $ResourceRequest
-         * @return Model
+         * @return Builder
          */
-        abstract public function apply($resource , $ResourceRequest);
+        abstract public function apply($query , $ResourceRequest);
 
         /**
-         * Get the filter's available options.
+         * فیلتر های گزینه.
          *
-         * @param  \Illuminate\Http\Request $request
          * @return array
          */
         abstract public function options();

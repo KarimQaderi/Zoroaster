@@ -94,6 +94,11 @@
          */
         abstract public function fields();
 
+        /**
+         * دادها نمایش برای فیلدها گرفتن
+         *
+         * @return array
+         */
         abstract function filters();
 
         /**

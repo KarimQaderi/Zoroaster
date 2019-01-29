@@ -2,34 +2,51 @@
 
     namespace App\Zoroaster\Resources;
 
-    use KarimQaderi\Zoroaster\Resource;
+    use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\ID;
     use KarimQaderi\Zoroaster\Fields\Group\RowOneCol;
     use KarimQaderi\Zoroaster\Fields\btnSave;
     use KarimQaderi\Zoroaster\Fields\CreateAndAddAnotherOne;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
 
-    class DummyClass extends Resource
+    class DummyClass extends ZoroasterResource
     {
+
         /**
-         * The model the resource corresponds to.
+         * مربوطه Model نام
          *
-         * @var string
+         * @var Model
          */
         public static $model = 'DummyFullModel';
 
         /**
-         * The single value that should be used to represent the resource when being displayed.
+         * دادن نمایش برای پیشفرض فیلد نام
          *
          * @var string
          */
         public $title = 'id';
 
+        /**
+         * فرد بصورت Resource نام
+         *
+         * مثال : پست
+         *
+         * @var string
+         */
         public $singularLabel = 'DummyClasss';
+
+
+        /**
+         * جمع بصورت Resource نام
+         *
+         * مثال : ها پست
+         *
+         * @var string
+         */
         public $label = 'DummyClass';
 
         /**
-         * The columns that should be searched.
+         * جستحو قابل های فیلد
          *
          * @var array
          */
@@ -38,7 +55,7 @@
         ];
 
         /**
-         * Get the fields displayed by the resource.
+         * دادها نمایش برای فیلدها گرفتن
          *
          * @return array
          */
@@ -63,12 +80,22 @@
             ];
         }
 
-
+        /**
+         * index صغحه برای query اعمال
+         *
+         * @param  \Illuminate\Database\Eloquent\Builder $query
+         * @return \Illuminate\Database\Eloquent\Builder
+         */
         public function indexQuery($query)
         {
             return $query->orderByDesc('updated_at');
         }
 
+        /**
+         * دادها نمایش برای فیلدها گرفتن
+         *
+         * @return array
+         */
         function filters()
         {
             return [];

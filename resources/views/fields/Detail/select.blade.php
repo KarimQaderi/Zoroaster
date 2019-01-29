@@ -1,5 +1,5 @@
 <label>
-    <span class="label">{{ $field->label }}</span>&nbsp;
+    <span class="label">{{ $field->label }}</span>
     <div class="body">{{ Zoroaster::getOptionsSelect($field,$value,'label') }}</div>
 </label>
 

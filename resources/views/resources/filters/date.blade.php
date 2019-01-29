@@ -7,9 +7,9 @@
 
 <script>
     $(document).ready(function () {
-        $('.{{ $getKey }} select').change(function () {
+        $('.{{ $getKey }} input').change(function () {
 
-            setParameters([{name: '{{ $getKey }}', value: $('.{{ $getKey }} select').find(':selected').val()}]);
+            setParameters([{name: '{{ $getKey }}', value: $('.{{ $getKey }} input').val()}]);
 
             index_resources('{{ $resource->uriKey() }}');
         });

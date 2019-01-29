@@ -118,6 +118,10 @@ function index_resources(resource) {
 
     ajaxGET($this.attr('data-route'), mergeArray(param, get_data_index_resources(resource)),
         function (data) {
+
+            if (isset(data.error))
+                notification(data.error, 'danger');
+
             $('[data-resource="' + data.resource + '"] .data_table').html(data.render);
         }, function (data) {
             var errors = data.responseJSON;
@@ -460,15 +464,19 @@ function notification(massage, type) {
 }
 
 function route(name, parameters = []) {
-    if (isset(Zoroaster_jsRoute[name])) {
-        var route = Zoroaster_jsRoute[name];
-        $.each(parameters, function ($key, $value) {
-            route = route.replace('{' + $key + '}', $value);
-        });
-        return route;
-    } else {
-        alert($name + ' روت  پیدا نشد');
+
+    if (!isset(Zoroaster_jsRoute[name]))
+    {
+        dd($name + ' روت  پیدا نشد');
+        return null;
     }
+
+    var route = Zoroaster_jsRoute[name];
+    $.each(parameters, function ($key, $value) {
+        route = route.replace('{' + $key + '}', $value);
+    });
+    return route;
+
 }
 
 function click(selector, $function) {

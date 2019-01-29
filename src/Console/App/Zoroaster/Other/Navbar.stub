@@ -2,27 +2,43 @@
 
     namespace App\Zoroaster\Other;
 
+    use KarimQaderi\Zoroaster\Abstracts\NavbarAbstract;
 
-    class Navbar
+    class Navbar extends NavbarAbstract
     {
-        static function left()
+        /**
+         * Navbar چپ سمت
+         *
+         * @return array
+         */
+        public static function left()
         {
             return [
                 view('Zoroaster::partials.navbar-user') ,
             ];
         }
 
-        static function center()
+        /**
+         * Navbar وسط سمت
+         *
+         * @return array
+         */
+        public static function Center()
         {
             return [
                 'به پنل زرتشت خوش آمدید'
             ];
         }
 
-
-        static function right()
+        /**
+         * Navbar  راست سمت
+         *
+         * @return array
+         */
+        public static function Right()
         {
             return [
+
 
             ];
         }

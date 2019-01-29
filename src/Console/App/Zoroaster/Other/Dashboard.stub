@@ -2,6 +2,8 @@
 
     namespace App\Zoroaster\Other;
 
+    use KarimQaderi\Zoroaster\Fields\Group\HtmlElement;
+
     class Dashboard
     {
 
@@ -9,7 +11,7 @@
         {
             return [
 
-               'بخش داشبورد'
+               HtmlElement::make('h1' , 'داشبورد' , 'resourceName') ,
 
             ];
         }

@@ -1,5 +1,5 @@
 <div class="pivot_check_box">
-    <span class="label">{{ $field->label }} : </span>&nbsp;
+    <span class="label">{{ $field->label }} : </span>
     <br>
     <br>
     @foreach($pivot as $item)

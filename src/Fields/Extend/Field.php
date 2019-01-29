@@ -13,7 +13,7 @@
 
     abstract class Field extends FieldElement
     {
-        use Macroable , View , ResourceDefault;
+        use  View , ResourceDefault;
 
         /**
          * فارسی بصورت عنصر نام

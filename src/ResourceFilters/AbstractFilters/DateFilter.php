@@ -3,18 +3,10 @@
     namespace KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters;
 
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
-    use KarimQaderi\Zoroaster\Fields\DateTime;
+    use KarimQaderi\Zoroaster\Fields\Date;
 
     abstract class DateFilter extends Filter
     {
-        /**
-         * The filter's component.
-         *
-         * @var string
-         */
-        public $component = 'date-filter';
-
-
         /**
          * @param ZoroasterResource $resource
          * @return \Illuminate\View\View | string
@@ -23,14 +15,24 @@
         {
             $data = [$this->getKey() => $this->request()];
 
-            return view('Zoroaster::resources.filters.render')
+            return view('Zoroaster::resources.filters.date')
                 ->with([
                     'getKey' => $this->getKey() ,
                     'label' => $this->label() ,
                     'resource' => $resource ,
-                    'boolean' => static::RenderForm([
-                        DateTime::make('' , $this->getKey())
+                    'render' => static::RenderForm([
+                        Date::make('' , $this->getKey())
                     ] , (object)$data)
                 ]);
+        }
+
+        /**
+         * فیلتر های گزینه.
+         *
+         * @return array
+         */
+        public function options()
+        {
+            return [];
         }
     }

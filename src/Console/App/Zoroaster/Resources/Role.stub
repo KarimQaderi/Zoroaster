@@ -2,11 +2,13 @@
 
     namespace App\Zoroaster\Resources;
 
+    use Illuminate\Database\Eloquent\Model;
     use KarimQaderi\Zoroaster\Abstracts\ZoroasterResource;
     use KarimQaderi\Zoroaster\Fields\btnSave;
     use KarimQaderi\Zoroaster\Fields\Group\Col;
     use KarimQaderi\Zoroaster\Fields\Group\Panel;
     use KarimQaderi\Zoroaster\Fields\Group\Row;
+    use KarimQaderi\Zoroaster\Fields\Group\RowOneColBg;
     use KarimQaderi\Zoroaster\Fields\ID;
     use KarimQaderi\Zoroaster\Fields\PivotCheckBox;
     use KarimQaderi\Zoroaster\Fields\Text;
@@ -15,24 +17,39 @@
     class Role extends ZoroasterResource
     {
         /**
-         * The model the resource corresponds to.
+         * مربوطه Model نام
          *
-         * @var string
+         * @var Model
          */
         public static $model = 'KarimQaderi\\Zoroaster\\Models\\Role';
 
         /**
-         * The single value that should be used to represent the resource when being displayed.
+         * دادن نمایش برای پیشفرض فیلد نام
          *
          * @var string
          */
-        public $title = 'title';
-
-        public $singularLabel = 'نقش ها';
-        public $label = 'نقش';
+        public $title = 'name';
 
         /**
-         * The columns that should be searched.
+         * جمع بصورت Resource نام
+         *
+         * مثال : ها پست
+         *
+         * @var string
+         */
+        public $label = 'نقش ها';
+
+        /**
+         * فرد بصورت Resource نام
+         *
+         * مثال : پست
+         *
+         * @var string
+         */
+        public $singularLabel = 'نقش';
+
+        /**
+         * جستحو قابل های فیلد
          *
          * @var array
          */
@@ -41,7 +58,7 @@
         ];
 
         /**
-         * Get the fields displayed by the resource.
+         * دادها نمایش برای فیلدها گرفتن
          *
          * @return array
          */
@@ -57,7 +74,7 @@
                             Text::make('guard name' , 'guard_name')->rules('required') ,
                         ]) ,
 
-                        new Panel('' , [
+                        new RowOneColBg([
                             btnSave::make() ,
                         ]) ,
 
@@ -76,9 +93,15 @@
             ];
         }
 
+
+        /**
+         * فیلترها
+         *
+         * @return array
+         */
         public function filters()
         {
-
+            return [];
         }
 
 

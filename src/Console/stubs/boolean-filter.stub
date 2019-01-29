@@ -3,10 +3,10 @@
     namespace DummyNamespace;
 
     use Illuminate\Database\Eloquent\Builder;
-    use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\Filter;
+    use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\BooleanFilter;
     use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
-    class DummyClass extends Filter
+    class DummyClass extends BooleanFilter
     {
 
 

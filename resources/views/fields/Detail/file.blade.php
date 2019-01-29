@@ -1,5 +1,5 @@
 <label>
-    <span class="label">{{ $field->label }}</span>&nbsp;
+    <span class="label">{{ $field->label }}</span>
 </label>
 <div class="imgUpload" id="imgUpload_{{ $field->name }}">
 

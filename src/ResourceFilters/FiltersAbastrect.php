@@ -25,11 +25,11 @@
         abstract public function render($ResourceRequest);
 
         /**
-         * @param Model & Builder $resource
+         * @param Model & Builder $query
          * @param ResourceRequest $ResourceRequest
-         * @return Model
+         * @return Builder
          */
-        abstract public function apply($resource , $ResourceRequest);
+        abstract public function apply($query , $ResourceRequest);
 
 
         /**

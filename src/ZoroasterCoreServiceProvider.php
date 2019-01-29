@@ -7,6 +7,7 @@
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\ServiceProvider;
+    use KarimQaderi\Zoroaster\Sidebar\FieldMenu\MenuItem;
 
     class ZoroasterCoreServiceProvider extends ServiceProvider
     {
@@ -19,22 +20,28 @@
         {
 
 
-            $this->app->register(ZoroasterServiceProvider::class);
+            $this->app->register(\App\Providers\ZoroasterServiceProvider::class);
 
             Zoroaster::resourcesIn(config('Zoroaster.Resources'));
 
-            if(!$this->app->configurationIsCached())
-            {
+            if(!$this->app->configurationIsCached()){
                 $this->mergeConfigFrom(__DIR__ . '/../config/Zoroaster.php' , 'Zoroaster');
             }
 
             Route::middlewareGroup('Zoroaster' , config('Zoroaster.middleware' , []));
 
 
-            if($this->app->runningInConsole())
-            {
+            if($this->app->runningInConsole()){
                 $this->registerPublishing();
             }
+
+
+
+            if(config('Zoroaster.permission'))
+                Zoroaster::SidebarMenus([
+                    MenuItem::make()->resource('role')->icon('unlock') ,
+                    MenuItem::make()->resource('permission')->icon('lock') ,
+                ]);
 
 
             $this->registerResources();
@@ -42,7 +49,6 @@
             $this->registerGates();
 
         }
-
 
 
         /**
@@ -61,6 +67,8 @@
                 Console\CreateAdminCommand::class ,
                 Console\CreateUserCommand::class ,
                 Console\PermissionCommand::class ,
+                Console\FilterCommand::class ,
+                Console\FieldCommand::class ,
             ]);
         }
 
@@ -72,8 +80,8 @@
          */
         protected function registerCarbonMacros()
         {
-            Carbon::macro('firstDayOfQuarter', new Macros\FirstDayOfQuarter);
-            Carbon::macro('firstDayOfPreviousQuarter', new Macros\FirstDayOfPreviousQuarter);
+            Carbon::macro('firstDayOfQuarter' , new Macros\FirstDayOfQuarter);
+            Carbon::macro('firstDayOfPreviousQuarter' , new Macros\FirstDayOfPreviousQuarter);
         }
 
         /**
@@ -93,7 +101,7 @@
             ] , 'Zoroaster-config');
 
             $this->publishes([
-                __DIR__ . '/../publishable' => public_path('vendor/Zoroaster') ,
+                __DIR__ . '/../publishable' => public_path('Zoroaster-assets/Zoroaster') ,
             ] , 'Zoroaster-assets');
 
 //        $this->publishes([
@@ -128,8 +136,7 @@
 
         private function Helpers()
         {
-            foreach(glob(__DIR__ . '/Helpers/*.php') as $file)
-            {
+            foreach(glob(__DIR__ . '/Helpers/*.php') as $file){
                 require_once($file);
             }
         }
@@ -140,10 +147,8 @@
             if(!config('Zoroaster.permission')) return;
 
             // use $user->can('update-post'); Or $this->authorize('update-post');
-            foreach(\KarimQaderi\Zoroaster\Models\Permission::all() as $permission)
-            {
-                Gate::define($permission->name , function($user) use ($permission)
-                {
+            foreach(\KarimQaderi\Zoroaster\Models\Permission::all() as $permission){
+                Gate::define($permission->name , function($user) use ($permission){
                     return $user->hasPermission($permission->name);
                 });
             }
@@ -154,10 +159,8 @@
                 'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
                 'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
             ];
-            foreach($Permissions as $key => $value)
-            {
-                Gate::define($key , function($user , $model) use ($key)
-                {
+            foreach($Permissions as $key => $value){
+                Gate::define($key , function($user , $model) use ($key){
                     $basename_model = strtolower(basename($model));
 
                     return $user->hasPermission($key . '-' . $basename_model);
@@ -165,8 +168,6 @@
             }
 
         }
-
-
 
 
     }

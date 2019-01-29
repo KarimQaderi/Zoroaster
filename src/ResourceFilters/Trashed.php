@@ -25,11 +25,11 @@
         }
 
         /**
-         * @param Model $resource
+         * @param Model $query
          * @param ZoroasterResource $ZoroasterResource
-         * @return Model
+         * @return Builder
          */
-        public function apply($resource , $ZoroasterResource)
+        public function apply($query , $ZoroasterResource)
         {
 
             if($this->requestHas())
@@ -37,14 +37,14 @@
                     case '':
                         break;
                     case 'all':
-                        $resource = $resource->withTrashed();
+                        $query = $query->withTrashed();
                         break;
                     case 'only':
-                        $resource = $resource->onlyTrashed();
+                        $query = $query->onlyTrashed();
                         break;
                 }
 
-            return $resource;
+            return $query;
         }
 
         /**

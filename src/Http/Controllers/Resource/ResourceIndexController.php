@@ -32,7 +32,13 @@
              *
              * @var Model $resources
              */
-            $resources = $this->toQuery($ResourceRequest->Resource()->newModel() , $ResourceRequest);
+            try{
+                $resources = $this->toQuery($ResourceRequest->Resource()->newModel() , $ResourceRequest);
+            } catch(\Exception $exception){
+                return response()->json([
+                    'error' => $exception->getMessage()
+                ]);
+            }
 
             $render = null;
             $render .= view('Zoroaster::resources.index-resource')->with([

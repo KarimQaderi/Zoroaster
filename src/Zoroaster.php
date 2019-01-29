@@ -222,56 +222,24 @@
 
             $resources = [];
 
-            foreach((new Finder())->in($directory)->files() as $resource){
-                $resource = $namespace . str_replace(
-                        ['/' , '.php'] ,
-                        ['\\' , ''] ,
-                        Str::after($resource->getPathname() , app_path() . DIRECTORY_SEPARATOR)
-                    );
+            if(!is_null($directory))
+                foreach((new Finder())->in($directory)->files() as $resource){
+                    $resource = $namespace . str_replace(
+                            ['/' , '.php'] ,
+                            ['\\' , ''] ,
+                            Str::after($resource->getPathname() , app_path() . DIRECTORY_SEPARATOR)
+                        );
 
 
-                if(is_subclass_of($resource , ZoroasterResource::class) &&
-                    !(new \ReflectionClass($resource))->isAbstract()){
-                    $resources[] = $resource;
+                    if(is_subclass_of($resource , ZoroasterResource::class) &&
+                        !(new \ReflectionClass($resource))->isAbstract()){
+                        $resources[] = $resource;
+                    }
+
                 }
-
-            }
 
             return $resources;
 
         }
-
-//        public static function findAllResource()
-//        {
-//            $namespace = str_replace_last('\\' , '' , config('Zoroaster.Resources'));
-//            $namespace = str_replace('\\' , '/' , $namespace);
-//
-//            $Re = str_replace_first('App' , 'app' , $namespace);
-//
-//            return self::finderAllClassByPath($namespace , $Re);
-//        }
-
-        public static function finderAllClassByPath($namespace = '' , $path = '')
-        {
-            $finder = new \Symfony\Component\Finder\Finder();
-            $finder->files()->in(base_path($path));
-
-            $find = [];
-            foreach($finder as $file){
-                $ns = $namespace;
-                if($relativePath = $file->getRelativePath()){
-                    $ns .= '/' . strtr($relativePath , '/' , '/');
-                }
-                $class = $ns . '/' . $file->getBasename('.php');
-
-                $r = new \ReflectionClass(str_replace('/' , '\\' , $class));
-
-                $find[] = $r->getName();
-
-            }
-
-            return $find;
-        }
-
 
     }

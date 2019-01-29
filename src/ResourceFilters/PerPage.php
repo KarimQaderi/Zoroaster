@@ -23,6 +23,7 @@
         public function options()
         {
             return [
+                '15' => '15' ,
                 '25' => '25' ,
                 '50' => '50' ,
                 '100' => '100' ,
@@ -34,12 +35,12 @@
         }
 
         /**
-         * @param Model & Builder $resource
+         * @param Model & Builder $query
          * @param ZoroasterResource $ZoroasterResource
-         * @return Model
+         * @return Builder
          */
-        public function apply($resource , $ZoroasterResource)
+        public function apply($query , $ZoroasterResource)
         {
-            return $resource->paginate(((int)$this->Request() ?? 25) , ['*'] , $ZoroasterResource->uriKey().'_Page');
+            return $query->paginate(((int)$this->Request() ?? 25) , ['*'] , $ZoroasterResource->uriKey().'_Page');
         }
     }

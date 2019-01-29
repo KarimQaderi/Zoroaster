@@ -2,41 +2,54 @@
 
     namespace App\Zoroaster\Other;
 
-
+    use App\User;
+    use KarimQaderi\Zoroaster\Abstracts\SidebarAbstract;
     use KarimQaderi\Zoroaster\Sidebar\FieldMenu\Divider;
-    use KarimQaderi\Zoroaster\Sidebar\FieldMenu\Menu;
     use KarimQaderi\Zoroaster\Sidebar\FieldMenu\MenuItem;
     use KarimQaderi\Zoroaster\Sidebar\SidebarHeader;
 
-    class Sidebar
+    class Sidebar extends SidebarAbstract
     {
-        static function handle()
+
+        /**
+         * سایت اصلی منوی بالای
+         *
+         * @return array
+         */
+       public static function Top()
         {
             return [
 
                 SidebarHeader::make() ,
 
-                Menu::make([
-                    MenuItem::make()->route('Zoroaster.dashboard' , 'داشبورد')->icon('home') ,
-                    Divider::make() ,
-                    MenuItem::make()->resource('User')->icon('users') ,
-                    static::PermissionAndRole() ,
-                    MenuItem::make()->route('Zoroaster.settings.icons' , 'ایکون ها')->icon('Zoroaster') ,
-                ]) ,
-
             ];
         }
 
-        static function PermissionAndRole()
+
+        /**
+         * سایت اصلی منوی قسمت
+         *
+         * @return array
+         */
+        public static function Menu()
         {
-            if(config('Zoroaster.permission'))
-                return [
-                    MenuItem::make()->resource('Role')->icon('unlock') ,
-                    MenuItem::make()->resource('Permission')->icon('lock'),
-                ];
-
-            return null;
-
+            return [
+                MenuItem::make()->route('Zoroaster.dashboard' , 'داشبورد')->icon('home') ,
+                Divider::make() ,
+                MenuItem::make()->resource('user')->icon('users')->badge(User::count()) ,
+                MenuItem::make()->route('Zoroaster.settings.icons' , 'ایکون ها')->icon('Zoroaster') ,
+            ];
         }
+
+        /**
+         * سایت اصلی منوی پایین
+         *
+         * @return array
+         */
+        public static function Bottom()
+        {
+            return [];
+        }
+
 
     }
