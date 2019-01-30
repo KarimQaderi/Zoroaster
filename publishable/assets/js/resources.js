@@ -12,58 +12,24 @@ function ajaxGET(url, data, success, error) {
     });
 }
 
-function RemoveParameter(param) {
-    var url = window.location.href;
-    var url_hash = window.location.hash;
-    var hash = location.hash;
-
-    $.each(param, function (key, value) {
-        url_hash = url_hash.replace(hash, '');
-        if (url_hash.indexOf(value[0] + "=") >= 0) {
-            var prefix = url_hash.substring(0, url_hash.indexOf(value[0]));
-            var suffix = url_hash.substring(url_hash.indexOf(value[0]));
-            suffix = suffix.substring(suffix.indexOf("=") + 1);
-            suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
-            url_hash = prefix + value[0] + "=" + value[1] + suffix;
-
-        } else {
-            if (url_hash.indexOf("?") < 0)
-                url_hash += "?" + value[0] + "=" + value[1];
-            else
-                url_hash += "&" + value[0] + "=" + value[1];
-        }
-
-    });
-
-
-    url = url.split('?')[0] + url_hash;
-
-
-    var vars = [], hash, hashs;
-    var hashes = url.slice(url.indexOf('?') + 1).split('&');
-
-    if (url.indexOf('?') !== -1)
-        for (var i = 0; i < hashes.length; i++) {
-            hash = hashes[i].split('=');
-            vars.push({name: hash[0], value: hash[1]});
-        }
-
-    return [url, vars];
-}
-
 function setParameters(param) {
+    var UrlResource = new URLSearchParams();
     var url = [];
     var getVars = getUrlVars();
-    for (var i = 0; i < param.length; i++)
-        getVars.push({name: param[i].name, value: param[i].value});
-
 
     for (var i = 0; i < getVars.length; i++)
-        url.push([getVars[i].name, getVars[i].value])
+        UrlResource.set(getVars[i].name, getVars[i].value);
 
-    var Remove = RemoveParameter(url);
-    ChangeUrl('', Remove[0]);
-    return Remove[1];
+    for (var i = 0; i < param.length; i++)
+        UrlResource.set(param[i].name, param[i].value);
+
+    ChangeUrl('', '?' + UrlResource.toString());
+
+    for (let p of UrlResource) {
+        url.push({name: p[0], value: p[1]});
+    }
+
+    return url;
 }
 
 function ChangeUrl(title, url) {
@@ -85,14 +51,6 @@ function getUrlVars() {
         vars.push({name: hash[0], value: hash[1]});
     }
     return vars;
-}
-
-function mergeArray(array_1, array_2) {
-    for (var i = 0; i < array_2.length; i++) {
-        array_1.push({name: array_2[i].name, value: array_2[i].value});
-    }
-
-    return array_1;
 }
 
 function get_data_index_resources(resource) {
@@ -440,6 +398,16 @@ function activeEelementByClassFind($activeEelementByClass, $find) {
     return $found;
 }
 
+
+function mergeArray(array_1, array_2) {
+    for (var i = 0; i < array_2.length; i++) {
+        array_1.push({name: array_2[i].name, value: array_2[i].value});
+    }
+
+    return array_1;
+}
+
+
 function isset($var) {
     if (typeof ($var) != "undefined" && $var !== null) {
         return true;
@@ -465,8 +433,7 @@ function notification(massage, type) {
 
 function route(name, parameters = []) {
 
-    if (!isset(Zoroaster_jsRoute[name]))
-    {
+    if (!isset(Zoroaster_jsRoute[name])) {
         dd($name + ' روت  پیدا نشد');
         return null;
     }
