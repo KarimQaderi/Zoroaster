@@ -15,8 +15,10 @@
                 </div>
             </div>
             <div class="uk-text-left">
-                <a href="{{ route('Zoroaster.resource.create',['resoure'=> $resource->uriKey()]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
-                    کردن {{ $resource->singularLabel }}</a>
+                @if ($resource->authorizedToCreate($resource->newModel()))
+                    <a href="{{ route('Zoroaster.resource.create',['resoure'=> $resource->uriKey()]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
+                        کردن {{ $resource->singularLabel }}</a>
+                @endif
             </div>
         </div>
         <div class="card-w">

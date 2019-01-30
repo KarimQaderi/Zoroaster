@@ -25,7 +25,7 @@
 
         public function redirectPath()
         {
-            return '/'.config('Zoroaster.path');
+            return url(config('Zoroaster.path'));
         }
 
 
