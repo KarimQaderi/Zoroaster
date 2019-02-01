@@ -24,7 +24,7 @@
             $newClass = new $class;
 
 
-            if($newClass->canSee())
+            if($newClass->authorizedToSee())
                 return [
                     'class' => $request->class ,
                     'html' => \Zoroaster::minifyHtml(view('Zoroaster::metrics.' . array_first(explode('-' , $newClass->component)))->with(

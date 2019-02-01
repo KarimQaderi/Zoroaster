@@ -42,7 +42,7 @@ function ChangeUrl(title, url) {
 }
 
 function getUrlVars() {
-    var vars = [], hash, hashs;
+    var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 
     if (window.location.href.indexOf('?') === -1) return vars;

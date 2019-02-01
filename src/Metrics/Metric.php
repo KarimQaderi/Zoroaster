@@ -2,9 +2,13 @@
 
     namespace KarimQaderi\Zoroaster\Metrics;
 
+    use KarimQaderi\Zoroaster\Fields\Extend\ProxiesCanSeeToGate;
 
     abstract class Metric
     {
+
+        use ProxiesCanSeeToGate;
+
         /**
          * The displayable name of the metric.
          *
@@ -27,7 +31,7 @@
         }
 
 
-        public function canSee()
+        public function authorizedToSee()
         {
             return true;
         }
@@ -38,6 +42,7 @@
                 'class' => str_replace('\\' , '-' , get_class($metrics)) ,
                 'ranges' => method_exists($metrics , 'ranges') ? $metrics->ranges() : null ,
             ]));
+
         }
 
 

@@ -42,10 +42,11 @@
             copy(__DIR__ . '/App/Zoroaster/Other/Navbar.stub' , app_path('Zoroaster/Other/Navbar.php'));
             copy(__DIR__ . '/App/Zoroaster/Other/Sidebar.stub' , app_path('Zoroaster/Other/Sidebar.php'));
             copy(__DIR__ . '/App/Zoroaster/Resources/User.stub' , app_path('Zoroaster/Resources/User.php'));
+            copy(__DIR__ . '/App/Zoroaster/Metrics/UserCount.stub' , app_path('Zoroaster/Metrics/UserCount.php'));
+            copy(__DIR__ . '/App/Zoroaster/Metrics/UserCountOverTime.stub' , app_path('Zoroaster/Metrics/UserCountOverTime.php'));
 
 
 //            $this->call('migrate');
-//            copy(__DIR__ . '/App/Zoroaster/Resources/Post.stub' , app_path('Zoroaster/Resources/Post.php'));
 
 
             $this->info('Zoroaster installed successfully');

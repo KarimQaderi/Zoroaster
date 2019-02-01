@@ -69,7 +69,7 @@
                 elseif($builder->component == 'MenuItem' || $builder->component == 'Menu')
                     $render = self::call($builder , 'Render' , $builder);
 
-                elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric']) && $builder->canSee())
+                elseif(in_array($builder->component , ['value-metric' , 'trend-metric' , 'partition-metric']) && $builder->authorizedToSee())
                     $render = self::call($builder , 'render' , $builder);
 
                 elseif($builder->component == 'field_group')
