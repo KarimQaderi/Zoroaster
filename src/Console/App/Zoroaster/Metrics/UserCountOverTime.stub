@@ -30,9 +30,9 @@ class UserCountOverTime extends Trend
     public function ranges()
     {
         return [
+            30 => '30 Days',
             1 => '1 Days',
             5 => '5 Days',
-            30 => '30 Days',
             60 => '60 Days',
             90 => '90 Days',
         ];
