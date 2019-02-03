@@ -20,7 +20,8 @@
         {
 
 
-            $this->app->register(\App\Providers\ZoroasterServiceProvider::class);
+            if(class_exists(\App\Providers\ZoroasterServiceProvider::class))
+                $this->app->register(\App\Providers\ZoroasterServiceProvider::class);
 
             Zoroaster::resourcesIn(config('Zoroaster.Resources'));
 
@@ -34,7 +35,6 @@
             if($this->app->runningInConsole()){
                 $this->registerPublishing();
             }
-
 
 
             if(config('Zoroaster.permission'))
