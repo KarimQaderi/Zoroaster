@@ -36,8 +36,8 @@
 //            $this->registerZoroasterServiceProvider();
 
             \Zoroaster::makeDirectory(app_path('Zoroaster/Other'));
-//            \Zoroaster::makeDirectory(app_path('Zoroaster/Resources'));
-            \Zoroaster::makeDirectory(app_path('Zoroaster/Resources/Metrics'));
+            \Zoroaster::makeDirectory(app_path('Zoroaster/Resources'));
+            \Zoroaster::makeDirectory(app_path('Zoroaster/Metrics'));
 
             copy(__DIR__ . '/App/Zoroaster/Other/Dashboard.stub' , app_path('Zoroaster/Other/Dashboard.php'));
             copy(__DIR__ . '/App/Zoroaster/Other/Navbar.stub' , app_path('Zoroaster/Other/Navbar.php'));
