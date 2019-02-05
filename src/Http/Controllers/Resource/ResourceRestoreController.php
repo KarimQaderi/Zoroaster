@@ -24,7 +24,7 @@
 
 
                 /**
-                 * رکورد بازیابی و دستررسی سطع بررسی
+                 * رکورد بازیابی و دستررسی سطح بررسی
                  */
                 if(!is_null($find) && $request->Resource()->authorizedToRestore($find))
                     $find->restore();

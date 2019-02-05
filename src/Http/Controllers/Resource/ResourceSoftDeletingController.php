@@ -19,7 +19,7 @@
                 $find = $request->find($id);
 
                 /**
-                 * رکورد حذف و دستررسی سطع بررسی
+                 * رکورد حذف و دستررسی سطح بررسی
                  */
                 if(!is_null($find) && $request->Resource()->authorizedToDelete($find))
                     $find->delete();

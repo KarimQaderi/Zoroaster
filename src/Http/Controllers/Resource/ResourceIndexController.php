@@ -15,7 +15,7 @@
         {
 
             /**
-             * دسترسی سطع بررسی
+             * دسترسی سطح بررسی
              */
             $ResourceRequest->Resource()->authorizeToIndex($ResourceRequest->Resource()->newModel());
 

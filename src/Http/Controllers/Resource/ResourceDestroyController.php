@@ -24,7 +24,7 @@
 
 
                 /**
-                 * دسترسی سطع بررسی
+                 * دسترسی سطح بررسی
                  */
                 if($ResourceRequest->Resource()->authorizedToForceDelete($find)){
 

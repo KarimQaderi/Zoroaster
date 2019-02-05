@@ -11,7 +11,7 @@
         {
 
             /**
-             * دسترسی سطع بررسی
+             * دسترسی سطح بررسی
              */
             $ResourceRequest->Resource()->authorizeToCreate($ResourceRequest->Resource()->newModel());
 

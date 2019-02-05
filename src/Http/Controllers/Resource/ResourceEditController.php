@@ -15,7 +15,7 @@
              */
             $resources = $ResourceRequest->findOrfail();
             /**
-             * دسترسی سطع بررسی
+             * دسترسی سطح بررسی
              */
             $ResourceRequest->Resource()->authorizeToUpdate($resources);
 
