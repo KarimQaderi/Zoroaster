@@ -364,7 +364,8 @@
 
         static function minifyHtml($html)
         {
-            return \KarimQaderi\Zoroaster\HTMLMinify::minify($html , ['optimizationLevel' => \KarimQaderi\Zoroaster\HTMLMinify::OPTIMIZATION_ADVANCED]);
+            return $html;
+//            return \KarimQaderi\Zoroaster\HTMLMinify::minify($html , ['optimizationLevel' => \KarimQaderi\Zoroaster\HTMLMinify::OPTIMIZATION_ADVANCED]);
 
             //            $search = [
 //                '/\>[^\S ]+/s' ,     // strip whitespaces after tags, except space
