@@ -1,7 +1,7 @@
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 
-<title>Zoroaster</title>
+<title>Zoroaster | @yield('title')</title>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
@@ -26,3 +26,4 @@
     var Zoroaster_jsRoute = JSON.parse('@json(Zoroaster::jsRoute())');
 </script>
 
+@yield('head')

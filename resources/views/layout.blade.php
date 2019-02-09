@@ -135,5 +135,7 @@
     });
 </script>
 
+@yield('footer')
+
 </body>
 </html>
