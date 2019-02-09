@@ -161,7 +161,7 @@
             ];
             foreach($Permissions as $key => $value){
                 Gate::define($key , function($user , $model) use ($key){
-                    $basename_model = strtolower(basename($model));
+                    $basename_model = strtolower((new \ReflectionClass($model))->getShortName());
 
                     return $user->hasPermission($key . '-' . $basename_model);
                 });
