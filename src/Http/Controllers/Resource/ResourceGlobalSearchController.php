@@ -18,7 +18,7 @@
                 $newResource = new $Resource;
                 $model = $newResource->newModel();
 
-                if($newResource->globallySearchable){
+                if($newResource->globallySearchable && $newResource->authorizedToIndex($model)){
 
                     $resources = $model->where(function($q) use ($request , $newResource){
                         foreach($newResource->search as $field)
