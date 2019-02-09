@@ -364,23 +364,24 @@
 
         static function minifyHtml($html)
         {
-            return $html;
-//            return \KarimQaderi\Zoroaster\HTMLMinify::minify($html , ['optimizationLevel' => \KarimQaderi\Zoroaster\HTMLMinify::OPTIMIZATION_ADVANCED]);
+            $replace = [
+                '/\>[^\S ]+/s'                                                      => '>',
+                '/[^\S ]+\</s'                                                      => '<',
+                '/([\t ])+/s'                                                       => ' ',
+                '/^([\t ])+/m'                                                      => '',
+                '/([\t ])+$/m'                                                      => '',
+                '~//[a-zA-Z0-9 ]+$~m'                                               => '',
+                '/[\r\n]+([\t ]?[\r\n]+)+/s'                                        => "\n",
+                '/\>[\r\n\t ]+\</s'                                                 => '><',
+                '/}[\r\n\t ]+/s'                                                    => '}',
+                '/}[\r\n\t ]+,[\r\n\t ]+/s'                                         => '},',
+                '/\)[\r\n\t ]?{[\r\n\t ]+/s'                                        => '){',
+                '/,[\r\n\t ]?{[\r\n\t ]+/s'                                         => ',{',
+                '/\),[\r\n\t ]+/s'                                                  => '),',
+                '~([\r\n\t ])?([a-zA-Z0-9]+)=\"([a-zA-Z0-9_\\-]+)\"([\r\n\t ])?~s'  => '$1$2=$3$4',
+            ];
 
-            //            $search = [
-//                '/\>[^\S ]+/s' ,     // strip whitespaces after tags, except space
-//                '/[^\S ]+\</s' ,     // strip whitespaces before tags, except space
-////                '/(\s)+/s' ,         // shorten multiple whitespace sequences
-//                '/<!--(.|\s)*?-->/' // Remove HTML comments
-//            ];
-//            $replace = [
-//                '>' ,
-//                '<' ,
-////                '\\1' ,
-//                '' ,
-//            ];
-//
-//            return preg_replace($search , $replace , $html);
+            return preg_replace(array_keys($replace), array_values($replace), $html);
         }
 
 
