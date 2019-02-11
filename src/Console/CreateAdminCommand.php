@@ -61,9 +61,9 @@
             $Role = Role::firstOrCreate(['name' => 'ادمین'] , ['guard_name' => 'web']);
 
             foreach(\KarimQaderi\Zoroaster\Zoroaster::$resources as $resource){
-                $resource_name = strtolower(class_basename($resource));
-
                 $resource = new $resource;
+                $resource_name = strtolower((new \ReflectionClass($resource))->getShortName());
+
                 $Permissions = [
                     'index' => 'صفحه اصلی' , 'show' => 'صفحه نمایش' , 'create' => 'اضافه کردن' , 'update' => 'آپدیت کردن' ,
                     'delete' => 'حذف' , 'forceDelete' => 'حذف کامل' , 'restore' => 'بازیابی' ,
