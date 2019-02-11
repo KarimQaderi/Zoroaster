@@ -214,6 +214,17 @@
             return class_exists($model) ? new $model : null;
         }
 
+        /**
+         * @return Builder & Model
+         */
+        public static function newModelOrFail($model)
+        {
+            if(($model = static::newModel($model)) == null)
+                throw new \Exception('The model was not found');
+
+            return $model;
+        }
+
 
         public static function findAllResource($directory)
         {

@@ -17,6 +17,7 @@
         public $Label = null;
         public $data = null;
         public $icon = null;
+        /* @var $canSee \KarimQaderi\Zoroaster\Abstracts\ZoroasterResource */
         public $canSee = null;
         public $badge = null;
 
@@ -32,21 +33,24 @@
             return $this;
         }
 
-        public function resource($urlkey , $label = null)
+        public function resource($urlkeyOrResourceClass , $label = null)
         {
             $this->TypeLink = 'resource';
 
-            $this->Link = $urlkey;
 
-            $this->canSee = Zoroaster::resourceFindByUriKey($urlkey);
+            $this->canSee = Zoroaster::resourceFindByUriKey($urlkeyOrResourceClass);
+            $this->Link = $urlkeyOrResourceClass;
+            $this->Label = $label;
 
-            if($label == null)
-                if(!is_null($this->canSee))
-                    $this->Label = $this->canSee->label;
-                else
-                    $this->Label = 'Resource پیدا نشد لطفا بررسی کنید';
-            else
-                $this->Label = $label;
+            if(is_null($this->canSee) && class_exists($urlkeyOrResourceClass)){
+                $this->canSee = new $urlkeyOrResourceClass;
+                $this->Link = $this->canSee->uriKey();
+
+            }
+
+            if(!is_null($this->canSee))
+                $this->Label = $this->canSee->label;
+
 
             return $this;
         }
@@ -54,7 +58,7 @@
         public function route($route , $label)
         {
             $this->TypeLink = 'route';
-            $this->Link =$route;
+            $this->Link = $route;
             $this->Label = $label;
             return $this;
         }
@@ -111,14 +115,19 @@
         {
             switch($item->TypeLink){
                 case 'resource';
+                    if(is_null($this->canSee))
+                        throw new \Exception("Resource Not Found [$this->Link]");
+
                     if(!$item->canSee->authorizedToIndex($item->canSee->newModel())) return null;
                     $item->Link = route("Zoroaster.resource.index" , ['resource' => $item->Link]);
                     break;
+
                 case 'action';
                     $item->Link = action($item->Link);
                     break;
-                    case 'route';
-                    $item->Link =  route($item->Link);
+
+                case 'route';
+                    $item->Link = route($item->Link);
                     break;
 
             }
