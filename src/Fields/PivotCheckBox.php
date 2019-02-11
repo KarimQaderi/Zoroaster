@@ -57,7 +57,7 @@
                     'data' => $data ,
                     'field' => $field ,
                     'resourceRequest' => $resourceRequest ,
-                    'show' => Zoroaster::newModel($field->model_show)->get() ,
+                    'show' => Zoroaster::newModelOrFail($field->model_show)->get() ,
                     'pivot' => is_null($data) ? [] : Zoroaster::newModel($field->model_pivot)
                         ->where($field->model_pivot_foreign_key , $data->{$data->getKeyName()})->get()
                         ->pluck($field->model_pivot_other_key)->toArray() ,
@@ -68,7 +68,7 @@
         {
             $pivot = [];
 
-            foreach(Zoroaster::newModel($field->model_pivot)
+            foreach(Zoroaster::newModelOrFail($field->model_pivot)
                         ->where($field->model_pivot_foreign_key , $data->{$data->getKeyName()})->get()
                         ->pluck($field->model_pivot_other_key)->toArray() as $p){
                 $pivot [] = [
@@ -90,7 +90,7 @@
         {
             $pivot = [];
 
-            foreach(Zoroaster::newModel($field->model_pivot)
+            foreach(Zoroaster::newModelOrFail($field->model_pivot)
                         ->where($field->model_pivot_foreign_key , $data->{$data->getKeyName()})->get()
                         ->pluck($field->model_pivot_other_key)->toArray() as $p){
                 $pivot [] = [
@@ -112,7 +112,7 @@
         public function ResourceDestroy(RequestField $requestField)
         {
 
-            Zoroaster::newModel($requestField->field->model_pivot)
+            Zoroaster::newModelOrFail($requestField->field->model_pivot)
                 ->where([
                     $requestField->field->model_pivot_foreign_key => $requestField->resource->{$requestField->resource->getKeyName()}
                 ])->delete();
