@@ -36,7 +36,7 @@
 
             $email = $this->ask('email');
 
-            $model = config('auth.providers.users.model');
+            $model =new  \KarimQaderi\Zoroaster\Models\User();
 
             $check_has_user = $model::where('email' , $email)->first();
 
