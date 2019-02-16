@@ -22,6 +22,21 @@
 
         public function ResourceUpdate(RequestField $requestField)
         {
+           return $this->TraitResource($requestField);
+        }
+
+        public function ResourceStore(RequestField $requestField)
+        {
+            return $this->TraitResource($requestField);
+        }
+
+        public function beforeResourceStore(RequestField $requestField)
+        {
+            return $this->TraitResource($requestField);
+        }
+
+        private function TraitResource(RequestField $requestField)
+        {
 
             $value = $requestField->request->{$requestField->field->name};
 
