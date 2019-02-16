@@ -146,16 +146,15 @@
             $values = $requestField->request->{$requestField->field->name};
 
             $time = [];
-            if(Zoroaster::newModel($requestField->field->model_pivot)->timestamps == true)
+            $model_pivot = Zoroaster::newModelOrFail($requestField->field->model_pivot);
+            if($model_pivot->timestamps == true)
                 $time = [
                     "created_at" => now() ,
                     "updated_at" => now() ,
                 ];
 
 
-            Zoroaster::newModel($requestField->field->model_pivot)
-                ->where([$requestField->field->model_pivot_foreign_key => $requestField->resource->{$requestField->resource->getKeyName()}])
-                ->delete();
+            $model_pivot->where([$requestField->field->model_pivot_foreign_key => $requestField->resource->{$requestField->resource->getKeyName()}])->delete();
 
 
             // insert
@@ -167,7 +166,7 @@
                     ] , $time , $requestField->field->model_pivot_add_with);
                 }
 
-                (Zoroaster::newModel($requestField->field->model_pivot)->insert($data));
+                $model_pivot->insert($data);
             }
 
             return [
