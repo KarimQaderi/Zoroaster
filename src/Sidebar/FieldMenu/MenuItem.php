@@ -3,6 +3,7 @@
     namespace KarimQaderi\Zoroaster\Sidebar\FieldMenu;
 
 
+    use KarimQaderi\Zoroaster\Exceptions\NotFoundResource;
     use KarimQaderi\Zoroaster\Zoroaster;
     use phpDocumentor\Reflection\Types\Integer;
 
@@ -44,8 +45,10 @@
 
             if(is_null($this->canSee) && class_exists($urlkeyOrResourceClass)){
                 $this->canSee = new $urlkeyOrResourceClass;
-                $this->Link = $this->canSee->uriKey();
+                if(!method_exists($this->canSee , 'uriKey'))
+                    Throw  (new NotFoundResource())->setResource($urlkeyOrResourceClass);
 
+                $this->Link = $this->canSee->uriKey();
             }
 
             if(!is_null($this->canSee))
