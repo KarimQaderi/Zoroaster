@@ -1,25 +1,31 @@
 <?php
 
-namespace DummyNamespace;
+    namespace DummyNamespace;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Laravel\Nova\Filters\DateFilter;
+    use Illuminate\Database\Eloquent\Builder;
+    use KarimQaderi\Zoroaster\ResourceFilters\AbstractFilters\DateFilter;
+    use KarimQaderi\Zoroaster\Traits\ResourceRequest;
 
-class DummyClass extends DateFilter
-{
-    /**
-     * Apply the filter to the given query.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $value
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function apply(Request $request, $query, $value)
+    class DummyClass extends DateFilter
     {
-        $value = Carbon::parse($value);
 
-        return $query;
+        /**
+         * نمایشی نام.
+         *
+         * @var string
+         */
+        public $label = "DummyClass";
+
+        /**
+         * فیلتر اعمال.
+         *
+         * @param Builder $query
+         * @param ResourceRequest $ResourceRequest
+         * @return Builder
+         */
+        public function apply($query , $ResourceRequest)
+        {
+            return $query;
+        }
+
     }
-}
