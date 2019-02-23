@@ -85,7 +85,7 @@
         public function gate($gate_name)
         {
             $this->canSee = function() use ($gate_name){
-                auth()->user()->can($gate_name);
+                return auth()->user()->can($gate_name);
             };
             return $this;
 
@@ -116,6 +116,8 @@
 
         public function Render(MenuItem $item)
         {
+            if(is_bool($item->canSee) && $item->canSee == false) return null;
+
             switch($item->TypeLink){
                 case 'resource';
                     if(is_null($this->canSee))
@@ -135,7 +137,7 @@
 
             }
 
-            if(is_callable($item->canSee) && call_user_func($item->canSee)) return null;
+            if(is_callable($item->canSee) && call_user_func($item->canSee) == false) return null;
 
             return view('Zoroaster::sidebar.MenuItem')->with([
                 'item' => $item
