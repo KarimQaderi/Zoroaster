@@ -117,6 +117,7 @@
         public function Render(MenuItem $item)
         {
             if(is_bool($item->canSee) && $item->canSee == false) return null;
+            if(is_callable($item->canSee) && call_user_func($item->canSee) == false) return null;
 
             switch($item->TypeLink){
                 case 'resource';
@@ -134,10 +135,7 @@
                 case 'route';
                     $item->Link = route($item->Link);
                     break;
-
             }
-
-            if(is_callable($item->canSee) && call_user_func($item->canSee) == false) return null;
 
             return view('Zoroaster::sidebar.MenuItem')->with([
                 'item' => $item
