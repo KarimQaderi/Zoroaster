@@ -33,7 +33,7 @@
          *
          * @var string
          */
-        public $singularLabel = 'DummyClasss';
+        public $singularLabel = 'DummyClass';
 
 
         /**
@@ -43,7 +43,7 @@
          *
          * @var string
          */
-        public $label = 'DummyClass';
+        public $label = 'DummyClasss';
 
         /**
          * جستحو قابل های فیلد
