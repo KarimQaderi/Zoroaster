@@ -7,6 +7,7 @@
     use Illuminate\Database\Eloquent\SoftDeletes;
     use Illuminate\Http\Resources\DelegatesToResource;
     use Illuminate\Support\Str;
+    use KarimQaderi\Zoroaster\Fields\Traits\ResourceDefault;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
@@ -18,7 +19,7 @@
 
     abstract class ZoroasterResource
     {
-        use Authorizable , DelegatesToResource;
+        use Authorizable , DelegatesToResource , ResourceDefault;
 
 
         public $component = 'resource';
