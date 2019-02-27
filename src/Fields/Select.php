@@ -29,5 +29,14 @@
             ]);
         }
 
+        public function showDataByOptionSelected($class , $routeName_get)
+        {
+            return $this->withMeta([
+                'showDataByOptionSelected' => true ,
+                'class' => $class ,
+                'route' => $routeName_get
+            ]);
+        }
+
 
     }
