@@ -82,8 +82,14 @@ function index_resources(resource) {
 
             $('[data-resource="' + data.resource + '"] .data_table').html(data.render);
         }, function (data) {
-            var errors = data.responseJSON;
+            error(data.responseText);
         });
+}
+
+function error(data) {
+    $('html').html(
+        "<pre style='border-radius:2px;padding:5px;background-color: rgb(51, 51, 51);color: rgb(255, 255, 255);overflow: auto;text-align: left;direction: ltr;'>"+data+"</pre>"
+    );
 }
 
 function Destroy($resourceId, resource_ajax) {
