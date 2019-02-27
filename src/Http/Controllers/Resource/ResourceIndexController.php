@@ -48,7 +48,7 @@
                 'resources' => $resources ,
                 'fields' =>
                     $ResourceRequest->ResourceFields(function($field){
-                        if($field !== null && $field->showOnIndex == true)
+                        if($field !== null && isset($field->showOnIndex) && $field->showOnIndex == true)
                             return true;
                         else
                             return false;
