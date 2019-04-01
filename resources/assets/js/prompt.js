@@ -41,6 +41,10 @@ function Confirm_delete(title, $function) {
     Confirm(title, $function, {confirm: 'حذف'}, 'Confirm_delete');
 }
 
+function Confirm_success(title, $function) {
+    Confirm(title, $function, {confirm: 'بله'}, 'Confirm_success');
+}
+
 function Confirm(title, confirm_function, btn_name, columnClass = '') {
     var that = $.confirm({
         animation: 'zoom',

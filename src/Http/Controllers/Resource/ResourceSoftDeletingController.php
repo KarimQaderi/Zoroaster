@@ -25,7 +25,7 @@
                     $find->delete();
 
                 $where = function($field){
-                    if($field !== null && $field->showOnIndex == true)
+                    if($field !== null && isset($field->showOnIndex) && $field->showOnIndex == true)
                         return true;
                     else
                         return false;
