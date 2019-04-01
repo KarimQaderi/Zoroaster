@@ -24,16 +24,22 @@
                 if(!is_null($find) && $request->Resource()->authorizedToDelete($find))
                     $find->delete();
 
+                $where = function($field){
+                    if($field !== null && $field->showOnIndex == true)
+                        return true;
+                    else
+                        return false;
+                };
+
                 /**
                  * ها Action دوباره گرفتن
                  */
-                $col = \Zoroaster::ResourceActions($request->Resource() , $find ,
-                    $find, 'Index' , $request->ResourceFields(function($field){
-                        if($field !== null && $field->showOnIndex == true)
-                            return true;
-                        else
-                            return false;
-                    })
+                $col = \Zoroaster::ResourceActions(
+                    $request->Resource() ,
+                    $find ,
+                    $find,
+                    'Index' ,
+                    $request->ResourceFields($where)
                 );
 
                 $cols [] = [

@@ -88,7 +88,7 @@ function index_resources(resource) {
 
 function error(data) {
     $('html').html(
-        "<pre style='border-radius:2px;padding:5px;background-color: rgb(51, 51, 51);color: rgb(255, 255, 255);overflow: auto;text-align: left;direction: ltr;'>"+data+"</pre>"
+        "<pre style='border-radius:2px;padding:5px;background-color: rgb(51, 51, 51);color: rgb(255, 255, 255);overflow: auto;text-align: left;direction: ltr;'>" + data + "</pre>"
     );
 }
 
@@ -385,7 +385,6 @@ $(document).ready(function () {
 
     });
 });
-
 
 function activeEelementByClass($activeEelementByClass) {
 

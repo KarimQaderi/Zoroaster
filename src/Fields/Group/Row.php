@@ -23,14 +23,22 @@
         public $data;
 
         /**
+         * عنصر دادهای
+         *
+         * @var string
+         */
+        public $class;
+
+        /**
          * ایجاد
          *
          * @param  array $fields
          * @return void
          */
-        public function __construct($fields = [])
+        public function __construct($fields = [], $class = null)
         {
             $this->data = $fields;
+            $this->class = $class;
         }
 
     }

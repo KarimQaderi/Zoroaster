@@ -8,8 +8,6 @@
 
     class ResourceStoreController extends Controller
     {
-        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
-
         public function handle(ResourceRequest $request)
         {
 
@@ -18,21 +16,25 @@
              */
             $request->Resource()->authorizeToCreate($request->Resource()->newModel());
 
-
-            $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
-                if($field->authorizedToSee() === false) return false;
+            $where = function($field){
+                if(!method_exists($field,'authorizedToSee') || $field->authorizedToSee() === false) return false;
                 if($field->showOnCreation == true && $field->OnCreation == true)
                     return true;
                 else
                     return false;
-            }));
+            };
 
+            // get data for store
+            $data = $request->CustomResourceController($request , $request->Resource()->newModel() , 'beforeResourceStore' , $where);
 
-            $resource = $request->Resource()->newModel()->create($this->CustomResourceController($request , $request->Resource()->newModel() , $MergeResourceFieldsAndRequest , 'beforeResourceStore'));
+            // Store Resource
+            $resource = $request->Resource()->newModel()->create($data);
 
+            // Set Data
             $request->Resource()->resource = $resource;
 
-            $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest , 'ResourceStore');
+            // Resource Update
+            $request->CustomResourceController($request , $resource , 'ResourceStore' , $where);
 
             if(request()->redirect != null)
                 return redirect(request()->redirect)->with(['success' => 'اطلاعات اضافه شد']);
@@ -43,50 +45,5 @@
                 ]))->with(['success' => 'اطلاعات اضافه شد']);
 
         }
-
-
-        private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest , $method)
-        {
-            $customResourceController = $request->ResourceFields(function($field){
-                if($field->authorizedToSee() === false) return false;
-                if($field->showOnCreation == true && $field->OnCreation == true)
-                    return true;
-                else
-                    return false;
-            });
-
-            $ResourceData = [];
-            $ResourceError = [];
-            foreach($customResourceController as $field){
-
-                $RequestField = new RequestField();
-                $RequestField->request = $request->Request();
-                $RequestField->resource = $resource;
-                $RequestField->field = $field;
-                $RequestField->fieldAll = $customResourceController;
-                $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
-
-
-                $beforeResourceData = (object)$field->$method($RequestField);
-
-
-                if(isset($beforeResourceData->error) && $beforeResourceData->error !== null){
-
-                    if(is_array($beforeResourceData->error))
-                        $ResourceError = array_merge($ResourceError , $beforeResourceData->error);
-                    else
-                        $ResourceError = array_merge($ResourceError , $beforeResourceData->error->messages());
-
-                } else
-                    $ResourceData = array_merge($ResourceData , $beforeResourceData->data);
-
-            }
-
-            if(count($ResourceError) !== 0){
-                $this->SendErrors($ResourceError);
-            } else
-                return $ResourceData;
-        }
-
 
     }

@@ -8,18 +8,12 @@
 
     class ResourceUpdateController extends Controller
     {
-        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
-
+        /**
+         * @param ResourceRequest $request
+         * @return \Illuminate\Http\RedirectResponse
+         */
         public function handle(ResourceRequest $request)
         {
-
-            $MergeResourceFieldsAndRequest = $request->MergeResourceFieldsAndRequest($request->ResourceFields(function($field){
-                if($field->authorizedToSee() === false) return false;
-                if($field->showOnUpdate == true && $field->OnUpdate == true)
-                    return true;
-                else
-                    return false;
-            }));
 
             $resource = $request->findOrfail();
 
@@ -28,66 +22,24 @@
              */
             $request->Resource()->authorizeToUpdate($resource);
 
-            $this->CustomResourceController($request , $resource , $MergeResourceFieldsAndRequest);
+            $where = function($field){
+                if(!method_exists($field,'authorizedToSee') || $field->authorizedToSee() === false) return false;
+                if($field->showOnUpdate == true && $field->OnUpdate == true)
+                    return true;
+                else
+                    return false;
+            };
 
+            // get data for update
+            $data = $request->CustomResourceController($request , $resource , 'ResourceUpdate' , $where);
+
+            // Update Resource
+            $resource->update($data);
 
             return back()->with([
                 'success' => 'اطلاعات ذخیره شد'
             ]);
 
         }
-
-
-
-        /**
-         * @param ResourceRequest $request
-         * @param \Illuminate\Database\Eloquent\Model $resource
-         */
-        private function CustomResourceController(ResourceRequest $request , $resource , $MergeResourceFieldsAndRequest): void
-        {
-            $customResourceController = $request->ResourceFields(function($field){
-                if($field->authorizedToSee() === false) return false;
-                if($field->showOnUpdate == true && $field->OnUpdate == true)
-                    return true;
-                else
-                    return false;
-            });
-
-            $ResourceData = [];
-            $ResourceError = [];
-
-            foreach($customResourceController as $field){
-
-                $RequestField = new RequestField();
-                $RequestField->request = $request->Request();
-                $RequestField->resource = $resource;
-                $RequestField->field = $field;
-                $RequestField->fieldAll = $customResourceController;
-                $RequestField->MergeResourceFieldsAndRequest = $MergeResourceFieldsAndRequest;
-
-                $ResourceUpdate = (object)$field->ResourceUpdate($RequestField);
-
-                if(isset($ResourceUpdate->error) && $ResourceUpdate->error !== null){
-
-                    if(is_array($ResourceUpdate->error))
-                        $ResourceError = array_merge($ResourceError , $ResourceUpdate->error);
-                    else
-                        $ResourceError = array_merge($ResourceError , $ResourceUpdate->error->messages());
-
-                } else
-                    $ResourceData = array_merge($ResourceData , $ResourceUpdate->data);
-
-
-
-            }
-
-            if(count($ResourceError) !== 0)
-                $this->SendErrors($ResourceError);
-            else
-                $resource->update($ResourceData);
-
-
-        }
-
 
     }

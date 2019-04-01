@@ -20,21 +20,25 @@
              */
             $ResourceRequest->Resource()->authorizeToShow($resources);
 
+            $where = function($field){
+                if(!isset($field->showOnDetail)) return true;
+                if($field->showOnDetail === true)
+                    return true;
+                else
+                    return false;
+            };
 
             return view('Zoroaster::resources.Detail')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
-                'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
-                    function($field){
-                        if(!isset($field->showOnDetail)) return true;
-                        if($field->showOnDetail === true)
-                            return true;
-                        else
-                            return false;
-                    } ,
-                    'viewDetail' , $resources , $ResourceRequest) ,
+                'fields' => $ResourceRequest::RenderDetail(
+                    $ResourceRequest->Resource()->fields() ,
+                    $resources ,
+                    $where ,
+                    $ResourceRequest
+                ) ,
             ]);
         }
 

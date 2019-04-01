@@ -2,18 +2,23 @@
 
     namespace KarimQaderi\Zoroaster\Fields\Group;
 
-
-    class Col extends ViewAbstract
+    class Bg
     {
-
         use TraitView;
+
+        /**
+         * عنصر نام
+         *
+         * @var string
+         */
+        public $component = 'field_group';
 
         /**
          * view نام
          *
          * @var string
          */
-        public $nameViewForm = 'col';
+        public $nameViewForm = 'panel';
 
         /**
          * عنصر دادهای
@@ -21,6 +26,13 @@
          * @var string
          */
         public $class;
+
+        /**
+         * دیتابیس در عنصر فیلد نام
+         *
+         * @var string
+         */
+        public $name;
 
         /**
          * ها عنصر
@@ -32,15 +44,17 @@
         /**
          * ایجاد
          *
+         * @param  string $name
+         * @param  array $fields
          * @param  string $class
-         * @param  \Closure|array $fields
          * @return void
          */
-        public function __construct($class , $fields = [])
+        public function __construct($fields = [] , $class = null)
         {
+            $this->name = null;
             $this->class = $class;
             $this->data = $fields;
-        }
 
+        }
 
     }

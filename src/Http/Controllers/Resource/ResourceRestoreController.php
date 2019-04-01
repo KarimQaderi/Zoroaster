@@ -11,8 +11,6 @@
     {
         public function handle(ResourceRequest $request)
         {
-
-
             $cols = null;
             $col = null;
             foreach(request()->resourceId as $id){
@@ -29,18 +27,20 @@
                 if(!is_null($find) && $request->Resource()->authorizedToRestore($find))
                     $find->restore();
 
+                $where = function($field){
+                    if($field !== null && $field->showOnIndex == true)
+                        return true;
+                    else
+                        return false;
+                };
 
                 /**
                  * ها Action دوباره گرفتن
                  */
-                $col = \Zoroaster::ResourceActions($request->Resource() ,
+                $col = \Zoroaster::ResourceActions(
+                    $request->Resource() ,
                     $find ,
-                    $request->Resource()->newModel() , 'Index' , $request->ResourceFields(function($field){
-                        if($field !== null && $field->showOnIndex == true)
-                            return true;
-                        else
-                            return false;
-                    })
+                    $request->Resource()->newModel() , 'Index' , $request->ResourceFields($where)
                 );
 
                 $cols [] = [

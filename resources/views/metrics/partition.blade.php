@@ -1,11 +1,11 @@
 <div class="metrics">
     <div uk-grid>
-        <div class="uk-width-1-2 label">{{ $label }}</div>
-        <div class="uk-width-1-2 uk-text-left">( تعداد : {{ array_sum($value) }} )</div>
+        <div class="uk-width-auto label">{{ $label }}</div>
+        <div class="uk-width-expand uk-text-left">( تعداد : {{ array_sum($value) }} )</div>
     </div>
 
     <div style="margin-top: 0" uk-grid>
-        <div class="uk-width-1-2">
+        <div class="uk-width-expand">
             <div class="list-chart">
                 <div class="baron__scroller">
                     <div class="list-chart-{{$classN}}"></div>
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="uk-width-1-2 uk-text-left">
+        <div class="uk-width-auto uk-text-left">
             <div class="ct-chart ct-chart-{{$classN}}" style="display: inline-block;width: 90px; height: 90px; margin-top: 10px;"></div>
         </div>
     </div>
@@ -48,7 +48,8 @@
         $html.children('svg').children('g').each(function () {
             $h = $('.list-chart-{{$classN}}');
             $path = $(this).find('path');
-            $h.append(`<div class="${$(this).attr('class')}"><span>${$path.attr('ct:meta')} ( ${$path.attr('ct:value')}  - ${($path.attr('ct:value') * 100 / '{{ array_sum($value) }}').toFixed(2)}%)</span></div>`);
+            $h.append(`<div class="${$(this).attr('class')}"><span>${$path.attr('ct:meta')} &nbsp; ( ${$path.attr('ct:value')} &nbsp; - &nbsp; ${($path.attr('ct:value') * 100 / '{{ array_sum
+            ($value) }}').toFixed(2)}%)</span></div>`);
         });
 
 

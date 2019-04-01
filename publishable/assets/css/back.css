@@ -281,7 +281,14 @@ ul.uk-nav-sub {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
+.uk-button-primary:focus {
+    background-color: rgb(64, 153, 222);
+    color: #ffff;
+}
 
+label [type="checkbox"] {
+    margin-right: 10px;
+}
 #overlay.open {
     display: block;
 }
@@ -1215,7 +1222,7 @@ a#sidebar_toggle:hover {
     display: block;
 }
 
-.BuilderFields .panel {
+.BuilderFields .panel,.uk-sortable-drag .panel {
     margin-top: 15px;
     display: block;
     border: 1px solid rgba(232, 232, 232, 0.54);
@@ -2639,7 +2646,7 @@ ul#side-menu a span.uk-badge {
 }
 
 .zoroaster_prompt .btn-default {
-   background-color: rgb(255, 255, 255) !important;
+    background-color: rgb(255, 255, 255) !important;
     border-radius: 3px;
     border: 1px solid #e5e5e5 !important;
 }
@@ -2691,7 +2698,7 @@ ul#side-menu a span.uk-badge {
     box-shadow: 0 0 8px rgb(64, 153, 222);
 }
 .zoroaster_confirm .btn-default {
-   background-color: rgb(255, 255, 255) !important;
+    background-color: rgb(255, 255, 255) !important;
     border-radius: 3px;
     border: 1px solid #e5e5e5 !important;
     transition: .5s all;
@@ -2744,7 +2751,7 @@ ul#side-menu a span.uk-badge {
     background-color: #F44336 !important;
     -webkit-box-shadow: 0 0 8px #F44336;
     box-shadow: 0 0 8px #F44336;
-    
+
 }
 
 .data_table [uk-icon="load"] {
@@ -2792,5 +2799,34 @@ h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
 }
 
 .BuilderFields .uk-button-primary {
+    margin-left: 15px;
+}
+
+[data-repeater-delete],[data-repeater-move] {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    padding: 0 20px !important;
+}
+
+[data-repeater-item] {
+    position: relative;
+}
+
+[data-repeater-delete] {
+    left: 62px;
+}
+
+[data-repeater-move] {
+    width: 60px;
+}
+
+[data-repeater-move] svg {
+    min-width: 20px !important;
+    height: 20px;
+}
+
+.uk-sortable-drag [data-repeater-delete], .uk-sortable-drag [data-repeater-move] {
+    top: 2px;
     margin-left: 15px;
 }

@@ -30,9 +30,5 @@
         before: 'header__title_position_top',
         after: 'header__title_position_bottom',
         clickable: true
-    }).controls({
-        track: '.baron__track',
-        forward: '.baron__down',
-        backward: '.baron__up'
     });
 </script>

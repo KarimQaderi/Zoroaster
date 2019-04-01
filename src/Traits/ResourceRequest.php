@@ -44,7 +44,7 @@
          */
         public function find($find = null)
         {
-            $find =$this->getModelAndWhereTrashed()
+            $find = $this->getModelAndWhereTrashed()
                 ->where([$this->Resource()->getModelKeyName() => $find ?? $this->getResourceId()])
                 ->first();
 
@@ -115,7 +115,7 @@
 
             foreach($fields as $field){
                 switch(true){
-                    case isset($field->data):
+                    case isset($field->data) && is_array($field->data) && count($field->data) != 0:
                         if($Fields == null)
                             $Fields = $this->ResourceFields($where , $field->data);
                         else
@@ -139,6 +139,7 @@
             $customAttributes = [];
 
             foreach($fields as $field){
+                if(!isset($field->rules)) continue;
                 $requestMerge = array_merge($requestMerge , [$field->name => $this->getRequest($field->name)]);
                 if(count($field->rules) != 0){
                     $validator = array_merge($validator , [$field->name => $field->rules]);

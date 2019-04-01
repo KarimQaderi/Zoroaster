@@ -15,19 +15,24 @@
              */
             $ResourceRequest->Resource()->authorizeToCreate($ResourceRequest->Resource()->newModel());
 
+            $where = function($field){
+                if(!isset($field->showOnCreation)) return true;
+                if($field->showOnCreation == true)
+                    return true;
+                else
+                    return false;
+            };
+
             return view('Zoroaster::resources.Form')->with([
                 'request' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Resource()->newModel() ,
-                'fields' => $ResourceRequest->RenderViewForm($ResourceRequest->Resource()->fields() ,
-                    function($field){
-                        if(!isset($field->showOnCreation)) return true;
-                        if($field->showOnCreation == true)
-                            return true;
-                        else
-                            return false;
-                    } ,
-                    'viewForm' , null , $ResourceRequest) ,
+                'fields' => $ResourceRequest::RenderForm(
+                    $ResourceRequest->Resource()->fields() ,
+                    null ,
+                    $where,
+                    $ResourceRequest
+                ) ,
             ]);
         }
 

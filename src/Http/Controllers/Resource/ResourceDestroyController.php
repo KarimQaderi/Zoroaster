@@ -9,8 +9,6 @@
 
     class ResourceDestroyController extends Controller
     {
-        use \KarimQaderi\Zoroaster\Fields\Traits\Validator;
-
         public function handle(ResourceRequest $ResourceRequest)
         {
             foreach(request()->resourceId as $id){
@@ -32,7 +30,9 @@
                      * ها فیلد به حذف درخواست ارسال
                      * بشن حذف هم فیلد اون های عکس باید شه می حذف Resource رکورد وقتی بگیرید نظر در رو عکس فیلد یه مثال برای
                      */
-                    $this->ResourceDestroyField($ResourceRequest , $find);
+                    $ResourceRequest->CustomResourceController($ResourceRequest , $find ,'ResourceDestroy' , function($field){
+                        return true;
+                    });
 
                     if($ResourceRequest->isForceDeleting())
                         $find->forceDelete();
@@ -44,43 +44,10 @@
 
 
             if(request()->has('redirect'))
-                redirect(request()->redirect)->with(['success' => 'منبع مورد نظر حذف شد' ])->send();
+                redirect(request()->redirect)->with(['success' => 'منبع مورد نظر حذف شد'])->send();
 
             return response(['status' => 'ok']);
         }
 
-        /**
-         * @param ResourceRequest $request
-         * @param $find
-         */
-        private function ResourceDestroyField($request , $find)
-        {
-            $customResourceController = $request->ResourceFields(function($field){ return true; });
-
-            $ResourceError = [];
-            foreach($customResourceController as $field){
-
-                $RequestField = new RequestField();
-                $RequestField->request = $request->Request();
-                $RequestField->resource = $find;
-                $RequestField->field = $field;
-                $RequestField->fieldAll = $customResourceController;
-                $RequestField->MergeResourceFieldsAndRequest = null;
-
-                $ResourceDestroy = (object)$field->ResourceDestroy($RequestField);
-                if(isset($ResourceDestroy->error) && $ResourceDestroy->error !== null){
-
-                    if(is_array($ResourceDestroy->error))
-                        $ResourceError = array_merge($ResourceError , $ResourceDestroy->error);
-                    else
-                        $ResourceError = array_merge($ResourceError , $ResourceDestroy->error->messages());
-
-                }
-            }
-
-
-            if(count($ResourceError) !== 0)
-                $this->SendErrors($ResourceError);
-        }
 
     }

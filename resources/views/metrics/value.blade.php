@@ -29,8 +29,8 @@ function sign($n) {
 
 <div class="metrics metrics-{{ $classN }}">
     <div uk-grid>
-        <div class="uk-width-1-2 label">{{ $label }}</div>
-        <div class="uk-width-1-2 uk-text-left">
+        <div class="uk-width-auto label">{{ $label }}</div>
+        <div class="uk-width-expand uk-text-left">
             <select>
                 @foreach($ranges as $key => $_value)
                     <option @if ($range == $key) selected @endif value="{{ $key }}">{{ $_value }}</option>
@@ -70,19 +70,15 @@ function sign($n) {
 
             <span>
                 @if ($previous == '0' && $value != '0')
-                    <span>
-                        بدون داده قبلی
-                    </span>
+                    <span>بدون داده قبلی</span>
                 @endif
 
                 @if ($value == '0' && $previous != '0')
-                    <span>
-                        بدون اطلاعات جاری
-                    </span>
+                    <span>بدون اطلاعات جاری</span>
                 @endif
 
                 @if ($value == '0' && $previous == '0')
-                    <span> بدون اطلاعات</span>
+                    <span>بدون اطلاعات</span>
                 @endif
             </span>
 

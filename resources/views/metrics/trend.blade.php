@@ -1,7 +1,7 @@
 <div class="metrics">
     <div uk-grid>
-        <div class="uk-width-1-2 label">{{ $label }}</div>
-        <div class="uk-width-1-2 uk-text-left">
+        <div class="uk-width-auto label">{{ $label }}</div>
+        <div class="uk-width-expand uk-text-left">
             <select>
                 @foreach(is_array($ranges)? $ranges : $ranges->trend as $key => $_value)
                     <option @if ($range == $key) selected @endif value="{{ $key }}">{{ $_value }}</option>

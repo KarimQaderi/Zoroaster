@@ -1,3 +1,5 @@
+<div class="CardIndex">{!! $CardIndex !!}</div>
+
 <div class="resource-ajax"
      data-route="{{ route('Zoroaster.resource-ajax.index') }}"
      data-resource="{{ $resource->uriKey() }}"

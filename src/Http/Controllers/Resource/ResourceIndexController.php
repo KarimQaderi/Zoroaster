@@ -21,10 +21,11 @@
 
             if(!request()->ajax())
                 return view('Zoroaster::resources.index')->with([
-                    'resource' => $ResourceRequest->Resource(),
+                    'resource' => $ResourceRequest->Resource() ,
                     'resourceClass' => $ResourceRequest->Resource() ,
                     'ResourceRequest' => $ResourceRequest ,
                     'model' => $ResourceRequest->Resource()->newModel() ,
+                    'CardIndex' => $ResourceRequest::RenderForm($ResourceRequest->Resource()->CardIndex()),
                 ]);
 
             /**
@@ -40,19 +41,19 @@
                 ]);
             }
 
-            $render = null;
-            $render .= view('Zoroaster::resources.index-resource')->with([
+            $where = function($field){
+                if(isset($field->showOnIndex) && $field->showOnIndex == true)
+                    return true;
+                else
+                    return false;
+            };
+
+            $render = view('Zoroaster::resources.index-resource')->with([
                 'ResourceRequest' => $ResourceRequest ,
                 'resourceClass' => $ResourceRequest->Resource() ,
                 'model' => $ResourceRequest->Resource()->newModel() ,
                 'resources' => $resources ,
-                'fields' =>
-                    $ResourceRequest->ResourceFields(function($field){
-                        if($field !== null && isset($field->showOnIndex) && $field->showOnIndex == true)
-                            return true;
-                        else
-                            return false;
-                    }) ,
+                'fields' => $ResourceRequest->ResourceFields($where) ,
             ]);
 
 

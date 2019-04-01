@@ -15,7 +15,7 @@
             $value = $requestField->request->{$requestField->field->name};
 
             return [
-                'error' => $this->getValidatorField($requestField),
+                'error' => $this->getValidatorField($requestField) ,
                 'data' => [$requestField->field->name => $value] ,
             ];
         }
@@ -26,7 +26,7 @@
             $value = $requestField->request->{$requestField->field->name};
 
             return [
-                'error' => $this->getValidatorField($requestField),
+                'error' => $this->getValidatorField($requestField) ,
                 'data' => [$requestField->field->name => $value] ,
             ];
         }
@@ -37,7 +37,7 @@
             $value = $requestField->request->{$requestField->field->name};
 
             return [
-                'error' => $this->getValidatorField($requestField),
+                'error' => $this->getValidatorField($requestField) ,
                 'data' => [$requestField->field->name => $value] ,
             ];
 

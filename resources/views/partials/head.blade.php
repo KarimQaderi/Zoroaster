@@ -26,4 +26,4 @@
     var Zoroaster_jsRoute = JSON.parse('@json(Zoroaster::jsRoute())');
 </script>
 
-@yield('head')
+@stack('head')

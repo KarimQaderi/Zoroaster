@@ -6,8 +6,8 @@
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
     use Illuminate\Http\Resources\DelegatesToResource;
+    use Illuminate\Support\Facades\Request;
     use Illuminate\Support\Str;
-    use KarimQaderi\Zoroaster\Fields\Traits\ResourceDefault;
     use KarimQaderi\Zoroaster\ResourceActions\Delete;
     use KarimQaderi\Zoroaster\ResourceActions\DeleteAll;
     use KarimQaderi\Zoroaster\ResourceActions\Edit;
@@ -19,7 +19,7 @@
 
     abstract class ZoroasterResource
     {
-        use Authorizable , DelegatesToResource , ResourceDefault;
+        use Authorizable , DelegatesToResource;
 
 
         public $component = 'resource';
@@ -146,6 +146,45 @@
             return $query;
         }
 
+        /**
+         * @param Request $request
+         * @param Builder $resource
+         * @return array
+         */
+        public function ResourceDestroy(Request $request , $resource)
+        {
+            return [
+                'error' => [] ,
+            ];
+        }
+
+        public function beforeResourceStore(RequestField $requestField)
+        {
+            return [
+                'error' => [] ,
+                'data' => [] ,
+            ];
+        }
+
+        public function ResourceStore(RequestField $requestField)
+        {
+            return [
+                'error' => [] ,
+                'data' => [] ,
+            ];
+
+        }
+
+
+        public function ResourceUpdate(RequestField $requestField)
+        {
+            return [
+                'error' => [] ,
+                'data' => [] ,
+            ];
+
+        }
+
 
         /**
          * صفحه ادرس گرفتن
@@ -168,6 +207,16 @@
                 new ForceDelete() ,
                 new Restore() ,
             ];
+        }
+    
+        /**
+         *  اصلی صفحه بالای های بخش گذاشتن
+         *
+         * @return array
+         */
+        public function CardIndex()
+        {
+            return [];
         }
 
     }

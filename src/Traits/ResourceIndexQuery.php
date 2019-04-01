@@ -20,12 +20,14 @@
 
             $this->resourceClassRequest = $ResourceRequest->resourceClass;
 
-            if($this->requestHas('search'))
-                $resources = $resources->where(function($q) use ($ResourceRequest){
+            if($this->requestHas('search')){
+                $s = str_replace('+' , ' ' , $this->request('search'));
+                $resources = $resources->where(function($q) use ($ResourceRequest , $s){
                     foreach($ResourceRequest->Resource()->search as $field){
-                        $q->orWhere($field , 'like' , '%' . $this->request('search') . '%');
+                        $q->orWhere($field , 'like' , '%' . $s . '%');
                     }
                 });
+            }
 
             // Sort Table
             if($this->requestHas('sortable_direction') && $this->requestHas('sortable_field'))
