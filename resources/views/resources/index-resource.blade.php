@@ -56,7 +56,7 @@
     <div class="noCountResources">
         <span uk-icon="icon: plus-circle; ratio: 2"></span>
         <div class="text">هیچ {{ $resourceClass->singularLabel }}ی پیدا نشد</div>
-        <a href="{{ route('Zoroaster.resource.create',['resoure'=> $ResourceRequest->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
+        <a href="{{ route('Zoroaster.resource.create',['resource'=> $ResourceRequest->resourceClass]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
             کردن {{ $resourceClass->singularLabel }}</a>
     </div>
 @endif

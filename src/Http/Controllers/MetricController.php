@@ -4,6 +4,7 @@
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Arr;
     use KarimQaderi\Zoroaster\Metrics\Metric;
     use KarimQaderi\Zoroaster\Metrics\Partition;
     use KarimQaderi\Zoroaster\Metrics\Trend;
@@ -27,7 +28,7 @@
             if($newClass->authorizedToSee())
                 return [
                     'class' => $request->class ,
-                    'html' => \Zoroaster::minifyHtml(view('Zoroaster::metrics.' . array_first(explode('-' , $newClass->component)))->with(
+                    'html' => \Zoroaster::minifyHtml(view('Zoroaster::metrics.' . Arr::first(explode('-' , $newClass->component)))->with(
                         array_merge((array) $newClass->calculate($request) , [
                         'class' => $class ,
                         'classN' => str_replace('\\' , '_' , $class) ,

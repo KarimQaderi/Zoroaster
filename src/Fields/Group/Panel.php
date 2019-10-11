@@ -42,6 +42,11 @@
         public $data;
 
         /**
+         * @var array
+         */
+        public $att = [];
+
+        /**
          * ایجاد
          *
          * @param  string $name
@@ -54,7 +59,13 @@
             $this->name = $name;
             $this->class = $class;
             $this->data = $fields;
+        }
 
+        public function setAtt(array $att)
+        {
+            $this->att = $att;
+
+            return $this;
         }
 
     }

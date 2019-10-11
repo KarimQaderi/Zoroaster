@@ -33,7 +33,7 @@
                      * بشن حذف هم فیلد اون های عکس باید شه می حذف Resource رکورد وقتی بگیرید نظر در رو عکس فیلد یه مثال برای
                      */
                     $ResourceRequest->CustomResourceController($ResourceRequest , $find , 'ResourceDestroy' , function($field){
-                        if(class_exists($field , 'ResourceDestroy'))
+                        if($field != null  && method_exists($field , 'ResourceDestroy'))
                         {
                             return true;
                         }

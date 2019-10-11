@@ -11,6 +11,7 @@
     use KarimQaderi\Zoroaster\Http\Requests\RequestField;
     use KarimQaderi\Zoroaster\Http\Requests\ResourceRequest;
     use KarimQaderi\Zoroaster\Traits\Builder;
+    use function Symfony\Component\Debug\Tests\testHeader;
 
     /**
      * Class Repeater
@@ -304,7 +305,6 @@
         {
             try
             {
-
                 if($old = old($builder->name))
                 {
                     $data = $old;
@@ -443,10 +443,7 @@
         public function beforeResourceStore(RequestField $requestField)
         {
 
-            return [
-                'error' => [] ,
-                'data' => [] ,
-            ];
+            return $this->ResourceUpdate($requestField);
         }
 
         /**
@@ -456,10 +453,7 @@
          */
         public function ResourceStore(RequestField $requestField)
         {
-            return [
-                'error' => [] ,
-                'data' => [] ,
-            ];
+            return $this->ResourceUpdate($requestField);
 
         }
 
@@ -476,7 +470,6 @@
 
             $data = $this->traitResource_2($requestField->field , $requestField->field->name , null , $model_id);
 
-//            dd(request());
             if(class_exists($requestField->field->model))
             {
                 return [
@@ -488,7 +481,7 @@
             {
                 return [
                     'error' => null ,
-                    'data' => [ $requestField->field->name => $data ] ,
+                    'data' => [ $requestField->field->name => request()->get($requestField->field->name) ] ,
                 ];
             }
 

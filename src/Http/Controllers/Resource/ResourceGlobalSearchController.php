@@ -19,8 +19,7 @@
                 $model = $newResource->newModel();
 
                 if($newResource->globallySearchable && $newResource->authorizedToIndex($model)){
-
-                    $resources = $model->where(function($q) use ($request , $newResource){
+                    $resources = $newResource->indexQuery($model)->where(function($q) use ($request , $newResource){
                         foreach($newResource->search as $field)
                             $q->orWhere($field , 'like' , '%' . $request->search . '%');
                     })->limit(5)->get();

@@ -20,7 +20,7 @@
             </div>
             <div class="uk-text-left">
                 @if ($resource->authorizedToCreate($resource->newModel()))
-                    <a href="{{ route('Zoroaster.resource.create',['resoure'=> $resource->uriKey()]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
+                    <a href="{{ route('Zoroaster.resource.create',['resource'=> $resource->uriKey()]) }}" class="btn uk-button uk-button-primary uk-border-rounded">اضافه
                         کردن {{ $resource->singularLabel }}</a>
                 @endif
             </div>

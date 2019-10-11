@@ -208,7 +208,7 @@
                 new Restore() ,
             ];
         }
-    
+
         /**
          *  اصلی صفحه بالای های بخش گذاشتن
          *
@@ -217,6 +217,16 @@
         public function CardIndex()
         {
             return [];
+        }
+
+        /**
+         * Get the search result subtitle for the resource.
+         *
+         * @return string
+         */
+        public function searchSubTitle()
+        {
+            return '';
         }
 
     }
