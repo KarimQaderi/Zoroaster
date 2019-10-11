@@ -5,7 +5,6 @@
     @include('Zoroaster::partials.head')
 
 
-
     <script>
         var Zoroaster_resource_ajax_index = '{{ route('Zoroaster.resource-ajax.index') }}',
             Zoroaster_resource_restore = '{{ route('Zoroaster.resource-ajax.restore') }}',
@@ -28,7 +27,13 @@
 
 
                 } else {
-                    jQuery(".notyf").css({"width": "90%", "margin": "0 auto", "display": "block", "right": 0, "left": 0});
+                    jQuery(".notyf").css({
+                        "width": "90%",
+                        "margin": "0 auto",
+                        "display": "block",
+                        "right": 0,
+                        "left": 0
+                    });
                     sidebar.css({"display": "block", "x": "0px"});
                     jQuery("#sidebar_toggle").removeClass("is-active");
                     jQuery("#overlay").removeClass("open");
@@ -111,8 +116,11 @@
 
 
 <script>
-    $(document).on('click', 'div,span', function () {
-        $('.GlobalSearch .data').attr('data-hidden', 0);
+
+    document.addEventListener('click', (t) => {
+       if (!document.querySelector('.GlobalSearch').contains(t.target)) {
+           $('.GlobalSearch .data').attr('data-hidden', 0);
+       }
     });
 
     $(document).on('click', '.GlobalSearch div,.GlobalSearch span', function () {
